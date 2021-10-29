@@ -13,12 +13,14 @@ import Simple.Algebra.Group
     unNonZero,
     unsafeNonZero,
   )
-import Simple.Algebra.Ring (Ring (..))
+import Simple.Algebra.MMonoid (MMonoid (..))
+import Simple.Algebra.MSemigroup (MSemigroup (..))
+import Simple.Algebra.Ring (Ring)
 
 -- | Defines an algebraic field.
 class Ring f => Field f where
   finv :: NonZero f -> NonZero f
-  finv x = unsafeNonZero $ rid .%. x
+  finv x = unsafeNonZero $ mid .%. x
 
   (.%.) :: f -> NonZero f -> f
   x .%. y = x .*. unNonZero (finv y)

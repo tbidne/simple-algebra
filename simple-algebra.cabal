@@ -34,7 +34,11 @@ library
     Simple.Algebra.Field
     Simple.Algebra.Group
     Simple.Algebra.Module
+    Simple.Algebra.AMonoid
+    Simple.Algebra.MMonoid
     Simple.Algebra.Ring
+    Simple.Algebra.ASemigroup
+    Simple.Algebra.MSemigroup
     Simple.Algebra.VectorSpace
     Simple.Literal
 

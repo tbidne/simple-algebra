@@ -1,6 +1,6 @@
 -- | Provides the 'Ring' typeclass.
 module Simple.Algebra.Ring
-  ( Ring (..),
+  ( Ring,
   )
 where
 
@@ -9,70 +9,37 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Simple.Algebra.Group (Group)
+import Simple.Algebra.MMonoid (MMonoid)
 
 -- | Defines an algebraic ring.
-class Group r => Ring r where
-  (.*.) :: r -> r -> r
-  rid :: r
+class (Group r, MMonoid r) => Ring r
 
-infixl 7 .*.
+instance Ring Double
 
-instance Ring Double where
-  (.*.) = (*)
-  rid = 1
+instance Ring Float
 
-instance Ring Float where
-  (.*.) = (*)
-  rid = 1
+instance Ring Int
 
-instance Ring Int where
-  (.*.) = (*)
-  rid = 1
+instance Ring Int8
 
-instance Ring Int8 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Int16
 
-instance Ring Int16 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Int32
 
-instance Ring Int32 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Int64
 
-instance Ring Int64 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Integer
 
-instance Ring Integer where
-  (.*.) = (*)
-  rid = 1
+instance Ring Natural
 
-instance Ring Natural where
-  (.*.) = (*)
-  rid = 1
+instance Ring Word
 
-instance Ring Word where
-  (.*.) = (*)
-  rid = 1
+instance Ring Word8
 
-instance Ring Word8 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Word16
 
-instance Ring Word16 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Word32
 
-instance Ring Word32 where
-  (.*.) = (*)
-  rid = 1
+instance Ring Word64
 
-instance Ring Word64 where
-  (.*.) = (*)
-  rid = 1
-
-instance Integral a => Ring (Ratio a) where
-  (.*.) = (*)
-  rid = 1
+instance Integral a => Ring (Ratio a)
