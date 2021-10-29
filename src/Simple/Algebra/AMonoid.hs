@@ -1,6 +1,9 @@
 -- | Provides the 'AMonoid' typeclass.
 module Simple.Algebra.AMonoid
   ( AMonoid (..),
+    NonZero (MkNonZero, unNonZero),
+    mkNonZeroA,
+    unsafeNonZeroA,
   )
 where
 
@@ -9,6 +12,9 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Simple.Algebra.ASemigroup (ASemigroup (..))
+import Smart.Data.Math.NonNegative (NonNegative (..), unsafeNonNegative)
+import Smart.Data.Math.NonZero (NonZero (..))
+import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines an algebraic monoid over an \"additive\" semigroup.
 class ASemigroup g => AMonoid g where
@@ -58,3 +64,19 @@ instance AMonoid Word64 where
 
 instance Integral a => AMonoid (Ratio a) where
   aid = 0
+
+instance (Num a, Ord a) => AMonoid (NonNegative a) where
+  aid = unsafeNonNegative 0
+
+-- | Smart constructor for 'NonZero', based on its 'aid'.
+mkNonZeroA :: AMonoid a => a -> Maybe (NonZero a)
+mkNonZeroA x
+  | x == aid = Nothing
+  | otherwise = Just (unsafeCoerce x)
+
+-- | Unsafe constructor for 'NonZero', based on its 'aid'. Intended to be used
+-- with known constants. Exercise restraint!
+unsafeNonZeroA :: AMonoid a => a -> NonZero a
+unsafeNonZeroA x
+  | x == aid = error "Passed identity to unsafeNonZeroA!"
+  | otherwise = unsafeCoerce x

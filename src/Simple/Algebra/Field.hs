@@ -1,6 +1,9 @@
 -- | Provides the 'Field' typeclass.
 module Simple.Algebra.Field
   ( Field (..),
+    NonZero (MkNonZero, unNonZero),
+    AM.mkNonZeroA,
+    AM.unsafeNonZeroA,
   )
 where
 
@@ -8,24 +11,13 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Simple.Algebra.Group
-  ( NonZero (..),
-    unNonZero,
-    unsafeNonZero,
-  )
-import Simple.Algebra.MMonoid (MMonoid (..))
-import Simple.Algebra.MSemigroup (MSemigroup (..))
+import Simple.Algebra.AMonoid (NonZero (..))
+import Simple.Algebra.AMonoid qualified as AM
 import Simple.Algebra.Ring (Ring)
 
 -- | Defines an algebraic field.
 class Ring f => Field f where
-  finv :: NonZero f -> NonZero f
-  finv x = unsafeNonZero $ mid .%. x
-
   (.%.) :: f -> NonZero f -> f
-  x .%. y = x .*. unNonZero (finv y)
-
-  {-# MINIMAL (finv | (.%.)) #-}
 
 infixl 7 .%.
 

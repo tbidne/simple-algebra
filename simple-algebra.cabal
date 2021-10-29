@@ -26,22 +26,26 @@ common common-exts
     ImportQualifiedPost
     MultiParamTypeClasses
     PatternSynonyms
+    ScopedTypeVariables
 
 library
   import:           common-exts
   exposed-modules:
     Simple.Algebra
+    Simple.Algebra.AMonoid
+    Simple.Algebra.ASemigroup
     Simple.Algebra.Field
     Simple.Algebra.Group
-    Simple.Algebra.Module
-    Simple.Algebra.AMonoid
     Simple.Algebra.MMonoid
-    Simple.Algebra.Ring
-    Simple.Algebra.ASemigroup
+    Simple.Algebra.Module
     Simple.Algebra.MSemigroup
+    Simple.Algebra.Ring
     Simple.Algebra.VectorSpace
     Simple.Literal
 
-  build-depends:    base ^>=4.14.0.0
+  build-depends:
+    , base        ^>=4.14.0.0
+    , smart-data  ^>=0.1.0.0
+
   hs-source-dirs:   src
   default-language: Haskell2010

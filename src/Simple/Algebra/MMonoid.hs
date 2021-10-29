@@ -1,6 +1,9 @@
 -- | Provides the 'MMonoid' typeclass.
 module Simple.Algebra.MMonoid
   ( MMonoid (..),
+    NonZero (MkNonZero, unNonZero),
+    mkNonZeroM,
+    unsafeNonZeroM,
   )
 where
 
@@ -9,6 +12,10 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Simple.Algebra.MSemigroup (MSemigroup (..))
+import Smart.Data.Math.NonNegative (NonNegative (..), unsafeNonNegative)
+import Smart.Data.Math.NonZero (NonZero (..))
+import Smart.Data.Math.Positive (Positive (..), unsafePositive)
+import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines an algebraic monoid over a \"multiplicative\" semigroup.
 class MSemigroup g => MMonoid g where
@@ -58,3 +65,22 @@ instance MMonoid Word64 where
 
 instance Integral a => MMonoid (Ratio a) where
   mid = 1
+
+instance (Num a, Ord a) => MMonoid (NonNegative a) where
+  mid = unsafeNonNegative 1
+
+instance (Num a, Ord a) => MMonoid (Positive a) where
+  mid = unsafePositive 1
+
+-- | Smart constructor for 'NonZero', based on its 'mid'.
+mkNonZeroM :: MMonoid a => a -> Maybe (NonZero a)
+mkNonZeroM x
+  | x == mid = Nothing
+  | otherwise = Just (unsafeCoerce x)
+
+-- | Unsafe constructor for 'NonZero', based on its 'mid'. Intended to be used
+-- with known constants. Exercise restraint!
+unsafeNonZeroM :: MMonoid a => a -> NonZero a
+unsafeNonZeroM x
+  | x == mid = error "Passed identity to unsafeNonZeroA!"
+  | otherwise = unsafeCoerce x

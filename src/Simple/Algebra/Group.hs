@@ -1,11 +1,6 @@
 -- | Provides the 'Group' typeclass.
 module Simple.Algebra.Group
   ( Group (..),
-
-    -- * NonZero
-    NonZero (unNonZero, MkNonZero),
-    mkNonZero,
-    unsafeNonZero,
   )
 where
 
@@ -104,30 +99,3 @@ instance Integral a => Group (Ratio a) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
-
--- | Intended to be used for operations requiring non-zero numbers
--- (e.g. division).
-newtype NonZero a = MkUnsafeNonZero
-  { -- | Unwraps the 'NonZero'.
-    unNonZero :: a
-  }
-  deriving (Eq, Ord, Show)
-
--- | Allows pattern matching on 'NonZero'.
-pattern MkNonZero :: a -> NonZero a
-pattern MkNonZero x <- MkUnsafeNonZero x
-
-{-# COMPLETE MkNonZero #-}
-
--- | Smart constructor for 'NonZero'.
-mkNonZero :: Group a => a -> Maybe (NonZero a)
-mkNonZero x
-  | x /= aid = Just $ MkUnsafeNonZero x
-  | otherwise = Nothing
-
--- | Unsafe constructor for 'NonZero', intended to be used with known
--- constants, e.g., @unsafeNonZero 7@. Exercise restraint!
-unsafeNonZero :: Group a => a -> NonZero a
-unsafeNonZero x
-  | x /= aid = MkUnsafeNonZero x
-  | otherwise = error "Passed zero to unsafeNonZero!"
