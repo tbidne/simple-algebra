@@ -47,11 +47,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1635492065,
-        "narHash": "sha256-zsW5Gh0NVD2rEcgnwjjh5Rwmbt+bmRm5hOSnJtCR7cg=",
+        "lastModified": 1635557580,
+        "narHash": "sha256-H07yQuQa6P5ELxPPVRESlDJ1jDseUBh/KZEybejnVsA=",
         "owner": "tbidne",
         "repo": "smart-data",
-        "rev": "b7c41de04e4aca7e86182aaaaea8ba6dc1bc0c57",
+        "rev": "b9ffbfd92f3ef5de7a59f9b3e6da5ab19a3d7a93",
         "type": "github"
       },
       "original": {

@@ -6,13 +6,11 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Word (Word16, Word32, Word64, Word8)
-import GHC.Natural (Natural)
 import Simple.Algebra.Group (Group)
-import Simple.Algebra.MMonoid (MMonoid)
+import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid)
 
 -- | Defines an algebraic ring.
-class (Group r, MMonoid r) => Ring r
+class (Group r, MultiplicativeMonoid r) => Ring r
 
 instance Ring Double
 
@@ -30,16 +28,14 @@ instance Ring Int64
 
 instance Ring Integer
 
-instance Ring Natural
+instance Ring (Ratio Int)
 
-instance Ring Word
+instance Ring (Ratio Int8)
 
-instance Ring Word8
+instance Ring (Ratio Int16)
 
-instance Ring Word16
+instance Ring (Ratio Int32)
 
-instance Ring Word32
+instance Ring (Ratio Int64)
 
-instance Ring Word64
-
-instance Integral a => Ring (Ratio a)
+instance Ring (Ratio Integer)

@@ -8,10 +8,15 @@ author:             Thomas Bidne
 maintainer:         tbidne@prontonmail.com
 homepage:           https://github.com/tbidne/simple-algebra/
 bug-reports:        https://github.com/tbidne/simple-algebra/issues
-synopsis:           A utility program for retrieving system information.
-description:
-  Please see the README at https://github.com/tbidne/simple-algebra/#readme
+synopsis:
+  A library that provides an alternative mathematical interface to Num.
 
+description:
+  @simple-algebra@ intends to provide a simple, reasonably principled
+  interface to typical mathematical operations (i.e. addition, subtraction,
+  multiplication, division). See "Simple.Algebra" for the documentation.
+
+category:           Math, Algebra
 extra-source-files:
   CHANGELOG.md
   README.md
@@ -22,6 +27,7 @@ source-repository head
 
 common common-exts
   default-extensions:
+    FlexibleInstances
     FunctionalDependencies
     ImportQualifiedPost
     MultiParamTypeClasses
@@ -32,13 +38,13 @@ library
   import:           common-exts
   exposed-modules:
     Simple.Algebra
-    Simple.Algebra.AMonoid
-    Simple.Algebra.ASemigroup
+    Simple.Algebra.Additive
+    Simple.Algebra.AdditiveMonoid
     Simple.Algebra.Field
     Simple.Algebra.Group
-    Simple.Algebra.MMonoid
     Simple.Algebra.Module
-    Simple.Algebra.MSemigroup
+    Simple.Algebra.Multiplicative
+    Simple.Algebra.MultiplicativeMonoid
     Simple.Algebra.Ring
     Simple.Algebra.VectorSpace
     Simple.Literal

@@ -2,17 +2,15 @@
 module Simple.Algebra.Field
   ( Field (..),
     NonZero (MkNonZero, unNonZero),
-    AM.mkNonZeroA,
-    AM.unsafeNonZeroA,
+    AM.mkMonoidNonZero,
+    AM.unsafeMonoidNonZero,
   )
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Word (Word16, Word32, Word64, Word8)
-import GHC.Natural (Natural)
-import Simple.Algebra.AMonoid (NonZero (..))
-import Simple.Algebra.AMonoid qualified as AM
+import Simple.Algebra.AdditiveMonoid (NonZero (..))
+import Simple.Algebra.AdditiveMonoid qualified as AM
 import Simple.Algebra.Ring (Ring)
 
 -- | Defines an algebraic field.
@@ -37,16 +35,14 @@ instance Field Int64 where x .%. MkNonZero d = x `div` d
 
 instance Field Integer where x .%. MkNonZero d = x `div` d
 
-instance Field Natural where x .%. MkNonZero d = x `div` d
+instance Field (Ratio Int) where x .%. MkNonZero d = x / d
 
-instance Field Word where x .%. MkNonZero d = x `div` d
+instance Field (Ratio Int8) where x .%. MkNonZero d = x / d
 
-instance Field Word8 where x .%. MkNonZero d = x `div` d
+instance Field (Ratio Int16) where x .%. MkNonZero d = x / d
 
-instance Field Word16 where x .%. MkNonZero d = x `div` d
+instance Field (Ratio Int32) where x .%. MkNonZero d = x / d
 
-instance Field Word32 where x .%. MkNonZero d = x `div` d
+instance Field (Ratio Int64) where x .%. MkNonZero d = x / d
 
-instance Field Word64 where x .%. MkNonZero d = x `div` d
-
-instance Integral a => Field (Ratio a) where x .%. MkNonZero d = x / d
+instance Field (Ratio Integer) where x .%. MkNonZero d = x / d

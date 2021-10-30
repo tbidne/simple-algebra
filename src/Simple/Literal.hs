@@ -57,5 +57,20 @@ instance NumLiteral Word32 where
 instance NumLiteral Word64 where
   fromLit = fromInteger
 
-instance Integral a => NumLiteral (Ratio a) where
+instance NumLiteral (Ratio Int) where
+  fromLit = fromInteger
+
+instance NumLiteral (Ratio Int8) where
+  fromLit = fromInteger
+
+instance NumLiteral (Ratio Int16) where
+  fromLit = fromInteger
+
+instance NumLiteral (Ratio Int32) where
+  fromLit = fromInteger
+
+instance NumLiteral (Ratio Int64) where
+  fromLit = fromInteger
+
+instance NumLiteral (Ratio Integer) where
   fromLit = fromInteger

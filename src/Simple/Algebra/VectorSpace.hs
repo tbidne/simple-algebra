@@ -2,8 +2,8 @@
 module Simple.Algebra.VectorSpace
   ( VectorSpace (..),
     NonZero (MkNonZero, unNonZero),
-    F.mkNonZeroA,
-    F.unsafeNonZeroA,
+    F.mkMonoidNonZero,
+    F.unsafeMonoidNonZero,
   )
 where
 

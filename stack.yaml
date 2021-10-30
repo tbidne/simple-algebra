@@ -5,4 +5,4 @@ packages:
 
 extra-deps:
 - git: https://github.com/tbidne/smart-data.git
-  commit: b7c41de04e4aca7e86182aaaaea8ba6dc1bc0c57
+  commit: b9ffbfd92f3ef5de7a59f9b3e6da5ab19a3d7a93

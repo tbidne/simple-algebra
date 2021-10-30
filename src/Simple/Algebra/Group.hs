@@ -6,18 +6,16 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Word (Word16, Word32, Word64, Word8)
-import GHC.Natural (Natural)
-import Simple.Algebra.AMonoid (AMonoid (..))
-import Simple.Algebra.ASemigroup (ASemigroup (..))
+import Simple.Algebra.Additive (Additive (..))
+import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 
 -- | Defines an algebraic group.
-class AMonoid g => Group g where
+class AdditiveMonoid g => Group g where
   (.-.) :: g -> g -> g
   g .-. h = g .+. ginv h
 
   ginv :: g -> g
-  ginv g = aid .-. g
+  ginv g = zero .-. g
 
   gabs :: g -> g
 
@@ -65,37 +63,32 @@ instance Group Integer where
   ginv x = - x
   gabs = abs
 
-instance Group Natural where
+instance Group (Ratio Int) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
 
-instance Group Word where
+instance Group (Ratio Int8) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
 
-instance Group Word8 where
+instance Group (Ratio Int16) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
 
-instance Group Word16 where
+instance Group (Ratio Int32) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
 
-instance Group Word32 where
+instance Group (Ratio Int64) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
 
-instance Group Word64 where
-  (.-.) = (-)
-  ginv x = - x
-  gabs = abs
-
-instance Integral a => Group (Ratio a) where
+instance Group (Ratio Integer) where
   (.-.) = (-)
   ginv x = - x
   gabs = abs
