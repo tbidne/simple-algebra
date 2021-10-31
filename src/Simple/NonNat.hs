@@ -1,21 +1,30 @@
 -- | Provides the 'NonNat' type for enforcing a "Not n" invariant.
 module Simple.NonNat
-  ( NonNat (MkNonNat, unNonNat),
+  ( -- * NonNat
+    NonNat (MkNonNat, unNonNat),
+
+    -- ** Creation
     mkNonNat,
+    readNonNat,
     unsafeNonNat,
 
     -- * NonZero
     NonZero,
     pattern MkNonZero,
     unNonZero,
+
+    -- ** Creation
     mkNonZero,
+    readNonZero,
     unsafeNonZero,
   )
 where
 
+import Control.Monad ((>=>))
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
 import GHC.TypeNats (KnownNat, Nat, natVal)
+import Text.Read qualified as TR
 
 -- | Newtype wrapper over /a/ which excludes some 'Nat' /x/. That is,
 -- @NonNat x a@ is some \(n \in a \) such that \(n \neq x\).
@@ -56,14 +65,27 @@ unsafeNonNat n
     excludedNat = natVal $ Proxy @x
     excluded = fromIntegral excludedNat
 
--- | NonNat for 0.
+-- | Safely attempts to read a 'NonNat'.
+--
+-- >>> readNonNat @5 "10"
+-- Just (MkUnsafeNonNat {unNonNat = 10})
+--
+-- >>> readNonNat @5 "cat"
+-- Nothing
+--
+-- >>> readNonNat @5 "5"
+-- Nothing
+readNonNat :: (KnownNat x, Num a, Ord a, Read a) => String -> Maybe (NonNat x a)
+readNonNat = TR.readMaybe >=> mkNonNat
+
+-- | 'NonNat' specialized to 0.
 type NonZero = NonNat 0
 
 -- | Allows pattern matching on 'NonZero'.
 pattern MkNonZero :: a -> NonZero a
 pattern MkNonZero n <- MkUnsafeNonNat n
 
--- | Unwraps the NonZero.
+-- | Unwraps the 'NonZero'.
 unNonZero :: NonZero a -> a
 unNonZero (MkNonZero n) = n
 
@@ -83,3 +105,16 @@ mkNonZero = mkNonNat @0
 -- known constants, e.g. @unsafeNonZero 50@. Exercise restraint!
 unsafeNonZero :: (Eq a, Num a) => a -> NonNat 0 a
 unsafeNonZero = unsafeNonNat @0
+
+-- | Safely attempts to read a 'NonZero'.
+--
+-- >>> readNonZero "10"
+-- Just (MkUnsafeNonNat {unNonNat = 10})
+--
+-- >>> readNonZero "cat"
+-- Nothing
+--
+-- >>> readNonZero "0"
+-- Nothing
+readNonZero :: (Num a, Ord a, Read a) => String -> Maybe (NonZero a)
+readNonZero = TR.readMaybe >=> mkNonZero
