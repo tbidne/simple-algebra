@@ -1,17 +1,20 @@
 -- | Provides the 'Field' typeclass.
 module Simple.Algebra.Field
-  ( Field (..),
-    NonZero (MkNonZero, unNonZero),
-    AM.mkMonoidNonZero,
-    AM.unsafeMonoidNonZero,
+  ( -- * Typeclass
+    Field (..),
+
+    -- * NonZero
+    mkFieldNonZero,
+    unsafeFieldNonZero,
   )
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Simple.Algebra.AdditiveMonoid (NonZero (..))
-import Simple.Algebra.AdditiveMonoid qualified as AM
+import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Simple.Algebra.Ring (Ring)
+import Simple.NonNat (NonZero, pattern MkNonZero)
+import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines a field.
 class Ring f => Field f where
@@ -37,3 +40,16 @@ instance Field Integer where x .%. MkNonZero d = x `div` d
 
 instance Integral k => Field (Ratio k) where
   x .%. MkNonZero d = x / d
+
+-- | Smart constructor for 'NonZero', based on its additive monoid instance.
+mkFieldNonZero :: Field a => a -> Maybe (NonZero a)
+mkFieldNonZero x
+  | x == zero = Nothing
+  | otherwise = Just (unsafeCoerce x)
+
+-- | Unsafe constructor for 'NonZero', based on its additive monoid instance.
+-- Intended to be used with known constants. Exercise restraint!
+unsafeFieldNonZero :: Field a => a -> NonZero a
+unsafeFieldNonZero x
+  | x == zero = error "Passed identity to unsafeFieldNonZero!"
+  | otherwise = unsafeCoerce x

@@ -2,7 +2,3 @@ resolver:
   url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/13.yaml
 packages:
 - .
-
-extra-deps:
-- git: https://github.com/tbidne/smart-data.git
-  commit: d5fb832226519ca826c33462bf5ccf4b84645f54

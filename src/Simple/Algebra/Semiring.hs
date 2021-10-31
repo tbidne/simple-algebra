@@ -10,7 +10,6 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Natural (Natural)
 import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
-import Smart.Data.Math.NonNegative (NonNegative)
 
 -- | Defines a semiring.
 class (AdditiveMonoid r, MultiplicativeMonoid r) => Semiring r
@@ -44,5 +43,3 @@ instance Semiring Word32
 instance Semiring Word64
 
 instance Integral a => Semiring (Ratio a)
-
-instance Integral a => Semiring (NonNegative a)

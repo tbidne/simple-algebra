@@ -1,15 +1,12 @@
 -- | Provides the 'VectorSpace' typeclass.
 module Simple.Algebra.VectorSpace
   ( VectorSpace (..),
-    NonZero (MkNonZero, unNonZero),
-    F.mkMonoidNonZero,
-    F.unsafeMonoidNonZero,
   )
 where
 
-import Simple.Algebra.Field (Field (..), NonZero (..))
-import Simple.Algebra.Field qualified as F
+import Simple.Algebra.Field (Field (..))
 import Simple.Algebra.Module (Module (..))
+import Simple.NonNat (NonZero)
 
 -- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'

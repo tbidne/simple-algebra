@@ -8,9 +8,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Smart.Data.Math.NonNegative (NonNegative (..), unsafeNonNegative)
-import Smart.Data.Math.NonZero (NonZero (..), unsafeNonZero)
-import Smart.Data.Math.Positive (Positive (..), unsafePositive)
+import Simple.NonNat (NonZero, unsafeNonZero, pattern MkNonZero)
 
 -- | Defines a multiplicative semigroup.
 class Eq g => Multiplicative g where
@@ -62,12 +60,6 @@ instance Multiplicative Word64 where
 
 instance Integral a => Multiplicative (Ratio a) where
   (.*.) = (*)
-
-instance (Num a, Ord a) => Multiplicative (NonNegative a) where
-  MkNonNegative x .*. MkNonNegative y = unsafeNonNegative $ x * y
-
-instance (Num a, Ord a) => Multiplicative (Positive a) where
-  MkPositive x .*. MkPositive y = unsafePositive $ x * y
 
 instance (Num a, Ord a) => Multiplicative (NonZero a) where
   MkNonZero x .*. MkNonZero y = unsafeNonZero $ x * y

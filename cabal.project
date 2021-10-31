@@ -6,8 +6,3 @@ package simple-algebra
     -Wincomplete-record-updates -Wincomplete-uni-patterns
     -Wmissing-home-modules -Wmissing-export-lists -Wpartial-fields
     -Wredundant-constraints
-
-source-repository-package
-    type: git
-    location: https://github.com/tbidne/smart-data.git
-    tag: d5fb832226519ca826c33462bf5ccf4b84645f54
