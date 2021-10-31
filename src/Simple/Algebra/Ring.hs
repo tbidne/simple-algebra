@@ -9,7 +9,7 @@ import Data.Ratio (Ratio)
 import Simple.Algebra.Group (Group)
 import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid)
 
--- | Defines an algebraic ring.
+-- | Defines a ring.
 class (Group r, MultiplicativeMonoid r) => Ring r
 
 instance Ring Double
@@ -28,14 +28,4 @@ instance Ring Int64
 
 instance Ring Integer
 
-instance Ring (Ratio Int)
-
-instance Ring (Ratio Int8)
-
-instance Ring (Ratio Int16)
-
-instance Ring (Ratio Int32)
-
-instance Ring (Ratio Int64)
-
-instance Ring (Ratio Integer)
+instance Integral a => Ring (Ratio a)

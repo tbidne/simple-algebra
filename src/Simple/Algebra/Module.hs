@@ -7,7 +7,7 @@ where
 import Simple.Algebra.Group (Group)
 import Simple.Algebra.Ring (Ring)
 
--- | Defines an algebraic module over a ring.
+-- | Defines a module over a ring.
 class (Group m, Ring r) => Module m r | m -> r where
   (.*) :: m -> r -> m
   (.*) = flip (*.)

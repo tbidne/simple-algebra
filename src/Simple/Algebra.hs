@@ -71,16 +71,26 @@
 --
 --      We choose new operators so that do not clash with prelude.
 module Simple.Algebra
-  ( module A,
+  ( module Simple.Algebra.Additive,
+    module Simple.Algebra.AdditiveMonoid,
+    module Simple.Algebra.Group,
+    module Simple.Algebra.Multiplicative,
+    module Simple.Algebra.MultiplicativeMonoid,
+    module Simple.Algebra.Semiring,
+    module Simple.Algebra.Ring,
+    module Simple.Algebra.Module,
+    module Simple.Algebra.Field,
+    module Simple.Algebra.VectorSpace,
   )
 where
 
-import Simple.Algebra.Additive as A
-import Simple.Algebra.AdditiveMonoid as A
-import Simple.Algebra.Field as A
-import Simple.Algebra.Group as A
-import Simple.Algebra.Module as A
-import Simple.Algebra.Multiplicative as A
-import Simple.Algebra.MultiplicativeMonoid as A
-import Simple.Algebra.Ring as A
-import Simple.Algebra.VectorSpace as A
+import Simple.Algebra.Additive
+import Simple.Algebra.AdditiveMonoid
+import Simple.Algebra.Field
+import Simple.Algebra.Group
+import Simple.Algebra.Module
+import Simple.Algebra.Multiplicative
+import Simple.Algebra.MultiplicativeMonoid
+import Simple.Algebra.Ring
+import Simple.Algebra.Semiring
+import Simple.Algebra.VectorSpace

@@ -11,7 +11,7 @@ import Simple.Algebra.Field (Field (..), NonZero (..))
 import Simple.Algebra.Field qualified as F
 import Simple.Algebra.Module (Module (..))
 
--- | Defines an algebraic vector space over a field. Ideally, this class need
+-- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'
 -- and a 'VectorSpace' is that the former is over a
 -- 'Simple.Algebra.Ring' and the latter a 'Field', so we get

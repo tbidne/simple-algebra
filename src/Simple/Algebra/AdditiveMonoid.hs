@@ -13,10 +13,12 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Simple.Algebra.Additive (Additive (..))
 import Smart.Data.Math.NonNegative (NonNegative (..), unsafeNonNegative)
+import Smart.Data.Math.NonOne (NonOne (..), unsafeNonOne)
+import Smart.Data.Math.NonPositive (NonPositive (..), unsafeNonPositive)
 import Smart.Data.Math.NonZero (NonZero (..))
 import Unsafe.Coerce (unsafeCoerce)
 
--- | Defines an algebraic monoid over an \"additive\" semigroup.
+-- | Defines a monoid over an \"additive\" semigroup.
 class Additive g => AdditiveMonoid g where
   zero :: g
 
@@ -67,6 +69,27 @@ instance Integral a => AdditiveMonoid (Ratio a) where
 
 instance (Num a, Ord a) => AdditiveMonoid (NonNegative a) where
   zero = unsafeNonNegative 0
+
+instance (Num a, Ord a) => AdditiveMonoid (NonPositive a) where
+  zero = unsafeNonPositive 0
+
+instance AdditiveMonoid (NonOne Natural) where
+  zero = unsafeNonOne 0
+
+instance AdditiveMonoid (NonOne Word) where
+  zero = unsafeNonOne 0
+
+instance AdditiveMonoid (NonOne Word8) where
+  zero = unsafeNonOne 0
+
+instance AdditiveMonoid (NonOne Word16) where
+  zero = unsafeNonOne 0
+
+instance AdditiveMonoid (NonOne Word32) where
+  zero = unsafeNonOne 0
+
+instance AdditiveMonoid (NonOne Word64) where
+  zero = unsafeNonOne 0
 
 -- | Smart constructor for 'NonZero', based on its 'zero'.
 mkMonoidNonZero :: AdditiveMonoid a => a -> Maybe (NonZero a)

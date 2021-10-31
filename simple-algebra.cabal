@@ -46,6 +46,7 @@ library
     Simple.Algebra.Multiplicative
     Simple.Algebra.MultiplicativeMonoid
     Simple.Algebra.Ring
+    Simple.Algebra.Semiring
     Simple.Algebra.VectorSpace
     Simple.Literal
 

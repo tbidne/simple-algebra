@@ -9,7 +9,7 @@ import Data.Ratio (Ratio)
 import Simple.Algebra.Additive (Additive (..))
 import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 
--- | Defines an algebraic group.
+-- | Defines a group.
 class AdditiveMonoid g => Group g where
   (.-.) :: g -> g -> g
   g .-. h = g .+. ginv h
@@ -63,32 +63,7 @@ instance Group Integer where
   ginv x = - x
   gabs = abs
 
-instance Group (Ratio Int) where
+instance (Integral a) => Group (Ratio a) where
   (.-.) = (-)
-  ginv x = - x
-  gabs = abs
-
-instance Group (Ratio Int8) where
-  (.-.) = (-)
-  ginv x = - x
-  gabs = abs
-
-instance Group (Ratio Int16) where
-  (.-.) = (-)
-  ginv x = - x
-  gabs = abs
-
-instance Group (Ratio Int32) where
-  (.-.) = (-)
-  ginv x = - x
-  gabs = abs
-
-instance Group (Ratio Int64) where
-  (.-.) = (-)
-  ginv x = - x
-  gabs = abs
-
-instance Group (Ratio Integer) where
-  (.-.) = (-)
-  ginv x = - x
+  ginv = negate
   gabs = abs

@@ -17,7 +17,7 @@ import Smart.Data.Math.NonOne (NonOne (..))
 import Smart.Data.Math.Positive (Positive (..), unsafePositive)
 import Unsafe.Coerce (unsafeCoerce)
 
--- | Defines an algebraic monoid over a \"multiplicative\" semigroup.
+-- | Defines a monoid over a \"multiplicative\" semigroup.
 class Multiplicative g => MultiplicativeMonoid g where
   one :: g
 

@@ -13,7 +13,7 @@ import Simple.Algebra.AdditiveMonoid (NonZero (..))
 import Simple.Algebra.AdditiveMonoid qualified as AM
 import Simple.Algebra.Ring (Ring)
 
--- | Defines an algebraic field.
+-- | Defines a field.
 class Ring f => Field f where
   (.%.) :: f -> NonZero f -> f
 
@@ -35,14 +35,5 @@ instance Field Int64 where x .%. MkNonZero d = x `div` d
 
 instance Field Integer where x .%. MkNonZero d = x `div` d
 
-instance Field (Ratio Int) where x .%. MkNonZero d = x / d
-
-instance Field (Ratio Int8) where x .%. MkNonZero d = x / d
-
-instance Field (Ratio Int16) where x .%. MkNonZero d = x / d
-
-instance Field (Ratio Int32) where x .%. MkNonZero d = x / d
-
-instance Field (Ratio Int64) where x .%. MkNonZero d = x / d
-
-instance Field (Ratio Integer) where x .%. MkNonZero d = x / d
+instance Integral k => Field (Ratio k) where
+  x .%. MkNonZero d = x / d
