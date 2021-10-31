@@ -6,6 +6,10 @@ readarray -t files <<<"$files_string"
 any_failed=0
 ran_test=0
 for f in "${files[@]}"; do
+    # Ormolu on CI dies on this file...
+    if [[ $f == "./src/Simple/Algebra.hs" ]]; then
+        continue
+    fi
     ormolu \
       --ghc-opt -XImportQualifiedPost \
       --ghc-opt -XTypeApplications \
