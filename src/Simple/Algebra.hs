@@ -1,6 +1,5 @@
 -- | @simple-algebra@ endeavors to provide a simple, reasonably principled
--- interface to typical mathematical operations (i.e. addition, subtraction,
--- multiplication, division).
+-- interface to typical mathematical operations.
 --
 -- Normally one uses 'Num' for this purpose, but
 -- 'Num' has an unfortunate limitation: it is "too large". For example, if we
@@ -69,7 +68,9 @@
 --
 -- 3. Ergonomics
 --
---      We choose new operators so that do not clash with prelude.
+--      We choose new operators that do not clash with prelude.
+--
+-- 4. Small dependency footprint
 module Simple.Algebra
   ( module Simple.Algebra.Additive,
     module Simple.Algebra.AdditiveMonoid,
