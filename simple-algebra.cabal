@@ -43,6 +43,14 @@ library
     Simple.Algebra
     Simple.Algebra.Additive
     Simple.Algebra.AdditiveMonoid
+    Simple.Algebra.Data
+    Simple.Algebra.Data.BoundedNat
+    Simple.Algebra.Data.Negative
+    Simple.Algebra.Data.NonNat
+    Simple.Algebra.Data.NonNegative
+    Simple.Algebra.Data.NonPositive
+    Simple.Algebra.Data.Positive
+    Simple.Algebra.Data.Utils
     Simple.Algebra.Field
     Simple.Algebra.Group
     Simple.Algebra.Module
@@ -51,8 +59,6 @@ library
     Simple.Algebra.Ring
     Simple.Algebra.Semiring
     Simple.Algebra.VectorSpace
-    Simple.Literal
-    Simple.NonNat
 
   build-depends:    base ^>=4.14.0.0
   hs-source-dirs:   src

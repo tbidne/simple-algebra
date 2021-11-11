@@ -9,7 +9,6 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Simple.Algebra.Multiplicative (Multiplicative (..))
-import Simple.NonNat (NonZero, unsafeNonZero)
 
 -- | Defines a monoid over a \"multiplicative\" semigroup.
 class Multiplicative g => MultiplicativeMonoid g where
@@ -59,6 +58,3 @@ instance MultiplicativeMonoid Word64 where
 
 instance Integral a => MultiplicativeMonoid (Ratio a) where
   one = 1
-
-instance (Num a, Ord a) => MultiplicativeMonoid (NonZero a) where
-  one = unsafeNonZero 1

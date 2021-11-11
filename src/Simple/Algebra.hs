@@ -1,7 +1,8 @@
 -- | @simple-algebra@ endeavors to provide a simple, reasonably principled
 -- interface to typical mathematical operations.
 --
--- Normally one uses 'Num' for this purpose, but
+-- = Algebraic Typeclasses
+--
 -- 'Num' has an unfortunate limitation: it is "too large". For example, if we
 -- want to opt-in to addition, we must also opt-in to subtraction,
 -- multiplication, and integer literal conversions. These may not make sense
@@ -11,8 +12,47 @@
 --
 -- @simple-algebra@'s approach is to split this functionality into multiple
 -- typeclasses, so types can opt-in to exactly as much functionality as they
--- want. The typeclasses are inspired by abstract algebra, with the following
--- guiding principles:
+-- want. The typeclasses are inspired by abstract algebra. The following table
+-- lists the classes along with the num functionality they are intended to
+-- replace:
+--
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | Typeclass              | Description             | New      | 'Num'  | Example                   |
+-- +========================+=========================+==========+========+===========================+
+-- | 'Additive'             | Types that              | '(.+.)'  | '(+)'  | 'Simple.Algebra.Data.Negative'    |
+-- |                        | support "addition".     |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'AdditiveMonoid'       | 'Additive's that        | 'zero'   |        | 'Simple.Algebra.Data.NonPositive' |
+-- |                        | have an identity.       |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'Multiplicative'       | Types that support      | '(.*.)'  | '(*)'  | 'Simple.Algebra.Data.Positive'    |
+-- |                        | "multiplication".       |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'MultiplicativeMonoid' | 'Multiplicative's       | 'one'    |        | 'Simple.Algebra.Data.Positive'    |
+-- |                        | that have an identity.  |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'Semiring'             | 'AdditiveMonoid' and    |          |        | 'Simple.Algebra.Data.NonNegative' |
+-- |                        | 'MultiplicativeMonoid'. |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'Group'                | 'AdditiveMonoid's       | '(.-.)', | '(-)', | 'Integer'                 |
+-- |                        | that support            | 'ginv',  | 'abs'  |                           |
+-- |                        | "subtraction".          | 'gabs'   |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'Ring'                 | 'Group' and             |          |        | 'Integer'                 |
+-- |                        | 'MultiplicativeMonoid'. |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Integer'                 |
+-- |                        | "division".             |          | '(/)'  |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'Module'               | 'Group's that supports  | '(.*)',  |        |                           |
+-- |                        | "scalar                 | '(*.)'   |        |                           |
+-- |                        | multiplication".        |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+-- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        |                           |
+-- |                        | "scalar division".      |          |        |                           |
+-- +------------------------+-------------------------+----------+--------+---------------------------+
+--
+-- We have the following guiding principles:
 --
 -- 1. Simplicity
 --
@@ -70,7 +110,12 @@
 --
 --      We choose new operators that do not clash with prelude.
 --
--- 4. Small dependency footprint
+-- = Ecosystem Integration
+--
+-- We provide instances for built-in numeric types where it makes sense.
+-- Furthermore, we define several "smart constructor" newtypes in "Simple.Algebra.Data"
+-- that can be used in conjunction with these typeclasses for providing better
+-- APIs.
 module Simple.Algebra
   ( module Simple.Algebra.Additive,
     module Simple.Algebra.AdditiveMonoid,

@@ -4,9 +4,9 @@ module Simple.Algebra.VectorSpace
   )
 where
 
+import Simple.Algebra.Data.NonNat (NonZero)
 import Simple.Algebra.Field (Field (..))
 import Simple.Algebra.Module (Module (..))
-import Simple.NonNat (NonZero)
 
 -- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'

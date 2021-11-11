@@ -12,8 +12,8 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
+import Simple.Algebra.Data.NonNat (NonZero, pattern MkNonZero)
 import Simple.Algebra.Ring (Ring)
-import Simple.NonNat (NonZero, pattern MkNonZero)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines a field.

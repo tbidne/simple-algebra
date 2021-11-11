@@ -1,5 +1,5 @@
 -- | Provides the 'NonNat' type for enforcing a "Not n" invariant.
-module Simple.NonNat
+module Simple.Algebra.Data.NonNat
   ( -- * NonNat
     NonNat (MkNonNat, unNonNat),
 
@@ -23,7 +23,12 @@ where
 import Control.Monad ((>=>))
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
+import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.Natural (Natural)
 import GHC.TypeNats (KnownNat, Nat, natVal)
+import Simple.Algebra.Additive (Additive (..))
+import Simple.Algebra.Multiplicative (Multiplicative (..))
+import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
 import Text.Read qualified as TR
 
 -- | Newtype wrapper over /a/ which excludes some 'Nat' /x/. That is,
@@ -118,3 +123,27 @@ unsafeNonZero = unsafeNonNat @0
 -- Nothing
 readNonZero :: (Num a, Ord a, Read a) => String -> Maybe (NonZero a)
 readNonZero = TR.readMaybe >=> mkNonZero
+
+instance Additive (NonZero Natural) where
+  MkNonZero x .+. MkNonZero y = unsafeNonZero $ x + y
+
+instance Additive (NonZero Word) where
+  MkNonZero x .+. MkNonZero y = unsafeNonZero $ x + y
+
+instance Additive (NonZero Word8) where
+  MkNonZero x .+. MkNonZero y = unsafeNonZero $ x + y
+
+instance Additive (NonZero Word16) where
+  MkNonZero x .+. MkNonZero y = unsafeNonZero $ x + y
+
+instance Additive (NonZero Word32) where
+  MkNonZero x .+. MkNonZero y = unsafeNonZero $ x + y
+
+instance Additive (NonZero Word64) where
+  MkNonZero x .+. MkNonZero y = unsafeNonZero $ x + y
+
+instance (Num a, Ord a) => Multiplicative (NonZero a) where
+  MkNonZero x .*. MkNonZero y = unsafeNonZero $ x * y
+
+instance (Num a, Ord a) => MultiplicativeMonoid (NonZero a) where
+  one = unsafeNonZero 1

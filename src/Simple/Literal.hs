@@ -11,7 +11,8 @@ import GHC.Natural (Natural)
 
 -- | Replaces 'Num'\'s ' 'fromInteger' functionality for when we do not have
 -- a 'Num' instance. Instead of, e.g., @1_000 :: Num a => a@ we have
--- @fromLit 1_000 :: NumLiteral a => a@.
+-- @fromLit 1_000 :: NumLiteral a => a@. Unfortunately this is partial for
+-- 'Natural' and has overflow issues for finite types.
 class NumLiteral a where
   fromLit :: Integer -> a
 
