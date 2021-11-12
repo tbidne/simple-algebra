@@ -9,6 +9,8 @@ for f in "${files[@]}"; do
     # Ormolu on CI dies on this file...
     if [[ $f == "./src/Simple/Algebra.hs" ]]; then
         continue
+    elif [[ $f == "./src/Simple/Algebra/Data/BoundedNat.hs" ]]; then
+        continue
     fi
     ormolu \
       --ghc-opt -XImportQualifiedPost \
