@@ -48,6 +48,12 @@ mkBoundedNat = U.mkX (inBounds @l @u) UnsafeBoundedNat
 
 -- | Unsafe constructor for 'BoundedNat', intended to be used with
 -- known constants, e.g. @unsafeBoundedNat \@0 \@100 50@. Exercise restraint!
+--
+-- >>> unsafeBoundedNat @0 @10 5
+-- UnsafeBoundedNat {unBoundedNat = 5}
+--
+-- >>> unsafeBoundedNat @0 @10 15
+-- Passed invalid 15 bounded by [0,10]
 unsafeBoundedNat :: forall l u. (KnownNat l, KnownNat u) => Natural -> BoundedNat l u
 unsafeBoundedNat n = U.unsafeX msg (inBounds @l @u) UnsafeBoundedNat n
   where

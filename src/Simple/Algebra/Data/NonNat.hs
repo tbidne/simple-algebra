@@ -62,6 +62,12 @@ mkNonNat n
 
 -- | Unsafe constructor for 'NonNat', intended to be used with
 -- known constants, e.g. @unsafeNonNat \@0 50@. Exercise restraint!
+--
+-- >>> unsafeNonNat @7 10
+-- MkUnsafeNonNat {unNonNat = 10}
+--
+-- >>> unsafeNonNat @7 7
+-- Passed invalid NonNat: 7
 unsafeNonNat :: forall x a. (Eq a, KnownNat x, Num a) => a -> NonNat x a
 unsafeNonNat n
   | n /= excluded = MkUnsafeNonNat n

@@ -51,6 +51,12 @@ mkPositive = U.mkX isPositive UnsafePositive
 
 -- | Unsafe constructor for 'Positive', intended to be used with
 -- known constants, e.g., @unsafePositive 7@. Exercise restraint!
+--
+-- >>> unsafePositive 7
+-- UnsafePositive {unPositive = 7}
+--
+-- >>> unsafePositive 0
+-- Passed non-positive to unsafePositive!
 unsafePositive :: (Num a, Ord a) => a -> Positive a
 unsafePositive = U.unsafeX msg isPositive UnsafePositive
   where

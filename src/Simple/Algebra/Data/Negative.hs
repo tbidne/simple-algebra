@@ -43,6 +43,12 @@ mkNegative = U.mkX isNegative UnsafeNegative
 
 -- | Unsafe constructor for 'Negative', intended to be used with
 -- known constants, e.g., @unsafeNegative 7@. Exercise restraint!
+--
+-- >>> unsafeNegative (-7)
+-- UnsafeNegative {unNegative = -7}
+--
+-- >>> unsafeNegative 0
+-- Passed non-negative to unsafeNegative!
 unsafeNegative :: (Num a, Ord a) => a -> Negative a
 unsafeNegative = U.unsafeX msg isNegative UnsafeNegative
   where

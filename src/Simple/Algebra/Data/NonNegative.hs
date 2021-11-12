@@ -58,6 +58,12 @@ mkNonNegative = U.mkX isNonNegative UnsafeNonNegative
 
 -- | Unsafe constructor for 'NonNegative', intended to be used with
 -- known constants, e.g., @unsafeNonNegative 7@. Exercise restraint!
+--
+-- >>> unsafeNonNegative 0
+-- UnsafeNonNegative {unNonNegative = 0}
+--
+-- >>> unsafeNonNegative (-7)
+-- Passed negative to unsafeNonNegative!
 unsafeNonNegative :: (Num a, Ord a) => a -> NonNegative a
 unsafeNonNegative = U.unsafeX msg isNonNegative UnsafeNonNegative
   where
