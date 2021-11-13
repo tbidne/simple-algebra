@@ -7,6 +7,7 @@ module Simple.Algebra.Module
 where
 
 import Simple.Algebra.Group (Group)
+import Simple.Algebra.Multiplicative (Multiplicative (..))
 import Simple.Algebra.Ring (Ring)
 
 -- | Defines a module over a ring.
@@ -26,3 +27,75 @@ class (Group m, Ring r) => Module m r | m -> r where
 infixl 7 .*
 
 infixl 7 *.
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r) r where
+  (n1, n2) .* m = (n1 .*. m, n2 .*. m)
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r) r where
+  (n1, n2, n3) .* m = (n1 .*. m, n2 .*. m, n3 .*. m)
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r, r) r where
+  (n1, n2, n3, n4) .* m = (n1 .*. m, n2 .*. m, n3 .*. m, n4 .*. m)
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r, r, r) r where
+  (n1, n2, n3, n4, n5) .* m =
+    ( n1 .*. m,
+      n2 .*. m,
+      n3 .*. m,
+      n4 .*. m,
+      n5 .*. m
+    )
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r, r, r, r) r where
+  (n1, n2, n3, n4, n5, n6) .* m =
+    ( n1 .*. m,
+      n2 .*. m,
+      n3 .*. m,
+      n4 .*. m,
+      n5 .*. m,
+      n6 .*. m
+    )
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r, r, r, r, r) r where
+  (n1, n2, n3, n4, n5, n6, n7) .* m =
+    ( n1 .*. m,
+      n2 .*. m,
+      n3 .*. m,
+      n4 .*. m,
+      n5 .*. m,
+      n6 .*. m,
+      n7 .*. m
+    )
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r, r, r, r, r, r) r where
+  (n1, n2, n3, n4, n5, n6, n7, n8) .* m =
+    ( n1 .*. m,
+      n2 .*. m,
+      n3 .*. m,
+      n4 .*. m,
+      n5 .*. m,
+      n6 .*. m,
+      n7 .*. m,
+      n8 .*. m
+    )
+
+-- | @since 0.1.0.0
+instance Ring r => Module (r, r, r, r, r, r, r, r, r) r where
+  (n1, n2, n3, n4, n5, n6, n7, n8, n9) .* m =
+    ( n1 .*. m,
+      n2 .*. m,
+      n3 .*. m,
+      n4 .*. m,
+      n5 .*. m,
+      n6 .*. m,
+      n7 .*. m,
+      n8 .*. m,
+      n9 .*. m
+    )

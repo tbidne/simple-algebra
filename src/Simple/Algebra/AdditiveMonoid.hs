@@ -78,3 +78,35 @@ instance AdditiveMonoid Word64 where
 -- | @since 0.1.0.0
 instance Integral a => AdditiveMonoid (Ratio a) where
   zero = 0
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a) where
+  zero = (zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a) where
+  zero = (zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a) where
+  zero = (zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a) where
+  zero = (zero, zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a) where
+  zero = (zero, zero, zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a, a) where
+  zero = (zero, zero, zero, zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a, a, a) where
+  zero = (zero, zero, zero, zero, zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a, a, a, a) where
+  zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)

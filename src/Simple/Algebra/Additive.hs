@@ -79,3 +79,80 @@ instance Additive Word64 where
 -- | @since 0.1.0.0
 instance Integral a => Additive (Ratio a) where
   (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a) where
+  (x1, x2) .+. (y1, y2) = (x1 .+. y1, x2 .+. y2)
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a) where
+  (x1, x2, x3) .+. (y1, y2, y3) = (x1 .+. y1, x2 .+. y2, x3 .+. y3)
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a, a) where
+  (x1, x2, x3, x4) .+. (y1, y2, y3, y4) =
+    ( x1 .+. y1,
+      x2 .+. y2,
+      x3 .+. y3,
+      x4 .+. y4
+    )
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a, a, a) where
+  (x1, x2, x3, x4, x5) .+. (y1, y2, y3, y4, y5) =
+    ( x1 .+. y1,
+      x2 .+. y2,
+      x3 .+. y3,
+      x4 .+. y4,
+      x5 .+. y5
+    )
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a, a, a, a) where
+  (x1, x2, x3, x4, x5, x6) .+. (y1, y2, y3, y4, y5, y6) =
+    ( x1 .+. y1,
+      x2 .+. y2,
+      x3 .+. y3,
+      x4 .+. y4,
+      x5 .+. y5,
+      x6 .+. y6
+    )
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a, a, a, a, a) where
+  (x1, x2, x3, x4, x5, x6, x7) .+. (y1, y2, y3, y4, y5, y6, y7) =
+    ( x1 .+. y1,
+      x2 .+. y2,
+      x3 .+. y3,
+      x4 .+. y4,
+      x5 .+. y5,
+      x6 .+. y6,
+      x7 .+. y7
+    )
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a, a, a, a, a, a) where
+  (x1, x2, x3, x4, x5, x6, x7, x8) .+. (y1, y2, y3, y4, y5, y6, y7, y8) =
+    ( x1 .+. y1,
+      x2 .+. y2,
+      x3 .+. y3,
+      x4 .+. y4,
+      x5 .+. y5,
+      x6 .+. y6,
+      x7 .+. y7,
+      x8 .+. y8
+    )
+
+-- | @since 0.1.0.0
+instance Additive a => Additive (a, a, a, a, a, a, a, a, a) where
+  (x1, x2, x3, x4, x5, x6, x7, x8, x9) .+. (y1, y2, y3, y4, y5, y6, y7, y8, y9) =
+    ( x1 .+. y1,
+      x2 .+. y2,
+      x3 .+. y3,
+      x4 .+. y4,
+      x5 .+. y5,
+      x6 .+. y6,
+      x7 .+. y7,
+      x8 .+. y8,
+      x9 .+. y9
+    )

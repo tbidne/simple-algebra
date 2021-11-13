@@ -89,14 +89,14 @@ invariant-breaking dangerous implementation (e.g. defining subtraction for arbit
     <td><code>Group</code>s that support "scalar multiplication".</td>
     <td><code>(.*)</code>, <code>(*.)</code></td>
     <td></td>
-    <td></td>
+    <td><code>(,)</code></td>
   </tr>
   <tr>
     <td><code>VectorSpace</code></td>
     <td><code>Module</code>s that support "scalar division".</td>
     <td><code>(.%)</code></td>
     <td></td>
-    <td></td>
+    <td><code>(,)</code></td>
   </tr>
 </table>
 

@@ -96,11 +96,11 @@ import Simple.Algebra.VectorSpace
 -- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Integer'     |
 -- |                        | "division".             |          | '(/)'  |               |
 -- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Module'               | 'Group's that supports  | '(.*)',  |        |               |
+-- | 'Module'               | 'Group's that supports  | '(.*)',  |        | @(,)@         |
 -- |                        | "scalar                 | '(*.)'   |        |               |
 -- |                        | multiplication".        |          |        |               |
 -- +------------------------+-------------------------+----------+--------+---------------+
--- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        |               |
+-- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        | @(,)@         |
 -- |                        | "scalar division".      |          |        |               |
 -- +------------------------+-------------------------+----------+--------+---------------+
 --
