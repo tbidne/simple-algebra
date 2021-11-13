@@ -53,6 +53,7 @@ library
     Simple.Algebra.Data.Utils
     Simple.Algebra.Field
     Simple.Algebra.Group
+    Simple.Algebra.Literal
     Simple.Algebra.Module
     Simple.Algebra.Multiplicative
     Simple.Algebra.MultiplicativeMonoid

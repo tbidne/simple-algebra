@@ -1,5 +1,5 @@
 -- | Provides the 'NumLiteral' typeclass.
-module Simple.Literal
+module Simple.Algebra.Literal
   ( NumLiteral (..),
   )
 where

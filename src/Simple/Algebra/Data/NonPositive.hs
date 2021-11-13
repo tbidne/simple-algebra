@@ -10,7 +10,8 @@ module Simple.Algebra.Data.NonPositive
   )
 where
 
-import Simple.Algebra (Additive (..), AdditiveMonoid (..))
+import Simple.Algebra.Additive (Additive (..))
+import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Simple.Algebra.Data.Utils qualified as U
 
 -- | Newtype wrapper over /a/. The underlying /a/ is in \(-(\infty, 0]\).

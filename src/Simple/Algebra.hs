@@ -1,56 +1,107 @@
 -- | @simple-algebra@ endeavors to provide a simple, reasonably principled
 -- interface to typical mathematical operations.
---
--- = Algebraic Typeclasses
---
--- 'Num' has an unfortunate limitation: it is "too large". For example, if we
--- want to opt-in to addition, we must also opt-in to subtraction,
+module Simple.Algebra
+  ( -- * Motivation
+    -- $motivation
+
+    -- * Solution
+    -- $solution
+
+    -- * Algebraic Typeclasses
+    module Simple.Algebra.Additive,
+    module Simple.Algebra.AdditiveMonoid,
+    module Simple.Algebra.Group,
+    module Simple.Algebra.Multiplicative,
+    module Simple.Algebra.MultiplicativeMonoid,
+    module Simple.Algebra.Semiring,
+    module Simple.Algebra.Ring,
+    module Simple.Algebra.Module,
+    module Simple.Algebra.Field,
+    module Simple.Algebra.VectorSpace,
+
+    -- * Misc Typeclasses
+    module Simple.Algebra.Literal,
+
+    -- * Smart Types
+    module Simple.Algebra.Data.BoundedNat,
+    module Simple.Algebra.Data.Negative,
+    module Simple.Algebra.Data.NonNat,
+    module Simple.Algebra.Data.NonNegative,
+    module Simple.Algebra.Data.NonPositive,
+    module Simple.Algebra.Data.Positive,
+  )
+where
+
+import Simple.Algebra.Additive
+import Simple.Algebra.AdditiveMonoid
+import Simple.Algebra.Field
+import Simple.Algebra.Group
+import Simple.Algebra.Module
+import Simple.Algebra.Multiplicative
+import Simple.Algebra.MultiplicativeMonoid
+import Simple.Algebra.Ring
+import Simple.Algebra.Semiring
+import Simple.Algebra.VectorSpace
+import Simple.Algebra.Data.BoundedNat
+import Simple.Algebra.Data.Negative
+import Simple.Algebra.Data.NonNat
+import Simple.Algebra.Data.NonNegative
+import Simple.Algebra.Data.NonPositive
+import Simple.Algebra.Data.Positive
+import Simple.Algebra.Literal
+
+-- $motivation
+-- The primary interface to numerical operations in Haskell is 'Num'.
+-- Unfortunately, 'Num' has a key limitation: it is "too large". For example,
+-- if we want to opt-in to addition, we must also opt-in to subtraction,
 -- multiplication, and integer literal conversions. These may not make sense
 -- for the type at hand (e.g. naturals), so we are stuck either providing an
 -- invariant-breaking dangerous implementation (e.g. defining subtraction for
 -- arbitrary naturals) or throwing runtime errors.
 --
+
+-- $solution
 -- @simple-algebra@'s approach is to split this functionality into multiple
 -- typeclasses, so types can opt-in to exactly as much functionality as they
 -- want. The typeclasses are inspired by abstract algebra. The following table
 -- lists the classes along with the num functionality they are intended to
 -- replace:
 --
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | Typeclass              | Description             | New      | 'Num'  | Example                   |
--- +========================+=========================+==========+========+===========================+
--- | 'Additive'             | Types that              | '(.+.)'  | '(+)'  | 'Simple.Algebra.Data.Negative'    |
--- |                        | support "addition".     |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'AdditiveMonoid'       | 'Additive's that        | 'zero'   |        | 'Simple.Algebra.Data.NonPositive' |
--- |                        | have an identity.       |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'Multiplicative'       | Types that support      | '(.*.)'  | '(*)'  | 'Simple.Algebra.Data.Positive'    |
--- |                        | "multiplication".       |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'MultiplicativeMonoid' | 'Multiplicative's       | 'one'    |        | 'Simple.Algebra.Data.Positive'    |
--- |                        | that have an identity.  |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'Semiring'             | 'AdditiveMonoid' and    |          |        | 'Simple.Algebra.Data.NonNegative' |
--- |                        | 'MultiplicativeMonoid'. |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'Group'                | 'AdditiveMonoid's       | '(.-.)', | '(-)', | 'Integer'                 |
--- |                        | that support            | 'ginv',  | 'abs'  |                           |
--- |                        | "subtraction".          | 'gabs'   |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'Ring'                 | 'Group' and             |          |        | 'Integer'                 |
--- |                        | 'MultiplicativeMonoid'. |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Integer'                 |
--- |                        | "division".             |          | '(/)'  |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'Module'               | 'Group's that supports  | '(.*)',  |        |                           |
--- |                        | "scalar                 | '(*.)'   |        |                           |
--- |                        | multiplication".        |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
--- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        |                           |
--- |                        | "scalar division".      |          |        |                           |
--- +------------------------+-------------------------+----------+--------+---------------------------+
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | Typeclass              | Description             | New      | 'Num'  | Example       |
+-- +========================+=========================+==========+========+===============+
+-- | 'Additive'             | Types that              | '(.+.)'  | '(+)'  | 'Negative'    |
+-- |                        | support "addition".     |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'AdditiveMonoid'       | 'Additive's that        | 'zero'   |        | 'NonPositive' |
+-- |                        | have an identity.       |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'Multiplicative'       | Types that support      | '(.*.)'  | '(*)'  | 'Positive'    |
+-- |                        | "multiplication".       |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'MultiplicativeMonoid' | 'Multiplicative's       | 'one'    |        | 'Positive'    |
+-- |                        | that have an identity.  |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'Semiring'             | 'AdditiveMonoid' and    |          |        | 'NonNegative' |
+-- |                        | 'MultiplicativeMonoid'. |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'Group'                | 'AdditiveMonoid's       | '(.-.)', | '(-)', | 'Integer'     |
+-- |                        | that support            | 'ginv',  | 'abs'  |               |
+-- |                        | "subtraction".          | 'gabs'   |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'Ring'                 | 'Group' and             |          |        | 'Integer'     |
+-- |                        | 'MultiplicativeMonoid'. |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Integer'     |
+-- |                        | "division".             |          | '(/)'  |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'Module'               | 'Group's that supports  | '(.*)',  |        |               |
+-- |                        | "scalar                 | '(*.)'   |        |               |
+-- |                        | multiplication".        |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
+-- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        |               |
+-- |                        | "scalar division".      |          |        |               |
+-- +------------------------+-------------------------+----------+--------+---------------+
 --
 -- We have the following guiding principles:
 --
@@ -110,33 +161,7 @@
 --
 --      We choose new operators that do not clash with prelude.
 --
--- = Ecosystem Integration
---
 -- We provide instances for built-in numeric types where it makes sense.
 -- Furthermore, we define several "smart constructor" newtypes in "Simple.Algebra.Data"
 -- that can be used in conjunction with these typeclasses for providing better
 -- APIs.
-module Simple.Algebra
-  ( module Simple.Algebra.Additive,
-    module Simple.Algebra.AdditiveMonoid,
-    module Simple.Algebra.Group,
-    module Simple.Algebra.Multiplicative,
-    module Simple.Algebra.MultiplicativeMonoid,
-    module Simple.Algebra.Semiring,
-    module Simple.Algebra.Ring,
-    module Simple.Algebra.Module,
-    module Simple.Algebra.Field,
-    module Simple.Algebra.VectorSpace,
-  )
-where
-
-import Simple.Algebra.Additive
-import Simple.Algebra.AdditiveMonoid
-import Simple.Algebra.Field
-import Simple.Algebra.Group
-import Simple.Algebra.Module
-import Simple.Algebra.Multiplicative
-import Simple.Algebra.MultiplicativeMonoid
-import Simple.Algebra.Ring
-import Simple.Algebra.Semiring
-import Simple.Algebra.VectorSpace

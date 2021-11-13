@@ -10,7 +10,7 @@ module Simple.Algebra.Data.Negative
   )
 where
 
-import Simple.Algebra (Additive (..))
+import Simple.Algebra.Additive (Additive (..))
 import Simple.Algebra.Data.Utils qualified as U
 
 -- | Newtype wrapper over /a/. The underlying /a/ is in \((-\infty, 0)\).
