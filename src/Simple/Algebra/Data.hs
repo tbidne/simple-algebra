@@ -1,4 +1,6 @@
 -- | This module reexports multiple "smart constructor" style newtypes.
+--
+-- @since 0.1.0.0
 module Simple.Algebra.Data
   ( module Simple.Algebra.Data.BoundedNat,
     module Simple.Algebra.Data.Negative,

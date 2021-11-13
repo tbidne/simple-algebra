@@ -1,6 +1,8 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
 
 -- | Provides the 'BoundedNat' type for enforcing a bounds invariant.
+--
+-- @since 0.1.0.0
 module Simple.Algebra.Data.BoundedNat
   ( -- * Type
     BoundedNat (MkBoundedNat, unBoundedNat),
@@ -19,30 +21,39 @@ import GHC.TypeNats (KnownNat, Nat, natVal)
 import Simple.Algebra.Data.Utils qualified as U
 
 -- | Newtype wrapper over 'Natural'. The underlying 'Natural' is in \([l, u]\).
+--
+-- @since 0.1.0.0
 type BoundedNat :: Nat -> Nat -> Type
 newtype BoundedNat l u = UnsafeBoundedNat
   { -- | Unwraps the 'BoundedNat'
+    --
+    -- @since 0.1.0.0
     unBoundedNat :: Natural
   }
   deriving (Eq, Ord, Show)
 
 -- | Allows pattern matching on 'BoundedNat'.
+--
+-- @since 0.1.0.0
 pattern MkBoundedNat :: Natural -> BoundedNat l u
 pattern MkBoundedNat n <- UnsafeBoundedNat n
 
 {-# COMPLETE MkBoundedNat #-}
 
+-- | @since 0.1.0.0
 instance (KnownNat l, KnownNat u) => Bounded (BoundedNat l u) where
   minBound = unsafeBoundedNat $ natVal $ Proxy @l
   maxBound = unsafeBoundedNat $ natVal $ Proxy @u
 
--- | Contructs a 'BoundedNat'.
+-- | Constructs a 'BoundedNat'.
 --
 -- >>> mkBoundedNat @0 @100 50
 -- Just (UnsafeBoundedNat {unBoundedNat = 50})
 --
 -- >>> mkBoundedNat @10 @20 25
 -- Nothing
+--
+-- @since 0.1.0.0
 mkBoundedNat :: forall l u. (KnownNat l, KnownNat u) => Natural -> Maybe (BoundedNat l u)
 mkBoundedNat = U.mkX (inBounds @l @u) UnsafeBoundedNat
 
@@ -54,6 +65,8 @@ mkBoundedNat = U.mkX (inBounds @l @u) UnsafeBoundedNat
 --
 -- >>> unsafeBoundedNat @0 @10 15
 -- Passed invalid 15 bounded by [0,10]
+--
+-- @since 0.1.0.0
 unsafeBoundedNat :: forall l u. (KnownNat l, KnownNat u) => Natural -> BoundedNat l u
 unsafeBoundedNat n = U.unsafeX msg (inBounds @l @u) UnsafeBoundedNat n
   where
@@ -80,6 +93,8 @@ unsafeBoundedNat n = U.unsafeX msg (inBounds @l @u) UnsafeBoundedNat n
 --
 -- >>> readBoundedNat "cat"
 -- No instance for (KnownNat l0) arising from a use of ‘it’
+--
+-- @since 0.1.0.0
 readBoundedNat :: forall l u. (KnownNat l, KnownNat u) => String -> Maybe (BoundedNat l u)
 readBoundedNat = U.readX (inBounds @l @u) UnsafeBoundedNat
 

@@ -1,4 +1,6 @@
 -- | Provides the 'Negative' type for enforcing a negative invariant.
+--
+-- @since 0.1.0.0
 module Simple.Algebra.Data.Negative
   ( -- * Type
     Negative (MkNegative, unNegative),
@@ -14,16 +16,23 @@ import Simple.Algebra.Additive (Additive (..))
 import Simple.Algebra.Data.Utils qualified as U
 
 -- | Newtype wrapper over /a/. The underlying /a/ is in \((-\infty, 0)\).
+--
+-- @since 0.1.0.0
 newtype Negative a = UnsafeNegative
   { -- | Unwraps the 'Negative'
+    --
+    -- @since 0.1.0.0
     unNegative :: a
   }
   deriving (Eq, Ord, Show)
 
+-- | @since 0.1.0.0
 instance (Num a, Ord a) => Additive (Negative a) where
   MkNegative x .+. MkNegative y = unsafeNegative $ x + y
 
 -- | Allows pattern matching on 'Negative'.
+--
+-- @since 0.1.0.0
 pattern MkNegative :: a -> Negative a
 pattern MkNegative n <- UnsafeNegative n
 
@@ -38,6 +47,8 @@ pattern MkNegative n <- UnsafeNegative n
 --
 -- >>> mkNegative 7
 -- Nothing
+--
+-- @since 0.1.0.0
 mkNegative :: (Num a, Ord a) => a -> Maybe (Negative a)
 mkNegative = U.mkX isNegative UnsafeNegative
 
@@ -49,6 +60,8 @@ mkNegative = U.mkX isNegative UnsafeNegative
 --
 -- >>> unsafeNegative 0
 -- Passed non-negative to unsafeNegative!
+--
+-- @since 0.1.0.0
 unsafeNegative :: (Num a, Ord a) => a -> Negative a
 unsafeNegative = U.unsafeX msg isNegative UnsafeNegative
   where
@@ -64,6 +77,8 @@ unsafeNegative = U.unsafeX msg isNegative UnsafeNegative
 --
 -- >>> readNegative "5"
 -- Nothing
+--
+-- @since 0.1.0.0
 readNegative :: (Num a, Ord a, Read a) => String -> Maybe (Negative a)
 readNegative = U.readX isNegative UnsafeNegative
 

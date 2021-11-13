@@ -1,4 +1,6 @@
 -- | Provides the 'VectorSpace' typeclass.
+--
+-- @since 0.1.0.0
 module Simple.Algebra.VectorSpace
   ( VectorSpace (..),
   )
@@ -16,7 +18,10 @@ import Simple.Algebra.Module (Module (..))
 -- inverses. Sadly, this cannot be trusted in the real world, so we require
 -- division to be defined manually (presumably using a sensible instance for
 -- '(.%.)')
+--
+-- @since 0.1.0.0
 class (Field k, Module v k) => VectorSpace v k | v -> k where
+  -- | @since 0.1.0.0
   (.%) :: v -> NonZero k -> v
 
 infixl 7 .%

@@ -1,5 +1,7 @@
 -- | @simple-algebra@ endeavors to provide a simple, reasonably principled
 -- interface to typical mathematical operations.
+--
+-- @since 0.1.0.0
 module Simple.Algebra
   ( -- * Motivation
     -- $motivation
@@ -34,21 +36,21 @@ where
 
 import Simple.Algebra.Additive
 import Simple.Algebra.AdditiveMonoid
-import Simple.Algebra.Field
-import Simple.Algebra.Group
-import Simple.Algebra.Module
-import Simple.Algebra.Multiplicative
-import Simple.Algebra.MultiplicativeMonoid
-import Simple.Algebra.Ring
-import Simple.Algebra.Semiring
-import Simple.Algebra.VectorSpace
 import Simple.Algebra.Data.BoundedNat
 import Simple.Algebra.Data.Negative
 import Simple.Algebra.Data.NonNat
 import Simple.Algebra.Data.NonNegative
 import Simple.Algebra.Data.NonPositive
 import Simple.Algebra.Data.Positive
+import Simple.Algebra.Field
+import Simple.Algebra.Group
 import Simple.Algebra.Literal
+import Simple.Algebra.Module
+import Simple.Algebra.Multiplicative
+import Simple.Algebra.MultiplicativeMonoid
+import Simple.Algebra.Ring
+import Simple.Algebra.Semiring
+import Simple.Algebra.VectorSpace
 
 -- $motivation
 -- The primary interface to numerical operations in Haskell is 'Num'.
@@ -58,7 +60,6 @@ import Simple.Algebra.Literal
 -- for the type at hand (e.g. naturals), so we are stuck either providing an
 -- invariant-breaking dangerous implementation (e.g. defining subtraction for
 -- arbitrary naturals) or throwing runtime errors.
---
 
 -- $solution
 -- @simple-algebra@'s approach is to split this functionality into multiple

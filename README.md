@@ -120,11 +120,11 @@ We have the following guiding principles:
 
     * Leniency vis-à-vis laws
 
-        For instance, integers cannot satisfy the field laws, and floats do not satisfy anything, as their equality is nonsense. Nevertheless, we provide instances for them. Working with technically unlawful numerical instances is extremely common, so we take the stance that it is better to provide such instances (albeit with known limitations) than to forgo them completely (read: "integer division is useful"). The only instances we disallow are those likely to cause runtime errors (e.g. natural subtraction) or break expected invariants.
+        For instance, integers cannot satisfy the field laws, and floats do not satisfy anything, as their equality is nonsense. Nevertheless, we provide instances for them. Working with technically unlawful numerical instances is extremely common, so we take the stance that it is better to provide such instances (albeit with known limitations) than to forgo them completely (read: integer division is useful). The only instances we disallow are those likely to cause runtime errors (e.g. natural subtraction) or break expected invariants.
 
         One may wonder why e.g. we provide bounded integral addition but disallow natural subtraction. The reason is due to practicality. Generally, we do not want instances that can cause runtime exceptions or nonsense via over/underflow. Removing bounded integral addition would make this library near-useless, as these operations are pervasive. By contrast, natural subtraction is less common and in the eyes of the author more likely to go wrong. Certainly this is debatable, but for now we consider this a reasonable position.
 
-    * Division classes (i.e. `Field`, `VectorSpace`) have their own division function that must be implemented. Theoretically this is unnecessary, as we need only a function `inv :: NonZero a -> NonZero a` and we can then define division as `x .%. d = d .*. inv d`. But this will not work for many types (e.g. integers), so we force users to define a (presumably sensible) `(.%.)`, so there is no chance of accidentally using a nonsensical `inv`.
+    * Division classes (i.e. `Field`, `VectorSpace`) have their own division function that must be implemented. Theoretically this is unnecessary, as we need only a function `inv :: NonZero a -> NonZero a` and we can then define division as `x .%. d = x .*. inv d`. But this will not work for many types (e.g. integers), so we force users to define a (presumably sensible) `(.%.)`, so there is no chance of accidentally using a nonsensical `inv`.
 
 3. Ergonomics
 
