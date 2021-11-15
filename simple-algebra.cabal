@@ -44,7 +44,7 @@ library
     Simple.Algebra.Additive
     Simple.Algebra.AdditiveMonoid
     Simple.Algebra.Data
-    Simple.Algebra.Data.BoundedNat
+    Simple.Algebra.Data.BoundedN
     Simple.Algebra.Data.Negative
     Simple.Algebra.Data.NonNat
     Simple.Algebra.Data.NonNegative
