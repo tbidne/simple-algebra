@@ -6,7 +6,6 @@ module Simple.Algebra.VectorSpace
   )
 where
 
-import Simple.Algebra.Data.NonNat (NonZero)
 import Simple.Algebra.Field (Field (..))
 import Simple.Algebra.Module (Module (..))
 
@@ -20,26 +19,26 @@ import Simple.Algebra.Module (Module (..))
 -- '(.%.)')
 --
 -- @since 0.1.0.0
-class (Field k, Module v k) => VectorSpace v k | v -> k where
+class (Field k nz, Module v k) => VectorSpace v k nz | v -> k where
   -- | @since 0.1.0.0
-  (.%) :: v -> NonZero k -> v
+  (.%) :: v -> nz k -> v
 
 infixl 7 .%
 
 -- | @since 0.1.0.0
-instance Field k => VectorSpace (k, k) k where
+instance Field k nz => VectorSpace (k, k) k nz where
   (x1, x2) .% k = (x1 .%. k, x2 .%. k)
 
 -- | @since 0.1.0.0
-instance Field k => VectorSpace (k, k, k) k where
+instance Field k nz => VectorSpace (k, k, k) k nz where
   (x1, x2, x3) .% k = (x1 .%. k, x2 .%. k, x3 .%. k)
 
 -- | @since 0.1.0.0
-instance Field k => VectorSpace (k, k, k, k) k where
+instance Field k nz => VectorSpace (k, k, k, k) k nz where
   (x1, x2, x3, x4) .% k = (x1 .%. k, x2 .%. k, x3 .%. k, x4 .%. k)
 
 -- | @since 0.1.0.0
-instance Field r => VectorSpace (r, r, r, r, r) r where
+instance Field k nz => VectorSpace (k, k, k, k, k) k nz where
   (x1, x2, x3, x4, x5) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -49,7 +48,7 @@ instance Field r => VectorSpace (r, r, r, r, r) r where
     )
 
 -- | @since 0.1.0.0
-instance Field r => VectorSpace (r, r, r, r, r, r) r where
+instance Field k nz => VectorSpace (k, k, k, k, k, k) k nz where
   (x1, x2, x3, x4, x5, x6) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -60,7 +59,7 @@ instance Field r => VectorSpace (r, r, r, r, r, r) r where
     )
 
 -- | @since 0.1.0.0
-instance Field r => VectorSpace (r, r, r, r, r, r, r) r where
+instance Field k nz => VectorSpace (k, k, k, k, k, k, k) k nz where
   (x1, x2, x3, x4, x5, x6, x7) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -72,7 +71,7 @@ instance Field r => VectorSpace (r, r, r, r, r, r, r) r where
     )
 
 -- | @since 0.1.0.0
-instance Field r => VectorSpace (r, r, r, r, r, r, r, r) r where
+instance Field k nz => VectorSpace (k, k, k, k, k, k, k, k) k nz where
   (x1, x2, x3, x4, x5, x6, x7, x8) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -85,7 +84,7 @@ instance Field r => VectorSpace (r, r, r, r, r, r, r, r) r where
     )
 
 -- | @since 0.1.0.0
-instance Field r => VectorSpace (r, r, r, r, r, r, r, r, r) r where
+instance Field k nz => VectorSpace (k, k, k, k, k, k, k, k, k) k nz where
   (x1, x2, x3, x4, x5, x6, x7, x8, x9) .% k =
     ( x1 .%. k,
       x2 .%. k,

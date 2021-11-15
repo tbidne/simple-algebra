@@ -18,41 +18,42 @@ import Simple.Algebra.Data.NonNat (NonZero, pattern MkNonZero)
 import Simple.Algebra.Ring (Ring)
 import Unsafe.Coerce (unsafeCoerce)
 
--- | Defines a field.
+-- | Defines a field. The second type parameter is some nonzero wrapper
+-- over the ring @f@.
 --
 -- @since 0.1.0.0
-class Ring f => Field f where
+class Ring f => Field f nz where
   -- | @since 0.1.0.0
-  (.%.) :: f -> NonZero f -> f
+  (.%.) :: f -> nz f -> f
 
 infixl 7 .%.
 
 -- | @since 0.1.0.0
-instance Field Double where x .%. MkNonZero d = x / d
+instance Field Double NonZero where x .%. MkNonZero d = x / d
 
 -- | @since 0.1.0.0
-instance Field Float where x .%. MkNonZero d = x / d
+instance Field Float NonZero where x .%. MkNonZero d = x / d
 
 -- | @since 0.1.0.0
-instance Field Int where x .%. MkNonZero d = x `div` d
+instance Field Int NonZero where x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Field Int8 where x .%. MkNonZero d = x `div` d
+instance Field Int8 NonZero where x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Field Int16 where x .%. MkNonZero d = x `div` d
+instance Field Int16 NonZero where x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Field Int32 where x .%. MkNonZero d = x `div` d
+instance Field Int32 NonZero where x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Field Int64 where x .%. MkNonZero d = x `div` d
+instance Field Int64 NonZero where x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Field Integer where x .%. MkNonZero d = x `div` d
+instance Field Integer NonZero where x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Integral k => Field (Ratio k) where
+instance Integral k => Field (Ratio k) NonZero where
   x .%. MkNonZero d = x / d
 
 -- | Smart constructor for 'NonZero', based on its additive monoid instance.
@@ -64,7 +65,7 @@ instance Integral k => Field (Ratio k) where
 -- Nothing
 --
 -- @since 0.1.0.0
-mkFieldNonZero :: Field a => a -> Maybe (NonZero a)
+mkFieldNonZero :: Field a nz => a -> Maybe (nz a)
 mkFieldNonZero x
   | x == zero = Nothing
   | otherwise = Just (unsafeCoerce x)
@@ -79,7 +80,7 @@ mkFieldNonZero x
 -- Passed identity to unsafeFieldNonZero!
 --
 -- @since 0.1.0.0
-unsafeFieldNonZero :: Field a => a -> NonZero a
+unsafeFieldNonZero :: Field a nz => a -> nz a
 unsafeFieldNonZero x
   | x == zero = error "Passed identity to unsafeFieldNonZero!"
   | otherwise = unsafeCoerce x

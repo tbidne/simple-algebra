@@ -28,6 +28,7 @@ source-repository head
 common common-exts
   default-extensions:
     DataKinds
+    FlexibleContexts
     FlexibleInstances
     FunctionalDependencies
     ImportQualifiedPost
