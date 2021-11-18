@@ -8,8 +8,10 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
+import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Natural (Natural)
+import Refined (NonNegative, Refined (..))
 import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
 
@@ -62,3 +64,6 @@ instance Semiring Word64
 
 -- | @since 0.1.0.0
 instance Integral a => Semiring (Ratio a)
+
+-- | @since 0.1.0.0
+instance (Num a, Ord a, Show a, Typeable a) => Semiring (Refined '[NonNegative] a)

@@ -44,14 +44,6 @@ library
     Simple.Algebra
     Simple.Algebra.Additive
     Simple.Algebra.AdditiveMonoid
-    Simple.Algebra.Data
-    Simple.Algebra.Data.BoundedN
-    Simple.Algebra.Data.Negative
-    Simple.Algebra.Data.NonNat
-    Simple.Algebra.Data.NonNegative
-    Simple.Algebra.Data.NonPositive
-    Simple.Algebra.Data.Positive
-    Simple.Algebra.Data.Utils
     Simple.Algebra.Field
     Simple.Algebra.Group
     Simple.Algebra.Literal
@@ -62,6 +54,9 @@ library
     Simple.Algebra.Semiring
     Simple.Algebra.VectorSpace
 
-  build-depends:    base ^>=4.14.0.0
+  build-depends:
+    , base            ^>=4.14.0.0
+    , refined-simple  ^>=0.1.0.0
+
   hs-source-dirs:   src
   default-language: Haskell2010

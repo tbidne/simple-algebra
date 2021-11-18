@@ -8,8 +8,11 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
+import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Refined (NonNegative, NonZero, Positive, Refined (..))
+import Refined qualified as R
 
 -- | Defines a multiplicative semigroup.
 --
@@ -79,3 +82,15 @@ instance Multiplicative Word64 where
 -- | @since 0.1.0.0
 instance Integral a => Multiplicative (Ratio a) where
   (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance (Num a, Ord a, Show a, Typeable a) => Multiplicative (Refined '[Positive] a) where
+  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+
+-- | @since 0.1.0.0
+instance (Num a, Ord a, Show a, Typeable a) => Multiplicative (Refined '[NonNegative] a) where
+  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+
+-- | @since 0.1.0.0
+instance (Num a, Ord a, Show a, Typeable a) => Multiplicative (Refined '[NonZero] a) where
+  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y

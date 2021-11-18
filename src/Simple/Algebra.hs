@@ -23,25 +23,11 @@ module Simple.Algebra
 
     -- * Misc Typeclasses
     module Simple.Algebra.Literal,
-
-    -- * Smart Types
-    module Simple.Algebra.Data.BoundedN,
-    module Simple.Algebra.Data.Negative,
-    module Simple.Algebra.Data.NonNat,
-    module Simple.Algebra.Data.NonNegative,
-    module Simple.Algebra.Data.NonPositive,
-    module Simple.Algebra.Data.Positive,
   )
 where
 
 import Simple.Algebra.Additive
 import Simple.Algebra.AdditiveMonoid
-import Simple.Algebra.Data.BoundedN
-import Simple.Algebra.Data.Negative
-import Simple.Algebra.Data.NonNat
-import Simple.Algebra.Data.NonNegative
-import Simple.Algebra.Data.NonPositive
-import Simple.Algebra.Data.Positive
 import Simple.Algebra.Field
 import Simple.Algebra.Group
 import Simple.Algebra.Literal
@@ -68,41 +54,41 @@ import Simple.Algebra.VectorSpace
 -- lists the classes along with the num functionality they are intended to
 -- replace:
 --
--- +------------------------+-------------------------+----------+--------+---------------+
--- | Typeclass              | Description             | New      | 'Num'  | Example       |
--- +========================+=========================+==========+========+===============+
--- | 'Additive'             | Types that              | '(.+.)'  | '(+)'  | 'Negative'    |
--- |                        | support "addition".     |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'AdditiveMonoid'       | 'Additive's that        | 'zero'   |        | 'NonPositive' |
--- |                        | have an identity.       |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Multiplicative'       | Types that support      | '(.*.)'  | '(*)'  | 'Positive'    |
--- |                        | "multiplication".       |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'MultiplicativeMonoid' | 'Multiplicative's       | 'one'    |        | 'Positive'    |
--- |                        | that have an identity.  |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Semiring'             | 'AdditiveMonoid' and    |          |        | 'NonNegative' |
--- |                        | 'MultiplicativeMonoid'. |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Group'                | 'AdditiveMonoid's       | '(.-.)', | '(-)', | 'Integer'     |
--- |                        | that support            | 'ginv',  | 'abs'  |               |
--- |                        | "subtraction".          | 'gabs'   |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Ring'                 | 'Group' and             |          |        | 'Integer'     |
--- |                        | 'MultiplicativeMonoid'. |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Integer'     |
--- |                        | "division".             |          | '(/)'  |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'Module'               | 'Group's that supports  | '(.*)',  |        | @(,)@         |
--- |                        | "scalar                 | '(*.)'   |        |               |
--- |                        | multiplication".        |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
--- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        | @(,)@         |
--- |                        | "scalar division".      |          |        |               |
--- +------------------------+-------------------------+----------+--------+---------------+
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | Typeclass              | Description             | New      | 'Num'  | Example               |
+-- +========================+=========================+==========+========+=======================+
+-- | 'Additive'             | Types that              | '(.+.)'  | '(+)'  | 'Refined.Negative'    |
+-- |                        | support "addition".     |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'AdditiveMonoid'       | 'Additive's that        | 'zero'   |        | 'Refined.NonPositive' |
+-- |                        | have an identity.       |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Multiplicative'       | Types that support      | '(.*.)'  | '(*)'  | 'Refined.Positive'    |
+-- |                        | "multiplication".       |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'MultiplicativeMonoid' | 'Multiplicative's       | 'one'    |        | 'Refined.Positive'    |
+-- |                        | that have an identity.  |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Semiring'             | 'AdditiveMonoid' and    |          |        | 'Refined.NonNegative' |
+-- |                        | 'MultiplicativeMonoid'. |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Group'                | 'AdditiveMonoid's       | '(.-.)', | '(-)', | 'Refined.Integer'     |
+-- |                        | that support            | 'ginv',  | 'abs'  |                       |
+-- |                        | "subtraction".          | 'gabs'   |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Ring'                 | 'Group' and             |          |        | 'Refined.Integer'     |
+-- |                        | 'MultiplicativeMonoid'. |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Refined.Integer'     |
+-- |                        | "division".             |          | '(/)'  |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Module'               | 'Group's that supports  | '(.*)',  |        | @(,)@                 |
+-- |                        | "scalar                 | '(*.)'   |        |                       |
+-- |                        | multiplication".        |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        | @(,)@                 |
+-- |                        | "scalar division".      |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
 --
 -- We have the following guiding principles:
 --

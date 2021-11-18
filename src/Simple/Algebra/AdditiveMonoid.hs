@@ -8,8 +8,11 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
+import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Refined (NonNegative, NonPositive, Refined (..))
+import Refined qualified as R
 import Simple.Algebra.Additive (Additive (..))
 
 -- | Defines a monoid over an \"additive\" semigroup.
@@ -110,3 +113,11 @@ instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a, a, a) where
 -- | @since 0.1.0.0
 instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance (Num a, Ord a, Show a, Typeable a) => AdditiveMonoid (Refined '[NonNegative] a) where
+  zero = R.unsafeRefine 0
+
+-- | @since 0.1.0.0
+instance forall a. (Num a, Ord a, Show a, Typeable a) => AdditiveMonoid (Refined '[NonPositive] a) where
+  zero = R.unsafeRefine 0

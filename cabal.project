@@ -6,3 +6,8 @@ package simple-algebra
     -Wincomplete-record-updates -Wincomplete-uni-patterns
     -Wmissing-home-modules -Wmissing-export-lists -Wpartial-fields
     -Wredundant-constraints
+
+source-repository-package
+    type: git
+    location: https://github.com/tbidne/refined-simple.git
+    tag: 614d7bbaa8fd906660e118a375468237f00e6d75
