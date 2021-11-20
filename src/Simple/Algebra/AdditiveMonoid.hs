@@ -11,7 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Refined (NonNegative, NonPositive, Refined (..))
+import Refined (Even, NonNegative, NonPositive, Refined (..))
 import Refined qualified as R
 import Simple.Algebra.Additive (Additive (..))
 
@@ -120,4 +120,8 @@ instance (Num a, Ord a, Show a, Typeable a) => AdditiveMonoid (Refined '[NonNega
 
 -- | @since 0.1.0.0
 instance forall a. (Num a, Ord a, Show a, Typeable a) => AdditiveMonoid (Refined '[NonPositive] a) where
+  zero = R.unsafeRefine 0
+
+-- | @since 0.1.0.0
+instance forall a. (Integral a, Show a, Typeable a) => AdditiveMonoid (Refined '[Even] a) where
   zero = R.unsafeRefine 0

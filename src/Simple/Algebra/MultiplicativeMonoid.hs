@@ -11,7 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Refined (NonNegative, NonZero, Positive, Refined (..))
+import Refined (NonNegative, NonZero, Odd, Positive, Refined (..))
 import Refined qualified as R
 import Simple.Algebra.Multiplicative (Multiplicative (..))
 
@@ -92,4 +92,8 @@ instance forall a. (Num a, Ord a, Show a, Typeable a) => MultiplicativeMonoid (R
 
 -- | @since 0.1.0.0
 instance forall a. (Num a, Ord a, Show a, Typeable a) => MultiplicativeMonoid (Refined '[NonZero] a) where
+  one = R.unsafeRefine 1
+
+-- | @since 0.1.0.0
+instance forall a. (Integral a, Show a, Typeable a) => MultiplicativeMonoid (Refined '[Odd] a) where
   one = R.unsafeRefine 1

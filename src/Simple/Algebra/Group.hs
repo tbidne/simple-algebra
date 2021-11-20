@@ -8,6 +8,9 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
+import Data.Typeable (Typeable)
+import Refined (Even, Refined (..))
+import Refined qualified as R
 import Simple.Algebra.Additive (Additive (..))
 import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
 
@@ -239,3 +242,8 @@ instance Group a => Group (a, a, a, a, a, a, a, a, a) where
       gabs x8,
       gabs x9
     )
+
+instance (Integral a, Show a, Typeable a) => Group (Refined '[Even] a) where
+  MkRefined x .-. MkRefined y = R.unsafeRefine $ x - y
+  gabs (MkRefined x) = R.unsafeRefine $ abs x
+  ginv (MkRefined x) = R.unsafeRefine $ - x
