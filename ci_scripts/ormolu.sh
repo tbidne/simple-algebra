@@ -7,9 +7,7 @@ any_failed=0
 ran_test=0
 for f in "${files[@]}"; do
     # Ormolu on CI dies on this file...
-    if [[ $f == "./src/Simple/Algebra.hs" ]]; then
-        continue
-    elif [[ $f == "./src/Simple/Algebra/Data/BoundedN.hs" ]]; then
+    if [[ $f == "./src/Algebra.hs" ]]; then
         continue
     fi
     ormolu \

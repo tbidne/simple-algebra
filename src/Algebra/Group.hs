@@ -6,13 +6,13 @@ module Algebra.Group
   )
 where
 
+import Algebra.Additive (Additive (..))
+import Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Typeable (Typeable)
 import Refined (Even, Refined (..))
 import Refined qualified as R
-import Algebra.Additive (Additive (..))
-import Algebra.AdditiveMonoid (AdditiveMonoid (..))
 
 -- | Defines a group.
 --

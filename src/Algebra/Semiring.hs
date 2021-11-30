@@ -6,14 +6,14 @@ module Algebra.Semiring
   )
 where
 
+import Algebra.AdditiveMonoid (AdditiveMonoid (..))
+import Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Natural (Natural)
 import Refined (NonNegative, Refined (..))
-import Algebra.AdditiveMonoid (AdditiveMonoid (..))
-import Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
 
 -- | Defines a semiring.
 --

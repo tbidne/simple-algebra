@@ -6,6 +6,7 @@ module Algebra.AdditiveMonoid
   )
 where
 
+import Algebra.Additive (Additive (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Typeable (Typeable)
@@ -13,7 +14,6 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Refined (Even, NonNegative, NonPositive, Refined (..))
 import Refined qualified as R
-import Algebra.Additive (Additive (..))
 
 -- | Defines a monoid over an \"additive\" semigroup.
 --

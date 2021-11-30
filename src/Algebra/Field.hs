@@ -12,11 +12,11 @@ module Algebra.Field
   )
 where
 
+import Algebra.AdditiveMonoid (AdditiveMonoid (..))
+import Algebra.Ring (Ring)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Refined (Implies, NonZero, Refined (..))
-import Algebra.AdditiveMonoid (AdditiveMonoid (..))
-import Algebra.Ring (Ring)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines a field.

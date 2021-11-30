@@ -6,9 +6,9 @@ module Algebra.VectorSpace
   )
 where
 
-import Refined (Implies, NonZero, Refined)
 import Algebra.Field (Field (..))
 import Algebra.Module (Module (..))
+import Refined (Implies, NonZero, Refined)
 
 -- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'

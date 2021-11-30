@@ -6,10 +6,10 @@ module Algebra.Ring
   )
 where
 
-import Data.Int (Int16, Int32, Int64, Int8)
-import Data.Ratio (Ratio)
 import Algebra.Group (Group)
 import Algebra.MultiplicativeMonoid (MultiplicativeMonoid)
+import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Ratio (Ratio)
 
 -- | Defines a ring.
 --
