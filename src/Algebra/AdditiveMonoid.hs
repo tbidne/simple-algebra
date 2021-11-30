@@ -1,7 +1,7 @@
 -- | Provides the 'AdditiveMonoid' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.AdditiveMonoid
+module Algebra.AdditiveMonoid
   ( AdditiveMonoid (..),
   )
 where
@@ -13,7 +13,7 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Refined (Even, NonNegative, NonPositive, Refined (..))
 import Refined qualified as R
-import Simple.Algebra.Additive (Additive (..))
+import Algebra.Additive (Additive (..))
 
 -- | Defines a monoid over an \"additive\" semigroup.
 --

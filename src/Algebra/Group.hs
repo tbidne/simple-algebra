@@ -1,7 +1,7 @@
 -- | Provides the 'Group' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Group
+module Algebra.Group
   ( Group (..),
   )
 where
@@ -11,8 +11,8 @@ import Data.Ratio (Ratio)
 import Data.Typeable (Typeable)
 import Refined (Even, Refined (..))
 import Refined qualified as R
-import Simple.Algebra.Additive (Additive (..))
-import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
+import Algebra.Additive (Additive (..))
+import Algebra.AdditiveMonoid (AdditiveMonoid (..))
 
 -- | Defines a group.
 --

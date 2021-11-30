@@ -1,8 +1,8 @@
--- | @simple-algebra@ endeavors to provide a simple, reasonably principled
+-- | @algebra-simple@ endeavors to provide a simple, reasonably principled
 -- interface to typical mathematical operations.
 --
 -- @since 0.1.0.0
-module Simple.Algebra
+module Algebra
   ( -- * Motivation
     -- $motivation
 
@@ -10,33 +10,33 @@ module Simple.Algebra
     -- $solution
 
     -- * Algebraic Typeclasses
-    module Simple.Algebra.Additive,
-    module Simple.Algebra.AdditiveMonoid,
-    module Simple.Algebra.Group,
-    module Simple.Algebra.Multiplicative,
-    module Simple.Algebra.MultiplicativeMonoid,
-    module Simple.Algebra.Semiring,
-    module Simple.Algebra.Ring,
-    module Simple.Algebra.Module,
-    module Simple.Algebra.Field,
-    module Simple.Algebra.VectorSpace,
+    module Algebra.Additive,
+    module Algebra.AdditiveMonoid,
+    module Algebra.Group,
+    module Algebra.Multiplicative,
+    module Algebra.MultiplicativeMonoid,
+    module Algebra.Semiring,
+    module Algebra.Ring,
+    module Algebra.Module,
+    module Algebra.Field,
+    module Algebra.VectorSpace,
 
     -- * Misc Typeclasses
-    module Simple.Algebra.Literal,
+    module Algebra.Literal,
   )
 where
 
-import Simple.Algebra.Additive
-import Simple.Algebra.AdditiveMonoid
-import Simple.Algebra.Field
-import Simple.Algebra.Group
-import Simple.Algebra.Literal
-import Simple.Algebra.Module
-import Simple.Algebra.Multiplicative
-import Simple.Algebra.MultiplicativeMonoid
-import Simple.Algebra.Ring
-import Simple.Algebra.Semiring
-import Simple.Algebra.VectorSpace
+import Algebra.Additive
+import Algebra.AdditiveMonoid
+import Algebra.Field
+import Algebra.Group
+import Algebra.Literal
+import Algebra.Module
+import Algebra.Multiplicative
+import Algebra.MultiplicativeMonoid
+import Algebra.Ring
+import Algebra.Semiring
+import Algebra.VectorSpace
 
 -- $motivation
 -- The primary interface to numerical operations in Haskell is 'Num'.
@@ -48,7 +48,7 @@ import Simple.Algebra.VectorSpace
 -- arbitrary naturals) or throwing runtime errors.
 
 -- $solution
--- @simple-algebra@'s approach is to split this functionality into multiple
+-- @algebra-simple@'s approach is to split this functionality into multiple
 -- typeclasses, so types can opt-in to exactly as much functionality as they
 -- want. The typeclasses are inspired by abstract algebra. The following table
 -- lists the classes along with the num functionality they are intended to
@@ -149,6 +149,6 @@ import Simple.Algebra.VectorSpace
 --      We choose new operators that do not clash with prelude.
 --
 -- We provide instances for built-in numeric types where it makes sense.
--- Furthermore, we define several "smart constructor" newtypes in "Simple.Algebra.Data"
+-- Furthermore, we define several "smart constructor" newtypes in "Algebra.Data"
 -- that can be used in conjunction with these typeclasses for providing better
 -- APIs.

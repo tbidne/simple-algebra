@@ -1,15 +1,15 @@
 -- | Provides the 'Ring' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Ring
+module Algebra.Ring
   ( Ring,
   )
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Simple.Algebra.Group (Group)
-import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid)
+import Algebra.Group (Group)
+import Algebra.MultiplicativeMonoid (MultiplicativeMonoid)
 
 -- | Defines a ring.
 --

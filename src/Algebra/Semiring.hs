@@ -1,7 +1,7 @@
 -- | Provides the 'Semiring' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Semiring
+module Algebra.Semiring
   ( Semiring,
   )
 where
@@ -12,8 +12,8 @@ import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Natural (Natural)
 import Refined (NonNegative, Refined (..))
-import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
-import Simple.Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
+import Algebra.AdditiveMonoid (AdditiveMonoid (..))
+import Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
 
 -- | Defines a semiring.
 --

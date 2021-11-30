@@ -1,20 +1,20 @@
 cabal-version:      2.4
-name:               simple-algebra
+name:               algebra-simple
 version:            0.1.0.0
 license:            MIT
 license-file:       LICENSE
 copyright:          2021 Thomas Bidne
 author:             Thomas Bidne
 maintainer:         tbidne@prontonmail.com
-homepage:           https://github.com/tbidne/simple-algebra/
-bug-reports:        https://github.com/tbidne/simple-algebra/issues
+homepage:           https://github.com/tbidne/algebra-simple/
+bug-reports:        https://github.com/tbidne/algebra-simple/issues
 synopsis:
   A library that provides an alternative mathematical interface to Num.
 
 description:
-  @simple-algebra@ intends to provide a simple, reasonably principled
+  @algebra-simple@ intends to provide a simple, reasonably principled
   interface to typical mathematical operations (i.e. addition, subtraction,
-  multiplication, division). See "Simple.Algebra" for the documentation.
+  multiplication, division). See "Algebra" for the documentation.
 
 category:           Math, Algebra
 extra-source-files:
@@ -23,7 +23,7 @@ extra-source-files:
 
 source-repository head
   type:     git
-  location: https://github.com/tbidne/simple-algebra
+  location: https://github.com/tbidne/algebra-simple
 
 common common-exts
   default-extensions:
@@ -41,18 +41,18 @@ common common-exts
 library
   import:           common-exts
   exposed-modules:
-    Simple.Algebra
-    Simple.Algebra.Additive
-    Simple.Algebra.AdditiveMonoid
-    Simple.Algebra.Field
-    Simple.Algebra.Group
-    Simple.Algebra.Literal
-    Simple.Algebra.Module
-    Simple.Algebra.Multiplicative
-    Simple.Algebra.MultiplicativeMonoid
-    Simple.Algebra.Ring
-    Simple.Algebra.Semiring
-    Simple.Algebra.VectorSpace
+    Algebra
+    Algebra.Additive
+    Algebra.AdditiveMonoid
+    Algebra.Field
+    Algebra.Group
+    Algebra.Literal
+    Algebra.Module
+    Algebra.Multiplicative
+    Algebra.MultiplicativeMonoid
+    Algebra.Ring
+    Algebra.Semiring
+    Algebra.VectorSpace
 
   build-depends:
     , base            ^>=4.14.0.0

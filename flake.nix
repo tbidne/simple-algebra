@@ -1,5 +1,5 @@
 {
-  description = "simple-algebra flake";
+  description = "algebra-simple flake";
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.refined-simple-src = {
@@ -21,7 +21,7 @@
       mkPkg = returnShellEnv:
         compiler.developPackage {
           inherit returnShellEnv;
-          name = "simple-algebra";
+          name = "algebra-simple";
           root = ./.;
           modifier = drv:
             pkgs.haskell.lib.addBuildTools drv (with pkgs.haskellPackages; [

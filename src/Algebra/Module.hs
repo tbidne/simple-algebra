@@ -1,14 +1,14 @@
 -- | Provides the 'Module' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Module
+module Algebra.Module
   ( Module (..),
   )
 where
 
-import Simple.Algebra.Group (Group)
-import Simple.Algebra.Multiplicative (Multiplicative (..))
-import Simple.Algebra.Ring (Ring)
+import Algebra.Group (Group)
+import Algebra.Multiplicative (Multiplicative (..))
+import Algebra.Ring (Ring)
 
 -- | Defines a module over a ring.
 --

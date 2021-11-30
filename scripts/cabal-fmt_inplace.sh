@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cabal-fmt --inplace simple-algebra.cabal
+cabal-fmt --inplace algebra-simple.cabal

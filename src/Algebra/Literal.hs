@@ -1,7 +1,7 @@
 -- | Provides the 'NumLiteral' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Literal
+module Algebra.Literal
   ( NumLiteral (..),
   )
 where

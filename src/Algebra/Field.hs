@@ -1,7 +1,7 @@
 -- | Provides the 'Field' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Field
+module Algebra.Field
   ( -- * Typeclass
     Field (..),
 
@@ -15,8 +15,8 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Refined (Implies, NonZero, Refined (..))
-import Simple.Algebra.AdditiveMonoid (AdditiveMonoid (..))
-import Simple.Algebra.Ring (Ring)
+import Algebra.AdditiveMonoid (AdditiveMonoid (..))
+import Algebra.Ring (Ring)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines a field. The second type parameter is some nonzero wrapper

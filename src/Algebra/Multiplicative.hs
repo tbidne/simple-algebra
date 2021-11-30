@@ -1,7 +1,7 @@
 -- | Provides the 'Multiplicative' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Multiplicative
+module Algebra.Multiplicative
   ( Multiplicative (..),
   )
 where

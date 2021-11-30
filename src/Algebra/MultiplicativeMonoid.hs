@@ -1,7 +1,7 @@
 -- | Provides the 'MultiplicativeMonoid' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.MultiplicativeMonoid
+module Algebra.MultiplicativeMonoid
   ( MultiplicativeMonoid (..),
   )
 where
@@ -13,7 +13,7 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Refined (NonNegative, NonZero, Odd, Positive, Refined (..))
 import Refined qualified as R
-import Simple.Algebra.Multiplicative (Multiplicative (..))
+import Algebra.Multiplicative (Multiplicative (..))
 
 -- | Defines a monoid over a \"multiplicative\" semigroup.
 --

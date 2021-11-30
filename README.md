@@ -1,12 +1,12 @@
 <div align="center">
 
-# Simple Algebra
+# Algebra Simple
 
-![cabal](https://github.com/tbidne/simple-algebra/workflows/cabal/badge.svg?branch=main)
-![stack](https://github.com/tbidne/simple-algebra/workflows/stack/badge.svg?branch=main)
-![nix](https://github.com/tbidne/simple-algebra/workflows/nix/badge.svg?branch=main)
-![haddock](https://github.com/tbidne/simple-algebra/workflows/haddock/badge.svg?branch=main)
-![style](https://github.com/tbidne/simple-algebra/workflows/style/badge.svg?branch=main)
+![cabal](https://github.com/tbidne/algebra-simple/workflows/cabal/badge.svg?branch=main)
+![stack](https://github.com/tbidne/algebra-simple/workflows/stack/badge.svg?branch=main)
+![nix](https://github.com/tbidne/algebra-simple/workflows/nix/badge.svg?branch=main)
+![haddock](https://github.com/tbidne/algebra-simple/workflows/haddock/badge.svg?branch=main)
+![style](https://github.com/tbidne/algebra-simple/workflows/style/badge.svg?branch=main)
 
 </div>
 
@@ -18,7 +18,7 @@ invariant-breaking dangerous implementation (e.g. defining subtraction for arbit
 
 # Solution
 
-`simple-algebra`'s approach is to split this functionality into multiple typeclasses, so types can opt-in to exactly as much functionality as they want. The typeclasses are inspired by abstract algebra. The following table lists the classes along with the num functionality they are intended to replace:
+`algebra-simple`'s approach is to split this functionality into multiple typeclasses, so types can opt-in to exactly as much functionality as they want. The typeclasses are inspired by abstract algebra. The following table lists the classes along with the num functionality they are intended to replace:
 
 <table>
   <thead>

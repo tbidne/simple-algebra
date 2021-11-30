@@ -1,4 +1,4 @@
 cradle:
   cabal:
     - path: "./src"
-      component: "lib:simple-algebra"
+      component: "lib:algebra-simple"

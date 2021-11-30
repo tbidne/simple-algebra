@@ -1,6 +1,6 @@
 packages: .
 
-package simple-algebra
+package algebra-simple
   ghc-options:
     -Wall -Wcompat -Werror -Widentities
     -Wincomplete-record-updates -Wincomplete-uni-patterns

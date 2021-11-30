@@ -1,7 +1,7 @@
 -- | Provides the 'Additive' typeclass.
 --
 -- @since 0.1.0.0
-module Simple.Algebra.Additive
+module Algebra.Additive
   ( Additive (..),
   )
 where

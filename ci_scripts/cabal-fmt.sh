@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cabal-fmt --check ./simple-algebra.cabal
+cabal-fmt --check ./algebra-simple.cabal

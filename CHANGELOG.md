@@ -1,4 +1,4 @@
-# Revision history for simple-algebra
+# Revision history for algebra-simple
 
 ## 0.1.0.0 -- YYYY-mm-dd
 
