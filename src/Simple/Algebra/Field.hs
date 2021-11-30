@@ -58,15 +58,15 @@ instance Integral k => Field (Ratio k) where
   x .%. MkRefined d = x / d
 
 -- $nonzero
--- The nonzero types here are based on @simple-refined@'s 'NonZero'.
+-- The nonzero types here are based on @refined-simple@'s 'NonZero'.
 --
 -- N.B. These functions check the /field/ 'zero', not the literal @0@. That
 -- is, __the refinement is not checked__.
 --
 -- This gives us maximum flexibility:
 --
---     * Non-numeric types can implement 'Field' (consider @data Z2 = One | Two@
---       ~ \(\mathbb{Z}/2\mathbb{Z}\)).
+--     * Non-numeric types can implement 'Field' (consider representing
+--       \(\mathbb{Z}/2\mathbb{Z}\) as @data Z2 = One | Two@).
 --     * Numeric types can utilize @refined-simple@'s capabilities (e.g.
 --       creating non-zero terms at compile-time via 'Refined.refineTH').
 --
@@ -89,13 +89,13 @@ instance Integral k => Field (Ratio k) where
 --
 --     * With 'Num' types that /do/ define @zero /= 0@, the algebraic
 --       consistency is itself fine, but we can no longer assume that
---       @simple-refined@'s 'NonZero' invariant is satisfied. This could
---       enable one to "prove" false proofs in @simple-refined@, e.g.
+--       @refined-simple@'s 'NonZero' invariant is satisfied. This could
+--       enable one to "prove" false theorems in @refined-simple@, e.g.
 --       @NonZero && NonNegative => Positive@.
 --
 -- In short, the only case where you might run into problems is if you
 -- define 'Field' for some 'Num' @a@ with @zero /= 0@, and in that case
--- you just need to be careful about not using @simple-refined@
+-- you just need to be careful about not using @refined-simple@
 -- in an unjustified way.
 
 -- | Smart constructor for 'NonZero', based on its additive monoid instance.

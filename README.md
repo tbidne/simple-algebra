@@ -130,4 +130,4 @@ We have the following guiding principles:
 
      We choose new operators that do not clash with prelude.
 
-We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for `simple-refined` types.
+We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for `refined-simple` types.
