@@ -1,5 +1,5 @@
 { compiler ? "ghc8107"
-, pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/2deb07f3ac4eeb5de1c12c4ba2911a2eb1f6ed61.tar.gz") { }
+, pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/8a308775674e178495767df90c419425474582a1.tar.gz") { }
 }:
 
 let
