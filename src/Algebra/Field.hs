@@ -19,8 +19,7 @@ import Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Algebra.Ring (Ring)
 import Unsafe.Coerce (unsafeCoerce)
 
--- | Defines a field. The second type parameter is some nonzero wrapper
--- over the ring @f@.
+-- | Defines a field.
 --
 -- @since 0.1.0.0
 class Ring f => Field f where
