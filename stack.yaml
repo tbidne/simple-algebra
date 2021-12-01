@@ -4,4 +4,4 @@ packages:
 - .
 extra-deps:
 - git: https://github.com/tbidne/refined-simple.git
-  commit: 9c041ee559b62e67dc2ed4deddf66578b28158be
+  commit: 521ce27c3632c0b98661a8c1bde80dae01c32cbe
