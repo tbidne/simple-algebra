@@ -2,13 +2,41 @@
 
 # Algebra Simple
 
-![cabal](https://github.com/tbidne/algebra-simple/workflows/cabal/badge.svg?branch=main)
-![stack](https://github.com/tbidne/algebra-simple/workflows/stack/badge.svg?branch=main)
-![nix](https://github.com/tbidne/algebra-simple/workflows/nix/badge.svg?branch=main)
-![style](https://github.com/tbidne/algebra-simple/workflows/style/badge.svg?branch=main)
+<a href="https://github.com/tbidne/algebra-simple/actions/workflows/cabal_ci.yaml">
+  <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/cabal/main?label=cabal&logoColor=white&style=plastic">
+</a>
+<a href="https://github.com/tbidne/algebra-simple/actions/workflows/stack_ci.yaml">
+  <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/stack/main?label=stack&logoColor=white&style=plastic">
+</a>
+<a href="https://github.com/tbidne/algebra-simple/actions/workflows/nix_ci.yaml">
+  <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/nix/main?label=nix&logo=nixos&logoColor=white&style=plastic">
+</a>
+<a href="https://github.com/tbidne/algebra-simple/actions/workflows/style.yaml">
+  <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/nix/main?label=style&logoColor=white&style=plastic">
+</a>
+<img alt="GitHub" src="https://img.shields.io/github/license/tbidne/algebra-simple?style=plastic&color=blue">
 
+<table>
+  <thead>
+    <th><code>algebra-simple</code> / GHC</th>
+    <th>9.0.1</th>
+    <th>8.10.7</th>
+  </thead>
+  <tr>
+    <td><code>0.1.0.0</code></td>
+    <td>
+      <a href="https://github.com/tbidne/algebra-simple/actions/workflows/ghc_9-0-1.yaml">
+        <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/9.0.1/main?label=9.0.1&logo=haskell&logoColor=white&style=plastic">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/tbidne/algebra-simple/actions/workflows/ghc_8-10-7.yaml">
+        <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/8.10.7/main?label=8.10.7&logo=haskell&logoColor=white&style=plastic">
+      </a>
+    </td>
+  </tr>
+</table>
 </div>
-
 
 # Motivation
 
@@ -129,4 +157,4 @@ We have the following guiding principles:
 
      We choose new operators that do not clash with prelude.
 
-We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for `refined-simple` types.
+We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for `algebra-simple` types.
