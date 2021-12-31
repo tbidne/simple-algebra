@@ -3,5 +3,9 @@ resolver:
 packages:
 - .
 extra-deps:
-- git: https://github.com/tbidne/refined-simple.git
-  commit: ae452e7f9bfcc4ad5416df168d7c7f26bf57061c
+- git: https://github.com/tbidne/refined-extras.git
+  commit: c55a868eefec2837417fa7949a73fff01feb76f5
+flags:
+  refined:
+    aeson: false
+    quickcheck: false

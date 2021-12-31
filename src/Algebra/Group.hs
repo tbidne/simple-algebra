@@ -10,9 +10,8 @@ import Algebra.Additive (Additive (..))
 import Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Typeable (Typeable)
-import Refined (Even, Refined (..))
-import Refined qualified as R
+import Refined (Even, Refined)
+import Refined.Extras qualified as RExtras
 
 -- | Defines a group.
 --
@@ -243,7 +242,7 @@ instance Group a => Group (a, a, a, a, a, a, a, a, a) where
       gabs x9
     )
 
-instance (Integral a, Show a, Typeable a) => Group (Refined '[Even] a) where
-  MkRefined x .-. MkRefined y = R.unsafeRefine $ x - y
-  gabs (MkRefined x) = R.unsafeRefine $ abs x
-  ginv (MkRefined x) = R.unsafeRefine $ - x
+instance Integral a => Group (Refined Even a) where
+  (.-.) = RExtras.unsafeLiftR2 (-)
+  gabs = RExtras.unsafeLiftR abs
+  ginv = RExtras.unsafeLiftR negate

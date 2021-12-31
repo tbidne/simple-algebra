@@ -7,7 +7,10 @@ package algebra-simple
     -Wmissing-home-modules -Wmissing-export-lists -Wpartial-fields
     -Wredundant-constraints
 
+package refined
+  flags: -aeson -quickcheck
+
 source-repository-package
     type: git
-    location: https://github.com/tbidne/refined-simple.git
-    tag: ae452e7f9bfcc4ad5416df168d7c7f26bf57061c
+    location: https://github.com/tbidne/refined-extras.git
+    tag: c55a868eefec2837417fa7949a73fff01feb76f5

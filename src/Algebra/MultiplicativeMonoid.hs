@@ -9,11 +9,10 @@ where
 import Algebra.Multiplicative (Multiplicative (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Refined (NonNegative, NonZero, Odd, Positive, Refined (..))
-import Refined qualified as R
+import Refined (NonNegative, NonZero, Odd, Positive, Refined)
+import Refined.Unsafe qualified as R
 
 -- | Defines a monoid over a \"multiplicative\" semigroup.
 --
@@ -83,17 +82,17 @@ instance Integral a => MultiplicativeMonoid (Ratio a) where
   one = 1
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => MultiplicativeMonoid (Refined '[NonNegative] a) where
+instance (Num a, Ord a) => MultiplicativeMonoid (Refined NonNegative a) where
   one = R.unsafeRefine 1
 
 -- | @since 0.1.0.0
-instance forall a. (Num a, Ord a, Show a, Typeable a) => MultiplicativeMonoid (Refined '[Positive] a) where
+instance forall a. (Num a, Ord a) => MultiplicativeMonoid (Refined Positive a) where
   one = R.unsafeRefine 1
 
 -- | @since 0.1.0.0
-instance forall a. (Num a, Ord a, Show a, Typeable a) => MultiplicativeMonoid (Refined '[NonZero] a) where
+instance forall a. (Num a, Ord a) => MultiplicativeMonoid (Refined NonZero a) where
   one = R.unsafeRefine 1
 
 -- | @since 0.1.0.0
-instance forall a. (Integral a, Show a, Typeable a) => MultiplicativeMonoid (Refined '[Odd] a) where
+instance forall a. (Integral a) => MultiplicativeMonoid (Refined Odd a) where
   one = R.unsafeRefine 1

@@ -9,11 +9,10 @@ where
 import Algebra.Additive (Additive (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Refined (Even, NonNegative, NonPositive, Refined (..))
-import Refined qualified as R
+import Refined (Even, NonNegative, NonPositive, Refined)
+import Refined.Unsafe qualified as R
 
 -- | Defines a monoid over an \"additive\" semigroup.
 --
@@ -115,13 +114,13 @@ instance AdditiveMonoid a => AdditiveMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => AdditiveMonoid (Refined '[NonNegative] a) where
+instance (Num a, Ord a) => AdditiveMonoid (Refined NonNegative a) where
   zero = R.unsafeRefine 0
 
 -- | @since 0.1.0.0
-instance forall a. (Num a, Ord a, Show a, Typeable a) => AdditiveMonoid (Refined '[NonPositive] a) where
+instance forall a. (Num a, Ord a) => AdditiveMonoid (Refined NonPositive a) where
   zero = R.unsafeRefine 0
 
 -- | @since 0.1.0.0
-instance forall a. (Integral a, Show a, Typeable a) => AdditiveMonoid (Refined '[Even] a) where
+instance forall a. (Integral a) => AdditiveMonoid (Refined Even a) where
   zero = R.unsafeRefine 0

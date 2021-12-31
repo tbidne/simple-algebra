@@ -8,7 +8,6 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Refined
@@ -18,9 +17,9 @@ import Refined
     NonPositive,
     NonZero,
     Positive,
-    Refined (..),
+    Refined,
   )
-import Refined qualified as R
+import Refined.Extras qualified as RExtras
 
 -- | Defines an additive semigroup.
 --
@@ -169,45 +168,45 @@ instance Additive a => Additive (a, a, a, a, a, a, a, a, a) where
     )
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Additive (Refined '[NonNegative] a) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance (Num a, Ord a) => Additive (Refined NonNegative a) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Additive (Refined '[Positive] a) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance (Num a, Ord a) => Additive (Refined Positive a) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Additive (Refined '[NonPositive] a) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance (Num a, Ord a) => Additive (Refined NonPositive a) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Additive (Refined '[Negative] a) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance (Num a, Ord a) => Additive (Refined Negative a) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance (Integral a, Show a, Typeable a) => Additive (Refined '[Even] a) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance (Integral a) => Additive (Refined Even a) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance Additive (Refined '[NonZero] Natural) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance Additive (Refined NonZero Natural) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance Additive (Refined '[NonZero] Word) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance Additive (Refined NonZero Word) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance Additive (Refined '[NonZero] Word8) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance Additive (Refined NonZero Word8) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance Additive (Refined '[NonZero] Word16) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance Additive (Refined NonZero Word16) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance Additive (Refined '[NonZero] Word32) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance Additive (Refined NonZero Word32) where
+  (.+.) = RExtras.unsafeLiftR2 (+)
 
 -- | @since 0.1.0.0
-instance Additive (Refined '[NonZero] Word64) where
-  MkRefined x .+. MkRefined y = R.unsafeRefine $ x + y
+instance Additive (Refined NonZero Word64) where
+  (.+.) = RExtras.unsafeLiftR2 (+)

@@ -16,7 +16,8 @@ import Algebra.AdditiveMonoid (AdditiveMonoid (..))
 import Algebra.Ring (Ring)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Refined (Implies, NonZero, Refined (..))
+import Refined (NonZero, Refined)
+import Refined.Extras (Implies, pattern MkRefined)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | Defines a field.
@@ -106,7 +107,7 @@ instance Integral k => Field (Ratio k) where
 -- Nothing
 --
 -- @since 0.1.0.0
-mkFieldNonZero :: Field a => a -> Maybe (Refined '[NonZero] a)
+mkFieldNonZero :: Field a => a -> Maybe (Refined NonZero a)
 mkFieldNonZero x
   | x == zero = Nothing
   | otherwise = Just (unsafeCoerce x)
@@ -121,7 +122,7 @@ mkFieldNonZero x
 -- Passed identity to unsafeFieldNonZero!
 --
 -- @since 0.1.0.0
-unsafeFieldNonZero :: Field a => a -> Refined '[NonZero] a
+unsafeFieldNonZero :: Field a => a -> Refined NonZero a
 unsafeFieldNonZero x
   | x == zero = error "Passed identity to unsafeFieldNonZero!"
   | otherwise = unsafeCoerce x

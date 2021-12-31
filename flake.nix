@@ -2,15 +2,15 @@
   description = "algebra-simple flake";
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.refined-simple-src = {
-    url = "github:tbidne/refined-simple/main";
+  inputs.refined-extras-src = {
+    url = "github:tbidne/refined-extras/main";
     inputs.flake-utils.follows = "flake-utils";
     inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     { flake-utils
     , nixpkgs
-    , refined-simple-src
+    , refined-extras-src
     , self
     }:
     flake-utils.lib.eachSystem [ "x86_64-linux" "x86_64-darwin" ] (system:
@@ -37,8 +37,8 @@
               pkgs.zlib
             ]);
           overrides = final: prev: with pkgs.haskellPackages; {
-            refined-simple =
-              final.callCabal2nix "refined-simple" refined-simple-src { };
+            refined-extras =
+              final.callCabal2nix "refined-extras" refined-extras-src { };
           };
         };
     in

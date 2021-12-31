@@ -8,11 +8,10 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
-import Data.Typeable (Typeable)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Refined (Even, NonNegative, NonZero, Odd, Positive, Refined (..))
-import Refined qualified as R
+import Refined (Even, NonNegative, NonZero, Odd, Positive, Refined)
+import Refined.Extras qualified as RExtras
 
 -- | Defines a multiplicative semigroup.
 --
@@ -84,21 +83,21 @@ instance Integral a => Multiplicative (Ratio a) where
   (.*.) = (*)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Multiplicative (Refined '[Positive] a) where
-  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+instance (Num a, Ord a) => Multiplicative (Refined Positive a) where
+  (.*.) = RExtras.unsafeLiftR2 (*)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Multiplicative (Refined '[NonNegative] a) where
-  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+instance (Num a, Ord a) => Multiplicative (Refined NonNegative a) where
+  (.*.) = RExtras.unsafeLiftR2 (*)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a, Show a, Typeable a) => Multiplicative (Refined '[NonZero] a) where
-  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+instance (Num a, Ord a) => Multiplicative (Refined NonZero a) where
+  (.*.) = RExtras.unsafeLiftR2 (*)
 
 -- | @since 0.1.0.0
-instance (Integral a, Show a, Typeable a) => Multiplicative (Refined '[Even] a) where
-  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+instance Integral a => Multiplicative (Refined Even a) where
+  (.*.) = RExtras.unsafeLiftR2 (*)
 
 -- | @since 0.1.0.0
-instance (Integral a, Show a, Typeable a) => Multiplicative (Refined '[Odd] a) where
-  MkRefined x .*. MkRefined y = R.unsafeRefine $ x * y
+instance Integral a => Multiplicative (Refined Odd a) where
+  (.*.) = RExtras.unsafeLiftR2 (*)
