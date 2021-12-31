@@ -16,28 +16,6 @@
 </a>
 <img alt="GitHub" src="https://img.shields.io/github/license/tbidne/algebra-simple?style=plastic&color=blue">
 
-<table>
-  <thead>
-    <th><code>algebra-simple</code> / GHC</th>
-    <th>9.0.1</th>
-    <th>8.10.7</th>
-  </thead>
-  <tr>
-    <td><code>0.1.0.0</code></td>
-    <td>
-      <a href="https://github.com/tbidne/algebra-simple/actions/workflows/ghc_9-0-1.yaml">
-        <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/9.0.1/main?label=9.0.1&logo=haskell&logoColor=white&style=plastic">
-      </a>
-    </td>
-    <td>
-      <a href="https://github.com/tbidne/algebra-simple/actions/workflows/ghc_8-10-7.yaml">
-        <img alt="GitHub" src="https://img.shields.io/github/workflow/status/tbidne/algebra-simple/8.10.7/main?label=8.10.7&logo=haskell&logoColor=white&style=plastic">
-      </a>
-    </td>
-  </tr>
-</table>
-</div>
-
 # Motivation
 
 The primary interface to numerical operations in Haskell is `Num`. Unfortunately, `Num` has a key limitation: it is "too large". For example, if we want to opt-in to addition, we must also opt-in to subtraction, multiplication, and integer literal conversions. These may not make sense for the type at hand (e.g. naturals), so we are stuck either providing an
