@@ -58,7 +58,7 @@ instance Integral k => Field (Ratio k) where
   x .%. MkRefined d = x / d
 
 -- $nonzero
--- The nonzero types here are based on @refined-simple@'s 'NonZero'.
+-- The nonzero types here are based on @refined@'s 'NonZero'.
 --
 -- N.B. These functions check the /field/ 'zero', not the literal @0@. That
 -- is, __the refinement is not checked__.
@@ -67,7 +67,7 @@ instance Integral k => Field (Ratio k) where
 --
 --     * Non-numeric types can implement 'Field' (consider representing
 --       \(\mathbb{Z}/2\mathbb{Z}\) as @data Z2 = One | Two@).
---     * Numeric types can utilize @refined-simple@'s capabilities (e.g.
+--     * Numeric types can utilize @refined@'s capabilities (e.g.
 --       creating non-zero terms at compile-time via 'Refined.refineTH').
 --
 -- Not to mention, unifying 'Field'\'s notion of 'NonZero' with its
@@ -80,22 +80,22 @@ instance Integral k => Field (Ratio k) where
 -- To sum up:
 --
 --     * With non-numeric types there are no problems. There are no illusions
---       of getting extra value out of @refined-simple@, so just use
+--       of getting extra value out of @refined@, so just use
 --       'mkFieldNonZero' and 'unsafeFieldNonZero' and be on your merry way.
 --
---     * With 'Num' types, there are no problems __as long as @'zero' = 0@__.
+--     * With 'Num' types, there are no problems __as long as @'zero' == 0@__.
 --       In this case, 'zero' and 'Refined' 'NonZero' are unified, so you
---       can happily take advantage of @refined-simple@'s functionality.
+--       can happily take advantage of @refined@'s functionality.
 --
 --     * With 'Num' types that /do/ define @zero /= 0@, the algebraic
 --       consistency is itself fine, but we can no longer assume that
---       @refined-simple@'s 'NonZero' invariant is satisfied. This could
---       enable one to "prove" false theorems in @refined-simple@, e.g.
+--       @refined@'s 'NonZero' invariant is satisfied. This could
+--       enable one to "prove" false theorems in @refined@, e.g.
 --       @NonZero && NonNegative => Positive@.
 --
 -- In short, the only case where you might run into problems is if you
 -- define 'Field' for some 'Num' @a@ with @zero /= 0@, and in that case
--- you just need to be careful about not using @refined-simple@
+-- you just need to be careful about not using @refined@
 -- in an unjustified way.
 
 -- | Smart constructor for 'NonZero', based on its additive monoid instance.

@@ -16,6 +16,8 @@
 </a>
 <img alt="GitHub" src="https://img.shields.io/github/license/tbidne/algebra-simple?style=plastic&color=blue">
 
+</div>
+
 # Motivation
 
 The primary interface to numerical operations in Haskell is `Num`. Unfortunately, `Num` has a key limitation: it is "too large". For example, if we want to opt-in to addition, we must also opt-in to subtraction, multiplication, and integer literal conversions. These may not make sense for the type at hand (e.g. naturals), so we are stuck either providing an
@@ -135,4 +137,4 @@ We have the following guiding principles:
 
      We choose new operators that do not clash with prelude.
 
-We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for `algebra-simple` types.
+We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for [refined](https://hackage.haskell.org/package/refined) types.

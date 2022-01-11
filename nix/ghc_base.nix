@@ -2,7 +2,7 @@
 }:
 
 let
-  pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/5b091d4fbe3b7b7493c3b46fe0842e4b30ea24b3.tar.gz") { };
+  pkgs = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/ff377a78794d412a35245e05428c8f95fef3951f.tar.gz") { };
   compiler = pkgs.haskell.packages."${compilerVersion}";
 in
 pkgs.mkShell {

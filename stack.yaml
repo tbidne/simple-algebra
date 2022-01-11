@@ -4,7 +4,7 @@ packages:
 - .
 extra-deps:
 - git: https://github.com/tbidne/refined-extras.git
-  commit: c55a868eefec2837417fa7949a73fff01feb76f5
+  commit: 31992227bdc3b193c32dfa97a8ca6a4af0c4a45b
 flags:
   refined:
     aeson: false
