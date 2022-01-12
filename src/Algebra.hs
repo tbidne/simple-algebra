@@ -11,10 +11,7 @@ module Algebra
 
     -- * Algebraic Typeclasses
     module Algebra.Additive,
-    module Algebra.AdditiveMonoid,
-    module Algebra.Group,
     module Algebra.Multiplicative,
-    module Algebra.MultiplicativeMonoid,
     module Algebra.Semiring,
     module Algebra.Ring,
     module Algebra.Module,
@@ -27,13 +24,10 @@ module Algebra
 where
 
 import Algebra.Additive
-import Algebra.AdditiveMonoid
 import Algebra.Field
-import Algebra.Group
 import Algebra.Literal
 import Algebra.Module
 import Algebra.Multiplicative
-import Algebra.MultiplicativeMonoid
 import Algebra.Ring
 import Algebra.Semiring
 import Algebra.VectorSpace
@@ -57,36 +51,39 @@ import Algebra.VectorSpace
 -- +------------------------+-------------------------+----------+--------+-----------------------+
 -- | Typeclass              | Description             | New      | 'Num'  | Example               |
 -- +========================+=========================+==========+========+=======================+
--- | 'Additive'             | Types that              | '(.+.)'  | '(+)'  | 'Refined.Negative'    |
+-- | 'ASemigroup'           | Types that              | '(.+.)'  | '(+)'  | 'Refined.Negative'    |
 -- |                        | support "addition".     |          |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'AdditiveMonoid'       | 'Additive's that        | 'zero'   |        | 'Refined.NonPositive' |
+-- | 'AMonoid'              | 'ASemigroup's that      | 'zero'   |        | 'Refined.NonPositive' |
 -- |                        | have an identity.       |          |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Multiplicative'       | Types that support      | '(.*.)'  | '(*)'  | 'Refined.Positive'    |
--- |                        | "multiplication".       |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'MultiplicativeMonoid' | 'Multiplicative's       | 'one'    |        | 'Refined.Positive'    |
--- |                        | that have an identity.  |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Semiring'             | 'AdditiveMonoid' and    |          |        | 'Refined.NonNegative' |
--- |                        | 'MultiplicativeMonoid'. |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Group'                | 'AdditiveMonoid's       | '(.-.)', | '(-)', | 'Refined.Integer'     |
+-- | 'AGroup'               | 'AMonoid's              | '(.-.)', | '(-)', | 'Integer'             |
 -- |                        | that support            | 'ginv',  | 'abs'  |                       |
 -- |                        | "subtraction".          | 'gabs'   |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Ring'                 | 'Group' and             |          |        | 'Refined.Integer'     |
--- |                        | 'MultiplicativeMonoid'. |          |        |                       |
+-- | 'MSemigroup'           | Types that support      | '(.*.)'  | '(*)'  | 'Refined.Positive'    |
+-- |                        | "multiplication".       |          |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Field'                | 'Ring's that support    | '(.%.)'  | 'div', | 'Refined.Integer'     |
--- |                        | "division".             |          | '(/)'  |                       |
+-- | 'MMonoid'              | 'MSemigroup's that      | 'one'    |        | 'Refined.Positive'    |
+-- |                        | have an identity.       |          |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Module'               | 'Group's that supports  | '(.*)',  |        | @(,)@                 |
--- |                        | "scalar                 | '(*.)'   |        |                       |
+-- | 'MGroup'               | 'MMonoid's that         | '(.%.)', | 'div', | 'Float'               |
+-- |                        | support "division"      |          | '(/)'  |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Semiring'             | 'AMonoid' and           |          |        | 'GHC.Natural'         |
+-- |                        | 'MMonoid'.              |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Ring'                 | 'AGroup' and            |          |        | 'Integer'             |
+-- |                        | 'MMonoid'.              |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Field'                | 'Ring' and              |          |        | 'Integer'             |
+-- |                        | 'MGroup'.               |          |        |                       |
+-- +------------------------+-------------------------+----------+--------+-----------------------+
+-- | 'Module'               | 'AGroup's that          | '(.*)',  |        | @(,)@                 |
+-- |                        | supports "scalar        | '(*.)'   |        |                       |
 -- |                        | multiplication".        |          |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'VectorSpace'          | 'Module's that supports | '(.%)',  |        | @(,)@                 |
+-- | 'VectorSpace'          | 'Module's that support  | '(.%)',  |        | @(,)@                 |
 -- |                        | "scalar division".      |          |        |                       |
 -- +------------------------+-------------------------+----------+--------+-----------------------+
 --
@@ -103,9 +100,9 @@ import Algebra.VectorSpace
 --     When there is tension between practicality and theoretical "purity", we
 --     favor the former. To wit:
 --
---     * We provide two semigroup/monoid typeclasses:
---        'Additive'\/'AdditiveMonoid' and
---        'Multiplicative'\/'MultiplicativeMonoid'. Formally this is clunky,
+--     * We provide two semigroup\/monoid\/group hierarchies:
+--        'ASemigroup'\/'AMonoid'\/'AGroup' and
+--        'MSemigroup'\/'MMonoid'\/'MGroup'. Formally this is clunky,
 --        but it allows us to:
 --
 --         * Reuse the same operator for ring multiplication and types that
@@ -114,29 +111,19 @@ import Algebra.VectorSpace
 --         * Provide both addition and multiplication without an explosion of
 --           newtype wrappers.
 --
---     * Leniency vis-à-vis laws
+--     * Leniency vis-à-vis algebraic laws
 --
 --         For instance, integers cannot satisfy the field laws, and floats do
 --         not satisfy anything, as their equality is nonsense. Nevertheless,
 --         we provide instances for them. Working with technically unlawful
 --         numerical instances is extremely common, so we take the stance that
 --         it is better to provide such instances (albeit with known
---         limitations) than to forgo them completely (read: "integer division
---         is useful"). The only instances we disallow are those likely to
+--         limitations) than to forgo them completely (read: integer division
+--         is useful). The only instances we disallow are those likely to
 --         cause runtime errors (e.g. natural subtraction) or break expected
 --         invariants.
 --
---         One may wonder why e.g. we provide bounded integral addition
---         but disallow natural subtraction. The reason is due to practicality.
---         Generally, we do not want instances that can cause runtime
---         exceptions or nonsense via over/underflow. Removing bounded integral
---         addition would make this library near-useless, as these operations
---         are pervasive. By contrast, natural subtraction is less common
---         and -- in the eyes of the author -- more likely to go wrong.
---         Certainly this is debatable, but for now we consider this
---         a reasonable position.
---
---     * Division classes (i.e. 'Field', 'VectorSpace') have their own division
+--     * Division classes (i.e. 'MGroup', 'VectorSpace') have their own division
 --       function that must be implemented. Theoretically this is unnecessary,
 --       as we need only a function @inv :: NonZero a -> NonZero a@ and we
 --       can then define division as @x .%. d = d .*. inv d@. But this will
@@ -144,11 +131,17 @@ import Algebra.VectorSpace
 --       (presumably sensible) '(.%.)', so there is no chance of accidentally
 --       using a nonsensical @inv@.
 --
--- 3. Ergonomics
+-- 3. Safety
+--
+--     Instances that break the type's invariants
+--     (@instance 'Ring' 'GHC.Natural'@,
+--     @instance 'ASemigroup' ('Refined.Refined' 'Refined.Odd' a)@), are
+--     banned. Furthermore, instances that are /highly/ likely to go wrong
+--     (e.g. 'Rational' with bounded integral types) are also forbidden.
+--
+-- 4. Ergonomics
 --
 --      We choose new operators that do not clash with prelude.
 --
--- We provide instances for built-in numeric types where it makes sense.
--- Furthermore, we define several "smart constructor" newtypes in "Algebra.Data"
--- that can be used in conjunction with these typeclasses for providing better
--- APIs.
+-- We provide instances for built-in numeric types where it makes sense, along
+-- with types from the "Refined" library.

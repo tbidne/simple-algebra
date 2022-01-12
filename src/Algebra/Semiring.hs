@@ -6,8 +6,10 @@ module Algebra.Semiring
   )
 where
 
-import Algebra.AdditiveMonoid (AdditiveMonoid (..))
-import Algebra.MultiplicativeMonoid (MultiplicativeMonoid (..))
+import Algebra.Additive.AMonoid (AMonoid (..))
+import Algebra.Additive.ASemigroup (ASemigroup (..))
+import Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
@@ -17,7 +19,7 @@ import Refined (NonNegative, Refined)
 -- | Defines a semiring.
 --
 -- @since 0.1.0.0
-class (AdditiveMonoid r, MultiplicativeMonoid r) => Semiring r
+class (AMonoid r, MMonoid r) => Semiring r
 
 -- | @since 0.1.0.0
 instance Semiring Double
@@ -65,4 +67,4 @@ instance Semiring Word64
 instance Integral a => Semiring (Ratio a)
 
 -- | @since 0.1.0.0
-instance (Num a, Ord a) => Semiring (Refined NonNegative a)
+instance (ASemigroup a, MSemigroup a, Num a, Ord a) => Semiring (Refined NonNegative a)

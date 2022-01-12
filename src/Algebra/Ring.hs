@@ -6,15 +6,15 @@ module Algebra.Ring
   )
 where
 
-import Algebra.Group (Group)
-import Algebra.MultiplicativeMonoid (MultiplicativeMonoid)
+import Algebra.Additive.AGroup (AGroup)
+import Algebra.Multiplicative.MMonoid (MMonoid)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 
 -- | Defines a ring.
 --
 -- @since 0.1.0.0
-class (Group r, MultiplicativeMonoid r) => Ring r
+class (AGroup r, MMonoid r) => Ring r
 
 -- | @since 0.1.0.0
 instance Ring Double
@@ -41,4 +41,19 @@ instance Ring Int64
 instance Ring Integer
 
 -- | @since 0.1.0.0
-instance Integral a => Ring (Ratio a)
+instance Ring (Ratio Int)
+
+-- | @since 0.1.0.0
+instance Ring (Ratio Int8)
+
+-- | @since 0.1.0.0
+instance Ring (Ratio Int16)
+
+-- | @since 0.1.0.0
+instance Ring (Ratio Int32)
+
+-- | @since 0.1.0.0
+instance Ring (Ratio Int64)
+
+-- | @since 0.1.0.0
+instance Ring (Ratio Integer)

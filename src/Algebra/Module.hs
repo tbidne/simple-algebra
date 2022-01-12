@@ -6,14 +6,14 @@ module Algebra.Module
   )
 where
 
-import Algebra.Group (Group)
-import Algebra.Multiplicative (Multiplicative (..))
+import Algebra.Additive.AGroup (AGroup)
+import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Algebra.Ring (Ring)
 
 -- | Defines a module over a ring.
 --
 -- @since 0.1.0.0
-class (Group m, Ring r) => Module m r | m -> r where
+class (AGroup m, Ring r) => Module m r | m -> r where
   -- | @since 0.1.0.0
   (.*) :: m -> r -> m
   (.*) = flip (*.)

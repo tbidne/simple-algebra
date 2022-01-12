@@ -6,10 +6,9 @@ module Algebra.VectorSpace
   )
 where
 
-import Algebra.Field (Field (..))
+import Algebra.Field (Field)
 import Algebra.Module (Module (..))
-import Refined (NonZero, Refined)
-import Refined.Extras (Implies)
+import Algebra.Multiplicative.MGroup (MGroup (..), NZ)
 
 -- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'
@@ -23,7 +22,7 @@ import Refined.Extras (Implies)
 -- @since 0.1.0.0
 class (Field k, Module v k) => VectorSpace v k | v -> k where
   -- | @since 0.1.0.0
-  (.%) :: Implies ps NonZero => v -> Refined ps k -> v
+  (.%) :: v -> NZ k -> v
 
 infixl 7 .%
 
