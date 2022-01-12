@@ -273,7 +273,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
     )
 
 -- | @since 0.1.0.0
-instance (ASemigroup a, Integral a) => AGroup (Refined Even a) where
-  (.-.) = RExtras.unsafeLiftR2 (-)
+instance (AGroup a, Integral a) => AGroup (Refined Even a) where
+  (.-.) = RExtras.unsafeLiftR2 (.-.)
   gabs = RExtras.unsafeLiftR abs
   ginv = RExtras.unsafeLiftR negate

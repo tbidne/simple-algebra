@@ -8,7 +8,7 @@ module Algebra.Multiplicative.MGroup
     MGroup (..),
 
     -- * NonZero
-    NonZero,
+    NonZero (MkNonZero, unNonZero),
     mkAMonoidNonZero,
     mkAMonoidNonZeroTH,
     unsafeAMonoidNonZero,
@@ -33,6 +33,9 @@ import Refined qualified as R
 import Refined.Extras (Implies, pattern MkRefined)
 import Refined.Unsafe qualified as RUnsafe
 import Unsafe.Coerce (unsafeCoerce)
+
+-- $setup
+-- >>> :set -XTemplateHaskell
 
 -- | Defines a multiplicative group.
 --
@@ -152,7 +155,7 @@ instance (AMonoid a, Integral a, MGroup a) => MGroup (Refined Odd a) where
 -- 'AMonoid' 'zero'.
 --
 -- @since 0.1.0.0
-newtype NonZero a = MkNonZero
+newtype NonZero a = UnsafeNonZero
   { -- | @since 0.1.0.0
     unNonZero :: a
   }
@@ -167,7 +170,23 @@ newtype NonZero a = MkNonZero
       Show
     )
 
+-- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
+-- match on a nonzero term without exposing the unsafe internal details.
+--
+-- @since 0.1.0.0
+pattern MkNonZero :: a -> NonZero a
+pattern MkNonZero x <- UnsafeNonZero x
+
+{-# COMPLETE MkNonZero #-}
+
 -- | Smart constructor for 'NonZero', based on its additive monoid instance.
+--
+-- ==== __Examples__
+-- >>> mkAMonoidNonZero 7
+-- Just (UnsafeNonZero {unNonZero = 7})
+--
+-- >>> mkAMonoidNonZero 0
+-- Nothing
 --
 -- @since 0.1.0.0
 mkAMonoidNonZero :: AMonoid g => g -> Maybe (NonZero g)
@@ -178,6 +197,10 @@ mkAMonoidNonZero x
 -- | Template-haskell version of 'mkAMonoidNonZero' for creating 'NonZero'
 -- at compile-time.
 --
+-- ==== __Examples__
+-- >>> $$(mkAMonoidNonZeroTH 7)
+-- UnsafeNonZero {unNonZero = 7}
+--
 -- @since 0.1.0.0
 mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Q (TExp (NonZero g))
 mkAMonoidNonZeroTH x
@@ -187,6 +210,10 @@ mkAMonoidNonZeroTH x
 -- | Unsafe constructor for 'NonZero', based on its additive monoid instance.
 -- Intended to be used with known constants. Exercise restraint!
 --
+-- ==== __Examples__
+-- >>> unsafeAMonoidNonZero 7
+-- UnsafeNonZero {unNonZero = 7}
+--
 -- @since 0.1.0.0
 unsafeAMonoidNonZero :: AMonoid g => g -> NonZero g
 unsafeAMonoidNonZero x
@@ -195,6 +222,13 @@ unsafeAMonoidNonZero x
 
 -- | Smart constructor for 'Refined' 'R.NonZero', based on its additive
 -- monoid instance. Checks 'zero' /and/ the refinement.
+--
+-- ==== __Examples__
+-- >>> refineAMonoidNonZero 7
+-- Just (Refined 7)
+--
+-- >>> refineAMonoidNonZero 0
+-- Nothing
 --
 -- @since 0.1.0.0
 refineAMonoidNonZero :: (AMonoid g, Num g) => g -> Maybe (Refined R.NonZero g)
@@ -207,6 +241,10 @@ refineAMonoidNonZero x
 -- | Template-haskell version of 'refineAMonoidNonZero' for creating 'Refined'
 -- 'R.NonZero' at compile-time. Checks 'zero' /and/ the refinement.
 --
+-- ==== __Examples__
+-- >>> $$(refineAMonoidNonZeroTH 7)
+-- Refined 7
+--
 -- @since 0.1.0.0
 refineAMonoidNonZeroTH :: (AMonoid g, Lift g, Num g) => g -> Q (TExp (Refined R.NonZero g))
 refineAMonoidNonZeroTH x
@@ -216,6 +254,10 @@ refineAMonoidNonZeroTH x
 -- | Unsafe constructor for 'Refined' 'R.NonZero', based on its additive
 -- monoid instance. Checks 'zero' /and/ the refinement. Intended to be used
 -- with known constants. Exercise restraint!
+--
+-- ==== __Examples__
+-- >>> unsafeRefineAMonoidNonZero 7
+-- Refined 7
 --
 -- @since 0.1.0.0
 unsafeRefineAMonoidNonZero :: (AMonoid g, Num g) => g -> Refined R.NonZero g

@@ -1,6 +1,7 @@
 packages: .
 
 package algebra-simple
+  tests: true
   ghc-options:
     -Wall -Wcompat -Werror -Widentities
     -Wincomplete-record-updates -Wincomplete-uni-patterns
