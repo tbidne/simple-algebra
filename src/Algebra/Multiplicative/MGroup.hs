@@ -127,8 +127,13 @@ instance MGroup Word64 where
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance Integral a => MGroup (Ratio a) where
-  type NZ (Ratio a) = NonZero (Ratio a)
+instance MGroup (Ratio Integer) where
+  type NZ (Ratio Integer) = NonZero (Ratio Integer)
+  x .%. d = x .*. flipNonZero d
+
+-- | @since 0.1.0.0
+instance MGroup (Ratio Natural) where
+  type NZ (Ratio Natural) = NonZero (Ratio Natural)
   x .%. d = x .*. flipNonZero d
 
 -- | @since 0.1.0.0

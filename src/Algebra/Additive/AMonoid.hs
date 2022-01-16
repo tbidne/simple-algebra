@@ -77,7 +77,10 @@ instance AMonoid Word32 where
 instance AMonoid Word64 where
   zero = 0
 
-instance Integral a => AMonoid (Ratio a) where
+instance AMonoid (Ratio Integer) where
+  zero = 0
+
+instance AMonoid (Ratio Natural) where
   zero = 0
 
 -- | @since 0.1.0.0

@@ -32,14 +32,4 @@ instance Field Int64
 
 instance Field Integer
 
-instance Field (Ratio Int)
-
-instance Field (Ratio Int8)
-
-instance Field (Ratio Int16)
-
-instance Field (Ratio Int32)
-
-instance Field (Ratio Int64)
-
 instance Field (Ratio Integer)

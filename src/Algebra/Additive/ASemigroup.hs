@@ -86,8 +86,12 @@ instance ASemigroup Word32 where
 instance ASemigroup Word64 where
   (.+.) = (+)
 
+-- | @since 0.1.0.0
+instance ASemigroup (Ratio Integer) where
+  (.+.) = (+)
 
-instance Integral a => ASemigroup (Ratio a) where
+-- | @since 0.1.0.0
+instance ASemigroup (Ratio Natural) where
   (.+.) = (+)
 
 -- | @since 0.1.0.0

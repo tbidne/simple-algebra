@@ -79,7 +79,11 @@ instance MSemigroup Word64 where
   (.*.) = (*)
 
 -- | @since 0.1.0.0
-instance Integral a => MSemigroup (Ratio a) where
+instance MSemigroup (Ratio Integer) where
+  (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (Ratio Natural) where
   (.*.) = (*)
 
 -- | @since 0.1.0.0

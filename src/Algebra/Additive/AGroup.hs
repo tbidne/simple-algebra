@@ -9,7 +9,7 @@ where
 import Algebra.Additive.AMonoid (AMonoid (..))
 import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
-import Data.Ratio (Ratio)
+import GHC.Real (Ratio (..))
 import Refined (Even, Refined)
 import Refined.Extras qualified as RExtras
 
@@ -80,41 +80,14 @@ instance AGroup Integer where
   ginv x = - x
   gabs = abs
 
--- | @since 0.1.0.0
-instance AGroup (Ratio Int) where
-  (.-.) = (-)
-  ginv = negate
-  gabs = abs
-
--- | @since 0.1.0.0
-instance AGroup (Ratio Int8) where
-  (.-.) = (-)
-  ginv = negate
-  gabs = abs
-
--- | @since 0.1.0.0
-instance AGroup (Ratio Int16) where
-  (.-.) = (-)
-  ginv = negate
-  gabs = abs
-
--- | @since 0.1.0.0
-instance AGroup (Ratio Int32) where
-  (.-.) = (-)
-  ginv = negate
-  gabs = abs
-
--- | @since 0.1.0.0
-instance AGroup (Ratio Int64) where
-  (.-.) = (-)
-  ginv = negate
-  gabs = abs
-
--- | @since 0.1.0.0
+-- | NB. Differs from 'Ratio'\'s 'abs' in that we also apply 'abs' to the
+-- denominator.
+--
+-- @since 0.1.0.0
 instance AGroup (Ratio Integer) where
   (.-.) = (-)
   ginv = negate
-  gabs = abs
+  gabs (n :% d) = abs n :% abs d
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a) where
@@ -273,7 +246,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
     )
 
 -- | @since 0.1.0.0
-instance (AGroup a, Integral a) => AGroup (Refined Even a) where
-  (.-.) = RExtras.unsafeLiftR2 (.-.)
+instance (ASemigroup a, Integral a) => AGroup (Refined Even a) where
+  (.-.) = RExtras.unsafeLiftR2 (-)
   gabs = RExtras.unsafeLiftR abs
   ginv = RExtras.unsafeLiftR negate

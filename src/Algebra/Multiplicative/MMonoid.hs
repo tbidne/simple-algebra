@@ -78,7 +78,11 @@ instance MMonoid Word64 where
   one = 1
 
 -- | @since 0.1.0.0
-instance Integral a => MMonoid (Ratio a) where
+instance MMonoid (Ratio Integer) where
+  one = 1
+
+-- | @since 0.1.0.0
+instance MMonoid (Ratio Natural) where
   one = 1
 
 -- | @since 0.1.0.0

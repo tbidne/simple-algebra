@@ -30,13 +30,22 @@ common common-exts
   default-extensions:
     DataKinds
     DeriveLift
+    DerivingStrategies
+    DerivingVia
     FlexibleContexts
     FlexibleInstances
     FunctionalDependencies
+    GADTs
+    GeneralizedNewtypeDeriving
     ImportQualifiedPost
+    LambdaCase
     MultiParamTypeClasses
+    NegativeLiterals
+    NumericUnderscores
     PatternSynonyms
+    RankNTypes
     ScopedTypeVariables
+    StandaloneDeriving
     StandaloneKindSignatures
     TypeApplications
     TypeFamilies
@@ -80,4 +89,33 @@ test-suite doctest
     , doctest         >=0.16.3 && <0.21
 
   hs-source-dirs:   test/doctest
+  default-language: Haskell2010
+
+test-suite props
+  import:           common-exts
+  type:             exitcode-stdio-1.0
+  main-is:          Main.hs
+  other-modules:
+    Equality
+    Gens
+    MaxRuns
+    Test.Additive.AGroup
+    Test.Additive.AMonoid
+    Test.Additive.ASemigroup
+    Test.Multiplicative.MGroup
+    Test.Multiplicative.MMonoid
+    Test.Multiplicative.MSemigroup
+    Utils
+
+  build-depends:
+    , algebra-simple
+    , base
+    , hedgehog        ^>=1.0.2
+    , refined
+    , refined-extras
+    , tagged          ^>=0.8.6
+    , tasty           >=1.1.0.3 && <1.5
+    , tasty-hedgehog  >=1.0.0.2 && <1.2
+
+  hs-source-dirs:   test/props
   default-language: Haskell2010

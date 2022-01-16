@@ -41,19 +41,4 @@ instance Ring Int64
 instance Ring Integer
 
 -- | @since 0.1.0.0
-instance Ring (Ratio Int)
-
--- | @since 0.1.0.0
-instance Ring (Ratio Int8)
-
--- | @since 0.1.0.0
-instance Ring (Ratio Int16)
-
--- | @since 0.1.0.0
-instance Ring (Ratio Int32)
-
--- | @since 0.1.0.0
-instance Ring (Ratio Int64)
-
--- | @since 0.1.0.0
 instance Ring (Ratio Integer)

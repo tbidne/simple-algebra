@@ -64,7 +64,10 @@ instance Semiring Word32
 instance Semiring Word64
 
 -- | @since 0.1.0.0
-instance Integral a => Semiring (Ratio a)
+instance Semiring (Ratio Integer)
+
+-- | @since 0.1.0.0
+instance Semiring (Ratio Natural)
 
 -- | @since 0.1.0.0
 instance (ASemigroup a, MSemigroup a, Num a, Ord a) => Semiring (Refined NonNegative a)
