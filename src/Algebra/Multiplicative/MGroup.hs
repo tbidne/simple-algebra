@@ -197,7 +197,7 @@ pattern MkNonZero x <- UnsafeNonZero x
 mkAMonoidNonZero :: AMonoid g => g -> Maybe (NonZero g)
 mkAMonoidNonZero x
   | x == zero = Nothing
-  | otherwise = Just (unsafeCoerce x)
+  | otherwise = Just (UnsafeNonZero x)
 
 -- | Template-haskell version of 'mkAMonoidNonZero' for creating 'NonZero'
 -- at compile-time.
@@ -210,7 +210,7 @@ mkAMonoidNonZero x
 mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Q (TExp (NonZero g))
 mkAMonoidNonZeroTH x
   | x == zero = error "Passed identity to mkAMonoidNonZero"
-  | otherwise = liftTyped (unsafeCoerce x)
+  | otherwise = liftTyped (UnsafeNonZero x)
 
 -- | Unsafe constructor for 'NonZero', based on its additive monoid instance.
 -- Intended to be used with known constants. Exercise restraint!
@@ -223,7 +223,7 @@ mkAMonoidNonZeroTH x
 unsafeAMonoidNonZero :: AMonoid g => g -> NonZero g
 unsafeAMonoidNonZero x
   | x == zero = error "Passed identity to unsafeAMonoidNonZero"
-  | otherwise = unsafeCoerce x
+  | otherwise = UnsafeNonZero x
 
 -- | Smart constructor for 'Refined' 'R.NonZero', based on its additive
 -- monoid instance. Checks 'zero' /and/ the refinement.
