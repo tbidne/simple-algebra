@@ -29,3 +29,6 @@ jobs:
 
       - name: DocTest
         run: RUN_DOCTEST=true stack test doctest
+
+      - name: Property Tests
+        run: MAX_RUNS=100000 stack test props
