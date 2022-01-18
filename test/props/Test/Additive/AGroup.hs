@@ -3,6 +3,7 @@ module Test.Additive.AGroup (props) where
 import Algebra.Additive.AGroup (AGroup (..))
 import Algebra.Additive.AMonoid (AMonoid (..))
 import Algebra.Additive.ASemigroup (ASemigroup (..))
+import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
@@ -12,7 +13,6 @@ import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
 import Utils ((<=>))
 import Utils qualified
-import Equality (Equality (..))
 
 props :: TestTree
 props =

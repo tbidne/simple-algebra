@@ -1,12 +1,12 @@
 module Test.Multiplicative.MSemigroup (props) where
 
 import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen)
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Utils qualified
-import Equality (Equality (..))
 
 props :: TestTree
 props =

@@ -2,6 +2,7 @@ module Test.Multiplicative.MGroup (props) where
 
 import Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
 import Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
@@ -9,7 +10,6 @@ import MaxRuns (MaxRuns (MkMaxRuns))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
-import Equality (Equality (..))
 
 props :: TestTree
 props =
@@ -39,7 +39,6 @@ divProps =
       word64Div,
       rationalDiv
     ]
-
 
 floatDiv :: TestTree
 floatDiv = mgroupDivEq (/) Gens.float Gens.floatNonZero (MkEqEpsilon 1.0) "Float"

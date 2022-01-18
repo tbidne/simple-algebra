@@ -14,13 +14,13 @@ module Utils
   )
 where
 
+import Equality (Equality)
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
-import Equality (Equality)
 
 binaryEq ::
   Show a =>

@@ -8,15 +8,15 @@ import Data.Proxy (Proxy (..))
 import MaxRuns (MaxRuns (..))
 import System.Environment qualified as Env
 import System.Exit qualified as SysEx
-import Test.Tasty qualified as Tasty
-import Test.Tasty.Options (OptionDescription (..))
-import Text.Read qualified as TR
-import Test.Additive.ASemigroup qualified
 import Test.Additive.AGroup qualified
 import Test.Additive.AMonoid qualified
+import Test.Additive.ASemigroup qualified
 import Test.Multiplicative.MGroup qualified
 import Test.Multiplicative.MMonoid qualified
 import Test.Multiplicative.MSemigroup qualified
+import Test.Tasty qualified as Tasty
+import Test.Tasty.Options (OptionDescription (..))
+import Text.Read qualified as TR
 
 -- | Runs property tests. The environment variable @MAX_RUNS@ controls
 -- how many test runs we do (default 100).
