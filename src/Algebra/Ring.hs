@@ -10,6 +10,7 @@ import Algebra.Additive.AGroup (AGroup)
 import Algebra.Multiplicative.MMonoid (MMonoid)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
+import Data.Word (Word16, Word32, Word64, Word8)
 
 -- | Defines a ring.
 --
@@ -39,6 +40,21 @@ instance Ring Int64
 
 -- | @since 0.1.0.0
 instance Ring Integer
+
+-- | @since 0.1.0.0
+instance Ring Word
+
+-- | @since 0.1.0.0
+instance Ring Word8
+
+-- | @since 0.1.0.0
+instance Ring Word16
+
+-- | @since 0.1.0.0
+instance Ring Word32
+
+-- | @since 0.1.0.0
+instance Ring Word64
 
 -- | @since 0.1.0.0
 instance Ring (Ratio Integer)

@@ -4,7 +4,7 @@ import Algebra.Additive.AGroup (AGroup (..))
 import Algebra.Additive.AMonoid (AMonoid (..))
 import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Gens qualified
-import Hedgehog (Gen, (/==), (===))
+import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
 import Test.Tasty (TestName, TestTree)
@@ -36,6 +36,11 @@ subProps =
       int32Sub,
       int64Sub,
       integerSub,
+      wordSub,
+      word8Sub,
+      word16Sub,
+      word32Sub,
+      word64Sub,
       ratioIntegerSub
     ]
 
@@ -63,6 +68,21 @@ int64Sub = agroupSubEq Gens.int64 MkEqExact "Int64"
 integerSub :: TestTree
 integerSub = agroupSubEq Gens.integer MkEqExact "Integer"
 
+wordSub :: TestTree
+wordSub = agroupSubEq Gens.word MkEqExact "Word"
+
+word8Sub :: TestTree
+word8Sub = agroupSubEq Gens.word8 MkEqExact "Word8"
+
+word16Sub :: TestTree
+word16Sub = agroupSubEq Gens.word16 MkEqExact "Word16"
+
+word32Sub :: TestTree
+word32Sub = agroupSubEq Gens.word32 MkEqExact "Word32"
+
+word64Sub :: TestTree
+word64Sub = agroupSubEq Gens.word64 MkEqExact "Word64"
+
 ratioIntegerSub :: TestTree
 ratioIntegerSub = agroupSubEq Gens.rational MkEqExact "Rational"
 
@@ -76,6 +96,11 @@ subIdentProps =
       int32SubIdent,
       int64SubIdent,
       integerSubIdent,
+      wordSubIdent,
+      word8SubIdent,
+      word16SubIdent,
+      word32SubIdent,
+      word64SubIdent,
       rationalSubIdent
     ]
 
@@ -97,6 +122,21 @@ int64SubIdent = agroupSubIdent Gens.int64 "Int64"
 integerSubIdent :: TestTree
 integerSubIdent = agroupSubIdent Gens.integer "Integer"
 
+wordSubIdent :: TestTree
+wordSubIdent = agroupSubIdent Gens.word "Word"
+
+word8SubIdent :: TestTree
+word8SubIdent = agroupSubIdent Gens.word8 "Word8"
+
+word16SubIdent :: TestTree
+word16SubIdent = agroupSubIdent Gens.word16 "Word16"
+
+word32SubIdent :: TestTree
+word32SubIdent = agroupSubIdent Gens.word32 "Word32"
+
+word64SubIdent :: TestTree
+word64SubIdent = agroupSubIdent Gens.word64 "Word64"
+
 rationalSubIdent :: TestTree
 rationalSubIdent = agroupSubIdent Gens.rational "Rational"
 
@@ -110,6 +150,11 @@ invProps =
       int32Inv,
       int64Inv,
       integerInv,
+      wordInv,
+      word8Inv,
+      word16Inv,
+      word32Inv,
+      word64Inv,
       rationalInv
     ]
 
@@ -130,6 +175,21 @@ int64Inv = agroupInv Gens.int64 MkEqExact "Int64"
 
 integerInv :: TestTree
 integerInv = agroupInv Gens.integer MkEqExact "Integer"
+
+wordInv :: TestTree
+wordInv = agroupInv Gens.word MkEqExact "Word"
+
+word8Inv :: TestTree
+word8Inv = agroupInv Gens.word8 MkEqExact "Word8"
+
+word16Inv :: TestTree
+word16Inv = agroupInv Gens.word16 MkEqExact "Word16"
+
+word32Inv :: TestTree
+word32Inv = agroupInv Gens.word32 MkEqExact "Word32"
+
+word64Inv :: TestTree
+word64Inv = agroupInv Gens.word64 MkEqExact "Word64"
 
 rationalInv :: TestTree
 rationalInv = agroupInv Gens.rational MkEqRatio "Rational"
@@ -164,10 +224,6 @@ agroupInv gen equalityCons desc = T.askOption $ \(MkMaxRuns limit) ->
         let x' = ginv x
         equalityCons zero === equalityCons (x .+. x')
         equalityCons zero === equalityCons (x' .+. x)
-
-        if equalityCons x /= equalityCons zero
-          then equalityCons (ginv x) /== equalityCons x
-          else pure ()
 
 agroupAbs :: (AGroup a, Ord a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
 agroupAbs gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->

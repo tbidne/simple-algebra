@@ -31,6 +31,12 @@ divProps =
       int32Div,
       int64Div,
       integerDiv,
+      naturalDiv,
+      wordDiv,
+      word8Div,
+      word16Div,
+      word32Div,
+      word64Div,
       rationalDiv
     ]
 
@@ -59,6 +65,24 @@ int64Div = mgroupDivEq div Gens.int64 Gens.int64NonZero MkEqExact "Int64"
 integerDiv :: TestTree
 integerDiv = mgroupDivEq div Gens.integer Gens.integerNonZero MkEqExact "Integer"
 
+naturalDiv :: TestTree
+naturalDiv = mgroupDivEq div Gens.natural Gens.naturalNonZero MkEqExact "Natural"
+
+wordDiv :: TestTree
+wordDiv = mgroupDivEq div Gens.word Gens.wordNonZero MkEqExact "Word"
+
+word8Div :: TestTree
+word8Div = mgroupDivEq div Gens.word8 Gens.word8NonZero MkEqExact "Word8"
+
+word16Div :: TestTree
+word16Div = mgroupDivEq div Gens.word16 Gens.word16NonZero MkEqExact "Word16"
+
+word32Div :: TestTree
+word32Div = mgroupDivEq div Gens.word32 Gens.word32NonZero MkEqExact "Word32"
+
+word64Div :: TestTree
+word64Div = mgroupDivEq div Gens.word64 Gens.word64NonZero MkEqExact "Word64"
+
 rationalDiv :: TestTree
 rationalDiv = mgroupDivEq (/) Gens.rational Gens.rationalNonZero MkEqRatio "Rational"
 
@@ -72,6 +96,12 @@ divIdentProps =
       int32DivIdent,
       int64DivIdent,
       integerDivIdent,
+      naturalDivIdent,
+      wordDivIdent,
+      word8DivIdent,
+      word16DivIdent,
+      word32DivIdent,
+      word64DivIdent,
       rationalDivIdent
     ]
 
@@ -92,6 +122,24 @@ int64DivIdent = agroupDivIdent Gens.int64NonZero MkEqExact "Int64"
 
 integerDivIdent :: TestTree
 integerDivIdent = agroupDivIdent Gens.integerNonZero MkEqExact "Integer"
+
+naturalDivIdent :: TestTree
+naturalDivIdent = agroupDivIdent Gens.naturalNonZero MkEqExact "Natural"
+
+wordDivIdent :: TestTree
+wordDivIdent = agroupDivIdent Gens.wordNonZero MkEqExact "Word"
+
+word8DivIdent :: TestTree
+word8DivIdent = agroupDivIdent Gens.word8NonZero MkEqExact "Word8"
+
+word16DivIdent :: TestTree
+word16DivIdent = agroupDivIdent Gens.word16NonZero MkEqExact "Word16"
+
+word32DivIdent :: TestTree
+word32DivIdent = agroupDivIdent Gens.word32NonZero MkEqExact "Word32"
+
+word64DivIdent :: TestTree
+word64DivIdent = agroupDivIdent Gens.word64NonZero MkEqExact "Word64"
 
 rationalDivIdent :: TestTree
 rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational"

@@ -9,6 +9,7 @@ where
 import Algebra.Additive.AMonoid (AMonoid (..))
 import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Real (Ratio (..))
 import Refined (Even, Refined)
 import Refined.Extras qualified as RExtras
@@ -76,6 +77,36 @@ instance AGroup Int64 where
 
 -- | @since 0.1.0.0
 instance AGroup Integer where
+  (.-.) = (-)
+  ginv x = - x
+  gabs = abs
+
+-- | @since 0.1.0.0
+instance AGroup Word where
+  (.-.) = (-)
+  ginv x = - x
+  gabs = abs
+
+-- | @since 0.1.0.0
+instance AGroup Word8 where
+  (.-.) = (-)
+  ginv x = - x
+  gabs = abs
+
+-- | @since 0.1.0.0
+instance AGroup Word16 where
+  (.-.) = (-)
+  ginv x = - x
+  gabs = abs
+
+-- | @since 0.1.0.0
+instance AGroup Word32 where
+  (.-.) = (-)
+  ginv x = - x
+  gabs = abs
+
+-- | @since 0.1.0.0
+instance AGroup Word64 where
   (.-.) = (-)
   ginv x = - x
   gabs = abs

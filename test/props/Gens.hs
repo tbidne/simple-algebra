@@ -22,12 +22,13 @@ module Gens
     -- * NonZero
 
     -- ** Combinators
-    nzBounds,
     nzBounded,
+    nzBounds,
     nzFloatingBounds,
     nonzeroBounded,
-    nonzeroFloatingBounds,
     nonzeroBounds,
+    nonzeroFloatingBounds,
+    posBounded,
 
     -- ** Specializations
     floatNonZero,
@@ -39,6 +40,11 @@ module Gens
     int64NonZero,
     integerNonZero,
     naturalNonZero,
+    wordNonZero,
+    word8NonZero,
+    word16NonZero,
+    word32NonZero,
+    word64NonZero,
     rationalNonZero,
   )
 where
@@ -82,6 +88,56 @@ instance TestBounds Integer where
 instance TestBounds Natural where
   minVal = 0
   maxVal = floor @Double 2e40
+
+-- | @since 0.1.0.0
+instance TestBounds Int where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Int8 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Int16 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Int32 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Int64 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Word where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Word8 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Word16 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Word32 where
+  minVal = minBound
+  maxVal = maxBound
+
+-- | @since 0.1.0.0
+instance TestBounds Word64 where
+  minVal = minBound
+  maxVal = maxBound
 
 float :: MonadGen m => m Float
 float = HG.float $ HR.exponentialFloatFrom minVal 0 maxVal
@@ -146,17 +202,32 @@ int64NonZero = nonzeroBounded HG.int64
 word :: MonadGen m => m Word
 word = bounded HG.word
 
+wordNonZero :: MonadGen m => m (NonZero Word)
+wordNonZero = posBounded HG.word
+
 word8 :: MonadGen m => m Word8
 word8 = bounded HG.word8
+
+word8NonZero :: MonadGen m => m (NonZero Word8)
+word8NonZero = posBounded HG.word8
 
 word16 :: MonadGen m => m Word16
 word16 = bounded HG.word16
 
+word16NonZero :: MonadGen m => m (NonZero Word16)
+word16NonZero = posBounded HG.word16
+
 word32 :: MonadGen m => m Word32
 word32 = bounded HG.word32
 
+word32NonZero :: MonadGen m => m (NonZero Word32)
+word32NonZero = posBounded HG.word32
+
 word64 :: MonadGen m => m Word64
 word64 = bounded HG.word64
+
+word64NonZero :: MonadGen m => m (NonZero Word64)
+word64NonZero = posBounded HG.word64
 
 rational :: (GenBase m ~ Identity, MonadGen m) => m (Ratio Integer)
 rational = ratioNumDenom integer pos
@@ -172,25 +243,19 @@ ratioNumDenom :: (Eq a, GenBase m ~ Identity, MonadGen m, Num a) => m a -> m a -
 ratioNumDenom genNum genDenom = do
   n <- genNum
   d <- HG.filter (/= 0) genDenom
-  -- unfortunately ratio isn't too well-behaved when we have 0 :% d for some
-  -- non-one d. For instance, 0 :% 1 /= 0 :% 2
   pure (n :% d)
-
---if n == 0
--- then pure $ n :% 1
--- else pure (n :% d)
 
 bounded :: (Bounded a, Integral a) => (Range a -> m a) -> m a
 bounded gen = gen $ HR.exponentialFrom minBound 0 maxBound
 
 nonzeroBounded ::
-  (AMonoid a, Bounded a, Integral a, MonadGen m) =>
+  (AMonoid a, Integral a, MonadGen m, TestBounds a) =>
   (Range a -> m a) ->
   m (NonZero a)
 nonzeroBounded = fmap MGroup.unsafeAMonoidNonZero . nzBounded
 
-nzBounded :: (Bounded a, Integral a, MonadGen m) => (Range a -> m a) -> m a
-nzBounded gen = nzBounds gen minBound maxBound
+nzBounded :: (Integral a, MonadGen m, TestBounds a) => (Range a -> m a) -> m a
+nzBounded gen = nzBounds gen minVal maxVal
 
 nonzeroBounds ::
   (AMonoid a, Integral a, MonadGen m) =>
@@ -223,3 +288,6 @@ nzFloatingBounds gen lower upper =
     [ gen (HR.exponentialFloat lower -1),
       gen (HR.exponentialFloat 1 upper)
     ]
+
+posBounded :: (AMonoid g, Integral a, MonadGen m, TestBounds a) => (Range a -> m g) -> m (NonZero g)
+posBounded gen = fmap MGroup.unsafeAMonoidNonZero <$> gen $ HR.exponential 1 maxVal
