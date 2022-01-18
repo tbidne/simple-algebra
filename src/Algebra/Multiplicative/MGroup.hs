@@ -28,7 +28,7 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
 import Language.Haskell.TH.Syntax (Lift (..), Q, TExp)
-import Refined (NonNegative, Odd, Positive, Refined, type (&&))
+import Refined (NonNegative, Refined, type (&&))
 import Refined qualified as R
 import Refined.Extras (Implies, pattern MkRefined)
 import Refined.Unsafe qualified as RUnsafe
@@ -139,21 +139,6 @@ instance MGroup (Ratio Natural) where
 -- | @since 0.1.0.0
 instance (AMonoid a, MGroup a, Num a, Ord a) => MGroup (Refined NonNegative a) where
   type NZ (Refined NonNegative a) = Refined (NonNegative && R.NonZero) a
-  MkRefined x .%. d = RUnsafe.unsafeRefine $ x .%. unsafeRefineToNZ d
-
--- | @since 0.1.0.0
-instance (AMonoid a, MGroup a, Num a, Ord a) => MGroup (Refined Positive a) where
-  type NZ (Refined Positive a) = Refined (Positive && R.NonZero) a
-  MkRefined x .%. d = RUnsafe.unsafeRefine $ x .%. unsafeRefineToNZ d
-
--- | @since 0.1.0.0
-instance (AMonoid a, MGroup a, Num a) => MGroup (Refined R.NonZero a) where
-  type NZ (Refined R.NonZero a) = Refined R.NonZero a
-  MkRefined x .%. d = RUnsafe.unsafeRefine $ x .%. unsafeRefineToNZ d
-
--- | @since 0.1.0.0
-instance (AMonoid a, Integral a, MGroup a) => MGroup (Refined Odd a) where
-  type NZ (Refined Odd a) = Refined (Odd && R.NonZero) a
   MkRefined x .%. d = RUnsafe.unsafeRefine $ x .%. unsafeRefineToNZ d
 
 -- | Smart-constructor for creating a 'non-zero' @a@, where zero is the

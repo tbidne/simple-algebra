@@ -1,12 +1,16 @@
 module Test.Multiplicative.MGroup (props) where
 
 import Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
+import Algebra.Multiplicative.MGroup qualified as MGroup
 import Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
-import MaxRuns (MaxRuns (MkMaxRuns))
+import MaxRuns (MaxRuns (..))
+import Refined (Refined)
+import Refined qualified as R
+import Refined.Extras.Utils (pattern MkRefined)
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
@@ -16,6 +20,7 @@ props =
   T.testGroup
     "Multiplicative Group"
     [ divProps,
+      refinedDivProps,
       divIdentProps
     ]
 
@@ -85,6 +90,19 @@ word64Div = mgroupDivEq div Gens.word64 Gens.word64NonZero MkEqExact "Word64"
 rationalDiv :: TestTree
 rationalDiv = mgroupDivEq (/) Gens.rational Gens.rationalNonZero MkEqRatio "Rational"
 
+refinedDivProps :: TestTree
+refinedDivProps =
+  T.testGroup
+    "Refined (.%.) === base (.%.) and preserves refinement"
+    [ refinedNonNegativeDiv
+    ]
+
+refinedNonNegativeDiv :: TestTree
+refinedNonNegativeDiv = mgroupRefinedDivEq refToBaseNZ Gens.refinedNonNegative gen "Refined NonNegative"
+  where
+    refToBaseNZ = MGroup.unsafeAMonoidNonZero . R.unrefine
+    gen = Gens.refinedAddNZ Gens.refinedNonNegative
+
 divIdentProps :: TestTree
 divIdentProps =
   T.testGroup
@@ -101,7 +119,8 @@ divIdentProps =
       word16DivIdent,
       word32DivIdent,
       word64DivIdent,
-      rationalDivIdent
+      rationalDivIdent,
+      refinedNonNegativeDivIdent
     ]
 
 intDivIdent :: TestTree
@@ -143,6 +162,11 @@ word64DivIdent = agroupDivIdent Gens.word64NonZero MkEqExact "Word64"
 rationalDivIdent :: TestTree
 rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational"
 
+refinedNonNegativeDivIdent :: TestTree
+refinedNonNegativeDivIdent = agroupRefinedDivIdent R.andLeft gen "Refined NonNegative"
+  where
+    gen = Gens.refinedAddNZ Gens.refinedNonNegative
+
 mgroupDivEq ::
   (MGroup a, NZ a ~ NonZero a, Show a) =>
   (a -> a -> a) ->
@@ -161,6 +185,28 @@ mgroupDivEq expectedFn gen genNZ eqCons desc = T.askOption $ \(MkMaxRuns limit) 
             expected = expectedFn x d
         eqCons expected === eqCons actual
 
+mgroupRefinedDivEq ::
+  ( MGroup a,
+    MGroup (Refined p a),
+    NZ (Refined p a) ~ nz,
+    Show a,
+    Show nz
+  ) =>
+  (nz -> NZ a) ->
+  Gen (Refined p a) ->
+  Gen nz ->
+  TestName ->
+  TestTree
+mgroupRefinedDivEq dropRefNZ gen genNZ desc = T.askOption $ \(MkMaxRuns limit) ->
+  TH.testProperty desc $
+    H.withTests limit $
+      H.property $ do
+        rx@(MkRefined x) <- H.forAll gen
+        nz <- H.forAll genNZ
+        let (MkRefined actual) = rx .%. nz
+            expected = x .%. dropRefNZ nz
+        expected === actual
+
 agroupDivIdent ::
   (MGroup a, NZ a ~ NonZero a, Show a) =>
   Gen (NonZero a) ->
@@ -173,3 +219,20 @@ agroupDivIdent gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
       H.property $ do
         nz@(MkNonZero x) <- H.forAll gen
         eqCons one === eqCons (x .%. nz)
+
+agroupRefinedDivIdent ::
+  ( MGroup (Refined p a),
+    NZ (Refined p a) ~ nz,
+    Show a,
+    Show nz
+  ) =>
+  (nz -> Refined p a) ->
+  Gen nz ->
+  TestName ->
+  TestTree
+agroupRefinedDivIdent nzToBase gen desc = T.askOption $ \(MkMaxRuns limit) ->
+  TH.testProperty desc $
+    H.withTests limit $
+      H.property $ do
+        nz <- H.forAll gen
+        one === nzToBase nz .%. nz

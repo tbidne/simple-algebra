@@ -19,6 +19,7 @@ props =
   T.testGroup
     "Additive Group"
     [ subProps,
+      subRefinedProps,
       subIdentProps,
       invProps,
       absProps
@@ -86,6 +87,16 @@ word64Sub = agroupSubEq Gens.word64 MkEqExact "Word64"
 ratioIntegerSub :: TestTree
 ratioIntegerSub = agroupSubEq Gens.rational MkEqExact "Rational"
 
+subRefinedProps :: TestTree
+subRefinedProps =
+  T.testGroup
+    "Refined (.-.) === base (.-.) and preserves refinement"
+    [ refinedEvenSub
+    ]
+
+refinedEvenSub :: TestTree
+refinedEvenSub = Utils.refinedBinaryEq (-) (.-.) Gens.refinedEven "Refined Even"
+
 subIdentProps :: TestTree
 subIdentProps =
   T.testGroup
@@ -101,7 +112,8 @@ subIdentProps =
       word16SubIdent,
       word32SubIdent,
       word64SubIdent,
-      rationalSubIdent
+      rationalSubIdent,
+      refinedEvenSubIdent
     ]
 
 intSubIdent :: TestTree
@@ -140,6 +152,9 @@ word64SubIdent = agroupSubIdent Gens.word64 "Word64"
 rationalSubIdent :: TestTree
 rationalSubIdent = agroupSubIdent Gens.rational "Rational"
 
+refinedEvenSubIdent :: TestTree
+refinedEvenSubIdent = agroupSubIdent Gens.refinedEven "Refined Even"
+
 invProps :: TestTree
 invProps =
   T.testGroup
@@ -155,7 +170,8 @@ invProps =
       word16Inv,
       word32Inv,
       word64Inv,
-      rationalInv
+      rationalInv,
+      refinedEvenInv
     ]
 
 intInv :: TestTree
@@ -194,13 +210,17 @@ word64Inv = agroupInv Gens.word64 MkEqExact "Word64"
 rationalInv :: TestTree
 rationalInv = agroupInv Gens.rational MkEqRatio "Rational"
 
+refinedEvenInv :: TestTree
+refinedEvenInv = agroupInv Gens.refinedEven MkEqExact "Refined Even"
+
 absProps :: TestTree
 absProps =
   T.testGroup
     "Absolute Value"
     [ intAbs,
       integerAbs,
-      rationalAbs
+      rationalAbs,
+      refinedEvenAbs
     ]
 
 intAbs :: TestTree
@@ -211,6 +231,9 @@ integerAbs = agroupAbs Gens.integer MkEqExact "Integer"
 
 rationalAbs :: TestTree
 rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational"
+
+refinedEvenAbs :: TestTree
+refinedEvenAbs = agroupAbs Gens.refinedEven MkEqExact "Refined Even"
 
 agroupSubEq :: (AGroup a, Num a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
 agroupSubEq = Utils.binaryEq (-) (.-.)

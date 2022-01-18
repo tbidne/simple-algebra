@@ -4,6 +4,7 @@ import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen)
+import Refined (Refined)
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Utils qualified
@@ -34,7 +35,12 @@ multNumProps =
       word16MultNum,
       word32MultNum,
       word64MultNum,
-      rationalMultNum
+      rationalMultNum,
+      refinedPositiveMultNum,
+      refinedNonNegativeMultNum,
+      refinedNonZeroMultNum,
+      refinedEvenMultNum,
+      refinedOddMultNum
     ]
 
 floatMultNum :: TestTree
@@ -82,8 +88,33 @@ word64MultNum = msemigroupMultNum Gens.word64 MkEqExact "Word64"
 rationalMultNum :: TestTree
 rationalMultNum = msemigroupMultNum Gens.rational MkEqExact "Rational"
 
+refinedPositiveMultNum :: TestTree
+refinedPositiveMultNum = msemigroupRefinedMultNum Gens.refinedPositive "Refined Positive"
+
+refinedNonNegativeMultNum :: TestTree
+refinedNonNegativeMultNum = msemigroupRefinedMultNum Gens.refinedNonNegative "Refined NonNegative"
+
+refinedNonZeroMultNum :: TestTree
+refinedNonZeroMultNum = msemigroupRefinedMultNum Gens.refinedNZ "Refined NonZero"
+
+refinedEvenMultNum :: TestTree
+refinedEvenMultNum = msemigroupRefinedMultNum Gens.refinedEven "Refined Even"
+
+refinedOddMultNum :: TestTree
+refinedOddMultNum = msemigroupRefinedMultNum Gens.refinedOdd "Refined Odd"
+
 msemigroupMultNum :: (MSemigroup a, Num a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
 msemigroupMultNum = Utils.binaryEq (*) (.*.)
+
+msemigroupRefinedMultNum ::
+  ( MSemigroup a,
+    MSemigroup (Refined p a),
+    Show a
+  ) =>
+  Gen (Refined p a) ->
+  TestName ->
+  TestTree
+msemigroupRefinedMultNum = Utils.refinedBinaryEq (.*.) (.*.)
 
 assocProps :: TestTree
 assocProps =
@@ -101,7 +132,12 @@ assocProps =
       word16Assoc,
       word32Assoc,
       word64Assoc,
-      rationalAssoc
+      rationalAssoc,
+      refinedPositiveAssoc,
+      refinedNonNegativeAssoc,
+      refinedNonZeroAssoc,
+      refinedEvenAssoc,
+      refinedOddAssoc
     ]
 
 intAssoc :: TestTree
@@ -142,6 +178,21 @@ word64Assoc = msemigroupAssoc Gens.word64 "Word64"
 
 rationalAssoc :: TestTree
 rationalAssoc = msemigroupAssoc Gens.rational "Rational"
+
+refinedPositiveAssoc :: TestTree
+refinedPositiveAssoc = msemigroupAssoc Gens.refinedPositive "Refined Positive"
+
+refinedNonNegativeAssoc :: TestTree
+refinedNonNegativeAssoc = msemigroupAssoc Gens.refinedNonNegative "Refined NonNegative"
+
+refinedNonZeroAssoc :: TestTree
+refinedNonZeroAssoc = msemigroupAssoc Gens.refinedNZ "Refined NonZero"
+
+refinedEvenAssoc :: TestTree
+refinedEvenAssoc = msemigroupAssoc Gens.refinedEven "Refined Even"
+
+refinedOddAssoc :: TestTree
+refinedOddAssoc = msemigroupAssoc Gens.refinedOdd "Refined Odd"
 
 msemigroupAssoc :: (MSemigroup a, Show a) => Gen a -> TestName -> TestTree
 msemigroupAssoc = Utils.associativity (.*.)
