@@ -311,7 +311,11 @@ numerator (n :%: _) = n
 denominator :: Integral a => Fraction a -> a
 denominator (_ :%: d) = d
 
--- | Reduces a fraction.
+-- | Reduces a fraction:
+--
+-- 1. Removes common factors.
+-- 2. Factors out negative denominators.
+-- 3. 0 / d -> 0 / 1
 --
 -- ==== __Examples__
 -- >>> reduce (7 :%: 2)
@@ -326,9 +330,7 @@ denominator (_ :%: d) = d
 -- @since 0.1.0.0
 reduce :: Integral a => Fraction a -> Fraction a
 reduce (UnsafeFraction 0 _) = UnsafeFraction 0 1
-reduce (UnsafeFraction n d)
-  | d < 0 = UnsafeFraction (- n') (- d')
-  | otherwise = UnsafeFraction n' d'
+reduce (UnsafeFraction n d) = UnsafeFraction (n' * signum d) (abs d')
   where
     n' = n `quot` g
     d' = d `quot` g
