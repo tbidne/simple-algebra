@@ -15,6 +15,7 @@ main = do
 files :: [String]
 files =
   [ "-isrc",
+    "src/Algebra/Fraction.hs",
     "src/Algebra/Multiplicative/MGroup.hs"
   ]
 

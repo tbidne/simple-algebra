@@ -59,6 +59,7 @@ library
     Algebra.Additive.AGroup
     Algebra.Additive.AMonoid
     Algebra.Additive.ASemigroup
+    Algebra.Fraction
     Algebra.Field
     Algebra.Literal
     Algebra.Module

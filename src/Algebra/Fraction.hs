@@ -1,0 +1,337 @@
+{-# OPTIONS_GHC -Wno-redundant-constraints #-}
+
+-- | Provides the 'Fraction' type, a safer alternative to 'Ratio'.
+--
+-- @since 0.1.0.0
+module Algebra.Fraction
+  ( -- * Type
+    Fraction ((:%:)),
+
+    -- * Creation
+    mkFraction,
+    mkFractionTH,
+    unsafeFraction,
+
+    -- * Elimination
+    numerator,
+    denominator,
+
+    -- * Functions
+    reduce,
+  )
+where
+
+import Algebra.Additive.AGroup (AGroup (..))
+import Algebra.Additive.AMonoid (AMonoid (..))
+import Algebra.Additive.ASemigroup (ASemigroup (..))
+import Algebra.Field (Field)
+import Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
+import Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Algebra.Ring (Ring)
+import Algebra.Semiring (Semiring)
+import Data.Maybe qualified as May
+import GHC.Natural (Natural)
+import GHC.Read (Read (..))
+import GHC.Read qualified as Read
+import GHC.Real (Ratio (..))
+import GHC.Real qualified as R
+import GHC.Stack (HasCallStack)
+import Language.Haskell.TH.Syntax (Lift (..), Q, TExp)
+import Text.ParserCombinators.ReadPrec qualified as ReadP
+import Text.Read.Lex qualified as L
+
+-- $setup
+-- >>> :set -XTemplateHaskell
+
+-- | Type for representing fractions. Designed to be similar to 'Ratio' with
+-- a few differences:
+--
+-- 1. Fraction's 'Eq' is based on an equivalence class, in contrast to
+--    'Ratio', which compares the numerator and denominator directly:
+--
+--        * Fractions are reduced first, e.g., @2 :%: 4 === 1 :%: 2@.
+--        * Negative denominators are considered:
+--        @1 :%: 1 === -1 :%: -1@.
+--
+-- 2. The denominator is given more consideration:
+--
+--        * 'abs' operates on the numerator /and/ the denominator.
+--        * 'signum' is positive if /both/ are negative.
+--
+-- 3. @'Show' x@ does __not__ reduce @x@ first. This is to make debugging
+-- easier. Furthermore, @read . show@ is a roundtrip.
+--
+-- @'Fraction' 'Integer'@ is a 'Field', and @'Fraction' 'Natural'@ is a
+-- 'Semiring'.
+--
+-- ==== __Examples__
+--
+-- >>> 2 :%: 6 == 1 :%: 3
+-- True
+--
+-- >>> 1 :%: 1 == -1 :%: -1
+-- True
+--
+-- >>> 1 :%: 7 >= 1 :%: -2
+-- True
+--
+-- >>> -1 :%: 7 >= 1 :%: -2
+-- False
+--
+-- >>> read @(Fraction Integer) $ show (123 :%: -3461)
+-- 123 :%: -3461
+--
+-- @since 0.1.0.0
+data Fraction a = UnsafeFraction !a !a
+  deriving
+    ( -- | @since 0.1.0.0
+      Lift
+    )
+
+-- | Bidirectional pattern synonym for 'Fraction'. The constructor is an alias
+-- for 'unsafeFraction'.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> 2 :%: 4
+-- 1 :%: 2
+--
+-- >>> 1 :%: 0
+-- *** Exception: Ratio has zero denominator
+--
+-- @since 0.1.0.0
+pattern (:%:) :: (HasCallStack, Integral a) => a -> a -> Fraction a
+pattern n :%: d <-
+  UnsafeFraction n d
+  where
+    n :%: d = unsafeFraction n d
+
+{-# COMPLETE (:%:) #-}
+
+infixr 5 :%:
+
+-- | @since 0.1.0.0
+instance (Integral a, Show a) => Show (Fraction a) where
+  show (n :%: d) = show n <> " :%: " <> show d
+
+-- | @since 0.1.0.0
+instance (Eq a, Integral a) => Eq (Fraction a) where
+  0 :%: _ == 0 :%: _ = True
+  x == y = n1 == n2 && d1 == d2
+    where
+      n1 :%: d1 = unsafeFraction' x
+      n2 :%: d2 = unsafeFraction' y
+      unsafeFraction' (n :%: d) = unsafeFraction n d
+
+-- | @since 0.1.0.0
+instance Integral a => Ord (Fraction a) where
+  x@(n1 :%: d1) <= y@(n2 :%: d2)
+    | x == y = True
+    | otherwise = n1 * d2 `comp` n2 * d1
+    where
+      isNeg = (< 0) . numerator . signum
+      comp :: a -> a -> Bool
+      comp
+        | isNeg x `xor` isNeg y = (>=)
+        | otherwise = (<=)
+      infix 4 `comp`
+
+-- | @since 0.1.0.0
+instance Integral a => Enum (Fraction a) where
+  toEnum n = UnsafeFraction (fromIntegral n) 1
+  fromEnum = fromInteger . truncate
+
+-- | @since 0.1.0.0
+instance Integral a => Fractional (Fraction a) where
+  (n1 :%: d1) / (n2 :%: d2) = unsafeFraction (n1 * d2) (n2 * d1)
+  recip (0 :%: _) = R.ratioZeroDenominatorError
+  recip (n :%: d) = unsafeFraction d n
+  fromRational (n :% d) = unsafeFraction (fromInteger n) (fromInteger d)
+
+-- | @since 0.1.0.0
+instance Integral a => Num (Fraction a) where
+  (n1 :%: d1) + (n2 :%: d2) = unsafeFraction (n1 * d2 + n2 * d1) (d1 * d2)
+  (n1 :%: d1) - (n2 :%: d2) = unsafeFraction (n1 * d2 - n2 * d1) (d1 * d2)
+  (n1 :%: d1) * (n2 :%: d2) = unsafeFraction (n1 * n2) (d1 * d2)
+  negate (n :%: d) = UnsafeFraction (- n) d
+  abs (n :%: d) = UnsafeFraction (abs n) (abs d)
+  signum (n :%: d) = UnsafeFraction (signum n * signum d) 1
+  fromInteger n1 = UnsafeFraction (fromInteger n1) 1
+
+-- | @since 0.1.0.0
+instance Integral a => Real (Fraction a) where
+  toRational (n :%: d) = R.reduce (fromIntegral n) (fromIntegral d)
+
+-- | @since 0.1.0.0
+instance Integral a => RealFrac (Fraction a) where
+  properFraction (n :%: d) =
+    (fromInteger (toInteger q), UnsafeFraction r d)
+    where
+      (q, r) = quotRem n d
+
+-- | @since 0.1.0.0
+instance (Integral a, Read a) => Read (Fraction a) where
+  readPrec =
+    Read.parens
+      ( ReadP.prec
+          7
+          ( do
+              x <- ReadP.step readPrec
+              Read.expectP (L.Symbol ":%:")
+              y <- ReadP.step readPrec
+              return (UnsafeFraction x y)
+          )
+      )
+
+-- | @since 0.1.0.0
+instance ASemigroup (Fraction Integer) where
+  (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance ASemigroup (Fraction Natural) where
+  (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance AMonoid (Fraction Integer) where
+  zero = 0 :%: 1
+
+-- | @since 0.1.0.0
+instance AMonoid (Fraction Natural) where
+  zero = 0 :%: 1
+
+-- | @since 0.1.0.0
+instance AGroup (Fraction Integer) where
+  (.-.) = (-)
+  ginv x = - x
+  gabs = abs
+
+-- | @since 0.1.0.0
+instance MSemigroup (Fraction Integer) where
+  (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (Fraction Natural) where
+  (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MMonoid (Fraction Integer) where
+  one = 1 :%: 1
+
+-- | @since 0.1.0.0
+instance MMonoid (Fraction Natural) where
+  one = 1 :%: 1
+
+-- | @since 0.1.0.0
+instance MGroup (Fraction Integer) where
+  type NZ (Fraction Integer) = NonZero (Fraction Integer)
+  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance MGroup (Fraction Natural) where
+  type NZ (Fraction Natural) = NonZero (Fraction Natural)
+  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance Semiring (Fraction Integer)
+
+-- | @since 0.1.0.0
+instance Semiring (Fraction Natural)
+
+-- | @since 0.1.0.0
+instance Ring (Fraction Integer)
+
+-- | @since 0.1.0.0
+instance Field (Fraction Integer)
+
+-- | Smart constructor for 'Fraction'. Returns 'Nothing' if the second
+-- parameter is 0. Reduces the fraction via 'reduce' if possible.
+--
+-- ==== __Examples__
+-- >>> mkFraction 10 4
+-- Just 5 :%: 2
+--
+-- >>> mkFraction 10 0
+-- Nothing
+--
+-- @since 0.1.0.0
+mkFraction :: Integral a => a -> a -> Maybe (Fraction a)
+mkFraction _ 0 = Nothing
+mkFraction n d = Just $ reduce (UnsafeFraction n d)
+
+-- | Template haskell for creating a 'Fraction' at compile-time.
+--
+-- ==== __Examples__
+-- >>> $$(mkFractionTH 7 2)
+-- 7 :%: 2
+--
+-- @since 0.1.0.0
+mkFractionTH :: (Integral a, Lift a) => a -> a -> Q (TExp (Fraction a))
+mkFractionTH n = maybe R.ratioZeroDenominatorError liftTyped . mkFraction n
+
+-- | Variant of 'mkFraction' that throws 'R.ratioZeroDenominatorError' when
+-- given a denominator of 0.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> unsafeFraction 7 2
+-- 7 :%: 2
+--
+-- >>> unsafeFraction 7 0
+-- *** Exception: Ratio has zero denominator
+--
+-- @since 0.1.0.0
+unsafeFraction :: (HasCallStack, Integral a) => a -> a -> Fraction a
+unsafeFraction n = May.fromMaybe R.ratioZeroDenominatorError . mkFraction n
+
+-- | Returns the numerator.
+--
+-- ==== __Examples__
+-- >>> numerator (-123 :%: 200)
+-- -123
+--
+-- @since 0.1.0.0
+numerator :: Integral a => Fraction a -> a
+numerator (n :%: _) = n
+
+-- | Returns the denominator.
+--
+-- ==== __Examples__
+-- >>> denominator (4 :%: 17)
+-- 17
+--
+-- @since 0.1.0.0
+denominator :: Integral a => Fraction a -> a
+denominator (_ :%: d) = d
+
+-- | Reduces a fraction.
+--
+-- ==== __Examples__
+-- >>> reduce (7 :%: 2)
+-- 7 :%: 2
+--
+-- >>> reduce (18 :%: 10)
+-- 9 :%: 5
+--
+-- >>> reduce (-5 :%: -5)
+-- 1 :%: 1
+--
+-- @since 0.1.0.0
+reduce :: Integral a => Fraction a -> Fraction a
+reduce (UnsafeFraction 0 d) = UnsafeFraction 0 d
+reduce (UnsafeFraction n d)
+  | n < 0 && d < 0 = UnsafeFraction (- n') (- d')
+  | otherwise = UnsafeFraction n' d'
+  where
+    n' = n `quot` g
+    d' = d `quot` g
+    g = gcd n d
+
+xor :: Bool -> Bool -> Bool
+xor True False = True
+xor False True = True
+xor _ _ = False
+
+infixr 2 `xor`
