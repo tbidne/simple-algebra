@@ -22,6 +22,7 @@ module Gens
     word32,
     word64,
     rational,
+    fraction,
 
     -- ** Refined
     refinedNonNegative,
@@ -49,6 +50,7 @@ module Gens
     word32NonZero,
     word64NonZero,
     rationalNonZero,
+    fractionNonZero,
     refinedNZ,
     refinedAddNZ,
 
@@ -64,6 +66,7 @@ module Gens
 where
 
 import Algebra.Additive.AMonoid (AMonoid)
+import Algebra.Fraction (Fraction (..))
 import Algebra.Multiplicative.MGroup (NonZero (..))
 import Algebra.Multiplicative.MGroup qualified as MGroup
 import Data.Functor.Identity (Identity)
@@ -132,6 +135,9 @@ ratioNumDenom genNum genDenom = do
   n <- genNum
   d <- HG.filter (/= 0) genDenom
   pure (n :% d)
+
+fraction :: MonadGen m => m (Fraction Integer)
+fraction = (:%:) <$> integer <*> integerNZ
 
 refinedNonNegative :: (MonadGen m) => m (Refined NonNegative Integer)
 refinedNonNegative = R.unsafeRefine <$> HG.integral (HR.exponential 0 maxVal)
@@ -230,6 +236,9 @@ rationalNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (Ratio Integ
 rationalNonZero = MGroup.unsafeAMonoidNonZero <$> ratioNumDenom integerNZ pos
   where
     pos = HG.integral $ HR.exponential 1 maxVal
+
+fractionNonZero :: MonadGen m => m (NonZero (Fraction Integer))
+fractionNonZero = fmap MGroup.unsafeAMonoidNonZero $ (:%:) <$> integerNZ <*> integerNZ
 
 nzBounded :: (Integral a, MonadGen m, TestBounds a) => (Range a -> m a) -> m a
 nzBounded gen = nzBounds gen minVal maxVal

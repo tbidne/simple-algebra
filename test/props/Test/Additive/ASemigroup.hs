@@ -36,7 +36,8 @@ addNumProps =
       word16AddNum,
       word32AddNum,
       word64AddNum,
-      ratioIntegerAddNum
+      ratioIntegerAddNum,
+      fractionAddNum
     ]
 
 floatAddNum :: TestTree
@@ -83,6 +84,9 @@ word64AddNum = asemigroupAddNum Gens.word64 MkEqExact "Word64"
 
 ratioIntegerAddNum :: TestTree
 ratioIntegerAddNum = asemigroupAddNum Gens.rational MkEqExact "Rational"
+
+fractionAddNum :: TestTree
+fractionAddNum = asemigroupAddNum Gens.fraction MkEqExact "Rational"
 
 addNumRefinedProps :: TestTree
 addNumRefinedProps =
@@ -140,6 +144,7 @@ assocProps =
       word32Assoc,
       word64Assoc,
       rationalAssoc,
+      fractionAssoc,
       refinedNonNegativeAssoc,
       refinedPositiveAssoc,
       refinedNonPositiveAssoc,
@@ -185,6 +190,9 @@ word64Assoc = asemigroupAssoc Gens.word64 "Word64"
 
 rationalAssoc :: TestTree
 rationalAssoc = asemigroupAssoc Gens.rational "Rational"
+
+fractionAssoc :: TestTree
+fractionAssoc = asemigroupAssoc Gens.fraction "Fraction"
 
 refinedNonNegativeAssoc :: TestTree
 refinedNonNegativeAssoc = asemigroupAssoc Gens.refinedNonNegative "Refined NonNegative"

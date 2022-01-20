@@ -121,9 +121,8 @@ instance (Eq a, Integral a) => Eq (Fraction a) where
   0 :%: _ == 0 :%: _ = True
   x == y = n1 == n2 && d1 == d2
     where
-      n1 :%: d1 = unsafeFraction' x
-      n2 :%: d2 = unsafeFraction' y
-      unsafeFraction' (n :%: d) = unsafeFraction n d
+      n1 :%: d1 = reduce x
+      n2 :%: d2 = reduce y
 
 -- | @since 0.1.0.0
 instance Integral a => Ord (Fraction a) where
@@ -322,7 +321,7 @@ denominator (_ :%: d) = d
 reduce :: Integral a => Fraction a -> Fraction a
 reduce (UnsafeFraction 0 d) = UnsafeFraction 0 d
 reduce (UnsafeFraction n d)
-  | n < 0 && d < 0 = UnsafeFraction (- n') (- d')
+  | d < 0 = UnsafeFraction (- n') (- d')
   | otherwise = UnsafeFraction n' d'
   where
     n' = n `quot` g

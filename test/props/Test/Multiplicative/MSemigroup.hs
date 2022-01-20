@@ -36,6 +36,7 @@ multNumProps =
       word32MultNum,
       word64MultNum,
       rationalMultNum,
+      fractionMultNum,
       refinedPositiveMultNum,
       refinedNonNegativeMultNum,
       refinedNonZeroMultNum,
@@ -88,6 +89,9 @@ word64MultNum = msemigroupMultNum Gens.word64 MkEqExact "Word64"
 rationalMultNum :: TestTree
 rationalMultNum = msemigroupMultNum Gens.rational MkEqExact "Rational"
 
+fractionMultNum :: TestTree
+fractionMultNum = msemigroupMultNum Gens.fraction MkEqExact "Fraction"
+
 refinedPositiveMultNum :: TestTree
 refinedPositiveMultNum = msemigroupRefinedMultNum Gens.refinedPositive "Refined Positive"
 
@@ -133,6 +137,7 @@ assocProps =
       word32Assoc,
       word64Assoc,
       rationalAssoc,
+      fractionAssoc,
       refinedPositiveAssoc,
       refinedNonNegativeAssoc,
       refinedNonZeroAssoc,
@@ -178,6 +183,9 @@ word64Assoc = msemigroupAssoc Gens.word64 "Word64"
 
 rationalAssoc :: TestTree
 rationalAssoc = msemigroupAssoc Gens.rational "Rational"
+
+fractionAssoc :: TestTree
+fractionAssoc = msemigroupAssoc Gens.fraction "Fraction"
 
 refinedPositiveAssoc :: TestTree
 refinedPositiveAssoc = msemigroupAssoc Gens.refinedPositive "Refined Positive"

@@ -42,7 +42,8 @@ divProps =
       word16Div,
       word32Div,
       word64Div,
-      rationalDiv
+      rationalDiv,
+      fractionDiv
     ]
 
 floatDiv :: TestTree
@@ -90,6 +91,9 @@ word64Div = mgroupDivEq div Gens.word64 Gens.word64NonZero MkEqExact "Word64"
 rationalDiv :: TestTree
 rationalDiv = mgroupDivEq (/) Gens.rational Gens.rationalNonZero MkEqRatio "Rational"
 
+fractionDiv :: TestTree
+fractionDiv = mgroupDivEq (/) Gens.fraction Gens.fractionNonZero MkEqExact "Fraction"
+
 refinedDivProps :: TestTree
 refinedDivProps =
   T.testGroup
@@ -120,6 +124,7 @@ divIdentProps =
       word32DivIdent,
       word64DivIdent,
       rationalDivIdent,
+      fractionDivIdent,
       refinedNonNegativeDivIdent
     ]
 
@@ -161,6 +166,9 @@ word64DivIdent = agroupDivIdent Gens.word64NonZero MkEqExact "Word64"
 
 rationalDivIdent :: TestTree
 rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational"
+
+fractionDivIdent :: TestTree
+fractionDivIdent = agroupDivIdent Gens.fractionNonZero MkEqExact "Fraction"
 
 refinedNonNegativeDivIdent :: TestTree
 refinedNonNegativeDivIdent = agroupRefinedDivIdent R.andLeft gen "Refined NonNegative"

@@ -33,6 +33,7 @@ identityProps =
       word32Id,
       word64Id,
       ratioIntegerId,
+      fractionId,
       refinedNonNegativeId,
       refinedPositiveId,
       refinedNonZeroId,
@@ -77,6 +78,9 @@ word64Id = mmonoidIdentity Gens.word64 MkEqExact "Word64"
 
 ratioIntegerId :: TestTree
 ratioIntegerId = mmonoidIdentity Gens.rational MkEqRatio "Rational"
+
+fractionId :: TestTree
+fractionId = mmonoidIdentity Gens.fraction MkEqExact "Fraction"
 
 refinedNonNegativeId :: TestTree
 refinedNonNegativeId = mmonoidIdentity Gens.refinedNonNegative MkEqExact "Refined NonNegative"

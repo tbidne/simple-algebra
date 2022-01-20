@@ -42,7 +42,8 @@ subProps =
       word16Sub,
       word32Sub,
       word64Sub,
-      ratioIntegerSub
+      ratioIntegerSub,
+      fractionSub
     ]
 
 floatSub :: TestTree
@@ -87,6 +88,9 @@ word64Sub = agroupSubEq Gens.word64 MkEqExact "Word64"
 ratioIntegerSub :: TestTree
 ratioIntegerSub = agroupSubEq Gens.rational MkEqExact "Rational"
 
+fractionSub :: TestTree
+fractionSub = agroupSubEq Gens.fraction MkEqExact "Fraction"
+
 subRefinedProps :: TestTree
 subRefinedProps =
   T.testGroup
@@ -113,7 +117,8 @@ subIdentProps =
       word32SubIdent,
       word64SubIdent,
       rationalSubIdent,
-      refinedEvenSubIdent
+      refinedEvenSubIdent,
+      fractionIdent
     ]
 
 intSubIdent :: TestTree
@@ -152,6 +157,9 @@ word64SubIdent = agroupSubIdent Gens.word64 "Word64"
 rationalSubIdent :: TestTree
 rationalSubIdent = agroupSubIdent Gens.rational "Rational"
 
+fractionIdent :: TestTree
+fractionIdent = agroupSubIdent Gens.fraction "Fraction"
+
 refinedEvenSubIdent :: TestTree
 refinedEvenSubIdent = agroupSubIdent Gens.refinedEven "Refined Even"
 
@@ -171,7 +179,8 @@ invProps =
       word32Inv,
       word64Inv,
       rationalInv,
-      refinedEvenInv
+      refinedEvenInv,
+      fractionInv
     ]
 
 intInv :: TestTree
@@ -210,6 +219,9 @@ word64Inv = agroupInv Gens.word64 MkEqExact "Word64"
 rationalInv :: TestTree
 rationalInv = agroupInv Gens.rational MkEqRatio "Rational"
 
+fractionInv :: TestTree
+fractionInv = agroupInv Gens.fraction MkEqExact "Fraction"
+
 refinedEvenInv :: TestTree
 refinedEvenInv = agroupInv Gens.refinedEven MkEqExact "Refined Even"
 
@@ -220,6 +232,7 @@ absProps =
     [ intAbs,
       integerAbs,
       rationalAbs,
+      fractionAbs,
       refinedEvenAbs
     ]
 
@@ -231,6 +244,9 @@ integerAbs = agroupAbs Gens.integer MkEqExact "Integer"
 
 rationalAbs :: TestTree
 rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational"
+
+fractionAbs :: TestTree
+fractionAbs = agroupAbs Gens.fraction MkEqExact "Fraction"
 
 refinedEvenAbs :: TestTree
 refinedEvenAbs = agroupAbs Gens.refinedEven MkEqExact "Refined Even"
