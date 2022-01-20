@@ -11,6 +11,7 @@ import System.Exit qualified as SysEx
 import Test.Additive.AGroup qualified
 import Test.Additive.AMonoid qualified
 import Test.Additive.ASemigroup qualified
+import Test.Fraction qualified
 import Test.Multiplicative.MGroup qualified
 import Test.Multiplicative.MMonoid qualified
 import Test.Multiplicative.MSemigroup qualified
@@ -38,7 +39,8 @@ main = do
                 Test.Additive.AGroup.props,
                 Test.Multiplicative.MSemigroup.props,
                 Test.Multiplicative.MMonoid.props,
-                Test.Multiplicative.MGroup.props
+                Test.Multiplicative.MGroup.props,
+                Test.Fraction.props
               ]
 
   Tasty.defaultMainWithIngredients ingredients $

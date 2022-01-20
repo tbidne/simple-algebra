@@ -100,3 +100,7 @@ instance NumLiteral (Ratio Int64) where
 -- | @since 0.1.0.0
 instance NumLiteral (Ratio Integer) where
   fromLit = fromInteger
+
+-- | @since 0.1.0.0
+instance NumLiteral (Ratio Natural) where
+  fromLit = fromInteger

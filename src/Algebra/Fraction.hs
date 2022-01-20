@@ -25,6 +25,7 @@ import Algebra.Additive.AGroup (AGroup (..))
 import Algebra.Additive.AMonoid (AMonoid (..))
 import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Algebra.Field (Field)
+import Algebra.Literal (NumLiteral (..))
 import Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
 import Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
@@ -130,8 +131,7 @@ instance Integral a => Ord (Fraction a) where
     | x == y = True
     | otherwise = n1 * d2 `comp` n2 * d1
     where
-      isNeg = (< 0) . numerator . signum
-      comp :: a -> a -> Bool
+      isNeg = (< 0) . denominator
       comp
         | isNeg x `xor` isNeg y = (>=)
         | otherwise = (<=)
@@ -244,6 +244,12 @@ instance Ring (Fraction Integer)
 -- | @since 0.1.0.0
 instance Field (Fraction Integer)
 
+instance NumLiteral (Fraction Integer) where
+  fromLit = fromInteger
+
+instance NumLiteral (Fraction Natural) where
+  fromLit = fromInteger
+
 -- | Smart constructor for 'Fraction'. Returns 'Nothing' if the second
 -- parameter is 0. Reduces the fraction via 'reduce' if possible.
 --
@@ -319,7 +325,7 @@ denominator (_ :%: d) = d
 --
 -- @since 0.1.0.0
 reduce :: Integral a => Fraction a -> Fraction a
-reduce (UnsafeFraction 0 d) = UnsafeFraction 0 d
+reduce (UnsafeFraction 0 _) = UnsafeFraction 0 1
 reduce (UnsafeFraction n d)
   | d < 0 = UnsafeFraction (- n') (- d')
   | otherwise = UnsafeFraction n' d'

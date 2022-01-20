@@ -42,6 +42,7 @@ module Gens
     int16NonZero,
     int32NonZero,
     int64NonZero,
+    integerNZ,
     integerNonZero,
     naturalNonZero,
     wordNonZero,
