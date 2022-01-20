@@ -78,7 +78,7 @@ import Text.Read.Lex qualified as L
 -- True
 --
 -- >>> -1 :%: 7 >= 1 :%: -2
--- False
+-- True
 --
 -- >>> read @(Fraction Integer) $ show (123 :%: -3461)
 -- 123 :%: -3461
