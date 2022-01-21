@@ -1,16 +1,16 @@
 -- | Provides the 'MMonoid' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Multiplicative.MMonoid
+module Numeric.Algebra.Multiplicative.MMonoid
   ( MMonoid (..),
   )
 where
 
-import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Refined (NonNegative, NonZero, Odd, Positive, Refined)
 import Refined.Unsafe qualified as R
 

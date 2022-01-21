@@ -66,10 +66,6 @@ module Gens
   )
 where
 
-import Algebra.Additive.AMonoid (AMonoid)
-import Algebra.Fraction (Fraction (..))
-import Algebra.Multiplicative.MGroup (NonZero (..))
-import Algebra.Multiplicative.MGroup qualified as MGroup
 import Data.Functor.Identity (Identity)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
@@ -79,6 +75,10 @@ import Hedgehog (MonadGen (GenBase))
 import Hedgehog.Gen qualified as HG
 import Hedgehog.Range (Range)
 import Hedgehog.Range qualified as HR
+import Numeric.Algebra.Additive.AMonoid (AMonoid)
+import Numeric.Algebra.Multiplicative.MGroup (NonZero (..))
+import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
+import Numeric.Data.Fraction (Fraction (..))
 import Refined (Even, Negative, NonNegative, NonPositive, Odd, Positive, Predicate, Refined, type (&&))
 import Refined qualified as R
 import Refined.Extras.Utils (pattern MkRefined)

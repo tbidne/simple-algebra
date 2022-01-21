@@ -1,19 +1,19 @@
 -- | Provides the 'VectorSpace' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.VectorSpace
+module Numeric.Algebra.VectorSpace
   ( VectorSpace (..),
   )
 where
 
-import Algebra.Field (Field)
-import Algebra.Module (Module (..))
-import Algebra.Multiplicative.MGroup (MGroup (..), NZ)
+import Numeric.Algebra.Field (Field)
+import Numeric.Algebra.Module (Module (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NZ)
 
 -- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'
 -- and a 'VectorSpace' is that the former is over a
--- 'Algebra.Ring' and the latter a 'Field', so we get
+-- 'Numeric.Algebra.Ring' and the latter a 'Field', so we get
 -- scalar \"division\" for free simply by reusing multiplicative
 -- inverses. Sadly, this cannot be trusted in the real world, so we require
 -- division to be defined manually (presumably using a sensible instance for

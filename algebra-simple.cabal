@@ -15,7 +15,7 @@ synopsis:
 description:
   @algebra-simple@ intends to provide a simple, reasonably principled
   interface to typical mathematical operations (i.e. addition, subtraction,
-  multiplication, division). See "Algebra" for the documentation.
+  multiplication, division). See "Numeric.Algebra" for the documentation.
 
 category:           Math, Algebra
 extra-source-files:
@@ -55,22 +55,22 @@ common common-exts
 library
   import:           common-exts
   exposed-modules:
-    Algebra
-    Algebra.Additive
-    Algebra.Additive.AGroup
-    Algebra.Additive.AMonoid
-    Algebra.Additive.ASemigroup
-    Algebra.Field
-    Algebra.Fraction
-    Algebra.Literal
-    Algebra.Module
-    Algebra.Multiplicative
-    Algebra.Multiplicative.MGroup
-    Algebra.Multiplicative.MMonoid
-    Algebra.Multiplicative.MSemigroup
-    Algebra.Ring
-    Algebra.Semiring
-    Algebra.VectorSpace
+    Numeric.Algebra
+    Numeric.Algebra.Additive
+    Numeric.Algebra.Additive.AGroup
+    Numeric.Algebra.Additive.AMonoid
+    Numeric.Algebra.Additive.ASemigroup
+    Numeric.Algebra.Field
+    Numeric.Algebra.Module
+    Numeric.Algebra.Multiplicative
+    Numeric.Algebra.Multiplicative.MGroup
+    Numeric.Algebra.Multiplicative.MMonoid
+    Numeric.Algebra.Multiplicative.MSemigroup
+    Numeric.Algebra.Ring
+    Numeric.Algebra.Semiring
+    Numeric.Algebra.VectorSpace
+    Numeric.Data.Fraction
+    Numeric.Literal
 
   build-depends:
     , base              >=4.14.0.0 && <4.16

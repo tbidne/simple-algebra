@@ -1,9 +1,9 @@
 module Test.Additive.ASemigroup (props) where
 
-import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen)
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Refined (Refined)
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T

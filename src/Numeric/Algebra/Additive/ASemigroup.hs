@@ -1,7 +1,7 @@
 -- | Provides the 'ASemigroup' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Additive.ASemigroup
+module Numeric.Algebra.Additive.ASemigroup
   ( ASemigroup (..),
   )
 where

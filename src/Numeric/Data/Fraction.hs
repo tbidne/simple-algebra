@@ -3,7 +3,7 @@
 -- | Provides the 'Fraction' type, a safer alternative to 'Ratio'.
 --
 -- @since 0.1.0.0
-module Algebra.Fraction
+module Numeric.Data.Fraction
   ( -- * Type
     Fraction ((:%:)),
 
@@ -21,16 +21,6 @@ module Algebra.Fraction
   )
 where
 
-import Algebra.Additive.AGroup (AGroup (..))
-import Algebra.Additive.AMonoid (AMonoid (..))
-import Algebra.Additive.ASemigroup (ASemigroup (..))
-import Algebra.Field (Field)
-import Algebra.Literal (NumLiteral (..))
-import Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
-import Algebra.Multiplicative.MMonoid (MMonoid (..))
-import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Algebra.Ring (Ring)
-import Algebra.Semiring (Semiring)
 import Data.Maybe qualified as May
 import GHC.Natural (Natural)
 import GHC.Read (Read (..))
@@ -39,6 +29,16 @@ import GHC.Real (Ratio (..))
 import GHC.Real qualified as R
 import GHC.Stack (HasCallStack)
 import Language.Haskell.TH.Syntax (Lift (..), Q, TExp)
+import Numeric.Algebra.Additive.AGroup (AGroup (..))
+import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
+import Numeric.Algebra.Field (Field)
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Algebra.Ring (Ring)
+import Numeric.Algebra.Semiring (Semiring)
+import Numeric.Literal (NumLiteral (..))
 import Text.ParserCombinators.ReadPrec qualified as ReadP
 import Text.Read.Lex qualified as L
 
@@ -46,7 +46,14 @@ import Text.Read.Lex qualified as L
 -- >>> :set -XTemplateHaskell
 
 -- | Type for representing fractions. Designed to be similar to 'Ratio' with
--- a few differences:
+-- the primary difference that it does not require the following invariants
+-- for its instances (e.g. 'Eq') to be sensible:
+--
+-- 1. @n / d@ is maximally reduced.
+--
+-- 2. @d > 0@.
+--
+-- This has a number of consequences.
 --
 -- 1. Fraction's 'Eq' is based on an equivalence class, in contrast to
 --    'Ratio', which compares the numerator and denominator directly:
@@ -81,7 +88,7 @@ import Text.Read.Lex qualified as L
 -- True
 --
 -- >>> read @(Fraction Integer) $ show (123 :%: -3461)
--- 123 :%: -3461
+-- -123 :%: 3461
 --
 -- @since 0.1.0.0
 data Fraction a = UnsafeFraction !a !a
@@ -244,9 +251,11 @@ instance Ring (Fraction Integer)
 -- | @since 0.1.0.0
 instance Field (Fraction Integer)
 
+-- | @since 0.1.0.0
 instance NumLiteral (Fraction Integer) where
   fromLit = fromInteger
 
+-- | @since 0.1.0.0
 instance NumLiteral (Fraction Natural) where
   fromLit = fromInteger
 
@@ -315,7 +324,7 @@ denominator (_ :%: d) = d
 --
 -- 1. Removes common factors.
 -- 2. Factors out negative denominators.
--- 3. 0 / d -> 0 / 1
+-- 3. @reduce (0 :%: _) --> 0 :%: 1@.
 --
 -- ==== __Examples__
 -- >>> reduce (7 :%: 2)

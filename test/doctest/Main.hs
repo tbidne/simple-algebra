@@ -15,8 +15,8 @@ main = do
 files :: [String]
 files =
   [ "-isrc",
-    "src/Algebra/Fraction.hs",
-    "src/Algebra/Multiplicative/MGroup.hs"
+    "src/Numeric/Data/Fraction.hs",
+    "src/Numeric/Algebra/Multiplicative/MGroup.hs"
   ]
 
 exts :: [String]

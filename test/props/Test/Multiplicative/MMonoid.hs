@@ -1,10 +1,10 @@
 module Test.Multiplicative.MMonoid (props) where
 
-import Algebra.Multiplicative.MMonoid (MMonoid (..))
-import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen)
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Utils qualified

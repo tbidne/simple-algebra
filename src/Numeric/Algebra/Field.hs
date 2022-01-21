@@ -1,16 +1,16 @@
 -- | Provides the 'Field' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Field
+module Numeric.Algebra.Field
   ( Field,
   )
 where
 
-import Algebra.Multiplicative.MGroup (MGroup (..))
-import Algebra.Ring (Ring)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
+import Numeric.Algebra.Ring (Ring)
 
 -- | Defines a field.
 --

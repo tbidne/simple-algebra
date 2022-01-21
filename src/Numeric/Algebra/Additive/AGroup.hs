@@ -1,16 +1,16 @@
 -- | Provides the 'AGroup' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Additive.AGroup
+module Numeric.Algebra.Additive.AGroup
   ( AGroup (..),
   )
 where
 
-import Algebra.Additive.AMonoid (AMonoid (..))
-import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Real (Ratio (..))
+import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Refined (Even, Refined)
 import Refined.Extras qualified as RExtras
 

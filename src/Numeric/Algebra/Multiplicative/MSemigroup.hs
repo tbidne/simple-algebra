@@ -1,7 +1,7 @@
 -- | Provides the 'MSemigroup' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Multiplicative.MSemigroup
+module Numeric.Algebra.Multiplicative.MSemigroup
   ( MSemigroup (..),
   )
 where

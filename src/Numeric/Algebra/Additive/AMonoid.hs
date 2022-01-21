@@ -1,16 +1,16 @@
 -- | Provides the 'AMonoid' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Additive.AMonoid
+module Numeric.Algebra.Additive.AMonoid
   ( AMonoid (..),
   )
 where
 
-import Algebra.Additive.ASemigroup (ASemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Refined (Even, NonNegative, NonPositive, Refined)
 import Refined.Unsafe qualified as R
 

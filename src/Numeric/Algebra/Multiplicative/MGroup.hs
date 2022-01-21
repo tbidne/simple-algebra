@@ -3,7 +3,7 @@
 -- | Provides the 'MGroup' typeclass.
 --
 -- @since 0.1.0.0
-module Algebra.Multiplicative.MGroup
+module Numeric.Algebra.Multiplicative.MGroup
   ( -- * Typeclass
     MGroup (..),
 
@@ -20,14 +20,14 @@ module Algebra.Multiplicative.MGroup
   )
 where
 
-import Algebra.Additive.AMonoid (AMonoid (..))
-import Algebra.Multiplicative.MMonoid (MMonoid (..))
-import Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
 import Language.Haskell.TH.Syntax (Lift (..), Q, TExp)
+import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Refined (NonNegative, Refined, type (&&))
 import Refined qualified as R
 import Refined.Extras (Implies, pattern MkRefined)

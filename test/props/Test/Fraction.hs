@@ -1,11 +1,11 @@
 module Test.Fraction (props) where
 
-import Algebra.Fraction (Fraction (..))
-import Algebra.Fraction qualified as Frac
 import Gens qualified
 import Hedgehog ((===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
+import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.Fraction qualified as Frac
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH

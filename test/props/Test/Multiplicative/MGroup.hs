@@ -1,13 +1,13 @@
 module Test.Multiplicative.MGroup (props) where
 
-import Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
-import Algebra.Multiplicative.MGroup qualified as MGroup
-import Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
+import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Refined (Refined)
 import Refined qualified as R
 import Refined.Extras.Utils (pattern MkRefined)

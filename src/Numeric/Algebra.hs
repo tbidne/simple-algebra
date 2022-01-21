@@ -2,7 +2,7 @@
 -- interface to typical mathematical operations.
 --
 -- @since 0.1.0.0
-module Algebra
+module Numeric.Algebra
   ( -- * Motivation
     -- $motivation
 
@@ -10,27 +10,23 @@ module Algebra
     -- $solution
 
     -- * Algebraic Typeclasses
-    module Algebra.Additive,
-    module Algebra.Multiplicative,
-    module Algebra.Semiring,
-    module Algebra.Ring,
-    module Algebra.Module,
-    module Algebra.Field,
-    module Algebra.VectorSpace,
-
-    -- * Misc Typeclasses
-    module Algebra.Literal,
+    module Numeric.Algebra.Additive,
+    module Numeric.Algebra.Multiplicative,
+    module Numeric.Algebra.Semiring,
+    module Numeric.Algebra.Ring,
+    module Numeric.Algebra.Module,
+    module Numeric.Algebra.Field,
+    module Numeric.Algebra.VectorSpace,
   )
 where
 
-import Algebra.Additive
-import Algebra.Field
-import Algebra.Literal
-import Algebra.Module
-import Algebra.Multiplicative
-import Algebra.Ring
-import Algebra.Semiring
-import Algebra.VectorSpace
+import Numeric.Algebra.Additive
+import Numeric.Algebra.Field
+import Numeric.Algebra.Module
+import Numeric.Algebra.Multiplicative
+import Numeric.Algebra.Ring
+import Numeric.Algebra.Semiring
+import Numeric.Algebra.VectorSpace
 
 -- $motivation
 -- The primary interface to numerical operations in Haskell is 'Num'.
