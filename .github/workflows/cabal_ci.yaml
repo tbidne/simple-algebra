@@ -34,5 +34,5 @@ jobs:
       - name: DocTest
         run: nix develop --command cabal test doctest
 
-      - name: DocTest
+      - name: Property Tests
         run: MAX_RUNS=100000 nix develop --command cabal test props
