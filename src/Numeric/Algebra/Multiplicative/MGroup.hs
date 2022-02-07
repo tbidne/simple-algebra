@@ -225,8 +225,8 @@ refineAMonoidNonZero :: (AMonoid g, Num g) => g -> Maybe (Refined R.NonZero g)
 refineAMonoidNonZero x
   | x == zero = Nothing
   | otherwise = case R.refine x of
-    Left _ -> Nothing
-    Right re -> Just re
+      Left _ -> Nothing
+      Right re -> Just re
 
 -- | Template-haskell version of 'refineAMonoidNonZero' for creating 'Refined'
 -- 'R.NonZero' at compile-time. Checks 'zero' /and/ the refinement.

@@ -36,79 +36,79 @@ infixl 6 .-.
 -- | @since 0.1.0.0
 instance AGroup Double where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Float where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int8 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int16 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int32 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int64 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Integer where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word8 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word16 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word32 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word64 where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | NB. Differs from 'Ratio'\'s 'abs' in that we also apply 'abs' to the

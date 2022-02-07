@@ -161,7 +161,7 @@ instance Integral a => Num (Fraction a) where
   (n1 :%: d1) + (n2 :%: d2) = unsafeFraction (n1 * d2 + n2 * d1) (d1 * d2)
   (n1 :%: d1) - (n2 :%: d2) = unsafeFraction (n1 * d2 - n2 * d1) (d1 * d2)
   (n1 :%: d1) * (n2 :%: d2) = unsafeFraction (n1 * n2) (d1 * d2)
-  negate (n :%: d) = UnsafeFraction (- n) d
+  negate (n :%: d) = UnsafeFraction (-n) d
   abs (n :%: d) = UnsafeFraction (abs n) (abs d)
   signum (n :%: d) = UnsafeFraction (signum n * signum d) 1
   fromInteger n1 = UnsafeFraction (fromInteger n1) 1
@@ -210,7 +210,7 @@ instance AMonoid (Fraction Natural) where
 -- | @since 0.1.0.0
 instance AGroup (Fraction Integer) where
   (.-.) = (-)
-  ginv x = - x
+  ginv x = -x
   gabs = abs
 
 -- | @since 0.1.0.0
