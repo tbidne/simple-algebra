@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
 -- | Provides the 'Fraction' type, a safer alternative to 'Ratio'.
@@ -28,7 +29,12 @@ import GHC.Read qualified as Read
 import GHC.Real (Ratio (..))
 import GHC.Real qualified as R
 import GHC.Stack (HasCallStack)
-import Language.Haskell.TH.Syntax (Lift (..), Q, TExp)
+#if MIN_VERSION_template_haskell(2, 17, 0)
+import Language.Haskell.TH (Code, Q)
+#else
+import Language.Haskell.TH (Q, TExp)
+#endif
+import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AGroup (AGroup (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
@@ -281,7 +287,11 @@ mkFraction n d = Just $ reduce (UnsafeFraction n d)
 -- 7 :%: 2
 --
 -- @since 0.1.0.0
+#if MIN_VERSION_template_haskell(2,17,0)
+mkFractionTH :: (Integral a, Lift a) => a -> a -> Code Q (Fraction a)
+#else
 mkFractionTH :: (Integral a, Lift a) => a -> a -> Q (TExp (Fraction a))
+#endif
 mkFractionTH n = maybe R.ratioZeroDenominatorError liftTyped . mkFraction n
 
 -- | Variant of 'mkFraction' that throws 'R.ratioZeroDenominatorError' when

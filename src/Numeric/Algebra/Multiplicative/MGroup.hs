@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
 -- | Provides the 'MGroup' typeclass.
@@ -24,7 +25,12 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
-import Language.Haskell.TH.Syntax (Lift (..), Q, TExp)
+#if MIN_VERSION_template_haskell(2, 17, 0)
+import Language.Haskell.TH (Code, Q)
+#else
+import Language.Haskell.TH (Q, TExp)
+#endif
+import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
@@ -192,7 +198,11 @@ mkAMonoidNonZero x
 -- UnsafeNonZero {unNonZero = 7}
 --
 -- @since 0.1.0.0
+#if MIN_VERSION_template_haskell(2,17,0)
+mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Code Q (NonZero g)
+#else
 mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Q (TExp (NonZero g))
+#endif
 mkAMonoidNonZeroTH x
   | x == zero = error "Passed identity to mkAMonoidNonZero"
   | otherwise = liftTyped (UnsafeNonZero x)
@@ -236,7 +246,11 @@ refineAMonoidNonZero x
 -- Refined 7
 --
 -- @since 0.1.0.0
+#if MIN_VERSION_template_haskell(2,17,0)
+refineAMonoidNonZeroTH :: (AMonoid g, Lift g, Num g) => g -> Code Q (Refined R.NonZero g)
+#else
 refineAMonoidNonZeroTH :: (AMonoid g, Lift g, Num g) => g -> Q (TExp (Refined R.NonZero g))
+#endif
 refineAMonoidNonZeroTH x
   | x == zero = error "Passed identity to refineAMonoidNonZeroTH"
   | otherwise = R.refineTH x
