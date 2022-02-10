@@ -2,11 +2,7 @@
   description = "algebra-simple flake";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.refined-extras-src = {
-    url = "github:tbidne/refined-extras/main";
-    inputs.flake-utils.follows = "flake-utils";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+  inputs.refined-extras-src.url = "github:tbidne/refined-extras/main";
   outputs =
     { flake-utils
     , nixpkgs
