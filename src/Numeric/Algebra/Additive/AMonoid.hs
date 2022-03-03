@@ -11,8 +11,6 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
-import Refined (Even, NonNegative, NonPositive, Refined)
-import Refined.Unsafe qualified as R
 
 -- | Defines a monoid over an additive semigroup.
 --
@@ -114,15 +112,3 @@ instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a) where
 -- | @since 0.1.0.0
 instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Num a, Ord a) => AMonoid (Refined NonNegative a) where
-  zero = R.unsafeRefine 0
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Num a, Ord a) => AMonoid (Refined NonPositive a) where
-  zero = R.unsafeRefine 0
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Integral a) => AMonoid (Refined Even a) where
-  zero = R.unsafeRefine 0

@@ -74,8 +74,6 @@ library
 
   build-depends:
     , base              >=4.14.0.0 && <4.17
-    , refined           ^>=0.6
-    , refined-extras    ^>=0.1.0.0
     , template-haskell  >=2.16.0.0 && <2.19.0.0
 
   hs-source-dirs:   src
@@ -114,8 +112,6 @@ test-suite props
     , algebra-simple
     , base
     , hedgehog        >=1.0.2   && <1.2
-    , refined
-    , refined-extras
     , tagged          ^>=0.8.6
     , tasty           >=1.1.0.3 && <1.5
     , tasty-hedgehog  >=1.0.0.2 && <1.2

@@ -11,8 +11,6 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Real (Ratio (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
-import Refined (Even, Refined)
-import Refined.Extras qualified as RExtras
 
 -- | Defines an additive group.
 --
@@ -275,9 +273,3 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
       gabs x8,
       gabs x9
     )
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Integral a) => AGroup (Refined Even a) where
-  (.-.) = RExtras.unsafeLiftR2 (-)
-  gabs = RExtras.unsafeLiftR abs
-  ginv = RExtras.unsafeLiftR negate

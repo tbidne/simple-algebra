@@ -24,14 +24,6 @@ module Gens
     rational,
     fraction,
 
-    -- ** Refined
-    refinedNonNegative,
-    refinedPositive,
-    refinedNonPositive,
-    refinedNegative,
-    refinedEven,
-    refinedOdd,
-
     -- * NonZero
 
     -- ** Specializations
@@ -52,8 +44,6 @@ module Gens
     word64NonZero,
     rationalNonZero,
     fractionNonZero,
-    refinedNZ,
-    refinedAddNZ,
 
     -- ** Combinators
     nzBounded,
@@ -79,10 +69,6 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid)
 import Numeric.Algebra.Multiplicative.MGroup (NonZero (..))
 import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
 import Numeric.Data.Fraction (Fraction (..))
-import Refined (Even, Negative, NonNegative, NonPositive, Odd, Positive, Predicate, Refined, type (&&))
-import Refined qualified as R
-import Refined.Extras.Utils (pattern MkRefined)
-import Refined.Unsafe qualified as R
 
 float :: MonadGen m => m Float
 float = HG.float $ HR.exponentialFloatFrom minVal 0 maxVal
@@ -139,51 +125,6 @@ ratioNumDenom genNum genDenom = do
 
 fraction :: MonadGen m => m (Fraction Integer)
 fraction = (:%:) <$> integer <*> integerNZ
-
-refinedNonNegative :: (MonadGen m) => m (Refined NonNegative Integer)
-refinedNonNegative = R.unsafeRefine <$> HG.integral (HR.exponential 0 maxVal)
-
-refinedPositive :: (MonadGen m) => m (Refined Positive Integer)
-refinedPositive = R.unsafeRefine <$> HG.integral (HR.exponential 1 maxVal)
-
-refinedNonPositive :: (MonadGen m) => m (Refined NonPositive Integer)
-refinedNonPositive = R.unsafeRefine <$> HG.integral (HR.exponential minVal 0)
-
-refinedNegative :: (MonadGen m) => m (Refined Negative Integer)
-refinedNegative = R.unsafeRefine <$> HG.integral (HR.exponential minVal -1)
-
-refinedEven :: (MonadGen m) => m (Refined Even Integer)
-refinedEven = do
-  x <- HG.filterT even $ HG.integral (HR.exponential minVal maxVal)
-  pure $ R.unsafeRefine x
-
-refinedOdd :: (MonadGen m) => m (Refined Odd Integer)
-refinedOdd = do
-  x <- HG.filterT odd $ HG.integral (HR.exponential minVal maxVal)
-  pure $ R.unsafeRefine x
-
-refinedNZ :: (MonadGen m) => m (Refined R.NonZero Integer)
-refinedNZ = do
-  x <-
-    HG.choice
-      [ HG.integral (HR.exponential minVal -1),
-        HG.integral (HR.exponential 1 maxVal)
-      ]
-  pure $ R.unsafeRefine x
-
-refinedAddNZ ::
-  ( Eq a,
-    GenBase m ~ Identity,
-    MonadFail m,
-    MonadGen m,
-    Num a,
-    Predicate p a
-  ) =>
-  m (Refined p a) ->
-  m (Refined (p && R.NonZero) a)
-refinedAddNZ gen = do
-  (MkRefined x) <- HG.filter ((/= 0) . R.unrefine) gen
-  pure $ R.unsafeRefine x
 
 floatNonZero :: MonadGen m => m (NonZero Float)
 floatNonZero = nonzeroFloatingBounds HG.float minVal maxVal

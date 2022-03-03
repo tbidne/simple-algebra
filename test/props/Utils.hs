@@ -3,7 +3,6 @@
 module Utils
   ( -- * Equality Functions
     binaryEq,
-    refinedBinaryEq,
 
     -- * Laws
     associativity,
@@ -19,8 +18,6 @@ import Equality (Equality)
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
-import Refined (Refined)
-import Refined.Extras.Utils (pattern MkRefined)
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
@@ -42,26 +39,6 @@ binaryEq expectedFn actualFn gen equalityCons desc = T.askOption $ \(MkMaxRuns l
         let actual = actualFn x y
             expected = expectedFn x y
         equalityCons expected === equalityCons actual
-
-refinedBinaryEq ::
-  forall a p.
-  ( Eq a,
-    Show a
-  ) =>
-  (a -> a -> a) ->
-  (Refined p a -> Refined p a -> Refined p a) ->
-  Gen (Refined p a) ->
-  TestName ->
-  TestTree
-refinedBinaryEq baseFn liftedFn gen desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
-    H.withTests limit $
-      H.property $ do
-        rx@(MkRefined x) <- H.forAll gen
-        ry@(MkRefined y) <- H.forAll gen
-        let expected = baseFn x y
-            (MkRefined actual) = liftedFn rx ry
-        expected === actual
 
 associativity :: (Eq a, Show a) => (a -> a -> a) -> Gen a -> TestName -> TestTree
 associativity f gen desc = T.askOption $ \(MkMaxRuns limit) ->

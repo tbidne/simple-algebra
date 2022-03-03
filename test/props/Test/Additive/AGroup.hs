@@ -19,7 +19,6 @@ props =
   T.testGroup
     "Additive Group"
     [ subProps,
-      subRefinedProps,
       subIdentProps,
       invProps,
       absProps
@@ -91,16 +90,6 @@ ratioIntegerSub = agroupSubEq Gens.rational MkEqExact "Rational"
 fractionSub :: TestTree
 fractionSub = agroupSubEq Gens.fraction MkEqExact "Fraction"
 
-subRefinedProps :: TestTree
-subRefinedProps =
-  T.testGroup
-    "Refined (.-.) === base (.-.) and preserves refinement"
-    [ refinedEvenSub
-    ]
-
-refinedEvenSub :: TestTree
-refinedEvenSub = Utils.refinedBinaryEq (-) (.-.) Gens.refinedEven "Refined Even"
-
 subIdentProps :: TestTree
 subIdentProps =
   T.testGroup
@@ -117,7 +106,6 @@ subIdentProps =
       word32SubIdent,
       word64SubIdent,
       rationalSubIdent,
-      refinedEvenSubIdent,
       fractionIdent
     ]
 
@@ -160,9 +148,6 @@ rationalSubIdent = agroupSubIdent Gens.rational "Rational"
 fractionIdent :: TestTree
 fractionIdent = agroupSubIdent Gens.fraction "Fraction"
 
-refinedEvenSubIdent :: TestTree
-refinedEvenSubIdent = agroupSubIdent Gens.refinedEven "Refined Even"
-
 invProps :: TestTree
 invProps =
   T.testGroup
@@ -179,7 +164,6 @@ invProps =
       word32Inv,
       word64Inv,
       rationalInv,
-      refinedEvenInv,
       fractionInv
     ]
 
@@ -222,9 +206,6 @@ rationalInv = agroupInv Gens.rational MkEqRatio "Rational"
 fractionInv :: TestTree
 fractionInv = agroupInv Gens.fraction MkEqExact "Fraction"
 
-refinedEvenInv :: TestTree
-refinedEvenInv = agroupInv Gens.refinedEven MkEqExact "Refined Even"
-
 absProps :: TestTree
 absProps =
   T.testGroup
@@ -232,8 +213,7 @@ absProps =
     [ intAbs,
       integerAbs,
       rationalAbs,
-      fractionAbs,
-      refinedEvenAbs
+      fractionAbs
     ]
 
 intAbs :: TestTree
@@ -247,9 +227,6 @@ rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational"
 
 fractionAbs :: TestTree
 fractionAbs = agroupAbs Gens.fraction MkEqExact "Fraction"
-
-refinedEvenAbs :: TestTree
-refinedEvenAbs = agroupAbs Gens.refinedEven MkEqExact "Refined Even"
 
 agroupSubEq :: (AGroup a, Num a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
 agroupSubEq = Utils.binaryEq (-) (.-.)

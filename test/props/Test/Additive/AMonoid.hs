@@ -35,10 +35,7 @@ identityProps =
       word32Id,
       word64Id,
       ratioIntegerId,
-      fractionId,
-      refinedNonNegativeId,
-      refinedNonPositiveId,
-      refinedEvenId
+      fractionId
     ]
 
 intId :: TestTree
@@ -82,15 +79,6 @@ ratioIntegerId = amonoidIdentity Gens.rational MkEqRatio "Rational"
 
 fractionId :: TestTree
 fractionId = amonoidIdentity Gens.fraction MkEqExact "Fraction"
-
-refinedNonNegativeId :: TestTree
-refinedNonNegativeId = amonoidIdentity Gens.refinedNonNegative MkEqExact "Refined NonNegative"
-
-refinedNonPositiveId :: TestTree
-refinedNonPositiveId = amonoidIdentity Gens.refinedNonPositive MkEqExact "Refined NonPositive"
-
-refinedEvenId :: TestTree
-refinedEvenId = amonoidIdentity Gens.refinedEven MkEqExact "Refined Even"
 
 amonoidIdentity :: (AMonoid a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
 amonoidIdentity = Utils.identity (.+.) zero

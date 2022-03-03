@@ -20,8 +20,7 @@
 
 # Motivation
 
-The primary interface to numerical operations in Haskell is `Num`. Unfortunately, `Num` has a key limitation: it is "too large". For example, if we want to opt-in to addition, we must also opt-in to subtraction, multiplication, and integer literal conversions. These may not make sense for the type at hand (e.g. naturals), so we are stuck either providing an
-invariant-breaking dangerous implementation (e.g. defining subtraction for arbitrary naturals) or throwing runtime errors.
+The primary interface to numerical operations in Haskell is `Num`. Unfortunately, `Num` has a key limitation: it is "too large". For example, if we want to opt-in to addition, we must also opt-in to subtraction, multiplication, and integer literal conversions. These may not make sense for the type at hand (e.g. naturals), so we are stuck either providing an invariant-breaking dangerous implementation (e.g. defining subtraction for arbitrary naturals) or throwing runtime errors.
 
 # Solution
 
@@ -33,84 +32,72 @@ invariant-breaking dangerous implementation (e.g. defining subtraction for arbit
     <th>Description</th>
     <th>New</th>
     <th>Num</th>
-    <th>Example</th>
   </thead>
   <tr>
     <td><code>ASemigroup</code></td>
     <td>Types that support "addition".</td>
     <td><code>(.+.)</code></td>
     <td><code>(+)</code></td>
-    <td><code>Negative</code></td>
   </tr>
   <tr>
     <td><code>AMonoid</code></td>
     <td><code>ASemigroup</code>s that have an identity.</td>
     <td><code>zero</code></td>
     <td></td>
-    <td><code>NonPositive</code></td>
   </tr>
   <tr>
     <td><code>AGroup</code></td>
     <td><code>AMonoid</code>s that support "subtraction".</td>
-    <td><code>(.-.)</code>, <code>ginv</code>, <code>gabs</code></td>
-    <td><code>(-)</code>, <code>abs</code></td>
-    <td><code>Integer</code></td>
+    <td><code>(.-.)</code></td>
+    <td><code>(-)</code></td>
   </tr>
   <tr>
     <td><code>MSemigroup</code></td>
     <td>Types that support "multiplication".</td>
     <td><code>(.*.)</code></td>
     <td><code>(*)</code></td>
-    <td><code>Positive</code></td>
   </tr>
   <tr>
     <td><code>MMonoid</code></td>
     <td><code>Multiplicative</code>s that have an identity.</td>
     <td><code>one</code></td>
     <td></td>
-    <td><code>Positive</code></td>
   </tr>
   <tr>
     <td><code>MGroup</code></td>
     <td><code>MMonoid</code>s that support "division".</td>
     <td><code>(.%.)</code></td>
     <td><code>div</code>, <code>(/)</code></td>
-    <td><code>Float</code></td>
   </tr>
   <tr>
     <td><code>Semiring</code></td>
     <td><code>AMonoid</code> and <code>MMonoid</code></td>
     <td></td>
     <td></td>
-    <td><code>Natural</code></td>
   </tr>
   <tr>
     <td><code>Ring</code></td>
     <td><code>AGroup</code> and <code>MMonoid</code></td>
     <td></td>
     <td></td>
-    <td><code>Integer</code></td>
   </tr>
   <tr>
     <td><code>Field</code></td>
     <td><code>Ring</code> and <code>MGroup</group>.</td>
     <td></td>
     <td></td>
-    <td><code>Integer</code></td>
   </tr>
   <tr>
     <td><code>Module</code></td>
     <td><code>AGroup</code>s that support "scalar multiplication".</td>
     <td><code>(.*)</code>, <code>(*.)</code></td>
     <td></td>
-    <td><code>(,)</code></td>
   </tr>
   <tr>
     <td><code>VectorSpace</code></td>
     <td><code>Module</code>s that support "scalar division".</td>
     <td><code>(.%)</code></td>
     <td></td>
-    <td><code>(,)</code></td>
   </tr>
 </table>
 
@@ -140,10 +127,10 @@ We have the following guiding principles:
 
 3. Safety
 
-    In addition to banning instances that are definitely wrong (`instance Ring Natural`, `instance ASemigroup (Refined Odd a)`), bounded built-in types (e.g. `GHC.Int.Int8`, `Word`) will throw an exception if bounds are violated.
+    In addition to banning instances that are definitely wrong (`instance Ring Natural`), bounded built-in types (e.g. `GHC.Int.Int8`, `Word`) will throw an exception if bounds are violated.
 
 4. Ergonomics
 
      We choose new operators that do not clash with prelude.
 
-We provide instances for built-in numeric types where it makes sense. Furthermore, we define instances for [refined](https://hackage.haskell.org/package/refined) types.
+We provide instances for built-in numeric types where it makes sense.

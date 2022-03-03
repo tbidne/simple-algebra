@@ -10,16 +10,6 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Refined
-  ( Even,
-    Negative,
-    NonNegative,
-    NonPositive,
-    NonZero,
-    Positive,
-    Refined,
-  )
-import Refined.Extras qualified as RExtras
 
 -- | Defines an additive semigroup.
 --
@@ -170,47 +160,3 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a, a, a) where
       x8 .+. y8,
       x9 .+. y9
     )
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Num a, Ord a) => ASemigroup (Refined NonNegative a) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Num a, Ord a) => ASemigroup (Refined Positive a) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Num a, Ord a) => ASemigroup (Refined NonPositive a) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Num a, Ord a) => ASemigroup (Refined Negative a) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance (ASemigroup a, Integral a) => ASemigroup (Refined Even a) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance ASemigroup (Refined NonZero Natural) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance ASemigroup (Refined NonZero Word) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance ASemigroup (Refined NonZero Word8) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance ASemigroup (Refined NonZero Word16) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance ASemigroup (Refined NonZero Word32) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)
-
--- | @since 0.1.0.0
-instance ASemigroup (Refined NonZero Word64) where
-  (.+.) = RExtras.unsafeLiftR2 (.+.)

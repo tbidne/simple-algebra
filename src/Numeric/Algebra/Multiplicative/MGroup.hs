@@ -13,11 +13,6 @@ module Numeric.Algebra.Multiplicative.MGroup
     mkAMonoidNonZero,
     mkAMonoidNonZeroTH,
     unsafeAMonoidNonZero,
-
-    -- * Refined
-    refineAMonoidNonZero,
-    refineAMonoidNonZeroTH,
-    unsafeRefineAMonoidNonZero,
   )
 where
 
@@ -34,11 +29,6 @@ import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Refined (NonNegative, Refined, type (&&))
-import Refined qualified as R
-import Refined.Extras (Implies, pattern MkRefined)
-import Refined.Unsafe qualified as RUnsafe
-import Unsafe.Coerce (unsafeCoerce)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -47,17 +37,24 @@ import Unsafe.Coerce (unsafeCoerce)
 --
 -- @since 0.1.0.0
 class MMonoid g => MGroup g where
-  -- | The 'NZ' type family defines a 'non-zero' type for @g@, referencing
-  -- 'AMonoid'\'s 'zero'. Ordinary types can use 'NonZero', though 'Refined'
-  -- types can use add a 'R.NonZero' predicate to their type.
+  -- | The 'NZ' type family defines a \"non-zero\" type for @g@. If @g@ also has
+  -- an 'AMonoid' instance then @NZ g@ should be a \"proof\" that
+  -- @g /= zero@. Such types can use 'NonZero'.
   --
-  -- Types without an 'AMonoid' instance can instead choose to implement
-  -- 'AMonoid' or take @NZ g = g@.
+  --  Types that are /not/ 'AMonoid's (e.g. \(\mathbb{Z}^+\) ) can take
+  -- @'NZ' g = g@.
   --
   -- @since 0.1.0.0
   type NZ g
 
-  -- | @since 0.1.0.0
+  -- | Safe division. This signature will likely change once we get dependent
+  -- types e.g.
+  --
+  -- @
+  -- (.%.) :: g -> (d :: g) -> (d /= zero) -> g
+  -- @
+  --
+  -- @since 0.1.0.0
   (.%.) :: g -> NZ g -> g
 
 infixl 7 .%.
@@ -142,12 +139,7 @@ instance MGroup (Ratio Natural) where
   type NZ (Ratio Natural) = NonZero (Ratio Natural)
   x .%. d = x .*. flipNonZero d
 
--- | @since 0.1.0.0
-instance (AMonoid a, MGroup a, Num a, Ord a) => MGroup (Refined NonNegative a) where
-  type NZ (Refined NonNegative a) = Refined (NonNegative && R.NonZero) a
-  MkRefined x .%. d = RUnsafe.unsafeRefine $ x .%. unsafeRefineToNZ d
-
--- | Smart-constructor for creating a 'non-zero' @a@, where zero is the
+-- | Smart-constructor for creating a \"non-zero\" @a@, where zero is the
 -- 'AMonoid' 'zero'.
 --
 -- @since 0.1.0.0
@@ -220,59 +212,5 @@ unsafeAMonoidNonZero x
   | x == zero = error "Passed identity to unsafeAMonoidNonZero"
   | otherwise = UnsafeNonZero x
 
--- | Smart constructor for 'Refined' 'R.NonZero', based on its additive
--- monoid instance. Checks 'zero' /and/ the refinement.
---
--- ==== __Examples__
--- >>> refineAMonoidNonZero 7
--- Just (Refined 7)
---
--- >>> refineAMonoidNonZero 0
--- Nothing
---
--- @since 0.1.0.0
-refineAMonoidNonZero :: (AMonoid g, Num g) => g -> Maybe (Refined R.NonZero g)
-refineAMonoidNonZero x
-  | x == zero = Nothing
-  | otherwise = case R.refine x of
-      Left _ -> Nothing
-      Right re -> Just re
-
--- | Template-haskell version of 'refineAMonoidNonZero' for creating 'Refined'
--- 'R.NonZero' at compile-time. Checks 'zero' /and/ the refinement.
---
--- ==== __Examples__
--- >>> $$(refineAMonoidNonZeroTH 7)
--- Refined 7
---
--- @since 0.1.0.0
-#if MIN_VERSION_template_haskell(2,17,0)
-refineAMonoidNonZeroTH :: (AMonoid g, Lift g, Num g) => g -> Code Q (Refined R.NonZero g)
-#else
-refineAMonoidNonZeroTH :: (AMonoid g, Lift g, Num g) => g -> Q (TExp (Refined R.NonZero g))
-#endif
-refineAMonoidNonZeroTH x
-  | x == zero = error "Passed identity to refineAMonoidNonZeroTH"
-  | otherwise = R.refineTH x
-
--- | Unsafe constructor for 'Refined' 'R.NonZero', based on its additive
--- monoid instance. Checks 'zero' /and/ the refinement. Intended to be used
--- with known constants. Exercise restraint!
---
--- ==== __Examples__
--- >>> unsafeRefineAMonoidNonZero 7
--- Refined 7
---
--- @since 0.1.0.0
-unsafeRefineAMonoidNonZero :: (AMonoid g, Num g) => g -> Refined R.NonZero g
-unsafeRefineAMonoidNonZero x
-  | x == zero = error "Passed identity to unsafeRefineAMonoidNonZero"
-  | otherwise = RUnsafe.unsafeRefine x
-
 flipNonZero :: Fractional a => NonZero a -> a
 flipNonZero (MkNonZero x) = recip x
-
-unsafeRefineToNZ :: (AMonoid g, Implies p R.NonZero) => Refined p g -> NZ g
-unsafeRefineToNZ (MkRefined x)
-  | x == zero = error "Passed identity to unsafeRefineToNZ!"
-  | otherwise = unsafeCoerce x

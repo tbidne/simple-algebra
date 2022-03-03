@@ -44,44 +44,44 @@ import Numeric.Algebra.VectorSpace
 -- lists the classes along with the num functionality they are intended to
 -- replace:
 --
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | Typeclass              | Description             | New      | 'Num'  | Example               |
--- +========================+=========================+==========+========+=======================+
--- | 'ASemigroup'           | Types that              | '(.+.)'  | '(+)'  | 'Refined.Negative'    |
--- |                        | support "addition".     |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'AMonoid'              | 'ASemigroup's that      | 'zero'   |        | 'Refined.NonPositive' |
--- |                        | have an identity.       |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'AGroup'               | 'AMonoid's              | '(.-.)', | '(-)', | 'Integer'             |
--- |                        | that support            | 'ginv',  | 'abs'  |                       |
--- |                        | "subtraction".          | 'gabs'   |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'MSemigroup'           | Types that support      | '(.*.)'  | '(*)'  | 'Refined.Positive'    |
--- |                        | "multiplication".       |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'MMonoid'              | 'MSemigroup's that      | 'one'    |        | 'Refined.Positive'    |
--- |                        | have an identity.       |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'MGroup'               | 'MMonoid's that         | '(.%.)', | 'div', | 'Float'               |
--- |                        | support "division"      |          | '(/)'  |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Semiring'             | 'AMonoid' and           |          |        | 'GHC.Natural'         |
--- |                        | 'MMonoid'.              |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Ring'                 | 'AGroup' and            |          |        | 'Integer'             |
--- |                        | 'MMonoid'.              |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Field'                | 'Ring' and              |          |        | 'Integer'             |
--- |                        | 'MGroup'.               |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'Module'               | 'AGroup's that          | '(.*)',  |        | @(,)@                 |
--- |                        | supports "scalar        | '(*.)'   |        |                       |
--- |                        | multiplication".        |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
--- | 'VectorSpace'          | 'Module's that support  | '(.%)',  |        | @(,)@                 |
--- |                        | "scalar division".      |          |        |                       |
--- +------------------------+-------------------------+----------+--------+-----------------------+
+-- +------------------------+-------------------------+----------+--------+
+-- | Typeclass              | Description             | New      | 'Num'  |
+-- +========================+=========================+==========+========+
+-- | 'ASemigroup'           | Types that              | '(.+.)'  | '(+)'  |
+-- |                        | support "addition".     |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'AMonoid'              | 'ASemigroup's that      | 'zero'   |        |
+-- |                        | have an identity.       |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'AGroup'               | 'AMonoid's              | '(.-.)'  | '(-)'  |
+-- |                        | that support            |          |        |
+-- |                        | "subtraction".          |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'MSemigroup'           | Types that support      | '(.*.)'  | '(*)'  |
+-- |                        | "multiplication".       |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'MMonoid'              | 'MSemigroup's that      | 'one'    |        |
+-- |                        | have an identity.       |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'MGroup'               | 'MMonoid's that         | '(.%.)', | 'div', |
+-- |                        | support "division"      |          | '(/)'  |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Semiring'             | 'AMonoid' and           |          |        |
+-- |                        | 'MMonoid'.              |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Ring'                 | 'AGroup' and            |          |        |
+-- |                        | 'MMonoid'.              |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Field'                | 'Ring' and              |          |        |
+-- |                        | 'MGroup'.               |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Module'               | 'AGroup's that          | '(.*)',  |        |
+-- |                        | supports "scalar        | '(*.)'   |        |
+-- |                        | multiplication".        |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'VectorSpace'          | 'Module's that support  | '(.%)',  |        |
+-- |                        | "scalar division".      |          |        |
+-- +------------------------+-------------------------+----------+--------+
 --
 -- We have the following guiding principles:
 --
@@ -130,14 +130,12 @@ import Numeric.Algebra.VectorSpace
 -- 3. Safety
 --
 --     Instances that break the type's invariants
---     (@instance 'Ring' 'GHC.Natural'@,
---     @instance 'ASemigroup' ('Refined.Refined' 'Refined.Odd' a)@), are
---     banned. Furthermore, instances that are /highly/ likely to go wrong
+--     (@instance 'Ring' 'GHC.Natural'@), are banned. Furthermore, instances
+--     that are /highly/ likely to go wrong
 --     (e.g. 'Rational' with bounded integral types) are also forbidden.
 --
 -- 4. Ergonomics
 --
 --      We choose new operators that do not clash with prelude.
 --
--- We provide instances for built-in numeric types where it makes sense, along
--- with types from the "Refined" library.
+-- We provide instances for built-in numeric types where it makes sense.

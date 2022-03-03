@@ -11,8 +11,6 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Refined (NonNegative, NonZero, Odd, Positive, Refined)
-import Refined.Unsafe qualified as R
 
 -- | Defines a monoid over a multiplicative semigroup.
 --
@@ -84,19 +82,3 @@ instance MMonoid (Ratio Integer) where
 -- | @since 0.1.0.0
 instance MMonoid (Ratio Natural) where
   one = 1
-
--- | @since 0.1.0.0
-instance (MSemigroup a, Num a, Ord a) => MMonoid (Refined NonNegative a) where
-  one = R.unsafeRefine 1
-
--- | @since 0.1.0.0
-instance (MSemigroup a, Num a, Ord a) => MMonoid (Refined Positive a) where
-  one = R.unsafeRefine 1
-
--- | @since 0.1.0.0
-instance (MSemigroup a, Num a) => MMonoid (Refined NonZero a) where
-  one = R.unsafeRefine 1
-
--- | @since 0.1.0.0
-instance (Integral a, MSemigroup a) => MMonoid (Refined Odd a) where
-  one = R.unsafeRefine 1
