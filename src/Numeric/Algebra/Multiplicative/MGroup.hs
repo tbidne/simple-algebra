@@ -5,8 +5,9 @@
 --
 -- @since 0.1.0.0
 module Numeric.Algebra.Multiplicative.MGroup
-  ( -- * Typeclass
+  ( -- * Typeclasses
     MGroup (..),
+    MGroupIntegral (..),
 
     -- * NonZero
     NonZero (MkNonZero, unNonZero),
@@ -214,3 +215,88 @@ unsafeAMonoidNonZero x
 
 flipNonZero :: Fractional a => NonZero a -> a
 flipNonZero (MkNonZero x) = recip x
+
+-- | Additional functions for "integral" 'MGroup's.
+--
+-- @since 0.1.0.0
+class MGroup g => MGroupIntegral g where
+  -- @since 0.1.0.0
+  gmod :: g -> NZ g -> g
+
+  -- @since 0.1.0.0
+  grem :: g -> NZ g -> g
+
+  -- @since 0.1.0.0
+  gquot :: g -> NZ g -> g
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Int where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Int8 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Int16 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Int32 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Int64 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Integer where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Natural where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Word where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Word8 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Word16 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Word32 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral Word64 where
+  x `gmod` MkNonZero d = x `mod` d
+  x `grem` MkNonZero d = x `rem` d
+  x `gquot` MkNonZero d = x `quot` d

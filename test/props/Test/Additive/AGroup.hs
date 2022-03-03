@@ -5,7 +5,7 @@ import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
-import Numeric.Algebra.Additive.AGroup (AGroup (..))
+import Numeric.Algebra.Additive.AGroup (AGroup (..), gabs, ginv)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Test.Tasty (TestName, TestTree)

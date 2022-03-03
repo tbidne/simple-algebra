@@ -216,8 +216,6 @@ instance AMonoid (Fraction Natural) where
 -- | @since 0.1.0.0
 instance AGroup (Fraction Integer) where
   (.-.) = (-)
-  ginv x = -x
-  gabs = abs
 
 -- | @since 0.1.0.0
 instance MSemigroup (Fraction Integer) where

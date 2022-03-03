@@ -5,7 +5,7 @@ import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), MGroupIntegral (..), NonZero (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
@@ -16,7 +16,8 @@ props =
   T.testGroup
     "Multiplicative Group"
     [ divProps,
-      divIdentProps
+      divIdentProps,
+      divIntegralProps
     ]
 
 divProps :: TestTree
@@ -181,3 +182,73 @@ agroupDivIdent gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
       H.property $ do
         nz@(MkNonZero x) <- H.forAll gen
         eqCons one === eqCons (x .%. nz)
+
+divIntegralProps :: TestTree
+divIntegralProps =
+  T.testGroup
+    "gmod, grem, gquot === mod, rem, quot"
+    [ intDivIntegral,
+      int8DivIntegral,
+      int16DivIntegral,
+      int32DivIntegral,
+      int64DivIntegral,
+      integerDivIntegral,
+      naturalDivIntegral,
+      wordDivIntegral,
+      word8DivIntegral,
+      word16DivIntegral,
+      word32DivIntegral,
+      word64DivIntegral
+    ]
+
+intDivIntegral :: TestTree
+intDivIntegral = mgroupDivIntegralEq Gens.int Gens.intNonZero "Int"
+
+int8DivIntegral :: TestTree
+int8DivIntegral = mgroupDivIntegralEq Gens.int8 Gens.int8NonZero "Int8"
+
+int16DivIntegral :: TestTree
+int16DivIntegral = mgroupDivIntegralEq Gens.int16 Gens.int16NonZero "Int16"
+
+int32DivIntegral :: TestTree
+int32DivIntegral = mgroupDivIntegralEq Gens.int32 Gens.int32NonZero "Int32"
+
+int64DivIntegral :: TestTree
+int64DivIntegral = mgroupDivIntegralEq Gens.int64 Gens.int64NonZero "Int64"
+
+integerDivIntegral :: TestTree
+integerDivIntegral = mgroupDivIntegralEq Gens.integer Gens.integerNonZero "Integer"
+
+naturalDivIntegral :: TestTree
+naturalDivIntegral = mgroupDivIntegralEq Gens.natural Gens.naturalNonZero "Natural"
+
+wordDivIntegral :: TestTree
+wordDivIntegral = mgroupDivIntegralEq Gens.word Gens.wordNonZero "Word"
+
+word8DivIntegral :: TestTree
+word8DivIntegral = mgroupDivIntegralEq Gens.word8 Gens.word8NonZero "Word8"
+
+word16DivIntegral :: TestTree
+word16DivIntegral = mgroupDivIntegralEq Gens.word16 Gens.word16NonZero "Word16"
+
+word32DivIntegral :: TestTree
+word32DivIntegral = mgroupDivIntegralEq Gens.word32 Gens.word32NonZero "Word32"
+
+word64DivIntegral :: TestTree
+word64DivIntegral = mgroupDivIntegralEq Gens.word64 Gens.word64NonZero "Word64"
+
+mgroupDivIntegralEq ::
+  (Integral a, MGroupIntegral a, NZ a ~ NonZero a, Show a) =>
+  Gen a ->
+  Gen (NonZero a) ->
+  TestName ->
+  TestTree
+mgroupDivIntegralEq gen genNZ desc = T.askOption $ \(MkMaxRuns limit) ->
+  TH.testProperty desc $
+    H.withTests limit $
+      H.property $ do
+        x <- H.forAll gen
+        nz@(MkNonZero d) <- H.forAll genNZ
+        x `mod` d === x `gmod` nz
+        x `rem` d === x `grem` nz
+        x `quot` d === x `gquot` nz
