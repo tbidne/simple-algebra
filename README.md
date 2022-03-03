@@ -67,14 +67,20 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
     <td><code>div</code>, <code>(/)</code></td>
   </tr>
   <tr>
+    <td><code>MGroupIntegral</code></td>
+    <td><code>MGroup</code>s that support "remainder division".</td>
+    <td><code>gmod</code>, <code>grem</code>, <code>gquot</code></td>
+    <td><code>mod</code>, <code>rem</code>, <code>quot</code></td>
+  </tr>
+  <tr>
     <td><code>Semiring</code></td>
-    <td><code>AMonoid</code> and <code>MMonoid</code></td>
+    <td><code>AMonoid</code> and <code>MMonoid.</code></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
     <td><code>Ring</code></td>
-    <td><code>AGroup</code> and <code>MMonoid</code></td>
+    <td><code>AGroup</code> and <code>MMonoid.</code></td>
     <td></td>
     <td></td>
   </tr>

@@ -48,14 +48,7 @@ class MMonoid g => MGroup g where
   -- @since 0.1.0.0
   type NZ g
 
-  -- | Safe division. This signature will likely change once we get dependent
-  -- types e.g.
-  --
-  -- @
-  -- (.%.) :: g -> (d :: g) -> (d /= zero) -> g
-  -- @
-  --
-  -- @since 0.1.0.0
+  -- | @since 0.1.0.0
   (.%.) :: g -> NZ g -> g
 
 infixl 7 .%.
