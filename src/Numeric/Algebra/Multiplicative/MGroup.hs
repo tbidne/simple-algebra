@@ -220,13 +220,13 @@ flipNonZero (MkNonZero x) = recip x
 --
 -- @since 0.1.0.0
 class MGroup g => MGroupIntegral g where
-  -- @since 0.1.0.0
+  -- | @since 0.1.0.0
   gmod :: g -> NZ g -> g
 
-  -- @since 0.1.0.0
+  -- | @since 0.1.0.0
   grem :: g -> NZ g -> g
 
-  -- @since 0.1.0.0
+  -- | @since 0.1.0.0
   gquot :: g -> NZ g -> g
 
 -- | @since 0.1.0.0
