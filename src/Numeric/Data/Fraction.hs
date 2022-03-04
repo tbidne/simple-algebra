@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveAnyClass #-}
 {-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
 -- | Provides the 'Fraction' type, a safer alternative to 'Ratio'.
@@ -22,7 +23,11 @@ module Numeric.Data.Fraction
   )
 where
 
+import Control.DeepSeq (NFData)
 import Data.Maybe qualified as May
+import Foreign.Ptr qualified as FPtr
+import Foreign.Storable (Storable (..))
+import GHC.Generics (Generic)
 import GHC.Natural (Natural)
 import GHC.Read (Read (..))
 import GHC.Read qualified as Read
@@ -98,9 +103,15 @@ import Text.Read.Lex qualified as L
 --
 -- @since 0.1.0.0
 data Fraction a = UnsafeFraction !a !a
-  deriving
+  deriving stock
     ( -- | @since 0.1.0.0
+      Generic,
+      -- | @since 0.1.0.0
       Lift
+    )
+  deriving anyclass
+    ( -- | @since 0.1.0.0
+      NFData
     )
 
 -- | Bidirectional pattern synonym for 'Fraction'. The constructor is an alias
@@ -129,6 +140,20 @@ infixr 5 :%:
 -- | @since 0.1.0.0
 instance (Integral a, Show a) => Show (Fraction a) where
   show (n :%: d) = show n <> " :%: " <> show d
+
+-- | @since 0.1.0.0
+instance (Storable a, Integral a) => Storable (Fraction a) where
+  sizeOf _ = 2 * sizeOf (undefined :: a)
+  alignment _ = alignment (undefined :: a)
+  peek p = do
+    let q = FPtr.castPtr p
+    r <- peek q
+    i <- peekElemOff q 1
+    return (r :%: i)
+  poke p (r :%: i) = do
+    let q = FPtr.castPtr p
+    poke q r
+    pokeElemOff q 1 i
 
 -- | @since 0.1.0.0
 instance (Eq a, Integral a) => Eq (Fraction a) where
