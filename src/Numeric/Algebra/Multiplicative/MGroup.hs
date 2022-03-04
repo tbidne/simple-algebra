@@ -1,7 +1,7 @@
 {-# LANGUAGE CPP #-}
 {-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
--- | Provides the 'MGroup' typeclass.
+-- | Provides typeclasses for division.
 --
 -- @since 0.1.0.0
 module Numeric.Algebra.Multiplicative.MGroup

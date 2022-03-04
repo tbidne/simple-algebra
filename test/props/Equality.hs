@@ -39,20 +39,19 @@ data EqTy
   | EqEpsilon
   deriving (Show)
 
--- | 'Equality' is intended for when we need to associated types to different
+-- | 'Equality' is intended for when we need to associate types to different
 -- notions of equality, and wrapping these types manually in a newtype is not
 -- convenient.
 --
--- Suppose we want to verify predicate @p@ for some @x@, but unfortunately for
--- us, @x@'s 'Eq' instances is too strong. We could write a newtype @y@ for @x@
--- and define our test in terms of @y@, i.e., test @p(y)@. This might be
--- inconvenient if we need many resources that are written in terms of @x@, or
--- if any of these resources are sufficiently complicated (e.g. polymorphic
+-- Suppose we want to verify predicate @p@ for some @x@, but -- unfortunately
+-- for us -- @x@'s 'Eq' instances is too strong. We could write a newtype @y@
+-- for @x@ and define our test in terms of @y@, i.e., test @p(y)@. This might
+-- be inconvenient if we need many resources that are written in terms of @x@,
+-- or if any of these resources are sufficiently complicated (e.g. polymorphic
 -- generators involving type families).
 --
--- This is where 'Equality' comes in. We write nearly our entire
--- test nearly in terms of @x@, then at the last moment, verify our properties
--- with 'Equality'.
+-- This is where 'Equality' comes in. We write our entire test nearly in terms
+-- of @x@, then at the last moment, verify our properties with 'Equality'.
 --
 -- For example, if we want to compare two floating points for approximate
 -- equality, we can check @MkEqEpsilon 1.0 x == MkEqEpsilon 1.0 y@.

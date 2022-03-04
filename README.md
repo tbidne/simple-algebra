@@ -74,13 +74,13 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
   </tr>
   <tr>
     <td><code>Semiring</code></td>
-    <td><code>AMonoid</code> and <code>MMonoid.</code></td>
+    <td><code>AMonoid</code> and <code>MMonoid</code>.</td>
     <td></td>
     <td></td>
   </tr>
   <tr>
     <td><code>Ring</code></td>
-    <td><code>AGroup</code> and <code>MMonoid.</code></td>
+    <td><code>AGroup</code> and <code>MMonoid</code>.</td>
     <td></td>
     <td></td>
   </tr>
@@ -130,7 +130,7 @@ We have the following guiding principles:
 
 3. Safety
 
-    In addition to banning instances that are definitely wrong (`instance Ring Natural`), bounded built-in types (e.g. `GHC.Int.Int8`, `Word`) will throw an exception if bounds are violated.
+    Instances that break the type's invariants (`instance Ring Natural`), are banned. Furthermore, instances that are _highly_ likely to go wrong (e.g. `Rational` with bounded integral types) are also forbidden.
 
 4. Ergonomics
 

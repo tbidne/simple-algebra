@@ -22,7 +22,9 @@ files =
 exts :: [String]
 exts =
   [ "-XDataKinds",
+    "-XDeriveGeneric",
     "-XDeriveLift",
+    "-XDerivingStrategies",
     "-XFlexibleContexts",
     "-XFlexibleInstances",
     "-XFunctionalDependencies",

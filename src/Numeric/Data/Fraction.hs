@@ -57,7 +57,7 @@ import Text.Read.Lex qualified as L
 -- >>> :set -XTemplateHaskell
 
 -- | Type for representing fractions. Designed to be similar to 'Ratio' with
--- the primary difference that it does not require the following invariants
+-- the primary difference that it does __not__ require the following invariants
 -- for its instances (e.g. 'Eq') to be sensible:
 --
 -- 1. @n / d@ is maximally reduced.
