@@ -186,7 +186,7 @@ agroupDivIdent gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
 divIntegralProps :: TestTree
 divIntegralProps =
   T.testGroup
-    "gmod, grem, gquot === mod, rem, quot"
+    "gmod === mod"
     [ intDivIntegral,
       int8DivIntegral,
       int16DivIntegral,
@@ -250,5 +250,3 @@ mgroupDivIntegralEq gen genNZ desc = T.askOption $ \(MkMaxRuns limit) ->
         x <- H.forAll gen
         nz@(MkNonZero d) <- H.forAll genNZ
         x `mod` d === x `gmod` nz
-        x `rem` d === x `grem` nz
-        x `quot` d === x `gquot` nz

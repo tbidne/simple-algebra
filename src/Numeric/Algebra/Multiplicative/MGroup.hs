@@ -215,81 +215,58 @@ flipNonZero (MkNonZero x) = recip x
 class MGroup g => MGroupIntegral g where
   -- | @since 0.1.0.0
   gmod :: g -> NZ g -> g
+  gmod x d = snd $ gdivMod x d
 
   -- | @since 0.1.0.0
-  grem :: g -> NZ g -> g
+  gdivMod :: g -> NZ g -> (g, g)
+  gdivMod x d = (x .%. d, x `gmod` d)
 
-  -- | @since 0.1.0.0
-  gquot :: g -> NZ g -> g
+  {-# MINIMAL (gdivMod | gmod) #-}
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int8 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int16 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int32 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int64 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Integer where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Natural where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word8 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word16 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word32 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word64 where
-  x `gmod` MkNonZero d = x `mod` d
-  x `grem` MkNonZero d = x `rem` d
-  x `gquot` MkNonZero d = x `quot` d
+  x `gdivMod` MkNonZero d = x `divMod` d
