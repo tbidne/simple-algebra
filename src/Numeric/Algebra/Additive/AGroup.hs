@@ -10,6 +10,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Real (Ratio (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Data.Fraction (Fraction (..))
 
 -- | Defines an additive group.
 --
@@ -303,3 +304,9 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
       aabs x8,
       aabs x9
     )
+
+-- | @since 0.1.0.0
+instance AGroup (Fraction Integer) where
+  type SubtractConstraint (Fraction Integer) = Fraction Integer
+  (.-.) = (-)
+  aabs = abs

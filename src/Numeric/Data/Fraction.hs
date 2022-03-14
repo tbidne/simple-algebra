@@ -28,7 +28,6 @@ import Data.Maybe qualified as May
 import Foreign.Ptr qualified as FPtr
 import Foreign.Storable (Storable (..))
 import GHC.Generics (Generic)
-import GHC.Natural (Natural)
 import GHC.Read (Read (..))
 import GHC.Read qualified as Read
 import GHC.Real (Ratio (..))
@@ -40,16 +39,6 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
-import Numeric.Algebra.Additive.AGroup (AGroup (..))
-import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
-import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
-import Numeric.Algebra.Field (Field)
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
-import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
-import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Numeric.Algebra.Ring (Ring)
-import Numeric.Algebra.Semiring (Semiring)
-import Numeric.Literal (NumLiteral (..))
 import Text.ParserCombinators.ReadPrec qualified as ReadP
 import Text.Read.Lex qualified as L
 
@@ -221,78 +210,6 @@ instance (Integral a, Read a) => Read (Fraction a) where
               return (UnsafeFraction x y)
           )
       )
-
--- | @since 0.1.0.0
-instance ASemigroup (Fraction Integer) where
-  type AddConstraint (Fraction Integer) = Fraction Integer
-  (.+.) = (+)
-
--- | @since 0.1.0.0
-instance ASemigroup (Fraction Natural) where
-  type AddConstraint (Fraction Natural) = Fraction Natural
-  (.+.) = (+)
-
--- | @since 0.1.0.0
-instance AMonoid (Fraction Integer) where
-  zero = 0 :%: 1
-
--- | @since 0.1.0.0
-instance AMonoid (Fraction Natural) where
-  zero = 0 :%: 1
-
--- | @since 0.1.0.0
-instance AGroup (Fraction Integer) where
-  type SubtractConstraint (Fraction Integer) = Fraction Integer
-  (.-.) = (-)
-  aabs = abs
-
--- | @since 0.1.0.0
-instance MSemigroup (Fraction Integer) where
-  type MultConstraint (Fraction Integer) = Fraction Integer
-  (.*.) = (*)
-
--- | @since 0.1.0.0
-instance MSemigroup (Fraction Natural) where
-  type MultConstraint (Fraction Natural) = Fraction Natural
-  (.*.) = (*)
-
--- | @since 0.1.0.0
-instance MMonoid (Fraction Integer) where
-  one = 1 :%: 1
-
--- | @since 0.1.0.0
-instance MMonoid (Fraction Natural) where
-  one = 1 :%: 1
-
--- | @since 0.1.0.0
-instance MGroup (Fraction Integer) where
-  type DivConstraint (Fraction Integer) = NonZero (Fraction Integer)
-  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
-
--- | @since 0.1.0.0
-instance MGroup (Fraction Natural) where
-  type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
-  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
-
--- | @since 0.1.0.0
-instance Semiring (Fraction Integer)
-
--- | @since 0.1.0.0
-instance Semiring (Fraction Natural)
-
--- | @since 0.1.0.0
-instance Ring (Fraction Integer)
-
--- | @since 0.1.0.0
-instance Field (Fraction Integer)
-
--- | @since 0.1.0.0
-instance NumLiteral (Fraction Integer) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance NumLiteral (Fraction Natural) where
-  fromLit = fromInteger
 
 -- | Smart constructor for 'Fraction'. Returns 'Nothing' if the second
 -- parameter is 0. Reduces the fraction via 'reduce' if possible.

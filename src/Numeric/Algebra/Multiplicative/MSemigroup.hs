@@ -10,6 +10,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Numeric.Data.Fraction (Fraction)
 
 -- | Defines a multiplicative semigroup.
 --
@@ -104,4 +105,14 @@ instance MSemigroup (Ratio Integer) where
 -- | @since 0.1.0.0
 instance MSemigroup (Ratio Natural) where
   type MultConstraint (Ratio Natural) = Ratio Natural
+  (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (Fraction Integer) where
+  type MultConstraint (Fraction Integer) = Fraction Integer
+  (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (Fraction Natural) where
+  type MultConstraint (Fraction Natural) = Fraction Natural
   (.*.) = (*)

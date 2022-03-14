@@ -10,6 +10,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Numeric.Data.Fraction (Fraction)
 
 -- | Defines an additive semigroup.
 --
@@ -246,3 +247,13 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a, a, a) where
       x8 .+. y8,
       x9 .+. y9
     )
+
+-- | @since 0.1.0.0
+instance ASemigroup (Fraction Integer) where
+  type AddConstraint (Fraction Integer) = Fraction Integer
+  (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance ASemigroup (Fraction Natural) where
+  type AddConstraint (Fraction Natural) = Fraction Natural
+  (.+.) = (+)

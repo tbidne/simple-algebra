@@ -30,6 +30,7 @@ import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Data.Fraction (Fraction (..))
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -266,3 +267,13 @@ instance MGroupIntegral Word32 where
 -- | @since 0.1.0.0
 instance MGroupIntegral Word64 where
   x `gdivMod` MkNonZero d = x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroup (Fraction Integer) where
+  type DivConstraint (Fraction Integer) = NonZero (Fraction Integer)
+  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance MGroup (Fraction Natural) where
+  type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
+  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)

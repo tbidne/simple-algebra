@@ -11,6 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
+import Numeric.Data.Fraction (Fraction (..))
 
 -- | Defines a monoid over an additive semigroup.
 --
@@ -112,3 +113,11 @@ instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a) where
 -- | @since 0.1.0.0
 instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
+
+-- | @since 0.1.0.0
+instance AMonoid (Fraction Integer) where
+  zero = 0 :%: 1
+
+-- | @since 0.1.0.0
+instance AMonoid (Fraction Natural) where
+  zero = 0 :%: 1

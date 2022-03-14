@@ -10,6 +10,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import Numeric.Data.Fraction (Fraction)
 
 -- | Replaces 'Num'\'s ' 'fromInteger' functionality for when we do not have
 -- a 'Num' instance. Instead of, e.g., @1_000 :: Num a => a@ we have
@@ -103,4 +104,12 @@ instance NumLiteral (Ratio Integer) where
 
 -- | @since 0.1.0.0
 instance NumLiteral (Ratio Natural) where
+  fromLit = fromInteger
+
+-- | @since 0.1.0.0
+instance NumLiteral (Fraction Integer) where
+  fromLit = fromInteger
+
+-- | @since 0.1.0.0
+instance NumLiteral (Fraction Natural) where
   fromLit = fromInteger
