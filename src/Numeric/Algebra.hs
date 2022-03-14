@@ -66,9 +66,8 @@ import Numeric.Algebra.VectorSpace
 -- | 'MGroup'               | 'MMonoid's that         | '(.%.)', | 'div', |
 -- |                        | support "division"      |          | '(/)'  |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MGroupIntegral'       | 'MGroup's that support  | 'gmod',  | 'mod', |
--- |                        | "remainder division".   | 'grem',  | 'rem'  |
--- |                        |                         | 'gquot'  | 'quot' |
+-- | 'MGroupIntegral'       | 'MGroup's that support  | 'gmod'   | 'mod'  |
+-- |                        | "remainder division".   |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Semiring'             | 'AMonoid' and           |          |        |
 -- |                        | 'MMonoid'.              |          |        |

@@ -15,11 +15,11 @@ import Numeric.Algebra.Ring (Ring)
 -- @since 0.1.0.0
 class (AGroup m, Ring r) => Module m r | m -> r where
   -- | @since 0.1.0.0
-  (.*) :: m -> r -> m
+  (.*) :: m -> MultConstraint r -> m
   (.*) = flip (*.)
 
   -- | @since 0.1.0.0
-  (*.) :: r -> m -> m
+  (*.) :: MultConstraint r -> m -> m
   (*.) = flip (.*)
 
   {-# MINIMAL ((.*) | (*.)) #-}

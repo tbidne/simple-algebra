@@ -39,6 +39,7 @@ common common-exts
     GADTs
     GeneralizedNewtypeDeriving
     ImportQualifiedPost
+    InstanceSigs
     LambdaCase
     MultiParamTypeClasses
     MultiWayIf

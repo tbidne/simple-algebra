@@ -5,7 +5,7 @@ import Gens qualified
 import Hedgehog (Gen, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
-import Numeric.Algebra.Additive.AGroup (AGroup (..), gabs, ginv)
+import Numeric.Algebra.Additive.AGroup (AGroup (..), aabs)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Test.Tasty (TestName, TestTree)
@@ -20,7 +20,6 @@ props =
     "Additive Group"
     [ subProps,
       subIdentProps,
-      invProps,
       absProps
     ]
 
@@ -148,64 +147,6 @@ rationalSubIdent = agroupSubIdent Gens.rational "Rational"
 fractionIdent :: TestTree
 fractionIdent = agroupSubIdent Gens.fraction "Fraction"
 
-invProps :: TestTree
-invProps =
-  T.testGroup
-    "x .+. inv x == zero == inv x .+. x"
-    [ intInv,
-      int8Inv,
-      int16Inv,
-      int32Inv,
-      int64Inv,
-      integerInv,
-      wordInv,
-      word8Inv,
-      word16Inv,
-      word32Inv,
-      word64Inv,
-      rationalInv,
-      fractionInv
-    ]
-
-intInv :: TestTree
-intInv = agroupInv Gens.int MkEqExact "Int"
-
-int8Inv :: TestTree
-int8Inv = agroupInv Gens.int8 MkEqExact "Int8"
-
-int16Inv :: TestTree
-int16Inv = agroupInv Gens.int16 MkEqExact "Int16"
-
-int32Inv :: TestTree
-int32Inv = agroupInv Gens.int32 MkEqExact "Int32"
-
-int64Inv :: TestTree
-int64Inv = agroupInv Gens.int64 MkEqExact "Int64"
-
-integerInv :: TestTree
-integerInv = agroupInv Gens.integer MkEqExact "Integer"
-
-wordInv :: TestTree
-wordInv = agroupInv Gens.word MkEqExact "Word"
-
-word8Inv :: TestTree
-word8Inv = agroupInv Gens.word8 MkEqExact "Word8"
-
-word16Inv :: TestTree
-word16Inv = agroupInv Gens.word16 MkEqExact "Word16"
-
-word32Inv :: TestTree
-word32Inv = agroupInv Gens.word32 MkEqExact "Word32"
-
-word64Inv :: TestTree
-word64Inv = agroupInv Gens.word64 MkEqExact "Word64"
-
-rationalInv :: TestTree
-rationalInv = agroupInv Gens.rational MkEqRatio "Rational"
-
-fractionInv :: TestTree
-fractionInv = agroupInv Gens.fraction MkEqExact "Fraction"
-
 absProps :: TestTree
 absProps =
   T.testGroup
@@ -228,20 +169,28 @@ rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational"
 fractionAbs :: TestTree
 fractionAbs = agroupAbs Gens.fraction MkEqExact "Fraction"
 
-agroupSubEq :: (AGroup a, Num a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
+agroupSubEq ::
+  ( SubtractConstraint a ~ a,
+    AGroup a,
+    Num a,
+    Show a
+  ) =>
+  Gen a ->
+  (a -> Equality eq a) ->
+  TestName ->
+  TestTree
 agroupSubEq = Utils.binaryEq (-) (.-.)
 
-agroupInv :: (AGroup a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
-agroupInv gen equalityCons desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll gen
-        let x' = ginv x
-        equalityCons zero === equalityCons (x .+. x')
-        equalityCons zero === equalityCons (x' .+. x)
-
-agroupAbs :: (AGroup a, Ord a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
+agroupAbs ::
+  ( AddConstraint a ~ a,
+    AGroup a,
+    Ord a,
+    Show a
+  ) =>
+  Gen a ->
+  (a -> Equality eq a) ->
+  TestName ->
+  TestTree
 agroupAbs gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
   TH.testProperty desc $
     H.withTests limit $
@@ -251,8 +200,8 @@ agroupAbs gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
 
         -- idempotence: |x| = ||x||
         let eqX = eqCons x
-            eqAbs = eqCons (gabs x)
-        eqAbs === eqCons (gabs (gabs x))
+            eqAbs = eqCons (aabs x)
+        eqAbs === eqCons (aabs (aabs x))
 
         -- non-negative: |x| >= 0
         let eqZero = eqCons zero
@@ -262,11 +211,18 @@ agroupAbs gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
         H.diff (eqAbs == eqZero) (<=>) (eqX == eqZero)
 
         -- triangle equality: |x + y| <= |x| + |y|
-        let sumAbs = eqCons $ gabs x .+. gabs y
-            absSum = eqCons $ gabs (x .+. y)
+        let sumAbs = eqCons $ aabs x .+. aabs y
+            absSum = eqCons $ aabs (x .+. y)
         H.diff absSum (<=) sumAbs
 
-agroupSubIdent :: (AGroup a, Show a) => Gen a -> TestName -> TestTree
+agroupSubIdent ::
+  ( SubtractConstraint a ~ a,
+    AGroup a,
+    Show a
+  ) =>
+  Gen a ->
+  TestName ->
+  TestTree
 agroupSubIdent gen desc = T.askOption $ \(MkMaxRuns limit) ->
   TH.testProperty desc $
     H.withTests limit $

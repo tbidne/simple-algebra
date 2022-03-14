@@ -224,10 +224,12 @@ instance (Integral a, Read a) => Read (Fraction a) where
 
 -- | @since 0.1.0.0
 instance ASemigroup (Fraction Integer) where
+  type AddConstraint (Fraction Integer) = Fraction Integer
   (.+.) = (+)
 
 -- | @since 0.1.0.0
 instance ASemigroup (Fraction Natural) where
+  type AddConstraint (Fraction Natural) = Fraction Natural
   (.+.) = (+)
 
 -- | @since 0.1.0.0
@@ -240,14 +242,18 @@ instance AMonoid (Fraction Natural) where
 
 -- | @since 0.1.0.0
 instance AGroup (Fraction Integer) where
+  type SubtractConstraint (Fraction Integer) = Fraction Integer
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance MSemigroup (Fraction Integer) where
+  type MultConstraint (Fraction Integer) = Fraction Integer
   (.*.) = (*)
 
 -- | @since 0.1.0.0
 instance MSemigroup (Fraction Natural) where
+  type MultConstraint (Fraction Natural) = Fraction Natural
   (.*.) = (*)
 
 -- | @since 0.1.0.0
@@ -260,12 +266,12 @@ instance MMonoid (Fraction Natural) where
 
 -- | @since 0.1.0.0
 instance MGroup (Fraction Integer) where
-  type NZ (Fraction Integer) = NonZero (Fraction Integer)
+  type DivConstraint (Fraction Integer) = NonZero (Fraction Integer)
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
 
 -- | @since 0.1.0.0
 instance MGroup (Fraction Natural) where
-  type NZ (Fraction Natural) = NonZero (Fraction Natural)
+  type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
 
 -- | @since 0.1.0.0

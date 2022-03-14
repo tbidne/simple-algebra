@@ -153,7 +153,7 @@ fractionDivIdent :: TestTree
 fractionDivIdent = agroupDivIdent Gens.fractionNonZero MkEqExact "Fraction"
 
 mgroupDivEq ::
-  (MGroup a, NZ a ~ NonZero a, Show a) =>
+  (MGroup a, DivConstraint a ~ NonZero a, Show a) =>
   (a -> a -> a) ->
   Gen a ->
   Gen (NonZero a) ->
@@ -171,7 +171,7 @@ mgroupDivEq expectedFn gen genNZ eqCons desc = T.askOption $ \(MkMaxRuns limit) 
         eqCons expected === eqCons actual
 
 agroupDivIdent ::
-  (MGroup a, NZ a ~ NonZero a, Show a) =>
+  (MGroup a, DivConstraint a ~ NonZero a, Show a) =>
   Gen (NonZero a) ->
   (a -> Equality eq a) ->
   TestName ->
@@ -238,7 +238,7 @@ word64DivIntegral :: TestTree
 word64DivIntegral = mgroupDivIntegralEq Gens.word64 Gens.word64NonZero "Word64"
 
 mgroupDivIntegralEq ::
-  (Integral a, MGroupIntegral a, NZ a ~ NonZero a, Show a) =>
+  (Integral a, MGroupIntegral a, DivConstraint a ~ NonZero a, Show a) =>
   Gen a ->
   Gen (NonZero a) ->
   TestName ->

@@ -80,5 +80,13 @@ ratioIntegerId = amonoidIdentity Gens.rational MkEqRatio "Rational"
 fractionId :: TestTree
 fractionId = amonoidIdentity Gens.fraction MkEqExact "Fraction"
 
-amonoidIdentity :: (AMonoid a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
+amonoidIdentity ::
+  ( AddConstraint a ~ a,
+    AMonoid a,
+    Show a
+  ) =>
+  Gen a ->
+  (a -> Equality eq a) ->
+  TestName ->
+  TestTree
 amonoidIdentity = Utils.identity (.+.) zero

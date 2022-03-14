@@ -8,7 +8,7 @@ where
 
 import Numeric.Algebra.Field (Field)
 import Numeric.Algebra.Module (Module (..))
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NZ)
+import Numeric.Algebra.Multiplicative.MGroup (DivConstraint, MGroup (..))
 
 -- | Defines a vector space over a field. Ideally, this class need
 -- not include any functions. The only difference between a 'Module'
@@ -22,7 +22,7 @@ import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NZ)
 -- @since 0.1.0.0
 class (Field k, Module v k) => VectorSpace v k | v -> k where
   -- | @since 0.1.0.0
-  (.%) :: v -> NZ k -> v
+  (.%) :: v -> DivConstraint k -> v
 
 infixl 7 .%
 

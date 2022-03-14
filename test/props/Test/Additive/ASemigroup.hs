@@ -86,7 +86,16 @@ ratioIntegerAddNum = asemigroupAddNum Gens.rational MkEqExact "Rational"
 fractionAddNum :: TestTree
 fractionAddNum = asemigroupAddNum Gens.fraction MkEqExact "Rational"
 
-asemigroupAddNum :: (ASemigroup a, Num a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
+asemigroupAddNum ::
+  ( AddConstraint a ~ a,
+    ASemigroup a,
+    Num a,
+    Show a
+  ) =>
+  Gen a ->
+  (a -> Equality eq a) ->
+  TestName ->
+  TestTree
 asemigroupAddNum = Utils.binaryEq (+) (.+.)
 
 assocProps :: TestTree
@@ -151,5 +160,12 @@ rationalAssoc = asemigroupAssoc Gens.rational "Rational"
 fractionAssoc :: TestTree
 fractionAssoc = asemigroupAssoc Gens.fraction "Fraction"
 
-asemigroupAssoc :: (ASemigroup a, Show a) => Gen a -> TestName -> TestTree
+asemigroupAssoc ::
+  ( AddConstraint a ~ a,
+    ASemigroup a,
+    Show a
+  ) =>
+  Gen a ->
+  TestName ->
+  TestTree
 asemigroupAssoc = Utils.associativity (.+.)

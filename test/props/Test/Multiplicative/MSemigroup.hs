@@ -86,7 +86,16 @@ rationalMultNum = msemigroupMultNum Gens.rational MkEqExact "Rational"
 fractionMultNum :: TestTree
 fractionMultNum = msemigroupMultNum Gens.fraction MkEqExact "Fraction"
 
-msemigroupMultNum :: (MSemigroup a, Num a, Show a) => Gen a -> (a -> Equality eq a) -> TestName -> TestTree
+msemigroupMultNum ::
+  ( MultConstraint a ~ a,
+    MSemigroup a,
+    Num a,
+    Show a
+  ) =>
+  Gen a ->
+  (a -> Equality eq a) ->
+  TestName ->
+  TestTree
 msemigroupMultNum = Utils.binaryEq (*) (.*.)
 
 assocProps :: TestTree
@@ -151,5 +160,12 @@ rationalAssoc = msemigroupAssoc Gens.rational "Rational"
 fractionAssoc :: TestTree
 fractionAssoc = msemigroupAssoc Gens.fraction "Fraction"
 
-msemigroupAssoc :: (MSemigroup a, Show a) => Gen a -> TestName -> TestTree
+msemigroupAssoc ::
+  ( MultConstraint a ~ a,
+    MSemigroup a,
+    Show a
+  ) =>
+  Gen a ->
+  TestName ->
+  TestTree
 msemigroupAssoc = Utils.associativity (.*.)

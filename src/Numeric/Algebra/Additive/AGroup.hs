@@ -3,8 +3,6 @@
 -- @since 0.1.0.0
 module Numeric.Algebra.Additive.AGroup
   ( AGroup (..),
-    gabs,
-    ginv,
   )
 where
 
@@ -17,98 +15,156 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 --
 -- @since 0.1.0.0
 class AMonoid g => AGroup g where
+  -- | Possible constraint on the second argument to '(.-.)' e.g. for
+  -- preventing underflow.
+  --
+  -- @since 0.1.0.0
+  type SubtractConstraint g
+
   -- | @since 0.1.0.0
-  (.-.) :: g -> g -> g
+  (.-.) :: g -> SubtractConstraint g -> g
+
+  -- | Returns @|x|@. Should satisfy
+  --
+  -- @
+  -- Non-negative: aabs x >= zero
+  -- Positive-definite: aabs x = 0 <=> x = 0
+  -- Triangle equality: aabs (x .+. y) <= aabs x .+. aabs y
+  -- @
+  --
+  -- @since 0.1.0.0
+  aabs :: g -> g
 
 infixl 6 .-.
 
--- | Returns @|x|@.
---
--- @since 0.1.0.0
-gabs :: (Ord p, AGroup p) => p -> p
-gabs x
-  | x < zero = ginv x
-  | otherwise = x
-
--- | Returns @zero - x@.
---
--- @since 0.1.0.0
-ginv :: AGroup g => g -> g
-ginv g = zero .-. g
-
 -- | @since 0.1.0.0
 instance AGroup Double where
+  type SubtractConstraint Double = Double
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Float where
+  type SubtractConstraint Float = Float
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int where
+  type SubtractConstraint Int = Int
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int8 where
+  type SubtractConstraint Int8 = Int8
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int16 where
+  type SubtractConstraint Int16 = Int16
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int32 where
+  type SubtractConstraint Int32 = Int32
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Int64 where
+  type SubtractConstraint Int64 = Int64
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Integer where
+  type SubtractConstraint Integer = Integer
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word where
+  type SubtractConstraint Word = Word
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word8 where
+  type SubtractConstraint Word8 = Word8
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word16 where
+  type SubtractConstraint Word16 = Word16
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word32 where
+  type SubtractConstraint Word32 = Word32
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup Word64 where
+  type SubtractConstraint Word64 = Word64
   (.-.) = (-)
+  aabs = abs
 
--- | NB. Differs from 'Ratio'\'s 'abs' in that we also apply 'abs' to the
--- denominator.
---
--- @since 0.1.0.0
+-- | @since 0.1.0.0
 instance AGroup (Ratio Integer) where
+  type SubtractConstraint (Ratio Integer) = Ratio Integer
   (.-.) = (-)
+  aabs = abs
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a) where
+  type SubtractConstraint (a, a) = (SubtractConstraint a, SubtractConstraint a)
   (x1, x2) .-. (y1, y2) = (x1 .-. y1, x2 .-. y2)
+  aabs (x1, x2) = (aabs x1, aabs x2)
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a) where
+  type
+    SubtractConstraint (a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
   (x1, x2, x3) .-. (y1, y2, y3) = (x1 .-. y1, x2 .-. y2, x3 .-. y3)
+  aabs (x1, x2, x3) = (aabs x1, aabs x2, aabs x3)
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a, a) where
-  (x1, x2, x3, x4) .-. (y1, y2, y3, y4) = (x1 .-. y1, x2 .-. y2, x3 .-. y3, x4 .-. y4)
+  type
+    SubtractConstraint (a, a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
+  (x1, x2, x3, x4) .-. (y1, y2, y3, y4) =
+    ( x1 .-. y1,
+      x2 .-. y2,
+      x3 .-. y3,
+      x4 .-. y4
+    )
+  aabs (x1, x2, x3, x4) = (aabs x1, aabs x2, aabs x3, aabs x4)
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a, a, a) where
+  type
+    SubtractConstraint (a, a, a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
   (x1, x2, x3, x4, x5) .-. (y1, y2, y3, y4, y5) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -116,9 +172,19 @@ instance AGroup a => AGroup (a, a, a, a, a) where
       x4 .-. y4,
       x5 .-. y5
     )
+  aabs (x1, x2, x3, x4, x5) = (aabs x1, aabs x2, aabs x3, aabs x4, aabs x5)
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a, a, a, a) where
+  type
+    SubtractConstraint (a, a, a, a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
   (x1, x2, x3, x4, x5, x6) .-. (y1, y2, y3, y4, y5, y6) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -127,9 +193,27 @@ instance AGroup a => AGroup (a, a, a, a, a, a) where
       x5 .-. y5,
       x6 .-. y6
     )
+  aabs (x1, x2, x3, x4, x5, x6) =
+    ( aabs x1,
+      aabs x2,
+      aabs x3,
+      aabs x4,
+      aabs x5,
+      aabs x6
+    )
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a, a, a, a, a) where
+  type
+    SubtractConstraint (a, a, a, a, a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
   (x1, x2, x3, x4, x5, x6, x7) .-. (y1, y2, y3, y4, y5, y6, y7) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -139,9 +223,29 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a) where
       x6 .-. y6,
       x7 .-. y7
     )
+  aabs (x1, x2, x3, x4, x5, x6, x7) =
+    ( aabs x1,
+      aabs x2,
+      aabs x3,
+      aabs x4,
+      aabs x5,
+      aabs x6,
+      aabs x7
+    )
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a, a, a, a, a, a) where
+  type
+    SubtractConstraint (a, a, a, a, a, a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
   (x1, x2, x3, x4, x5, x6, x7, x8) .-. (y1, y2, y3, y4, y5, y6, y7, y8) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -152,9 +256,31 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a) where
       x7 .-. y7,
       x8 .-. y8
     )
+  aabs (x1, x2, x3, x4, x5, x6, x7, x8) =
+    ( aabs x1,
+      aabs x2,
+      aabs x3,
+      aabs x4,
+      aabs x5,
+      aabs x6,
+      aabs x7,
+      aabs x8
+    )
 
 -- | @since 0.1.0.0
 instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
+  type
+    SubtractConstraint (a, a, a, a, a, a, a, a, a) =
+      ( SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a,
+        SubtractConstraint a
+      )
   (x1, x2, x3, x4, x5, x6, x7, x8, x9) .-. (y1, y2, y3, y4, y5, y6, y7, y8, y9) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -165,4 +291,15 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
       x7 .-. y7,
       x8 .-. y8,
       x9 .-. y9
+    )
+  aabs (x1, x2, x3, x4, x5, x6, x7, x8, x9) =
+    ( aabs x1,
+      aabs x2,
+      aabs x3,
+      aabs x4,
+      aabs x5,
+      aabs x6,
+      aabs x7,
+      aabs x8,
+      aabs x9
     )

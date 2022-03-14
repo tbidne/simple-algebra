@@ -38,99 +38,95 @@ import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 --
 -- @since 0.1.0.0
 class MMonoid g => MGroup g where
-  -- | The 'NZ' type family defines a \"non-zero\" type for @g@. If @g@ also has
-  -- an 'AMonoid' instance then @NZ g@ should be a \"proof\" that
-  -- @g /= zero@. Such types can use 'NonZero'.
-  --
-  --  Types that are /not/ 'AMonoid's (e.g. \(\mathbb{Z}^+\) ) can take
-  -- @'NZ' g = g@.
+  -- | Possible constraint on the second argument to '(.%.)' e.g. for
+  -- preventing division by zero.
   --
   -- @since 0.1.0.0
-  type NZ g
+  type DivConstraint g
 
   -- | @since 0.1.0.0
-  (.%.) :: g -> NZ g -> g
+  (.%.) :: g -> DivConstraint g -> g
 
 infixl 7 .%.
 
 -- | @since 0.1.0.0
 instance MGroup Double where
-  type NZ Double = NonZero Double
+  type DivConstraint Double = NonZero Double
   x .%. MkNonZero d = x / d
 
 -- | @since 0.1.0.0
 instance MGroup Float where
-  type NZ Float = NonZero Float
+  type DivConstraint Float = NonZero Float
   x .%. MkNonZero d = x / d
 
 -- | @since 0.1.0.0
 instance MGroup Int where
-  type NZ Int = NonZero Int
+  type DivConstraint Int = NonZero Int
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Int8 where
-  type NZ Int8 = NonZero Int8
+  type DivConstraint Int8 = NonZero Int8
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Int16 where
-  type NZ Int16 = NonZero Int16
+  type DivConstraint Int16 = NonZero Int16
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Int32 where
-  type NZ Int32 = NonZero Int32
+  type DivConstraint Int32 = NonZero Int32
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Int64 where
-  type NZ Int64 = NonZero Int64
+  type DivConstraint Int64 = NonZero Int64
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Integer where
-  type NZ Integer = NonZero Integer
+  type DivConstraint Integer = NonZero Integer
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Natural where
-  type NZ Natural = NonZero Natural
+  type DivConstraint Natural = NonZero Natural
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Word where
-  type NZ Word = NonZero Word
+  type DivConstraint Word = NonZero Word
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Word8 where
-  type NZ Word8 = NonZero Word8
+  type DivConstraint Word8 = NonZero Word8
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Word16 where
-  type NZ Word16 = NonZero Word16
+  type DivConstraint Word16 = NonZero Word16
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Word32 where
-  type NZ Word32 = NonZero Word32
+  type DivConstraint Word32 = NonZero Word32
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup Word64 where
-  type NZ Word64 = NonZero Word64
+  type DivConstraint Word64 = NonZero Word64
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup (Ratio Integer) where
-  type NZ (Ratio Integer) = NonZero (Ratio Integer)
+  type DivConstraint (Ratio Integer) = NonZero (Ratio Integer)
   x .%. d = x .*. flipNonZero d
 
 -- | @since 0.1.0.0
 instance MGroup (Ratio Natural) where
-  type NZ (Ratio Natural) = NonZero (Ratio Natural)
+  type DivConstraint (Ratio Natural) = NonZero (Ratio Natural)
   x .%. d = x .*. flipNonZero d
 
 -- | Smart-constructor for creating a \"non-zero\" @a@, where zero is the
@@ -214,11 +210,11 @@ flipNonZero (MkNonZero x) = recip x
 -- @since 0.1.0.0
 class MGroup g => MGroupIntegral g where
   -- | @since 0.1.0.0
-  gmod :: g -> NZ g -> g
+  gmod :: g -> DivConstraint g -> g
   gmod x d = snd $ gdivMod x d
 
   -- | @since 0.1.0.0
-  gdivMod :: g -> NZ g -> (g, g)
+  gdivMod :: g -> DivConstraint g -> (g, g)
   gdivMod x d = (x .%. d, x `gmod` d)
 
   {-# MINIMAL (gdivMod | gmod) #-}
