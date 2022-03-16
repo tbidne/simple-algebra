@@ -53,6 +53,10 @@ newtype Positive a = UnsafePositive a
       Show
     )
 
+-- | Unidirectional pattern synonym for 'Positive'. This allows us to pattern
+-- match on a positive term without exposing the unsafe internal details.
+--
+-- @since 0.1.0.0
 pattern MkPositive :: a -> Positive a
 pattern MkPositive x <- UnsafePositive x
 

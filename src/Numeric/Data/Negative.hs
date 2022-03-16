@@ -49,6 +49,10 @@ newtype Negative a = UnsafeNegative a
       Show
     )
 
+-- | Unidirectional pattern synonym for 'Negative'. This allows us to pattern
+-- match on a negative term without exposing the unsafe internal details.
+--
+-- @since 0.1.0.0
 pattern MkNegative :: a -> Negative a
 pattern MkNegative x <- UnsafeNegative x
 

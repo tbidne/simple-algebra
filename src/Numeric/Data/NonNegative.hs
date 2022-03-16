@@ -55,6 +55,10 @@ newtype NonNegative a = UnsafeNonNegative a
       Show
     )
 
+-- | Unidirectional pattern synonym for 'NonNegative'. This allows us to pattern
+-- match on a nonnegative term without exposing the unsafe internal details.
+--
+-- @since 0.1.0.0
 pattern MkNonNegative :: a -> NonNegative a
 pattern MkNonNegative x <- UnsafeNonNegative x
 
