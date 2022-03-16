@@ -8,11 +8,13 @@ module Numeric.Data
     module Numeric.Data.NonNegative,
     module Numeric.Data.NonZero,
     module Numeric.Data.Positive,
+    module Numeric.Data.NonPositive,
   )
 where
 
 import Numeric.Data.Fraction
 import Numeric.Data.Negative
 import Numeric.Data.NonNegative
+import Numeric.Data.NonPositive
 import Numeric.Data.NonZero
 import Numeric.Data.Positive

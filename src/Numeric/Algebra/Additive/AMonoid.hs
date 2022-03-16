@@ -13,6 +13,7 @@ import GHC.Natural (Natural)
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
+import Numeric.Data.NonPositive (NonPositive (..), reallyUnsafeNonPositive)
 
 -- | Defines a monoid over an additive semigroup.
 --
@@ -178,3 +179,59 @@ instance AMonoid (NonNegative Word64) where
 -- | @since 0.1.0.0
 instance AMonoid (NonNegative Natural) where
   zero = reallyUnsafeNonNegative 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Float) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Double) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Int) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Int8) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Int16) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Int32) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Int64) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Integer) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Word) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Word8) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Word16) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Word32) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Word64) where
+  zero = reallyUnsafeNonPositive 0
+
+-- | @since 0.1.0.0
+instance AMonoid (NonPositive Natural) where
+  zero = reallyUnsafeNonPositive 0
