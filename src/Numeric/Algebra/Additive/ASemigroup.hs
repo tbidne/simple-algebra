@@ -69,11 +69,6 @@ instance ASemigroup Integer where
   (.+.) = (+)
 
 -- | @since 0.1.0.0
-instance ASemigroup Natural where
-  type AddConstraint Natural = Natural
-  (.+.) = (+)
-
--- | @since 0.1.0.0
 instance ASemigroup Word where
   type AddConstraint Word = Word
   (.+.) = (+)
@@ -96,6 +91,11 @@ instance ASemigroup Word32 where
 -- | @since 0.1.0.0
 instance ASemigroup Word64 where
   type AddConstraint Word64 = Word64
+  (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance ASemigroup Natural where
+  type AddConstraint Natural = Natural
   (.+.) = (+)
 
 -- | @since 0.1.0.0

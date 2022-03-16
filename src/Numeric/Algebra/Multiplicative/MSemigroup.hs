@@ -69,11 +69,6 @@ instance MSemigroup Integer where
   (.*.) = (*)
 
 -- | @since 0.1.0.0
-instance MSemigroup Natural where
-  type MultConstraint Natural = Natural
-  (.*.) = (*)
-
--- | @since 0.1.0.0
 instance MSemigroup Word where
   type MultConstraint Word = Word
   (.*.) = (*)
@@ -96,6 +91,11 @@ instance MSemigroup Word32 where
 -- | @since 0.1.0.0
 instance MSemigroup Word64 where
   type MultConstraint Word64 = Word64
+  (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup Natural where
+  type MultConstraint Natural = Natural
   (.*.) = (*)
 
 -- | @since 0.1.0.0

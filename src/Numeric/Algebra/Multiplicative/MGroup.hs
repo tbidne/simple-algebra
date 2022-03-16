@@ -92,11 +92,6 @@ instance MGroup Integer where
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0
-instance MGroup Natural where
-  type DivConstraint Natural = NonZero Natural
-  x .%. MkNonZero d = x `div` d
-
--- | @since 0.1.0.0
 instance MGroup Word where
   type DivConstraint Word = NonZero Word
   x .%. MkNonZero d = x `div` d
@@ -119,6 +114,11 @@ instance MGroup Word32 where
 -- | @since 0.1.0.0
 instance MGroup Word64 where
   type DivConstraint Word64 = NonZero Word64
+  x .%. MkNonZero d = x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup Natural where
+  type DivConstraint Natural = NonZero Natural
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1.0.0

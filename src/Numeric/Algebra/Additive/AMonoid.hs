@@ -53,10 +53,6 @@ instance AMonoid Integer where
   zero = 0
 
 -- | @since 0.1.0.0
-instance AMonoid Natural where
-  zero = 0
-
--- | @since 0.1.0.0
 instance AMonoid Word where
   zero = 0
 
@@ -74,6 +70,10 @@ instance AMonoid Word32 where
 
 -- | @since 0.1.0.0
 instance AMonoid Word64 where
+  zero = 0
+
+-- | @since 0.1.0.0
+instance AMonoid Natural where
   zero = 0
 
 instance AMonoid (Ratio Integer) where

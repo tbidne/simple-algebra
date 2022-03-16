@@ -54,10 +54,6 @@ instance MMonoid Integer where
   one = 1
 
 -- | @since 0.1.0.0
-instance MMonoid Natural where
-  one = 1
-
--- | @since 0.1.0.0
 instance MMonoid Word where
   one = 1
 
@@ -75,6 +71,10 @@ instance MMonoid Word32 where
 
 -- | @since 0.1.0.0
 instance MMonoid Word64 where
+  one = 1
+
+-- | @since 0.1.0.0
+instance MMonoid Natural where
   one = 1
 
 -- | @since 0.1.0.0
