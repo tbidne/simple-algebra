@@ -74,6 +74,7 @@ library
     Numeric.Data
     Numeric.Data.Fraction
     Numeric.Data.Negative
+    Numeric.Data.NonNegative
     Numeric.Data.NonZero
     Numeric.Data.Positive
     Numeric.Literal

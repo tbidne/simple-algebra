@@ -12,6 +12,7 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.NonNegative (NonNegative)
 import Numeric.Natural (Natural)
 
 -- | Defines a semiring.
@@ -72,3 +73,45 @@ instance Semiring (Fraction Integer)
 
 -- | @since 0.1.0.0
 instance Semiring (Fraction Natural)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Float)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Double)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Int)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Int8)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Int16)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Int32)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Int64)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Integer)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Word)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Word8)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Word16)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Word32)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Word64)
+
+-- | @since 0.1.0.0
+instance Semiring (NonNegative Natural)

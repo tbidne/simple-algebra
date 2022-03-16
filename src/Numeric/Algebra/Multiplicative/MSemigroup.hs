@@ -11,6 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
@@ -118,6 +119,76 @@ instance MSemigroup (Fraction Integer) where
 instance MSemigroup (Fraction Natural) where
   type MultConstraint (Fraction Natural) = Fraction Natural
   (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Float) where
+  type MultConstraint (NonNegative Float) = NonNegative Float
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Double) where
+  type MultConstraint (NonNegative Double) = NonNegative Double
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Int) where
+  type MultConstraint (NonNegative Int) = NonNegative Int
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Int8) where
+  type MultConstraint (NonNegative Int8) = NonNegative Int8
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Int16) where
+  type MultConstraint (NonNegative Int16) = NonNegative Int16
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Int32) where
+  type MultConstraint (NonNegative Int32) = NonNegative Int32
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Int64) where
+  type MultConstraint (NonNegative Int64) = NonNegative Int64
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Integer) where
+  type MultConstraint (NonNegative Integer) = NonNegative Integer
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Word) where
+  type MultConstraint (NonNegative Word) = NonNegative Word
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Word8) where
+  type MultConstraint (NonNegative Word8) = NonNegative Word8
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Word16) where
+  type MultConstraint (NonNegative Word16) = NonNegative Word16
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Word32) where
+  type MultConstraint (NonNegative Word32) = NonNegative Word32
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Word64) where
+  type MultConstraint (NonNegative Word64) = NonNegative Word64
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonNegative Natural) where
+  type MultConstraint (NonNegative Natural) = NonNegative Natural
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
 
 -- | @since 0.1.0.0
 instance MSemigroup (NonZero Float) where

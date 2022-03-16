@@ -5,6 +5,7 @@
 module Numeric.Data
   ( module Numeric.Data.Fraction,
     module Numeric.Data.Negative,
+    module Numeric.Data.NonNegative,
     module Numeric.Data.NonZero,
     module Numeric.Data.Positive,
   )
@@ -12,5 +13,6 @@ where
 
 import Numeric.Data.Fraction
 import Numeric.Data.Negative
+import Numeric.Data.NonNegative
 import Numeric.Data.NonZero
 import Numeric.Data.Positive

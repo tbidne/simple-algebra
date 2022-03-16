@@ -33,6 +33,7 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
@@ -143,6 +144,76 @@ instance MGroup (Fraction Integer) where
 instance MGroup (Fraction Natural) where
   type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Float) where
+  type DivConstraint (NonNegative Float) = NonNegative Float
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x / d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Double) where
+  type DivConstraint (NonNegative Double) = NonNegative Double
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x / d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Int) where
+  type DivConstraint (NonNegative Int) = NonNegative Int
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Int8) where
+  type DivConstraint (NonNegative Int8) = NonNegative Int8
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Int16) where
+  type DivConstraint (NonNegative Int16) = NonNegative Int16
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Int32) where
+  type DivConstraint (NonNegative Int32) = NonNegative Int32
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Int64) where
+  type DivConstraint (NonNegative Int64) = NonNegative Int64
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Integer) where
+  type DivConstraint (NonNegative Integer) = NonNegative Integer
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Word) where
+  type DivConstraint (NonNegative Word) = NonNegative Word
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Word8) where
+  type DivConstraint (NonNegative Word8) = NonNegative Word8
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Word16) where
+  type DivConstraint (NonNegative Word16) = NonNegative Word16
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Word32) where
+  type DivConstraint (NonNegative Word32) = NonNegative Word32
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Word64) where
+  type DivConstraint (NonNegative Word64) = NonNegative Word64
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonNegative Natural) where
+  type DivConstraint (NonNegative Natural) = NonNegative Natural
+  MkNonNegative x .%. MkNonNegative d = reallyUnsafeNonNegative $ x `div` d
 
 -- | @since 0.1.0.0
 instance MGroup (NonZero Float) where

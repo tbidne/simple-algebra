@@ -12,6 +12,7 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
@@ -93,6 +94,62 @@ instance MMonoid (Fraction Integer) where
 -- | @since 0.1.0.0
 instance MMonoid (Fraction Natural) where
   one = 1 :%: 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Float) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Double) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Int) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Int8) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Int16) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Int32) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Int64) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Integer) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Word) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Word8) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Word16) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Word32) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Word64) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonNegative Natural) where
+  one = reallyUnsafeNonNegative 1
 
 -- | @since 0.1.0.0
 instance MMonoid (NonZero Float) where
