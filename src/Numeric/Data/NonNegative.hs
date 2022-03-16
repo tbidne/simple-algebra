@@ -45,7 +45,6 @@ newtype NonNegative a = UnsafeNonNegative a
       -- | @since 0.1.0.0
       Show
     )
-  deriving newtype (Num)
 
 pattern MkNonNegative :: a -> NonNegative a
 pattern MkNonNegative x <- UnsafeNonNegative x

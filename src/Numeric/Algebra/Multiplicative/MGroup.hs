@@ -488,61 +488,121 @@ instance MGroupIntegral Natural where
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Int) where
-  type ModResult (Positive Int) = Int
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Int) where
+  type ModResult (NonNegative Int) = Int
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Int8) where
-  type ModResult (Positive Int8) = Int8
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Int8) where
+  type ModResult (NonNegative Int8) = Int8
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Int16) where
-  type ModResult (Positive Int16) = Int16
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Int16) where
+  type ModResult (NonNegative Int16) = Int16
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Int32) where
-  type ModResult (Positive Int32) = Int32
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Int32) where
+  type ModResult (NonNegative Int32) = Int32
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Int64) where
-  type ModResult (Positive Int64) = Int64
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Int64) where
+  type ModResult (NonNegative Int64) = Int64
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Integer) where
-  type ModResult (Positive Integer) = Integer
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Integer) where
+  type ModResult (NonNegative Integer) = Integer
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Word) where
-  type ModResult (Positive Word) = Word
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Word) where
+  type ModResult (NonNegative Word) = Word
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Word8) where
-  type ModResult (Positive Word8) = Word8
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Word8) where
+  type ModResult (NonNegative Word8) = Word8
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Word16) where
-  type ModResult (Positive Word16) = Word16
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Word16) where
+  type ModResult (NonNegative Word16) = Word16
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Word32) where
-  type ModResult (Positive Word32) = Word32
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Word32) where
+  type ModResult (NonNegative Word32) = Word32
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Word64) where
-  type ModResult (Positive Word64) = Word64
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Word64) where
+  type ModResult (NonNegative Word64) = Word64
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (Positive Natural) where
-  type ModResult (Positive Natural) = Natural
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+instance MGroupIntegral (NonNegative Natural) where
+  type ModResult (NonNegative Natural) = Natural
+  MkNonNegative x `gdivMod` MkNonNegative d = first reallyUnsafeNonNegative $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Int) where
+  type ModResult (NonZero Int) = Int
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Int8) where
+  type ModResult (NonZero Int8) = Int8
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Int16) where
+  type ModResult (NonZero Int16) = Int16
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Int32) where
+  type ModResult (NonZero Int32) = Int32
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Int64) where
+  type ModResult (NonZero Int64) = Int64
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Integer) where
+  type ModResult (NonZero Integer) = Integer
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Word) where
+  type ModResult (NonZero Word) = Word
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Word8) where
+  type ModResult (NonZero Word8) = Word8
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Word16) where
+  type ModResult (NonZero Word16) = Word16
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Word32) where
+  type ModResult (NonZero Word32) = Word32
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Word64) where
+  type ModResult (NonZero Word64) = Word64
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (NonZero Natural) where
+  type ModResult (NonZero Natural) = Natural
+  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
