@@ -66,11 +66,15 @@ unPositive (UnsafePositive x) = x
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
-mkPositiveTH :: (Integral a, Lift a) => a -> a -> Code Q (Positive a)
+mkPositiveTH :: (Integral a, Lift a, Show a) => a -> a -> Code Q (Positive a)
 #else
-mkPositiveTH :: (Integral a, Lift a) => a -> Q (TExp (Positive a))
+mkPositiveTH :: (Integral a, Lift a, Show a) => a -> Q (TExp (Positive a))
 #endif
-mkPositiveTH = maybe (error "") liftTyped . mkPositive
+mkPositiveTH x = maybe (error err) liftTyped $ mkPositive x
+  where
+    err =
+      "Numeric.Data.Positive.mkPositiveTH: Passed value <= 0: "
+        <> show x
 
 -- | Smart constructor for 'Positive'. Returns 'Nothing' if the second
 -- parameter is @<= 0@.

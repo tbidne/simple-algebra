@@ -11,6 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.Negative (Negative (..), reallyUnsafeNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
@@ -259,6 +260,76 @@ instance ASemigroup (Fraction Integer) where
 instance ASemigroup (Fraction Natural) where
   type AddConstraint (Fraction Natural) = Fraction Natural
   (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Float) where
+  type AddConstraint (Negative Float) = Negative Float
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Double) where
+  type AddConstraint (Negative Double) = Negative Double
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Int) where
+  type AddConstraint (Negative Int) = Negative Int
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Int8) where
+  type AddConstraint (Negative Int8) = Negative Int8
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Int16) where
+  type AddConstraint (Negative Int16) = Negative Int16
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Int32) where
+  type AddConstraint (Negative Int32) = Negative Int32
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Int64) where
+  type AddConstraint (Negative Int64) = Negative Int64
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Integer) where
+  type AddConstraint (Negative Integer) = Negative Integer
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Word) where
+  type AddConstraint (Negative Word) = Negative Word
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Word8) where
+  type AddConstraint (Negative Word8) = Negative Word8
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Word16) where
+  type AddConstraint (Negative Word16) = Negative Word16
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Word32) where
+  type AddConstraint (Negative Word32) = Negative Word32
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Word64) where
+  type AddConstraint (Negative Word64) = Negative Word64
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (Negative Natural) where
+  type AddConstraint (Negative Natural) = Negative Natural
+  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
 
 -- | @since 0.1.0.0
 instance ASemigroup (NonZero Word) where
