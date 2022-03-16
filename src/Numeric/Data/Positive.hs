@@ -31,6 +31,13 @@ import Language.Haskell.TH.Syntax (Lift (..))
 -- >>> :set -XTemplateHaskell
 
 -- | Newtype wrapper that attaches a 'Positive' invariant to some @a@.
+-- 'Positive' is a:
+--
+-- * 'Numeric.Algebra.Additive.ASemigroup.ASemigroup'
+-- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
+-- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
+-- * 'Numeric.Algebra.Multiplicative.MGroup.MGroup'
+-- * 'Numeric.Algebra.Multiplicative.MGroup.MGroupIntegral'
 --
 -- @since 0.1.0.0
 type Positive :: Type -> Type

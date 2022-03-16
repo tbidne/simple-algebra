@@ -31,6 +31,9 @@ import Language.Haskell.TH.Syntax (Lift (..))
 -- >>> :set -XTemplateHaskell
 
 -- | Newtype wrapper that attaches a 'Negative' invariant to some @a@.
+-- 'Negative' is a:
+--
+-- * 'Numeric.Algebra.Additive.ASemigroup.ASemigroup'
 --
 -- @since 0.1.0.0
 type Negative :: Type -> Type

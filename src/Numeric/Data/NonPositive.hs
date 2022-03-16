@@ -31,6 +31,10 @@ import Language.Haskell.TH.Syntax (Lift (..))
 -- >>> :set -XTemplateHaskell
 
 -- | Newtype wrapper that attaches a 'NonPositive' invariant to some @a@.
+-- 'NonPositive' is a:
+--
+-- * 'Numeric.Algebra.Additive.ASemigroup.ASemigroup'
+-- * 'Numeric.Algebra.Additive.AMonoid.AMonoid'
 --
 -- @since 0.1.0.0
 type NonPositive :: Type -> Type

@@ -27,8 +27,18 @@ import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
 
--- | Smart-constructor for creating a \"non-zero\" @a@, where zero is the
--- 'AMonoid' 'zero'.
+-- | Smart-constructor for creating a \"non-zero\" @a@.
+-- 'NonZero' is a:
+--
+-- * 'Numeric.Algebra.Additive.ASemigroup.ASemigroup'
+--
+--     * When the underlying @a@ does not contain additive inverses
+--       e.g. 'Word'.
+--
+-- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
+-- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
+-- * 'Numeric.Algebra.Multiplicative.MGroup.MGroup'
+-- * 'Numeric.Algebra.Multiplicative.MGroup.MGroupIntegral'
 --
 -- @since 0.1.0.0
 type NonZero :: Type -> Type

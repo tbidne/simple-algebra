@@ -31,6 +31,15 @@ import Language.Haskell.TH.Syntax (Lift (..))
 -- >>> :set -XTemplateHaskell
 
 -- | Newtype wrapper that attaches a 'NonNegative' invariant to some @a@.
+-- 'NonNegative' is a:
+--
+-- * 'Numeric.Algebra.Additive.ASemigroup.ASemigroup'
+-- * 'Numeric.Algebra.Additive.AMonoid.AMonoid'
+-- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
+-- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
+-- * 'Numeric.Algebra.Multiplicative.MGroup.MGroup'
+-- * 'Numeric.Algebra.Multiplicative.MGroup.MGroupIntegral'
+-- * 'Numeric.Algebra.Semiring.Semiring'
 --
 -- @since 0.1.0.0
 type NonNegative :: Type -> Type

@@ -17,6 +17,8 @@ files =
   [ "-isrc",
     "src/Numeric/Data/Fraction.hs",
     "src/Numeric/Data/Negative.hs",
+    "src/Numeric/Data/NonNegative.hs",
+    "src/Numeric/Data/NonPositive.hs",
     "src/Numeric/Data/NonZero.hs",
     "src/Numeric/Data/Positive.hs",
     "src/Numeric/Algebra/Multiplicative/MGroup.hs"
