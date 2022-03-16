@@ -9,9 +9,11 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.ModN (ModN)
 import Numeric.Data.NonNegative (NonNegative)
 import Numeric.Natural (Natural)
 
@@ -73,6 +75,42 @@ instance Semiring (Fraction Integer)
 
 -- | @since 0.1.0.0
 instance Semiring (Fraction Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Int)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Int8)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Int16)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Int32)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Int64)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Word)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Word8)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Word16)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Word32)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Word64)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Natural)
 
 -- | @since 0.1.0.0
 instance Semiring (NonNegative Float)

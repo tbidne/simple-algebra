@@ -10,7 +10,9 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import GHC.TypeNats (KnownNat)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.ModN (ModN (..))
 import Numeric.Data.Negative (Negative (..), reallyUnsafeNegative)
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonPositive (NonPositive (..), reallyUnsafeNonPositive)
@@ -262,6 +264,66 @@ instance ASemigroup (Fraction Integer) where
 instance ASemigroup (Fraction Natural) where
   type AddConstraint (Fraction Natural) = Fraction Natural
   (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Int) where
+  type AddConstraint (ModN n Int) = ModN n Int
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Int8) where
+  type AddConstraint (ModN n Int8) = ModN n Int8
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Int16) where
+  type AddConstraint (ModN n Int16) = ModN n Int16
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Int32) where
+  type AddConstraint (ModN n Int32) = ModN n Int32
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Int64) where
+  type AddConstraint (ModN n Int64) = ModN n Int64
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Integer) where
+  type AddConstraint (ModN n Integer) = ModN n Integer
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Word) where
+  type AddConstraint (ModN n Word) = ModN n Word
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Word8) where
+  type AddConstraint (ModN n Word8) = ModN n Word8
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Word16) where
+  type AddConstraint (ModN n Word16) = ModN n Word16
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Word32) where
+  type AddConstraint (ModN n Word32) = ModN n Word32
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Word64) where
+  type AddConstraint (ModN n Word64) = ModN n Word64
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Natural) where
+  type AddConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .+. MkModN y = MkModN $ x + y
 
 -- | @since 0.1.0.0
 instance ASemigroup (Negative Float) where

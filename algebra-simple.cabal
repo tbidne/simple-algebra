@@ -73,6 +73,7 @@ library
     Numeric.Algebra.VectorSpace
     Numeric.Data
     Numeric.Data.Fraction
+    Numeric.Data.ModN
     Numeric.Data.Negative
     Numeric.Data.NonNegative
     Numeric.Data.NonPositive

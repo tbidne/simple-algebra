@@ -4,6 +4,7 @@
 -- @since 0.1.0.0
 module Numeric.Data
   ( module Numeric.Data.Fraction,
+    module Numeric.Data.ModN,
     module Numeric.Data.Negative,
     module Numeric.Data.NonNegative,
     module Numeric.Data.NonZero,
@@ -13,6 +14,7 @@ module Numeric.Data
 where
 
 import Numeric.Data.Fraction
+import Numeric.Data.ModN
 import Numeric.Data.Negative
 import Numeric.Data.NonNegative
 import Numeric.Data.NonPositive

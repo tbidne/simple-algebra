@@ -8,9 +8,12 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.Num (Natural)
 import GHC.Real (Ratio (..))
+import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.ModN (ModN (..))
 
 -- | Defines an additive group.
 --
@@ -310,3 +313,63 @@ instance AGroup (Fraction Integer) where
   type SubtractConstraint (Fraction Integer) = Fraction Integer
   (.-.) = (-)
   aabs = abs
+
+instance KnownNat n => AGroup (ModN n Int) where
+  type SubtractConstraint (ModN n Int) = ModN n Int
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Int8) where
+  type SubtractConstraint (ModN n Int8) = ModN n Int8
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Int16) where
+  type SubtractConstraint (ModN n Int16) = ModN n Int16
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Int32) where
+  type SubtractConstraint (ModN n Int32) = ModN n Int32
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Int64) where
+  type SubtractConstraint (ModN n Int64) = ModN n Int64
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Integer) where
+  type SubtractConstraint (ModN n Integer) = ModN n Integer
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Word) where
+  type SubtractConstraint (ModN n Word) = ModN n Word
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Word8) where
+  type SubtractConstraint (ModN n Word8) = ModN n Word8
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Word16) where
+  type SubtractConstraint (ModN n Word16) = ModN n Word16
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Word32) where
+  type SubtractConstraint (ModN n Word32) = ModN n Word32
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Word64) where
+  type SubtractConstraint (ModN n Word64) = ModN n Word64
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+instance KnownNat n => AGroup (ModN n Natural) where
+  type SubtractConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id

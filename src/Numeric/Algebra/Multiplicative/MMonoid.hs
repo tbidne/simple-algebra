@@ -10,8 +10,10 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.ModN (ModN (..))
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
@@ -94,6 +96,54 @@ instance MMonoid (Fraction Integer) where
 -- | @since 0.1.0.0
 instance MMonoid (Fraction Natural) where
   one = 1 :%: 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Int) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Int8) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Int16) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Int32) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Int64) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Integer) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Word) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Word8) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Word16) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Word32) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Word64) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Natural) where
+  one = MkModN 1
 
 -- | @since 0.1.0.0
 instance MMonoid (NonNegative Float) where
