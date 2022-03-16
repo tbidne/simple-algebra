@@ -11,6 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- | Defines a multiplicative semigroup.
@@ -117,6 +118,76 @@ instance MSemigroup (Fraction Integer) where
 instance MSemigroup (Fraction Natural) where
   type MultConstraint (Fraction Natural) = Fraction Natural
   (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Float) where
+  type MultConstraint (NonZero Float) = NonZero Float
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Double) where
+  type MultConstraint (NonZero Double) = NonZero Double
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Int) where
+  type MultConstraint (NonZero Int) = NonZero Int
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Int8) where
+  type MultConstraint (NonZero Int8) = NonZero Int8
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Int16) where
+  type MultConstraint (NonZero Int16) = NonZero Int16
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Int32) where
+  type MultConstraint (NonZero Int32) = NonZero Int32
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Int64) where
+  type MultConstraint (NonZero Int64) = NonZero Int64
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Integer) where
+  type MultConstraint (NonZero Integer) = NonZero Integer
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Word) where
+  type MultConstraint (NonZero Word) = NonZero Word
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Word8) where
+  type MultConstraint (NonZero Word8) = NonZero Word8
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Word16) where
+  type MultConstraint (NonZero Word16) = NonZero Word16
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Word32) where
+  type MultConstraint (NonZero Word32) = NonZero Word32
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Word64) where
+  type MultConstraint (NonZero Word64) = NonZero Word64
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (NonZero Natural) where
+  type MultConstraint (NonZero Natural) = NonZero Natural
+  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
 
 -- | @since 0.1.0.0
 instance MSemigroup (Positive Float) where

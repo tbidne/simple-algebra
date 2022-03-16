@@ -9,28 +9,31 @@ module Numeric.Algebra.Multiplicative.MGroup
     MGroupIntegral (..),
 
     -- * NonZero
-    NonZero (MkNonZero, unNonZero),
+    NonZero (MkNonZero),
+    unNonZero,
+    -- $nonzero
     mkAMonoidNonZero,
     mkAMonoidNonZeroTH,
     unsafeAMonoidNonZero,
   )
 where
 
-import Data.Int (Int16, Int32, Int64, Int8)
-import Data.Word (Word16, Word32, Word64, Word8)
-import GHC.Natural (Natural)
-import GHC.Real (Ratio (..))
 #if MIN_VERSION_template_haskell(2, 17, 0)
 import Language.Haskell.TH (Code, Q)
 #else
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Data.Bifunctor (Bifunctor (..))
+import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.Natural (Natural)
+import GHC.Real (Ratio (..))
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- $setup
@@ -142,6 +145,76 @@ instance MGroup (Fraction Natural) where
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
 
 -- | @since 0.1.0.0
+instance MGroup (NonZero Float) where
+  type DivConstraint (NonZero Float) = NonZero Float
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x / d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Double) where
+  type DivConstraint (NonZero Double) = NonZero Double
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x / d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Int) where
+  type DivConstraint (NonZero Int) = NonZero Int
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Int8) where
+  type DivConstraint (NonZero Int8) = NonZero Int8
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Int16) where
+  type DivConstraint (NonZero Int16) = NonZero Int16
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Int32) where
+  type DivConstraint (NonZero Int32) = NonZero Int32
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Int64) where
+  type DivConstraint (NonZero Int64) = NonZero Int64
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Integer) where
+  type DivConstraint (NonZero Integer) = NonZero Integer
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Word) where
+  type DivConstraint (NonZero Word) = NonZero Word
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Word8) where
+  type DivConstraint (NonZero Word8) = NonZero Word8
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Word16) where
+  type DivConstraint (NonZero Word16) = NonZero Word16
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Word32) where
+  type DivConstraint (NonZero Word32) = NonZero Word32
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Word64) where
+  type DivConstraint (NonZero Word64) = NonZero Word64
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (NonZero Natural) where
+  type DivConstraint (NonZero Natural) = NonZero Natural
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
+
+-- | @since 0.1.0.0
 instance MGroup (Positive Float) where
   type DivConstraint (Positive Float) = Positive Float
   MkPositive x .%. MkPositive d = reallyUnsafePositive $ x / d
@@ -211,39 +284,15 @@ instance MGroup (Positive Natural) where
   type DivConstraint (Positive Natural) = Positive Natural
   MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
 
--- | Smart-constructor for creating a \"non-zero\" @a@, where zero is the
--- 'AMonoid' 'zero'.
---
--- @since 0.1.0.0
-newtype NonZero a = UnsafeNonZero
-  { -- | @since 0.1.0.0
-    unNonZero :: a
-  }
-  deriving
-    ( -- | @since 0.1.0.0
-      Eq,
-      -- | @since 0.1.0.0
-      Lift,
-      -- | @since 0.1.0.0
-      Ord,
-      -- | @since 0.1.0.0
-      Show
-    )
-
--- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
--- match on a nonzero term without exposing the unsafe internal details.
---
--- @since 0.1.0.0
-pattern MkNonZero :: a -> NonZero a
-pattern MkNonZero x <- UnsafeNonZero x
-
-{-# COMPLETE MkNonZero #-}
+-- $nonzero
+-- These functions mirror those in "Numeric.Data.NonZero" except they are
+-- based on 'AMonoid'\'s 'zero', not the literal 0.
 
 -- | Smart constructor for 'NonZero', based on its additive monoid instance.
 --
 -- ==== __Examples__
 -- >>> mkAMonoidNonZero 7
--- Just (UnsafeNonZero {unNonZero = 7})
+-- Just (UnsafeNonZero 7)
 --
 -- >>> mkAMonoidNonZero 0
 -- Nothing
@@ -252,14 +301,14 @@ pattern MkNonZero x <- UnsafeNonZero x
 mkAMonoidNonZero :: AMonoid g => g -> Maybe (NonZero g)
 mkAMonoidNonZero x
   | x == zero = Nothing
-  | otherwise = Just (UnsafeNonZero x)
+  | otherwise = Just (reallyUnsafeNonZero x)
 
 -- | Template-haskell version of 'mkAMonoidNonZero' for creating 'NonZero'
 -- at compile-time.
 --
 -- ==== __Examples__
 -- >>> $$(mkAMonoidNonZeroTH 7)
--- UnsafeNonZero {unNonZero = 7}
+-- UnsafeNonZero 7
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
@@ -268,21 +317,25 @@ mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Code Q (NonZero g)
 mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Q (TExp (NonZero g))
 #endif
 mkAMonoidNonZeroTH x
-  | x == zero = error "Passed identity to mkAMonoidNonZero"
-  | otherwise = liftTyped (UnsafeNonZero x)
+  | x == zero =
+      error
+        "Numeric.Algebra.Multiplicative.MGroup.mkAMonoidNonZeroTH: Passed identity"
+  | otherwise = liftTyped (reallyUnsafeNonZero x)
 
 -- | Unsafe constructor for 'NonZero', based on its additive monoid instance.
 -- Intended to be used with known constants. Exercise restraint!
 --
 -- ==== __Examples__
 -- >>> unsafeAMonoidNonZero 7
--- UnsafeNonZero {unNonZero = 7}
+-- UnsafeNonZero 7
 --
 -- @since 0.1.0.0
 unsafeAMonoidNonZero :: AMonoid g => g -> NonZero g
 unsafeAMonoidNonZero x
-  | x == zero = error "Passed identity to unsafeAMonoidNonZero"
-  | otherwise = UnsafeNonZero x
+  | x == zero =
+      error
+        "Numeric.Algebra.Multiplicative.MGroup.unsafeAMonoidNonZero: Passed identity"
+  | otherwise = reallyUnsafeNonZero x
 
 flipNonZero :: Fractional a => NonZero a -> a
 flipNonZero (MkNonZero x) = recip x

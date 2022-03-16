@@ -11,6 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- | Defines an additive semigroup.
@@ -258,6 +259,36 @@ instance ASemigroup (Fraction Integer) where
 instance ASemigroup (Fraction Natural) where
   type AddConstraint (Fraction Natural) = Fraction Natural
   (.+.) = (+)
+
+-- | @since 0.1.0.0
+instance ASemigroup (NonZero Word) where
+  type AddConstraint (NonZero Word) = NonZero Word
+  MkNonZero x .+. MkNonZero y = reallyUnsafeNonZero $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (NonZero Word8) where
+  type AddConstraint (NonZero Word8) = NonZero Word8
+  MkNonZero x .+. MkNonZero y = reallyUnsafeNonZero $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (NonZero Word16) where
+  type AddConstraint (NonZero Word16) = NonZero Word16
+  MkNonZero x .+. MkNonZero y = reallyUnsafeNonZero $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (NonZero Word32) where
+  type AddConstraint (NonZero Word32) = NonZero Word32
+  MkNonZero x .+. MkNonZero y = reallyUnsafeNonZero $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (NonZero Word64) where
+  type AddConstraint (NonZero Word64) = NonZero Word64
+  MkNonZero x .+. MkNonZero y = reallyUnsafeNonZero $ x + y
+
+-- | @since 0.1.0.0
+instance ASemigroup (NonZero Natural) where
+  type AddConstraint (NonZero Natural) = NonZero Natural
+  MkNonZero x .+. MkNonZero y = reallyUnsafeNonZero $ x + y
 
 -- | @since 0.1.0.0
 instance ASemigroup (Positive Float) where

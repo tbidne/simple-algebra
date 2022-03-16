@@ -12,6 +12,7 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- | Defines a monoid over a multiplicative semigroup.
@@ -92,6 +93,62 @@ instance MMonoid (Fraction Integer) where
 -- | @since 0.1.0.0
 instance MMonoid (Fraction Natural) where
   one = 1 :%: 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Float) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Double) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Int) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Int8) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Int16) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Int32) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Int64) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Integer) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Word) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Word8) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Word16) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Word32) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Word64) where
+  one = reallyUnsafeNonZero 1
+
+-- | @since 0.1.0.0
+instance MMonoid (NonZero Natural) where
+  one = reallyUnsafeNonZero 1
 
 -- | @since 0.1.0.0
 instance MMonoid (Positive Float) where

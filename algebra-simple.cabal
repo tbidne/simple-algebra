@@ -73,6 +73,7 @@ library
     Numeric.Algebra.VectorSpace
     Numeric.Data
     Numeric.Data.Fraction
+    Numeric.Data.NonZero
     Numeric.Data.Positive
     Numeric.Literal
 
