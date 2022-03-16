@@ -1,5 +1,4 @@
 {-# LANGUAGE CPP #-}
-{-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
 -- | Provides typeclasses for division.
 --
@@ -26,11 +25,13 @@ import Language.Haskell.TH (Code, Q)
 #else
 import Language.Haskell.TH (Q, TExp)
 #endif
+import Data.Bifunctor (Bifunctor (..))
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -130,6 +131,86 @@ instance MGroup (Ratio Natural) where
   type DivConstraint (Ratio Natural) = NonZero (Ratio Natural)
   x .%. d = x .*. flipNonZero d
 
+-- | @since 0.1.0.0
+instance MGroup (Fraction Integer) where
+  type DivConstraint (Fraction Integer) = NonZero (Fraction Integer)
+  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance MGroup (Fraction Natural) where
+  type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
+  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Float) where
+  type DivConstraint (Positive Float) = Positive Float
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x / d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Double) where
+  type DivConstraint (Positive Double) = Positive Double
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x / d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Int) where
+  type DivConstraint (Positive Int) = Positive Int
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Int8) where
+  type DivConstraint (Positive Int8) = Positive Int8
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Int16) where
+  type DivConstraint (Positive Int16) = Positive Int16
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Int32) where
+  type DivConstraint (Positive Int32) = Positive Int32
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Int64) where
+  type DivConstraint (Positive Int64) = Positive Int64
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Integer) where
+  type DivConstraint (Positive Integer) = Positive Integer
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Word) where
+  type DivConstraint (Positive Word) = Positive Word
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Word8) where
+  type DivConstraint (Positive Word8) = Positive Word8
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Word16) where
+  type DivConstraint (Positive Word16) = Positive Word16
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Word32) where
+  type DivConstraint (Positive Word32) = Positive Word32
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Word64) where
+  type DivConstraint (Positive Word64) = Positive Word64
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
+-- | @since 0.1.0.0
+instance MGroup (Positive Natural) where
+  type DivConstraint (Positive Natural) = Positive Natural
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+
 -- | Smart-constructor for creating a \"non-zero\" @a@, where zero is the
 -- 'AMonoid' 'zero'.
 --
@@ -210,70 +291,134 @@ flipNonZero (MkNonZero x) = recip x
 --
 -- @since 0.1.0.0
 class MGroup g => MGroupIntegral g where
+  type ModResult g
+
   -- | @since 0.1.0.0
-  gmod :: g -> DivConstraint g -> g
+  gmod :: g -> DivConstraint g -> ModResult g
   gmod x d = snd $ gdivMod x d
 
   -- | @since 0.1.0.0
-  gdivMod :: g -> DivConstraint g -> (g, g)
+  gdivMod :: g -> DivConstraint g -> (g, ModResult g)
   gdivMod x d = (x .%. d, x `gmod` d)
 
   {-# MINIMAL (gdivMod | gmod) #-}
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int where
+  type ModResult Int = Int
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int8 where
+  type ModResult Int8 = Int8
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int16 where
+  type ModResult Int16 = Int16
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int32 where
+  type ModResult Int32 = Int32
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Int64 where
+  type ModResult Int64 = Int64
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Integer where
-  x `gdivMod` MkNonZero d = x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral Natural where
+  type ModResult Integer = Integer
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word where
+  type ModResult Word = Word
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word8 where
+  type ModResult Word8 = Word8
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word16 where
+  type ModResult Word16 = Word16
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word32 where
+  type ModResult Word32 = Word32
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
 instance MGroupIntegral Word64 where
+  type ModResult Word64 = Word64
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroup (Fraction Integer) where
-  type DivConstraint (Fraction Integer) = NonZero (Fraction Integer)
-  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+instance MGroupIntegral Natural where
+  type ModResult Natural = Natural
+  x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroup (Fraction Natural) where
-  type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
-  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+instance MGroupIntegral (Positive Int) where
+  type ModResult (Positive Int) = Int
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Int8) where
+  type ModResult (Positive Int8) = Int8
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Int16) where
+  type ModResult (Positive Int16) = Int16
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Int32) where
+  type ModResult (Positive Int32) = Int32
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Int64) where
+  type ModResult (Positive Int64) = Int64
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Integer) where
+  type ModResult (Positive Integer) = Integer
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Word) where
+  type ModResult (Positive Word) = Word
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Word8) where
+  type ModResult (Positive Word8) = Word8
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Word16) where
+  type ModResult (Positive Word16) = Word16
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Word32) where
+  type ModResult (Positive Word32) = Word32
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Word64) where
+  type ModResult (Positive Word64) = Word64
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance MGroupIntegral (Positive Natural) where
+  type ModResult (Positive Natural) = Natural
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d

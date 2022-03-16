@@ -24,6 +24,7 @@ module Numeric.Data.Fraction
 where
 
 import Control.DeepSeq (NFData)
+import Data.Kind (Type)
 import Data.Maybe qualified as May
 import Foreign.Ptr qualified as FPtr
 import Foreign.Storable (Storable (..))
@@ -91,6 +92,7 @@ import Text.Read.Lex qualified as L
 -- -123 :%: 3461
 --
 -- @since 0.1.0.0
+type Fraction :: Type -> Type
 data Fraction a = UnsafeFraction !a !a
   deriving stock
     ( -- | @since 0.1.0.0

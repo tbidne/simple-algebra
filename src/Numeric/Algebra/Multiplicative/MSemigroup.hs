@@ -11,6 +11,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- | Defines a multiplicative semigroup.
 --
@@ -116,3 +117,73 @@ instance MSemigroup (Fraction Integer) where
 instance MSemigroup (Fraction Natural) where
   type MultConstraint (Fraction Natural) = Fraction Natural
   (.*.) = (*)
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Float) where
+  type MultConstraint (Positive Float) = Positive Float
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Double) where
+  type MultConstraint (Positive Double) = Positive Double
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Int) where
+  type MultConstraint (Positive Int) = Positive Int
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Int8) where
+  type MultConstraint (Positive Int8) = Positive Int8
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Int16) where
+  type MultConstraint (Positive Int16) = Positive Int16
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Int32) where
+  type MultConstraint (Positive Int32) = Positive Int32
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Int64) where
+  type MultConstraint (Positive Int64) = Positive Int64
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Integer) where
+  type MultConstraint (Positive Integer) = Positive Integer
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Word) where
+  type MultConstraint (Positive Word) = Positive Word
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Word8) where
+  type MultConstraint (Positive Word8) = Positive Word8
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Word16) where
+  type MultConstraint (Positive Word16) = Positive Word16
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Word32) where
+  type MultConstraint (Positive Word32) = Positive Word32
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Word64) where
+  type MultConstraint (Positive Word64) = Positive Word64
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance MSemigroup (Positive Natural) where
+  type MultConstraint (Positive Natural) = Positive Natural
+  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y

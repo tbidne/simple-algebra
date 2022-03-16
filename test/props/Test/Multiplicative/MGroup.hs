@@ -238,7 +238,12 @@ word64DivIntegral :: TestTree
 word64DivIntegral = mgroupDivIntegralEq Gens.word64 Gens.word64NonZero "Word64"
 
 mgroupDivIntegralEq ::
-  (Integral a, MGroupIntegral a, DivConstraint a ~ NonZero a, Show a) =>
+  ( Integral a,
+    MGroupIntegral a,
+    DivConstraint a ~ NonZero a,
+    ModResult a ~ a,
+    Show a
+  ) =>
   Gen a ->
   Gen (NonZero a) ->
   TestName ->

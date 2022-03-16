@@ -16,6 +16,7 @@ files :: [String]
 files =
   [ "-isrc",
     "src/Numeric/Data/Fraction.hs",
+    "src/Numeric/Data/Positive.hs",
     "src/Numeric/Algebra/Multiplicative/MGroup.hs"
   ]
 
@@ -27,6 +28,7 @@ exts =
     "-XDerivingStrategies",
     "-XFlexibleContexts",
     "-XFlexibleInstances",
+    "-XGeneralizedNewtypeDeriving",
     "-XFunctionalDependencies",
     "-XImportQualifiedPost",
     "-XMultiParamTypeClasses",
