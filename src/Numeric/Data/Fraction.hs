@@ -71,8 +71,8 @@ import Text.Read.Lex qualified as L
 -- 3. @'Show' x@ does __not__ reduce @x@ first. This is to make debugging
 -- easier. Furthermore, @read . show@ is a roundtrip.
 --
--- @'Fraction' 'Integer'@ is a 'Field', and @'Fraction' 'Natural'@ is a
--- 'Semiring'.
+-- @'Fraction' 'Integer'@ is a 'Numeric.Algebra.Field.Field', and @'Fraction'
+-- 'GHC.Natural.Natural'@ is a 'Numeric.Algebra.Semiring.Semiring'.
 --
 -- ==== __Examples__
 --

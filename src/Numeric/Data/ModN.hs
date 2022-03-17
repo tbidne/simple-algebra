@@ -30,6 +30,7 @@ import Language.Haskell.TH.Syntax (Lift)
 -- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
 -- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
 -- * 'Numeric.Algebra.Semiring.Semiring'
+-- * 'Numeric.Algebra.Ring.Ring'
 --
 -- @since 0.1.0.0
 type ModN :: Nat -> Type -> Type
