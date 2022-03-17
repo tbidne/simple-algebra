@@ -15,6 +15,9 @@ module Numeric.Data.Positive
 
     -- * Elimination
     unPositive,
+
+    -- * Functions
+    positiveToNonZero,
   )
 where
 
@@ -26,6 +29,7 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -127,3 +131,13 @@ unsafePositive x
 -- @since 0.1.0.0
 reallyUnsafePositive :: a -> Positive a
 reallyUnsafePositive = UnsafePositive
+
+-- | Convenience function for adding a 'NonZero' proof to our 'Positive'.
+--
+-- ==== __Examples__
+-- >>> positiveToNonZero $ unsafePositive 3
+-- UnsafePositive (UnsafeNonZero 3)
+--
+-- @since 0.1.0.0
+positiveToNonZero :: Positive a -> Positive (NonZero a)
+positiveToNonZero = UnsafePositive . reallyUnsafeNonZero . unPositive

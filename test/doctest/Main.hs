@@ -19,9 +19,7 @@ files =
     "src/Numeric/Data/ModN.hs",
     "src/Numeric/Data/ModP.hs",
     "src/Numeric/Data/ModP/Internal.hs",
-    "src/Numeric/Data/Negative.hs",
     "src/Numeric/Data/NonNegative.hs",
-    "src/Numeric/Data/NonPositive.hs",
     "src/Numeric/Data/NonZero.hs",
     "src/Numeric/Data/Positive.hs",
     "src/Numeric/Algebra/Multiplicative/MGroup.hs"

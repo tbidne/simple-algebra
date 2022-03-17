@@ -73,17 +73,16 @@ library
     Numeric.Algebra.Ring
     Numeric.Algebra.Semiring
     Numeric.Algebra.VectorSpace
+    Numeric.Class.Division
+    Numeric.Class.Literal
     Numeric.Data
     Numeric.Data.Fraction
     Numeric.Data.ModN
     Numeric.Data.ModP
     Numeric.Data.ModP.Internal
-    Numeric.Data.Negative
     Numeric.Data.NonNegative
-    Numeric.Data.NonPositive
     Numeric.Data.NonZero
     Numeric.Data.Positive
-    Numeric.Literal
 
   build-depends:
     , base              >=4.14.0.0 && <4.17

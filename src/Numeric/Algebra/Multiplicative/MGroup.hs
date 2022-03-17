@@ -33,12 +33,14 @@ import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Class.Division (Division (..))
 import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
+import System.Random (UniformRange)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -149,274 +151,24 @@ instance MGroup (Fraction Natural) where
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
 
 -- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Int) where
-  type DivConstraint (ModP p Int) = NonZero (ModP p Int)
+instance (Integral a, KnownNat p, UniformRange a) => MGroup (ModP p a) where
+  type DivConstraint (ModP p a) = NonZero (ModP p a)
   x .%. d = x .*. ModP.invert d
 
 -- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Int8) where
-  type DivConstraint (ModP p Int8) = NonZero (ModP p Int8)
-  x .%. d = x .*. ModP.invert d
+instance (Eq a, Division a, Num a) => MGroup (NonNegative a) where
+  type DivConstraint (NonNegative a) = NonZero (NonNegative a)
+  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `divide` d
 
 -- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Int16) where
-  type DivConstraint (ModP p Int16) = NonZero (ModP p Int16)
-  x .%. d = x .*. ModP.invert d
+instance (Eq a, Division a, Num a) => MGroup (NonZero a) where
+  type DivConstraint (NonZero a) = NonZero a
+  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `divide` d
 
 -- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Int32) where
-  type DivConstraint (ModP p Int32) = NonZero (ModP p Int32)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Int64) where
-  type DivConstraint (ModP p Int64) = NonZero (ModP p Int64)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Integer) where
-  type DivConstraint (ModP p Integer) = NonZero (ModP p Integer)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Word) where
-  type DivConstraint (ModP p Word) = NonZero (ModP p Word)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Word8) where
-  type DivConstraint (ModP p Word8) = NonZero (ModP p Word8)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Word16) where
-  type DivConstraint (ModP p Word16) = NonZero (ModP p Word16)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Word32) where
-  type DivConstraint (ModP p Word32) = NonZero (ModP p Word32)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Word64) where
-  type DivConstraint (ModP p Word64) = NonZero (ModP p Word64)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Natural) where
-  type DivConstraint (ModP p Natural) = NonZero (ModP p Natural)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Float) where
-  type DivConstraint (NonNegative Float) = NonZero (NonNegative Float)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x / d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Double) where
-  type DivConstraint (NonNegative Double) = NonZero (NonNegative Double)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x / d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Int) where
-  type DivConstraint (NonNegative Int) = NonZero (NonNegative Int)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Int8) where
-  type DivConstraint (NonNegative Int8) = NonZero (NonNegative Int8)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Int16) where
-  type DivConstraint (NonNegative Int16) = NonZero (NonNegative Int16)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Int32) where
-  type DivConstraint (NonNegative Int32) = NonZero (NonNegative Int32)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Int64) where
-  type DivConstraint (NonNegative Int64) = NonZero (NonNegative Int64)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Integer) where
-  type DivConstraint (NonNegative Integer) = NonZero (NonNegative Integer)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Word) where
-  type DivConstraint (NonNegative Word) = NonZero (NonNegative Word)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Word8) where
-  type DivConstraint (NonNegative Word8) = NonZero (NonNegative Word8)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Word16) where
-  type DivConstraint (NonNegative Word16) = NonZero (NonNegative Word16)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Word32) where
-  type DivConstraint (NonNegative Word32) = NonZero (NonNegative Word32)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Word64) where
-  type DivConstraint (NonNegative Word64) = NonZero (NonNegative Word64)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonNegative Natural) where
-  type DivConstraint (NonNegative Natural) = NonZero (NonNegative Natural)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Float) where
-  type DivConstraint (NonZero Float) = NonZero Float
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x / d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Double) where
-  type DivConstraint (NonZero Double) = NonZero Double
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x / d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Int) where
-  type DivConstraint (NonZero Int) = NonZero Int
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Int8) where
-  type DivConstraint (NonZero Int8) = NonZero Int8
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Int16) where
-  type DivConstraint (NonZero Int16) = NonZero Int16
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Int32) where
-  type DivConstraint (NonZero Int32) = NonZero Int32
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Int64) where
-  type DivConstraint (NonZero Int64) = NonZero Int64
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Integer) where
-  type DivConstraint (NonZero Integer) = NonZero Integer
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Word) where
-  type DivConstraint (NonZero Word) = NonZero Word
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Word8) where
-  type DivConstraint (NonZero Word8) = NonZero Word8
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Word16) where
-  type DivConstraint (NonZero Word16) = NonZero Word16
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Word32) where
-  type DivConstraint (NonZero Word32) = NonZero Word32
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Word64) where
-  type DivConstraint (NonZero Word64) = NonZero Word64
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (NonZero Natural) where
-  type DivConstraint (NonZero Natural) = NonZero Natural
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Float) where
-  type DivConstraint (Positive Float) = Positive Float
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x / d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Double) where
-  type DivConstraint (Positive Double) = Positive Double
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x / d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Int) where
-  type DivConstraint (Positive Int) = Positive Int
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Int8) where
-  type DivConstraint (Positive Int8) = Positive Int8
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Int16) where
-  type DivConstraint (Positive Int16) = Positive Int16
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Int32) where
-  type DivConstraint (Positive Int32) = Positive Int32
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Int64) where
-  type DivConstraint (Positive Int64) = Positive Int64
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Integer) where
-  type DivConstraint (Positive Integer) = Positive Integer
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Word) where
-  type DivConstraint (Positive Word) = Positive Word
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Word8) where
-  type DivConstraint (Positive Word8) = Positive Word8
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Word16) where
-  type DivConstraint (Positive Word16) = Positive Word16
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Word32) where
-  type DivConstraint (Positive Word32) = Positive Word32
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Word64) where
-  type DivConstraint (Positive Word64) = Positive Word64
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
-
--- | @since 0.1.0.0
-instance MGroup (Positive Natural) where
-  type DivConstraint (Positive Natural) = Positive Natural
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `div` d
+instance (Eq a, Division a, Num a) => MGroup (Positive a) where
+  type DivConstraint (Positive a) = Positive a
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `divide` d
 
 -- $nonzero
 -- These functions mirror those in "Numeric.Data.NonZero" except they are
@@ -551,121 +303,16 @@ instance MGroupIntegral Natural where
   x `gdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Int) where
-  type ModResult (NonNegative Int) = Int
+instance (Division a, Integral a) => MGroupIntegral (NonNegative a) where
+  type ModResult (NonNegative a) = a
   MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Int8) where
-  type ModResult (NonNegative Int8) = Int8
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Int16) where
-  type ModResult (NonNegative Int16) = Int16
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Int32) where
-  type ModResult (NonNegative Int32) = Int32
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Int64) where
-  type ModResult (NonNegative Int64) = Int64
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Integer) where
-  type ModResult (NonNegative Integer) = Integer
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Word) where
-  type ModResult (NonNegative Word) = Word
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Word8) where
-  type ModResult (NonNegative Word8) = Word8
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Word16) where
-  type ModResult (NonNegative Word16) = Word16
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Word32) where
-  type ModResult (NonNegative Word32) = Word32
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Word64) where
-  type ModResult (NonNegative Word64) = Word64
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonNegative Natural) where
-  type ModResult (NonNegative Natural) = Natural
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Int) where
-  type ModResult (NonZero Int) = Int
+instance (Division a, Integral a) => MGroupIntegral (NonZero a) where
+  type ModResult (NonZero a) = a
   MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
 
 -- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Int8) where
-  type ModResult (NonZero Int8) = Int8
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Int16) where
-  type ModResult (NonZero Int16) = Int16
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Int32) where
-  type ModResult (NonZero Int32) = Int32
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Int64) where
-  type ModResult (NonZero Int64) = Int64
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Integer) where
-  type ModResult (NonZero Integer) = Integer
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Word) where
-  type ModResult (NonZero Word) = Word
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Word8) where
-  type ModResult (NonZero Word8) = Word8
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Word16) where
-  type ModResult (NonZero Word16) = Word16
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Word32) where
-  type ModResult (NonZero Word32) = Word32
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Word64) where
-  type ModResult (NonZero Word64) = Word64
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance MGroupIntegral (NonZero Natural) where
-  type ModResult (NonZero Natural) = Natural
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
+instance (Division a, Integral a) => MGroupIntegral (Positive a) where
+  type ModResult (Positive a) = a
+  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
