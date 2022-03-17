@@ -428,36 +428,6 @@ instance ASemigroup (Negative Integer) where
   MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
 
 -- | @since 0.1.0.0
-instance ASemigroup (Negative Word) where
-  type AddConstraint (Negative Word) = Negative Word
-  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (Negative Word8) where
-  type AddConstraint (Negative Word8) = Negative Word8
-  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (Negative Word16) where
-  type AddConstraint (Negative Word16) = Negative Word16
-  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (Negative Word32) where
-  type AddConstraint (Negative Word32) = Negative Word32
-  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (Negative Word64) where
-  type AddConstraint (Negative Word64) = Negative Word64
-  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (Negative Natural) where
-  type AddConstraint (Negative Natural) = Negative Natural
-  MkNegative x .+. MkNegative y = reallyUnsafeNegative $ x + y
-
--- | @since 0.1.0.0
 instance ASemigroup (NonNegative Float) where
   type AddConstraint (NonNegative Float) = NonNegative Float
   MkNonNegative x .+. MkNonNegative y = reallyUnsafeNonNegative $ x + y
@@ -565,36 +535,6 @@ instance ASemigroup (NonPositive Int64) where
 -- | @since 0.1.0.0
 instance ASemigroup (NonPositive Integer) where
   type AddConstraint (NonPositive Integer) = NonPositive Integer
-  MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (NonPositive Word) where
-  type AddConstraint (NonPositive Word) = NonPositive Word
-  MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (NonPositive Word8) where
-  type AddConstraint (NonPositive Word8) = NonPositive Word8
-  MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (NonPositive Word16) where
-  type AddConstraint (NonPositive Word16) = NonPositive Word16
-  MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (NonPositive Word32) where
-  type AddConstraint (NonPositive Word32) = NonPositive Word32
-  MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (NonPositive Word64) where
-  type AddConstraint (NonPositive Word64) = NonPositive Word64
-  MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
-
--- | @since 0.1.0.0
-instance ASemigroup (NonPositive Natural) where
-  type AddConstraint (NonPositive Natural) = NonPositive Natural
   MkNonPositive x .+. MkNonPositive y = reallyUnsafeNonPositive $ x + y
 
 -- | @since 0.1.0.0
