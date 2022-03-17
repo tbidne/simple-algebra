@@ -14,6 +14,8 @@ import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModN (ModN (..))
+import Numeric.Data.ModP (ModP (..))
+import Numeric.Data.ModP qualified as ModP
 
 -- | Defines an additive group.
 --
@@ -314,62 +316,146 @@ instance AGroup (Fraction Integer) where
   (.-.) = (-)
   aabs = abs
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Int) where
   type SubtractConstraint (ModN n Int) = ModN n Int
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Int8) where
   type SubtractConstraint (ModN n Int8) = ModN n Int8
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Int16) where
   type SubtractConstraint (ModN n Int16) = ModN n Int16
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Int32) where
   type SubtractConstraint (ModN n Int32) = ModN n Int32
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Int64) where
   type SubtractConstraint (ModN n Int64) = ModN n Int64
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Integer) where
   type SubtractConstraint (ModN n Integer) = ModN n Integer
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Word) where
   type SubtractConstraint (ModN n Word) = ModN n Word
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Word8) where
   type SubtractConstraint (ModN n Word8) = ModN n Word8
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Word16) where
   type SubtractConstraint (ModN n Word16) = ModN n Word16
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Word32) where
   type SubtractConstraint (ModN n Word32) = ModN n Word32
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Word64) where
   type SubtractConstraint (ModN n Word64) = ModN n Word64
   MkModN x .-. MkModN y = MkModN (x + y)
   aabs = id
 
+-- | @since 0.1.0.0
 instance KnownNat n => AGroup (ModN n Natural) where
   type SubtractConstraint (ModN n Natural) = ModN n Natural
   MkModN x .-. MkModN y = MkModN (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Int) where
+  type SubtractConstraint (ModP p Int) = ModP p Int
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Int8) where
+  type SubtractConstraint (ModP p Int8) = ModP p Int8
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Int16) where
+  type SubtractConstraint (ModP p Int16) = ModP p Int16
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Int32) where
+  type SubtractConstraint (ModP p Int32) = ModP p Int32
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Int64) where
+  type SubtractConstraint (ModP p Int64) = ModP p Int64
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Integer) where
+  type SubtractConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Word) where
+  type SubtractConstraint (ModP p Word) = ModP p Word
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Word8) where
+  type SubtractConstraint (ModP p Word8) = ModP p Word8
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Word16) where
+  type SubtractConstraint (ModP p Word16) = ModP p Word16
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Word32) where
+  type SubtractConstraint (ModP p Word32) = ModP p Word32
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Word64) where
+  type SubtractConstraint (ModP p Word64) = ModP p Word64
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Natural) where
+  type SubtractConstraint (ModP p Natural) = ModP p Natural
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
   aabs = id

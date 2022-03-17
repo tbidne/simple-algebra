@@ -13,6 +13,8 @@ import GHC.Natural (Natural)
 import GHC.TypeNats (KnownNat)
 import Numeric.Data.Fraction (Fraction)
 import Numeric.Data.ModN (ModN (..))
+import Numeric.Data.ModP (ModP (..))
+import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
@@ -181,6 +183,66 @@ instance KnownNat n => MSemigroup (ModN n Word64) where
 instance KnownNat n => MSemigroup (ModN n Natural) where
   type MultConstraint (ModN n Natural) = ModN n Natural
   MkModN x .*. MkModN y = MkModN (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Int) where
+  type MultConstraint (ModP p Int) = ModP p Int
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Int8) where
+  type MultConstraint (ModP p Int8) = ModP p Int8
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Int16) where
+  type MultConstraint (ModP p Int16) = ModP p Int16
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Int32) where
+  type MultConstraint (ModP p Int32) = ModP p Int32
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Int64) where
+  type MultConstraint (ModP p Int64) = ModP p Int64
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Integer) where
+  type MultConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Word) where
+  type MultConstraint (ModP p Word) = ModP p Word
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Word8) where
+  type MultConstraint (ModP p Word8) = ModP p Word8
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Word16) where
+  type MultConstraint (ModP p Word16) = ModP p Word16
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Word32) where
+  type MultConstraint (ModP p Word32) = ModP p Word32
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Word64) where
+  type MultConstraint (ModP p Word64) = ModP p Word64
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Natural) where
+  type MultConstraint (ModP p Natural) = ModP p Natural
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
 
 -- | @since 0.1.0.0
 instance MSemigroup (NonNegative Float) where

@@ -9,9 +9,12 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.Natural (Natural)
+import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
 import Numeric.Algebra.Ring (Ring)
 import Numeric.Data.Fraction (Fraction)
+import Numeric.Data.ModP (ModP)
 
 -- | Defines a field.
 --
@@ -62,3 +65,39 @@ instance Field (Ratio Integer)
 
 -- | @since 0.1.0.0
 instance Field (Fraction Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Int)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Int8)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Int16)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Int32)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Int64)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Word)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Word8)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Word16)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Word32)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Word64)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Natural)

@@ -14,6 +14,7 @@ import GHC.TypeLits (KnownNat)
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModN (ModN (..))
+import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonPositive (NonPositive (..), reallyUnsafeNonPositive)
 
@@ -173,6 +174,54 @@ instance KnownNat n => AMonoid (ModN n Word64) where
 -- | @since 0.1.0.0
 instance KnownNat n => AMonoid (ModN n Natural) where
   zero = MkModN 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Int) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Int8) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Int16) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Int32) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Int64) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Integer) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Word) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Word8) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Word16) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Word32) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Word64) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Natural) where
+  zero = MkModP 0
 
 -- | @since 0.1.0.0
 instance AMonoid (NonNegative Float) where

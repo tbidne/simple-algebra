@@ -28,6 +28,8 @@ source-repository head
 
 common common-exts
   default-extensions:
+    NoStarIsType
+    BangPatterns
     DataKinds
     DeriveGeneric
     DeriveLift
@@ -74,6 +76,8 @@ library
     Numeric.Data
     Numeric.Data.Fraction
     Numeric.Data.ModN
+    Numeric.Data.ModP
+    Numeric.Data.ModP.Internal
     Numeric.Data.Negative
     Numeric.Data.NonNegative
     Numeric.Data.NonPositive
@@ -84,6 +88,7 @@ library
   build-depends:
     , base              >=4.14.0.0 && <4.17
     , deepseq           ^>=1.4.4.0
+    , random            ^>=1.2.0
     , template-haskell  >=2.16.0.0 && <2.19.0.0
 
   hs-source-dirs:   src

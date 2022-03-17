@@ -16,6 +16,7 @@ where
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
 import GHC.TypeNats (KnownNat, Nat, natVal)
+import Language.Haskell.TH.Syntax (Lift)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -28,6 +29,7 @@ import GHC.TypeNats (KnownNat, Nat, natVal)
 -- * 'Numeric.Algebra.Additive.AGroup.AGroup'
 -- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
 -- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
+-- * 'Numeric.Algebra.Semiring.Semiring'
 --
 -- @since 0.1.0.0
 type ModN :: Nat -> Type -> Type
@@ -35,6 +37,8 @@ newtype ModN n a = UnsafeModN a
   deriving stock
     ( -- | @since 0.1.0.0
       Eq,
+      -- | @since 0.1.0.0
+      Lift,
       -- | @since 0.1.0.0
       Ord,
       -- | @since 0.1.0.0

@@ -14,6 +14,7 @@ import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModN (ModN (..))
+import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
@@ -144,6 +145,54 @@ instance KnownNat n => MMonoid (ModN n Word64) where
 -- | @since 0.1.0.0
 instance KnownNat n => MMonoid (ModN n Natural) where
   one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Int) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Int8) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Int16) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Int32) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Int64) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Integer) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Word) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Word8) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Word16) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Word32) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Word64) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Natural) where
+  one = MkModP 1
 
 -- | @since 0.1.0.0
 instance MMonoid (NonNegative Float) where

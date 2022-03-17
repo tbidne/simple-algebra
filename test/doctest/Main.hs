@@ -17,6 +17,8 @@ files =
   [ "-isrc",
     "src/Numeric/Data/Fraction.hs",
     "src/Numeric/Data/ModN.hs",
+    "src/Numeric/Data/ModP.hs",
+    "src/Numeric/Data/ModP/Internal.hs",
     "src/Numeric/Data/Negative.hs",
     "src/Numeric/Data/NonNegative.hs",
     "src/Numeric/Data/NonPositive.hs",
@@ -27,7 +29,9 @@ files =
 
 exts :: [String]
 exts =
-  [ "-XDataKinds",
+  [ "-XNoStarIsType",
+    "-XBangPatterns",
+    "-XDataKinds",
     "-XDeriveGeneric",
     "-XDeriveLift",
     "-XDerivingStrategies",

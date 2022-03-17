@@ -13,6 +13,8 @@ import GHC.Natural (Natural)
 import GHC.TypeNats (KnownNat)
 import Numeric.Data.Fraction (Fraction)
 import Numeric.Data.ModN (ModN (..))
+import Numeric.Data.ModP (ModP (..))
+import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.Negative (Negative (..), reallyUnsafeNegative)
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonPositive (NonPositive (..), reallyUnsafeNonPositive)
@@ -324,6 +326,66 @@ instance KnownNat n => ASemigroup (ModN n Word64) where
 instance KnownNat n => ASemigroup (ModN n Natural) where
   type AddConstraint (ModN n Natural) = ModN n Natural
   MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Int) where
+  type AddConstraint (ModP p Int) = ModP p Int
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Int8) where
+  type AddConstraint (ModP p Int8) = ModP p Int8
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Int16) where
+  type AddConstraint (ModP p Int16) = ModP p Int16
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Int32) where
+  type AddConstraint (ModP p Int32) = ModP p Int32
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Int64) where
+  type AddConstraint (ModP p Int64) = ModP p Int64
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Integer) where
+  type AddConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Word) where
+  type AddConstraint (ModP p Word) = ModP p Word
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Word8) where
+  type AddConstraint (ModP p Word8) = ModP p Word8
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Word16) where
+  type AddConstraint (ModP p Word16) = ModP p Word16
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Word32) where
+  type AddConstraint (ModP p Word32) = ModP p Word32
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Word64) where
+  type AddConstraint (ModP p Word64) = ModP p Word64
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Natural) where
+  type AddConstraint (ModP p Natural) = ModP p Natural
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
 
 -- | @since 0.1.0.0
 instance ASemigroup (Negative Float) where

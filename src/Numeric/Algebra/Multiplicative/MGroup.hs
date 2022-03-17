@@ -28,11 +28,14 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
+import GHC.TypeNats (KnownNat)
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.ModP (ModP (..))
+import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
@@ -144,6 +147,66 @@ instance MGroup (Fraction Integer) where
 instance MGroup (Fraction Natural) where
   type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Int) where
+  type DivConstraint (ModP p Int) = NonZero (ModP p Int)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Int8) where
+  type DivConstraint (ModP p Int8) = NonZero (ModP p Int8)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Int16) where
+  type DivConstraint (ModP p Int16) = NonZero (ModP p Int16)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Int32) where
+  type DivConstraint (ModP p Int32) = NonZero (ModP p Int32)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Int64) where
+  type DivConstraint (ModP p Int64) = NonZero (ModP p Int64)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Integer) where
+  type DivConstraint (ModP p Integer) = NonZero (ModP p Integer)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Word) where
+  type DivConstraint (ModP p Word) = NonZero (ModP p Word)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Word8) where
+  type DivConstraint (ModP p Word8) = NonZero (ModP p Word8)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Word16) where
+  type DivConstraint (ModP p Word16) = NonZero (ModP p Word16)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Word32) where
+  type DivConstraint (ModP p Word32) = NonZero (ModP p Word32)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Word64) where
+  type DivConstraint (ModP p Word64) = NonZero (ModP p Word64)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Natural) where
+  type DivConstraint (ModP p Natural) = NonZero (ModP p Natural)
+  x .%. d = x .*. ModP.invert d
 
 -- | @since 0.1.0.0
 instance MGroup (NonNegative Float) where

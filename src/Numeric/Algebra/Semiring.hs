@@ -14,6 +14,7 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Data.Fraction (Fraction)
 import Numeric.Data.ModN (ModN)
+import Numeric.Data.ModP (ModP)
 import Numeric.Data.NonNegative (NonNegative)
 import Numeric.Natural (Natural)
 
@@ -111,6 +112,42 @@ instance KnownNat n => Semiring (ModN n Word64)
 
 -- | @since 0.1.0.0
 instance KnownNat n => Semiring (ModN n Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Int)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Int8)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Int16)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Int32)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Int64)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Word)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Word8)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Word16)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Word32)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Word64)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Natural)
 
 -- | @since 0.1.0.0
 instance Semiring (NonNegative Float)
