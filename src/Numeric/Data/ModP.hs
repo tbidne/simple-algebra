@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveAnyClass #-}
 
 -- | Provides the 'ModP' type for modular arithmetic.
 --
@@ -32,8 +33,10 @@ module Numeric.Data.ModP
   )
 where
 
+import Control.DeepSeq (NFData)
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
+import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 #if MIN_VERSION_template_haskell(2, 17, 0)
@@ -71,9 +74,15 @@ newtype ModP p a = UnsafeModP a
     ( -- | @since 0.1.0.0
       Eq,
       -- | @since 0.1.0.0
+      Generic,
+      -- | @since 0.1.0.0
       Lift,
       -- | @since 0.1.0.0
       Ord
+    )
+  deriving anyclass
+    ( -- | @since 0.1.0.0
+      NFData
     )
 
 -- | @since 0.1.0.0

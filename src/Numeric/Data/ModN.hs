@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveAnyClass #-}
+
 -- | Provides the 'ModN' type for modular arithmetic.
 --
 -- @since 0.1.0.0
@@ -13,8 +15,10 @@ module Numeric.Data.ModN
   )
 where
 
+import Control.DeepSeq (NFData)
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
+import GHC.Generics (Generic)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 import Language.Haskell.TH.Syntax (Lift)
 
@@ -39,11 +43,17 @@ newtype ModN n a = UnsafeModN a
     ( -- | @since 0.1.0.0
       Eq,
       -- | @since 0.1.0.0
+      Generic,
+      -- | @since 0.1.0.0
       Lift,
       -- | @since 0.1.0.0
       Ord,
       -- | @since 0.1.0.0
       Show
+    )
+  deriving anyclass
+    ( -- | @since 0.1.0.0
+      NFData
     )
 
 -- | Bidirectional pattern synonym for 'ModN'. Construction will apply

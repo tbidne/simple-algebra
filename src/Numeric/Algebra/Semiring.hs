@@ -17,6 +17,7 @@ import Numeric.Data.ModN (ModN)
 import Numeric.Data.ModP (ModP)
 import Numeric.Data.NonNegative (NonNegative)
 import Numeric.Natural (Natural)
+import System.Random (UniformRange)
 
 -- | Defines a semiring.
 --
@@ -78,115 +79,10 @@ instance Semiring (Fraction Integer)
 instance Semiring (Fraction Natural)
 
 -- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Int)
+instance (Integral a, KnownNat n) => Semiring (ModN n a)
 
 -- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Int8)
+instance (Integral a, KnownNat p, UniformRange a) => Semiring (ModP p a)
 
 -- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Int16)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Int32)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Int64)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Integer)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Word)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Word8)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Word16)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Word32)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Word64)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Natural)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Int)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Int8)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Int16)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Int32)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Int64)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Integer)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Word)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Word8)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Word16)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Word32)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Word64)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Natural)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Float)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Double)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Int)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Int8)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Int16)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Int32)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Int64)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Integer)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Word)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Word8)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Word16)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Word32)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Word64)
-
--- | @since 0.1.0.0
-instance Semiring (NonNegative Natural)
+instance (Eq a, Num a) => Semiring (NonNegative a)

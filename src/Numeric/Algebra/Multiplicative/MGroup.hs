@@ -11,6 +11,8 @@ module Numeric.Algebra.Multiplicative.MGroup
     -- * NonZero
     NonZero (MkNonZero),
     unNonZero,
+
+    -- ** Creation
     -- $nonzero
     mkAMonoidNonZero,
     mkAMonoidNonZeroTH,

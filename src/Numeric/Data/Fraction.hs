@@ -89,7 +89,7 @@ import Text.Read.Lex qualified as L
 -- True
 --
 -- >>> read @(Fraction Integer) $ show (123 :%: -3461)
--- -123 :%: 3461
+-- (-123) :%: 3461
 --
 -- @since 0.1.0.0
 type Fraction :: Type -> Type
@@ -130,7 +130,10 @@ infixr 5 :%:
 
 -- | @since 0.1.0.0
 instance (Integral a, Show a) => Show (Fraction a) where
-  show (n :%: d) = show n <> " :%: " <> show d
+  showsPrec i (UnsafeFraction n d) =
+    showParen
+      (i >= 11)
+      (showsPrec 11 n . showString " :%: " . showsPrec 11 d)
 
 -- | @since 0.1.0.0
 instance (Storable a, Integral a) => Storable (Fraction a) where
@@ -218,7 +221,7 @@ instance (Integral a, Read a) => Read (Fraction a) where
 --
 -- ==== __Examples__
 -- >>> mkFraction 10 4
--- Just 5 :%: 2
+-- Just (5 :%: 2)
 --
 -- >>> mkFraction 10 0
 -- Nothing

@@ -15,6 +15,7 @@ import Numeric.Data.Fraction (Fraction)
 import Numeric.Data.ModN (ModN (..))
 import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.NonNegative (NonNegative, unsafeNonNegative)
+import Numeric.Data.NonZero (NonZero, unsafeNonZero)
 import Numeric.Data.Positive (Positive, unsafePositive)
 import System.Random (UniformRange)
 
@@ -60,7 +61,9 @@ instance NumLiteral Int64 where
 instance NumLiteral Integer where
   fromLit = fromInteger
 
--- | @since 0.1.0.0
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
 instance NumLiteral Natural where
   fromLit = fromInteger
 
@@ -108,7 +111,9 @@ instance NumLiteral (Ratio Int64) where
 instance NumLiteral (Ratio Integer) where
   fromLit = fromInteger
 
--- | @since 0.1.0.0
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
 instance NumLiteral (Ratio Natural) where
   fromLit = fromInteger
 
@@ -116,7 +121,9 @@ instance NumLiteral (Ratio Natural) where
 instance NumLiteral (Fraction Integer) where
   fromLit = fromInteger
 
--- | @since 0.1.0.0
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
 instance NumLiteral (Fraction Natural) where
   fromLit = fromInteger
 
@@ -128,10 +135,20 @@ instance (Integral a, KnownNat n) => NumLiteral (ModN n a) where
 instance (Integral a, KnownNat p, UniformRange a) => NumLiteral (ModP p a) where
   fromLit = MkModP . fromInteger
 
--- | @since 0.1.0.0
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
 instance (Num a, Ord a, Show a) => NumLiteral (NonNegative a) where
   fromLit = unsafeNonNegative . fromInteger
 
--- | @since 0.1.0.0
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
+instance (Num a, Ord a) => NumLiteral (NonZero a) where
+  fromLit = unsafeNonZero . fromInteger
+
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
 instance (Num a, Ord a, Show a) => NumLiteral (Positive a) where
   fromLit = unsafePositive . fromInteger

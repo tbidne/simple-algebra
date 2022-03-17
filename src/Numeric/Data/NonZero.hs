@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveAnyClass #-}
 
 -- | Provides the 'NonZero' type for enforcing a non-zero invariant.
 --
@@ -18,7 +19,9 @@ module Numeric.Data.NonZero
   )
 where
 
+import Control.DeepSeq (NFData)
 import Data.Kind (Type)
+import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
 #if MIN_VERSION_template_haskell(2, 17, 0)
 import Language.Haskell.TH (Code, Q)
@@ -29,11 +32,6 @@ import Language.Haskell.TH.Syntax (Lift (..))
 
 -- | Smart-constructor for creating a \"non-zero\" @a@.
 -- 'NonZero' is a:
---
--- * 'Numeric.Algebra.Additive.ASemigroup.ASemigroup'
---
---     * When the underlying @a@ does not contain additive inverses
---       e.g. 'Word'.
 --
 -- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
 -- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
@@ -47,11 +45,17 @@ newtype NonZero a = UnsafeNonZero a
     ( -- | @since 0.1.0.0
       Eq,
       -- | @since 0.1.0.0
+      Generic,
+      -- | @since 0.1.0.0
       Lift,
       -- | @since 0.1.0.0
       Ord,
       -- | @since 0.1.0.0
       Show
+    )
+  deriving anyclass
+    ( -- | @since 0.1.0.0
+      NFData
     )
 
 -- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern

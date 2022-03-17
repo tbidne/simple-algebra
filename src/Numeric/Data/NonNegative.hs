@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE DeriveAnyClass #-}
 
 -- | Provides the 'NonNegative' type for enforcing a nonnegative invariant.
 --
@@ -18,7 +19,9 @@ module Numeric.Data.NonNegative
   )
 where
 
+import Control.DeepSeq (NFData)
 import Data.Kind (Type)
+import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
 #if MIN_VERSION_template_haskell(2, 17, 0)
 import Language.Haskell.TH (Code, Q)
@@ -48,11 +51,17 @@ newtype NonNegative a = UnsafeNonNegative a
     ( -- | @since 0.1.0.0
       Eq,
       -- | @since 0.1.0.0
+      Generic,
+      -- | @since 0.1.0.0
       Lift,
       -- | @since 0.1.0.0
       Ord,
       -- | @since 0.1.0.0
       Show
+    )
+  deriving anyclass
+    ( -- | @since 0.1.0.0
+      NFData
     )
 
 -- | Unidirectional pattern synonym for 'NonNegative'. This allows us to pattern
