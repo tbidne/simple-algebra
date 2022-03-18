@@ -25,7 +25,6 @@ import Language.Haskell.TH (Code, Q)
 #else
 import Language.Haskell.TH (Q, TExp)
 #endif
-import Data.Bifunctor (Bifunctor (..))
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
@@ -303,18 +302,3 @@ instance MGroupIntegral Word64 where
 instance MGroupIntegral Natural where
   type ModResult Natural = Natural
   x `gdivMod` MkNonZero d = x `divMod` d
-
--- | @since 0.1.0.0
-instance (Division a, Integral a) => MGroupIntegral (NonNegative a) where
-  type ModResult (NonNegative a) = a
-  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) = first reallyUnsafeNonNegative $ x `divMod` d
-
--- | @since 0.1.0.0
-instance (Division a, Integral a) => MGroupIntegral (NonZero a) where
-  type ModResult (NonZero a) = a
-  MkNonZero x `gdivMod` MkNonZero d = first reallyUnsafeNonZero $ x `divMod` d
-
--- | @since 0.1.0.0
-instance (Division a, Integral a) => MGroupIntegral (Positive a) where
-  type ModResult (Positive a) = a
-  MkPositive x `gdivMod` MkPositive d = first reallyUnsafePositive $ x `divMod` d
