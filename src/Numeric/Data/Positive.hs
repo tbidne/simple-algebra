@@ -89,7 +89,7 @@ unPositive (UnsafePositive x) = x
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
-mkPositiveTH :: (Integral a, Lift a, Show a) => a -> a -> Code Q (Positive a)
+mkPositiveTH :: (Integral a, Lift a, Show a) => a -> Code Q (Positive a)
 #else
 mkPositiveTH :: (Integral a, Lift a, Show a) => a -> Q (TExp (Positive a))
 #endif

@@ -87,7 +87,7 @@ unNonNegative (UnsafeNonNegative x) = x
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
-mkNonNegativeTH :: (Integral a, Lift a, Show a) => a -> a -> Code Q (NonNegative a)
+mkNonNegativeTH :: (Integral a, Lift a, Show a) => a -> Code Q (NonNegative a)
 #else
 mkNonNegativeTH :: (Integral a, Lift a, Show a) => a -> Q (TExp (NonNegative a))
 #endif
