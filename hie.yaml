@@ -8,3 +8,6 @@ cradle:
 
     - path: "./test/props"
       component: "algebra-simple:test:props"
+
+    - path: "./bench/Main.hs"
+      component: "algebra-simple:bench:bench"
