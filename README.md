@@ -15,6 +15,16 @@
 
 </div>
 
+---
+
+### Table of Contents
+* [Motivation](#motivation)
+* [Solution](#solution)
+* [Algebra-Simple](#algebra-simple)
+  * [Algebraic Typeclasses](#typeclasses)
+  * [Smart Constructors](#smart-constructors)
+  * [Miscellaneous](#miscellaneous)
+
 # Motivation
 
 The primary interface to numerical operations in Haskell is `Num`. Unfortunately, `Num` has a key limitation: it is "too large". For example, if we want to opt-in to addition, we must also opt-in to subtraction, multiplication, and integer literal conversions. These may not make sense for the type at hand (e.g. naturals), so we are stuck either providing an invariant-breaking dangerous implementation (e.g. defining subtraction for arbitrary naturals) or throwing runtime errors.
@@ -69,8 +79,8 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
   <tr>
     <td><code>MGroupIntegral</code></td>
     <td><code>MGroup</code>s that support "remainder division".</td>
-    <td><code>gmod</code>, <code>grem</code>, <code>gquot</code></td>
-    <td><code>mod</code>, <code>rem</code>, <code>quot</code></td>
+    <td><code>gmod</code></td>
+    <td><code>mod</code></td>
   </tr>
   <tr>
     <td><code>Semiring</code></td>
@@ -137,3 +147,26 @@ We have the following guiding principles:
      We choose new operators that do not clash with prelude.
 
 We provide instances for built-in numeric types where it makes sense.
+
+# Algebra-Simple
+
+This package is split into three sections.
+
+## Algebraic Typeclasses
+
+The algebraic type classes described above can be found in `Numeric.Algebra` along with their instances.
+
+## Smart Constructors
+
+Additionally, we provide smart constructors for enforcing mathematical invariants. These can be found in `Numeric.Data`, and include:
+
+* `Fraction`
+* `ModN`
+* `ModP`
+* `NonNegative`
+* `NonZero`
+* `Positive`
+
+# Miscellaneous
+
+Finally, we have two more typeclasses under `Numeric.Class`.
