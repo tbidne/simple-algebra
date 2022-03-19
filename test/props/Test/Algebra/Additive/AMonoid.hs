@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Test.Additive.AMonoid (props) where
+module Test.Algebra.Additive.AMonoid (props) where
 
 import Equality (Equality (..))
 import Gens qualified

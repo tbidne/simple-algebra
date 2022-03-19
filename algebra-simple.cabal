@@ -113,13 +113,13 @@ test-suite props
     Equality
     Gens
     MaxRuns
-    Test.Additive.AGroup
-    Test.Additive.AMonoid
-    Test.Additive.ASemigroup
-    Test.Fraction
-    Test.Multiplicative.MGroup
-    Test.Multiplicative.MMonoid
-    Test.Multiplicative.MSemigroup
+    Test.Algebra.Additive.AGroup
+    Test.Algebra.Additive.AMonoid
+    Test.Algebra.Additive.ASemigroup
+    Test.Algebra.Multiplicative.MGroup
+    Test.Algebra.Multiplicative.MMonoid
+    Test.Algebra.Multiplicative.MSemigroup
+    Test.Data.Fraction
     Utils
 
   build-depends:

@@ -1,4 +1,4 @@
-module Test.Multiplicative.MMonoid (props) where
+module Test.Algebra.Multiplicative.MMonoid (props) where
 
 import Equality (Equality (..))
 import Gens qualified

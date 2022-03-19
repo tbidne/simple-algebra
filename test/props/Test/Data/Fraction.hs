@@ -1,4 +1,4 @@
-module Test.Fraction (props) where
+module Test.Data.Fraction (props) where
 
 import Gens qualified
 import Hedgehog ((===))

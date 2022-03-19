@@ -1,4 +1,4 @@
-module Test.Multiplicative.MGroup (props) where
+module Test.Algebra.Multiplicative.MGroup (props) where
 
 import Equality (Equality (..))
 import Gens qualified

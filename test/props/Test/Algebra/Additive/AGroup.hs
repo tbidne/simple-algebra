@@ -1,4 +1,4 @@
-module Test.Additive.AGroup (props) where
+module Test.Algebra.Additive.AGroup (props) where
 
 import Equality (Equality (..))
 import Gens qualified

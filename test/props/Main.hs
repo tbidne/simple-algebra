@@ -8,13 +8,13 @@ import Data.Proxy (Proxy (..))
 import MaxRuns (MaxRuns (..))
 import System.Environment qualified as Env
 import System.Exit qualified as SysEx
-import Test.Additive.AGroup qualified
-import Test.Additive.AMonoid qualified
-import Test.Additive.ASemigroup qualified
-import Test.Fraction qualified
-import Test.Multiplicative.MGroup qualified
-import Test.Multiplicative.MMonoid qualified
-import Test.Multiplicative.MSemigroup qualified
+import Test.Algebra.Additive.AGroup qualified
+import Test.Algebra.Additive.AMonoid qualified
+import Test.Algebra.Additive.ASemigroup qualified
+import Test.Algebra.Multiplicative.MGroup qualified
+import Test.Algebra.Multiplicative.MMonoid qualified
+import Test.Algebra.Multiplicative.MSemigroup qualified
+import Test.Data.Fraction qualified
 import Test.Tasty qualified as Tasty
 import Test.Tasty.Options (OptionDescription (..))
 import Text.Read qualified as TR
@@ -34,13 +34,13 @@ main = do
 
   let maxRunProps =
         Tasty.localOption (MkMaxRuns maxRuns)
-          <$> [ Test.Additive.ASemigroup.props,
-                Test.Additive.AMonoid.props,
-                Test.Additive.AGroup.props,
-                Test.Multiplicative.MSemigroup.props,
-                Test.Multiplicative.MMonoid.props,
-                Test.Multiplicative.MGroup.props,
-                Test.Fraction.props
+          <$> [ Test.Algebra.Additive.ASemigroup.props,
+                Test.Algebra.Additive.AMonoid.props,
+                Test.Algebra.Additive.AGroup.props,
+                Test.Algebra.Multiplicative.MSemigroup.props,
+                Test.Algebra.Multiplicative.MMonoid.props,
+                Test.Algebra.Multiplicative.MGroup.props,
+                Test.Data.Fraction.props
               ]
 
   Tasty.defaultMainWithIngredients ingredients $

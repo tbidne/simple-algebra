@@ -1,4 +1,4 @@
-module Test.Additive.ASemigroup (props) where
+module Test.Algebra.Additive.ASemigroup (props) where
 
 import Equality (Equality (..))
 import Gens qualified

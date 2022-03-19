@@ -1,4 +1,4 @@
-module Test.Multiplicative.MSemigroup (props) where
+module Test.Algebra.Multiplicative.MSemigroup (props) where
 
 import Equality (Equality (..))
 import Gens qualified
