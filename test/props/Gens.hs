@@ -23,6 +23,11 @@ module Gens
     word64,
     rational,
     fraction,
+    modN,
+    modP,
+    nonNegative,
+    nonZero,
+    positive,
 
     -- * NonZero
 
@@ -44,6 +49,8 @@ module Gens
     word64NonZero,
     rationalNonZero,
     fractionNonZero,
+    modPNonZero,
+    nonNegativeNonZero,
 
     -- ** Combinators
     nzBounded,
@@ -66,9 +73,13 @@ import Hedgehog.Gen qualified as HG
 import Hedgehog.Range (Range)
 import Hedgehog.Range qualified as HR
 import Numeric.Algebra.Additive.AMonoid (AMonoid)
-import Numeric.Algebra.Multiplicative.MGroup (NonZero (..))
 import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
 import Numeric.Data.Fraction (Fraction (..))
+import Numeric.Data.ModN (ModN (..), mkModN)
+import Numeric.Data.ModP (ModP (..), unsafeModP)
+import Numeric.Data.NonNegative (NonNegative (..), unsafeNonNegative)
+import Numeric.Data.NonZero (NonZero (..), unsafeNonZero)
+import Numeric.Data.Positive (Positive (..), unsafePositive)
 
 float :: MonadGen m => m Float
 float = HG.float $ HR.exponentialFloatFrom minVal 0 maxVal
@@ -126,6 +137,23 @@ ratioNumDenom genNum genDenom = do
 fraction :: MonadGen m => m (Fraction Integer)
 fraction = (:%:) <$> integer <*> integerNZ
 
+modN :: MonadGen m => m (ModN 10 Integer)
+modN = mkModN <$> integer
+
+modP :: MonadGen m => m (ModP 17 Integer)
+modP = unsafeModP <$> integer
+
+nonNegative :: MonadGen m => m (NonNegative Natural)
+nonNegative = unsafeNonNegative <$> natural
+
+nonZero :: MonadGen m => m (NonZero Integer)
+nonZero = unsafeNonZero <$> integerNZ
+
+positive :: MonadGen m => m (Positive Integer)
+positive = unsafePositive <$> pos
+  where
+    pos = HG.integral $ HR.exponential 1 maxVal
+
 floatNonZero :: MonadGen m => m (NonZero Float)
 floatNonZero = nonzeroFloatingBounds HG.float minVal maxVal
 
@@ -181,6 +209,14 @@ rationalNonZero = MGroup.unsafeAMonoidNonZero <$> ratioNumDenom integerNZ pos
 
 fractionNonZero :: MonadGen m => m (NonZero (Fraction Integer))
 fractionNonZero = fmap MGroup.unsafeAMonoidNonZero $ (:%:) <$> integerNZ <*> integerNZ
+
+modPNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (ModP 17 Integer))
+modPNonZero = MGroup.unsafeAMonoidNonZero . unsafeModP <$> pos
+  where
+    pos = HG.filter (\x -> x `mod` 17 /= 0) $ HG.integral $ HR.exponential 1 maxVal
+
+nonNegativeNonZero :: MonadGen m => m (NonZero (NonNegative Natural))
+nonNegativeNonZero = MGroup.unsafeAMonoidNonZero . unsafeNonNegative <$> naturalNZ
 
 nzBounded :: (Integral a, MonadGen m, TestBounds a) => (Range a -> m a) -> m a
 nzBounded gen = nzBounds gen minVal maxVal

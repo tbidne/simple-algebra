@@ -319,11 +319,11 @@ instance AGroup (Fraction Integer) where
 -- | @since 0.1.0.0
 instance (Integral a, KnownNat n) => AGroup (ModN n a) where
   type SubtractConstraint (ModN n a) = ModN n a
-  MkModN x .-. MkModN y = MkModN (x + y)
+  MkModN x .-. MkModN y = MkModN (x - y)
   aabs = id
 
 -- | @since 0.1.0.0
 instance (Integral a, KnownNat p, UniformRange a) => AGroup (ModP p a) where
   type SubtractConstraint (ModP p a) = ModP p a
-  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x + y)
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x - y)
   aabs = id

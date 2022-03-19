@@ -105,7 +105,9 @@ subIdentProps =
       word32SubIdent,
       word64SubIdent,
       rationalSubIdent,
-      fractionIdent
+      fractionIdent,
+      modNIdent,
+      modPIdent
     ]
 
 intSubIdent :: TestTree
@@ -147,6 +149,12 @@ rationalSubIdent = agroupSubIdent Gens.rational "Rational"
 fractionIdent :: TestTree
 fractionIdent = agroupSubIdent Gens.fraction "Fraction"
 
+modNIdent :: TestTree
+modNIdent = agroupSubIdent Gens.modN "ModN"
+
+modPIdent :: TestTree
+modPIdent = agroupSubIdent Gens.modP "ModP"
+
 absProps :: TestTree
 absProps =
   T.testGroup
@@ -154,7 +162,9 @@ absProps =
     [ intAbs,
       integerAbs,
       rationalAbs,
-      fractionAbs
+      fractionAbs,
+      modNAbs,
+      modPAbs
     ]
 
 intAbs :: TestTree
@@ -168,6 +178,12 @@ rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational"
 
 fractionAbs :: TestTree
 fractionAbs = agroupAbs Gens.fraction MkEqExact "Fraction"
+
+modNAbs :: TestTree
+modNAbs = agroupAbs Gens.modN MkEqExact "ModN"
+
+modPAbs :: TestTree
+modPAbs = agroupAbs Gens.modP MkEqExact "ModP"
 
 agroupSubEq ::
   ( SubtractConstraint a ~ a,

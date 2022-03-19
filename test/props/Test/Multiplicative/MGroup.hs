@@ -107,7 +107,11 @@ divIdentProps =
       word32DivIdent,
       word64DivIdent,
       rationalDivIdent,
-      fractionDivIdent
+      fractionDivIdent,
+      modPDivIdent,
+      nonNegativeDivIdent,
+      nonZeroDivIdent,
+      positiveDivIdent
     ]
 
 intDivIdent :: TestTree
@@ -151,6 +155,28 @@ rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational"
 
 fractionDivIdent :: TestTree
 fractionDivIdent = agroupDivIdent Gens.fractionNonZero MkEqExact "Fraction"
+
+modPDivIdent :: TestTree
+modPDivIdent = T.askOption $ \(MkMaxRuns limit) ->
+  TH.testProperty "ModP" $
+    H.withTests limit $
+      H.property $ do
+        nz@(MkNonZero x) <- H.forAll Gens.modPNonZero
+        one === x .%. nz
+
+nonNegativeDivIdent :: TestTree
+nonNegativeDivIdent = agroupDivIdent Gens.nonNegativeNonZero MkEqExact "NonNegative"
+
+nonZeroDivIdent :: TestTree
+nonZeroDivIdent = agroupDivIdent Gens.nonZero MkEqExact "NonZero"
+
+positiveDivIdent :: TestTree
+positiveDivIdent = T.askOption $ \(MkMaxRuns limit) ->
+  TH.testProperty "Positive" $
+    H.withTests limit $
+      H.property $ do
+        x <- H.forAll Gens.positive
+        one === x .%. x
 
 mgroupDivEq ::
   (MGroup a, DivConstraint a ~ NonZero a, Show a) =>

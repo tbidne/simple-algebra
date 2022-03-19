@@ -28,6 +28,7 @@ module Numeric.Data.ModP.Internal
 where
 
 import Data.Word (Word16)
+import GHC.Stack (HasCallStack)
 import System.Random (UniformRange)
 import System.Random qualified as Rand
 import System.Random.Stateful qualified as RandState
@@ -244,8 +245,11 @@ factor2 (MkModulus n) = go (MkPow 0, MkMult n)
 -- coprime i.e. \((a,p) = 1\). Of course this is guaranteed when \(p\) is
 -- prime and \(0 < a < p \), but it otherwise not true in general.
 --
+-- Also, this function requires division and subtraction, it is partial when
+-- the modulus is 0 or if underflow is a possibility (e.g. 'Natural').
+--
 -- @since 0.1.0.0
-findInverse :: Integral a => a -> Modulus a -> a
+findInverse :: (HasCallStack, Integral a) => a -> Modulus a -> a
 findInverse a (MkModulus p) = aInv `mod` p
   where
     (MkBezout _ _ (T' aInv)) = eec p a
@@ -268,14 +272,14 @@ newtype T a = T' a
 
 -- Solves for Bezout's identity using the extended euclidean algorithm:
 -- https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
-eec :: Integral a => a -> a -> Bezout a
+eec :: (HasCallStack, Integral a) => a -> a -> Bezout a
 eec a b = go initOldR initR initOldS initS initOldT initT
   where
     (initOldR, initR) = (R' a, R' b)
     (initOldS, initS) = (S' 1, S' 0)
     (initOldT, initT) = (T' 0, T' 1)
 
-    go :: Integral a => R a -> R a -> S a -> S a -> T a -> T a -> Bezout a
+    go :: (HasCallStack, Integral a) => R a -> R a -> S a -> S a -> T a -> T a -> Bezout a
     go oldR 0 oldS _ oldT _ = MkBezout oldR oldS oldT
     go !oldR !r !oldS !s !oldT !t =
       let oldR' = r

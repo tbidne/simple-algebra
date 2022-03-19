@@ -86,12 +86,15 @@ newtype ModP p a = UnsafeModP a
     )
 
 -- | @since 0.1.0.0
-instance Show a => Show (ModP p a) where
+instance (KnownNat p, Show a) => Show (ModP p a) where
   -- manual so we show "MkModP" instead of "UnsafeModP"
   showsPrec i (UnsafeModP x) =
     showParen
       (i >= 11)
-      (showString "MkModP " . showsPrec 11 x)
+      (showString "MkModP " . showsPrec 11 x . showString modStr)
+    where
+      modStr = " (mod " <> show p' <> ")"
+      p' = natVal @p Proxy
 
 -- | Bidirectional pattern synonym for 'ModP'. Construction fails when @p@ is
 -- not prime.
@@ -100,7 +103,7 @@ instance Show a => Show (ModP p a) where
 --
 -- ==== __Examples__
 -- >>> MkModP @7 12
--- MkModP 5
+-- MkModP 5 (mod 7)
 --
 -- @since 0.1.0.0
 pattern MkModP ::
@@ -125,7 +128,7 @@ unModP (UnsafeModP x) = x
 --
 -- ==== __Examples__
 -- >>> mkModP @5 7
--- Just (MkModP 2)
+-- Just (MkModP 2 (mod 5))
 --
 -- >>> mkModP @10 7
 -- Nothing
@@ -143,7 +146,7 @@ mkModP x = case ModPI.isPrime p' of
 --
 -- ==== __Examples__
 -- >>> $$(mkModPTH @11 7)
--- MkModP 7
+-- MkModP 7 (mod 11)
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
@@ -172,7 +175,7 @@ mkModPTH = maybe (error err) liftTyped . mkModP
 --
 -- ==== __Examples__
 -- >>> unsafeModP @7 12
--- MkModP 5
+-- MkModP 5 (mod 7)
 --
 -- @since 0.1.0.0
 unsafeModP ::
@@ -209,10 +212,10 @@ reallyUnsafeModP = UnsafeModP . (`mod` p')
 -- ==== __Examples__
 --
 -- >>> invert $ unsafeAMonoidNonZero $ MkModP @7 5
--- MkModP 3
+-- MkModP 3 (mod 7)
 --
 -- >>> invert $ unsafeAMonoidNonZero $ MkModP @19 12
--- MkModP 8
+-- MkModP 8 (mod 19)
 --
 -- @since 0.1.0.0
 invert ::

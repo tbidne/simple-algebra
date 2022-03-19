@@ -47,14 +47,23 @@ newtype ModN n a = UnsafeModN a
       -- | @since 0.1.0.0
       Lift,
       -- | @since 0.1.0.0
-      Ord,
-      -- | @since 0.1.0.0
-      Show
+      Ord
     )
   deriving anyclass
     ( -- | @since 0.1.0.0
       NFData
     )
+
+-- | @since 0.1.0.0
+instance (Integral a, KnownNat n, Show a) => Show (ModN n a) where
+  -- manual so we include the mod string
+  showsPrec i (MkModN x) =
+    showParen
+      (i >= 11)
+      (showString "MkModN " . showsPrec 11 x . showString modStr)
+    where
+      modStr = " (mod " <> show n' <> ")"
+      n' = natVal @n Proxy
 
 -- | Bidirectional pattern synonym for 'ModN'. Construction will apply
 -- modular reduction to the parameter.
@@ -78,10 +87,10 @@ unModN (UnsafeModN x) = x
 --
 -- ==== __Examples__
 -- >>> mkModN @5 7
--- UnsafeModN 2
+-- MkModN 2 (mod 5)
 --
 -- >>> mkModN @10 7
--- UnsafeModN 7
+-- MkModN 7 (mod 10)
 --
 -- @since 0.1.0.0
 mkModN :: forall n a. (Integral a, KnownNat n) => a -> ModN n a

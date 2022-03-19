@@ -115,7 +115,12 @@ assocProps =
       word32Assoc,
       word64Assoc,
       rationalAssoc,
-      fractionAssoc
+      fractionAssoc,
+      modNAssoc,
+      modPAssoc,
+      nonNegativeAssoc,
+      nonZeroAssoc,
+      positiveAssoc
     ]
 
 intAssoc :: TestTree
@@ -159,6 +164,21 @@ rationalAssoc = msemigroupAssoc Gens.rational "Rational"
 
 fractionAssoc :: TestTree
 fractionAssoc = msemigroupAssoc Gens.fraction "Fraction"
+
+modNAssoc :: TestTree
+modNAssoc = msemigroupAssoc Gens.modN "ModN"
+
+modPAssoc :: TestTree
+modPAssoc = msemigroupAssoc Gens.modN "ModP"
+
+nonNegativeAssoc :: TestTree
+nonNegativeAssoc = msemigroupAssoc Gens.nonNegative "NonNegative"
+
+nonZeroAssoc :: TestTree
+nonZeroAssoc = msemigroupAssoc Gens.nonZero "NonZero"
+
+positiveAssoc :: TestTree
+positiveAssoc = msemigroupAssoc Gens.positive "Positive"
 
 msemigroupAssoc ::
   ( MultConstraint a ~ a,

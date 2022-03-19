@@ -33,7 +33,12 @@ identityProps =
       word32Id,
       word64Id,
       ratioIntegerId,
-      fractionId
+      fractionId,
+      modNId,
+      modPId,
+      nonNegativeId,
+      nonZeroId,
+      positiveId
     ]
 
 intId :: TestTree
@@ -77,6 +82,21 @@ ratioIntegerId = mmonoidIdentity Gens.rational MkEqRatio "Rational"
 
 fractionId :: TestTree
 fractionId = mmonoidIdentity Gens.fraction MkEqExact "Fraction"
+
+modNId :: TestTree
+modNId = mmonoidIdentity Gens.modN MkEqExact "ModN"
+
+modPId :: TestTree
+modPId = mmonoidIdentity Gens.modP MkEqExact "ModP"
+
+nonNegativeId :: TestTree
+nonNegativeId = mmonoidIdentity Gens.nonNegative MkEqExact "NonNegative"
+
+nonZeroId :: TestTree
+nonZeroId = mmonoidIdentity Gens.nonZero MkEqExact "NonZero"
+
+positiveId :: TestTree
+positiveId = mmonoidIdentity Gens.positive MkEqExact "Positive"
 
 mmonoidIdentity ::
   ( MultConstraint a ~ a,
