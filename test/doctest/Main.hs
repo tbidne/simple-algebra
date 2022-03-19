@@ -16,6 +16,7 @@ files :: [String]
 files =
   [ "-isrc",
     "src/Numeric/Data/Fraction.hs",
+    "src/Numeric/Data/Interval.hs",
     "src/Numeric/Data/ModN.hs",
     "src/Numeric/Data/ModP.hs",
     "src/Numeric/Data/ModP/Internal.hs",
