@@ -9,13 +9,13 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.Natural (Natural)
 import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Additive.AGroup (AGroup)
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid)
 import Numeric.Data.Fraction (Fraction)
 import Numeric.Data.ModN (ModN)
 import Numeric.Data.ModP (ModP)
-import System.Random (UniformRange)
 
 -- | Defines a ring.
 --
@@ -68,7 +68,13 @@ instance Ring (Ratio Integer)
 instance Ring (Fraction Integer)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => Ring (ModN n a)
+instance KnownNat n => Ring (ModN n Integer)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => Ring (ModP p a)
+instance KnownNat n => Ring (ModN n Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Ring (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Ring (ModP p Natural)

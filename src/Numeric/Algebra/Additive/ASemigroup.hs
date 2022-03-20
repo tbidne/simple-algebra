@@ -17,7 +17,6 @@ import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
-import System.Random (UniformRange)
 
 -- | Defines an additive semigroup.
 --
@@ -266,13 +265,23 @@ instance ASemigroup (Fraction Natural) where
   (.+.) = (+)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => ASemigroup (ModN n a) where
-  type AddConstraint (ModN n a) = ModN n a
+instance KnownNat n => ASemigroup (ModN n Integer) where
+  type AddConstraint (ModN n Integer) = ModN n Integer
   MkModN x .+. MkModN y = MkModN $ x + y
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => ASemigroup (ModP p a) where
-  type AddConstraint (ModP p a) = ModP p a
+instance KnownNat n => ASemigroup (ModN n Natural) where
+  type AddConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Integer) where
+  type AddConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Natural) where
+  type AddConstraint (ModP p Natural) = ModP p Natural
   MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
 
 -- | @since 0.1.0.0

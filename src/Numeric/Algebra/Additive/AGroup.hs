@@ -8,6 +8,7 @@ where
 
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
+import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
 import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
@@ -15,7 +16,6 @@ import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModN (ModN (..))
 import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.ModP qualified as ModP
-import System.Random (UniformRange)
 
 -- | Defines an additive group.
 --
@@ -317,13 +317,25 @@ instance AGroup (Fraction Integer) where
   aabs = abs
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => AGroup (ModN n a) where
-  type SubtractConstraint (ModN n a) = ModN n a
+instance KnownNat n => AGroup (ModN n Integer) where
+  type SubtractConstraint (ModN n Integer) = ModN n Integer
   MkModN x .-. MkModN y = MkModN (x - y)
   aabs = id
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => AGroup (ModP p a) where
-  type SubtractConstraint (ModP p a) = ModP p a
+instance KnownNat n => AGroup (ModN n Natural) where
+  type SubtractConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .-. MkModN y = MkModN (x - y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Integer) where
+  type SubtractConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x - y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Natural) where
+  type SubtractConstraint (ModP p Natural) = ModP p Natural
   MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x - y)
   aabs = id

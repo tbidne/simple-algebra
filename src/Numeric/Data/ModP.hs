@@ -19,17 +19,6 @@ module Numeric.Data.ModP
 
     -- * Functions
     invert,
-
-    -- * Utilities
-    -- $utils
-
-    -- ** Primality
-    MaybePrime (..),
-    ModPI.isPrime,
-
-    -- ** Inverses
-    Modulus (..),
-    ModPI.findInverse,
   )
 where
 
@@ -45,10 +34,10 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Class.Boundless (UpperBoundless)
 import Numeric.Data.ModP.Internal (MaybePrime (..), Modulus (..))
 import Numeric.Data.ModP.Internal qualified as ModPI
 import Numeric.Data.NonZero (NonZero (..))
-import System.Random (UniformRange)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -86,7 +75,7 @@ newtype ModP p a = UnsafeModP a
     )
 
 -- | @since 0.1.0.0
-instance (KnownNat p, Show a) => Show (ModP p a) where
+instance (KnownNat p, Show a, UpperBoundless a) => Show (ModP p a) where
   -- manual so we show "MkModP" instead of "UnsafeModP"
   showsPrec i (UnsafeModP x) =
     showParen
@@ -106,11 +95,7 @@ instance (KnownNat p, Show a) => Show (ModP p a) where
 -- MkModP 5 (mod 7)
 --
 -- @since 0.1.0.0
-pattern MkModP ::
-  forall p a.
-  (HasCallStack, KnownNat p, Integral a, UniformRange a) =>
-  a ->
-  ModP p a
+pattern MkModP :: (HasCallStack, KnownNat p, UpperBoundless a) => a -> ModP p a
 pattern MkModP x <-
   UnsafeModP x
   where
@@ -134,13 +119,13 @@ unModP (UnsafeModP x) = x
 -- Nothing
 --
 -- @since 0.1.0.0
-mkModP :: forall p a. (Integral a, KnownNat p, UniformRange a) => a -> Maybe (ModP p a)
+mkModP :: forall p a. (KnownNat p, UpperBoundless a) => a -> Maybe (ModP p a)
 mkModP x = case ModPI.isPrime p' of
   Composite -> Nothing
   ProbablyPrime -> Just $ UnsafeModP x'
   where
-    p' = fromIntegral $ natVal @p Proxy
-    x' = x `mod` p'
+    p' = toInteger $ natVal @p Proxy
+    x' = x `mod` toUpperBoundless p'
 
 -- | Template haskell for creating a 'ModP' at compile-time.
 --
@@ -150,17 +135,9 @@ mkModP x = case ModPI.isPrime p' of
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
-mkModPTH ::
-  forall p a.
-  (Integral a, KnownNat p, Lift a, UniformRange a) =>
-  a ->
-  Code Q (ModP p a)
+mkModPTH :: forall p a. (KnownNat p, Lift a, UpperBoundless a) => a -> Code Q (ModP p a)
 #else
-mkModPTH ::
-  forall p a.
-  (Integral a, KnownNat p, Lift a, UniformRange a) =>
-  a ->
-  Q (TExp (ModP p a))
+mkModPTH :: forall p a. (KnownNat p, Lift a, UpperBoundless a) => a -> Q (TExp (ModP p a))
 #endif
 mkModPTH = maybe (error err) liftTyped . mkModP
   where
@@ -178,11 +155,7 @@ mkModPTH = maybe (error err) liftTyped . mkModP
 -- MkModP 5 (mod 7)
 --
 -- @since 0.1.0.0
-unsafeModP ::
-  forall p a.
-  (HasCallStack, Integral a, KnownNat p, UniformRange a) =>
-  a ->
-  ModP p a
+unsafeModP :: forall p a. (HasCallStack, KnownNat p, UpperBoundless a) => a -> ModP p a
 unsafeModP x = case mkModP x of
   Just mp -> mp
   Nothing ->
@@ -198,7 +171,7 @@ unsafeModP x = case mkModP x of
 -- is undesirable for performance reasons. Exercise extreme caution.
 --
 -- @since 0.1.0.0
-reallyUnsafeModP :: forall p a. (KnownNat p, Integral a) => a -> ModP p a
+reallyUnsafeModP :: forall p a. (KnownNat p, UpperBoundless a) => a -> ModP p a
 reallyUnsafeModP = UnsafeModP . (`mod` p')
   where
     p' = fromIntegral $ natVal @p Proxy
@@ -218,16 +191,12 @@ reallyUnsafeModP = UnsafeModP . (`mod` p')
 -- MkModP 8 (mod 19)
 --
 -- @since 0.1.0.0
-invert ::
-  forall p a.
-  (Integral a, KnownNat p) =>
-  NonZero (ModP p a) ->
-  ModP p a
-invert (MkNonZero (UnsafeModP d)) = reallyUnsafeModP $ ModPI.findInverse d p'
+invert :: forall p a. (KnownNat p, UpperBoundless a) => NonZero (ModP p a) -> ModP p a
+invert (MkNonZero (UnsafeModP d)) = reallyUnsafeModP $ toUpperBoundless $ ModPI.findInverse d' p'
   where
     p' = MkModulus $ fromIntegral $ natVal @p Proxy
+    d' = toInteger d
 
--- $utils
--- This section contains functions that are used in the implementation. They
--- are not the main focus but are exported as they could be useful to
--- consumers.
+-- Note: obviously this is partial when @a@ is 'Natural'
+toUpperBoundless :: UpperBoundless a => Integer -> a
+toUpperBoundless = fromIntegral

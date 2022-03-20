@@ -13,7 +13,7 @@ import Test.Tasty.Hedgehog qualified as TH
 props :: TestTree
 props =
   T.testGroup
-    "Fraction"
+    "Numeric.Data.Fraction"
     [ eqProps,
       reduceProps,
       numProps,

@@ -11,13 +11,13 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.TypeNats (KnownNat)
+import Numeric.Class.Boundless (UpperBoundless)
 import Numeric.Data.Fraction (Fraction)
 import Numeric.Data.ModN (ModN (..))
 import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.NonNegative (NonNegative, unsafeNonNegative)
 import Numeric.Data.NonZero (NonZero, unsafeNonZero)
 import Numeric.Data.Positive (Positive, unsafePositive)
-import System.Random (UniformRange)
 
 -- | Replaces 'Num'\'s ' 'fromInteger' functionality for when we do not have
 -- a 'Num' instance. Instead of, e.g., @1_000 :: Num a => a@ we have
@@ -128,11 +128,11 @@ instance NumLiteral (Fraction Natural) where
   fromLit = fromInteger
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => NumLiteral (ModN n a) where
+instance (KnownNat n, UpperBoundless a) => NumLiteral (ModN n a) where
   fromLit = MkModN . fromInteger
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => NumLiteral (ModP p a) where
+instance (KnownNat p, UpperBoundless a) => NumLiteral (ModP p a) where
   fromLit = MkModP . fromInteger
 
 -- | __WARNING: Partial__

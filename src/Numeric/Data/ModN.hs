@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveAnyClass #-}
+{-# OPTIONS_GHC -Wno-redundant-constraints #-}
 
 -- | Provides the 'ModN' type for modular arithmetic.
 --
@@ -21,6 +22,7 @@ import Data.Proxy (Proxy (..))
 import GHC.Generics (Generic)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 import Language.Haskell.TH.Syntax (Lift)
+import Numeric.Class.Boundless (UpperBoundless)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -55,7 +57,7 @@ newtype ModN n a = UnsafeModN a
     )
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n, Show a) => Show (ModN n a) where
+instance (KnownNat n, Show a, UpperBoundless a) => Show (ModN n a) where
   -- manual so we include the mod string
   showsPrec i (MkModN x) =
     showParen
@@ -69,7 +71,7 @@ instance (Integral a, KnownNat n, Show a) => Show (ModN n a) where
 -- modular reduction to the parameter.
 --
 -- @since 0.1.0.0
-pattern MkModN :: forall n a. (KnownNat n, Integral a) => a -> ModN n a
+pattern MkModN :: forall n a. (KnownNat n, UpperBoundless a) => a -> ModN n a
 pattern MkModN x <-
   UnsafeModN x
   where
@@ -93,7 +95,7 @@ unModN (UnsafeModN x) = x
 -- MkModN 7 (mod 10)
 --
 -- @since 0.1.0.0
-mkModN :: forall n a. (Integral a, KnownNat n) => a -> ModN n a
+mkModN :: forall n a. (KnownNat n, UpperBoundless a) => a -> ModN n a
 mkModN x = UnsafeModN x'
   where
     n' = fromIntegral $ natVal @n Proxy

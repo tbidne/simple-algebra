@@ -31,6 +31,7 @@ common common-exts
     NoStarIsType
     BangPatterns
     DataKinds
+    DeriveFunctor
     DeriveGeneric
     DeriveLift
     DerivingStrategies
@@ -73,6 +74,7 @@ library
     Numeric.Algebra.Ring
     Numeric.Algebra.Semiring
     Numeric.Algebra.VectorSpace
+    Numeric.Class.Boundless
     Numeric.Class.Division
     Numeric.Class.Literal
     Numeric.Data
@@ -120,6 +122,13 @@ test-suite props
     Test.Algebra.Multiplicative.MMonoid
     Test.Algebra.Multiplicative.MSemigroup
     Test.Data.Fraction
+    Test.Data.ModN
+    Test.Data.ModP
+    Test.Data.ModP.Internal
+    Test.Data.NonNegative
+    Test.Data.NonZero
+    Test.Data.Positive
+    Test.TestBounds
     Utils
 
   build-depends:

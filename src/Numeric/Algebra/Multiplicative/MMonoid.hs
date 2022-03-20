@@ -18,7 +18,6 @@ import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
-import System.Random (UniformRange)
 
 -- | Defines a monoid over a multiplicative semigroup.
 --
@@ -100,11 +99,19 @@ instance MMonoid (Fraction Natural) where
   one = 1 :%: 1
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => MMonoid (ModN n a) where
+instance KnownNat n => MMonoid (ModN n Integer) where
   one = MkModN 1
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => MMonoid (ModP p a) where
+instance KnownNat n => MMonoid (ModN n Natural) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Integer) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Natural) where
   one = MkModP 1
 
 -- | @since 0.1.0.0

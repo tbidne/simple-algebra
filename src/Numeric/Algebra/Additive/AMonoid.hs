@@ -16,7 +16,6 @@ import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModN (ModN (..))
 import Numeric.Data.ModP (ModP (..))
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
-import System.Random (UniformRange)
 
 -- | Defines a monoid over an additive semigroup.
 --
@@ -128,11 +127,19 @@ instance AMonoid (Fraction Natural) where
   zero = 0 :%: 1
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => AMonoid (ModN n a) where
+instance KnownNat n => AMonoid (ModN n Integer) where
   zero = MkModN 0
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => AMonoid (ModP p a) where
+instance KnownNat n => AMonoid (ModN n Natural) where
+  zero = MkModN 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Integer) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Natural) where
   zero = MkModP 0
 
 -- | @since 0.1.0.0

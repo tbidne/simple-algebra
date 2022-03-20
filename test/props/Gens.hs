@@ -80,6 +80,7 @@ import Numeric.Data.ModP (ModP (..), unsafeModP)
 import Numeric.Data.NonNegative (NonNegative (..), unsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), unsafeNonZero)
 import Numeric.Data.Positive (Positive (..), unsafePositive)
+import Test.TestBounds (TestBounds (..))
 
 float :: MonadGen m => m Float
 float = HG.float $ HR.exponentialFloatFrom minVal 0 maxVal
@@ -137,11 +138,11 @@ ratioNumDenom genNum genDenom = do
 fraction :: MonadGen m => m (Fraction Integer)
 fraction = (:%:) <$> integer <*> integerNZ
 
-modN :: MonadGen m => m (ModN 10 Integer)
-modN = mkModN <$> integer
+modN :: MonadGen m => m (ModN 10 Natural)
+modN = mkModN <$> natural
 
-modP :: MonadGen m => m (ModP 17 Integer)
-modP = unsafeModP <$> integer
+modP :: MonadGen m => m (ModP 17 Natural)
+modP = unsafeModP <$> natural
 
 nonNegative :: MonadGen m => m (NonNegative Natural)
 nonNegative = unsafeNonNegative <$> natural
@@ -210,7 +211,7 @@ rationalNonZero = MGroup.unsafeAMonoidNonZero <$> ratioNumDenom integerNZ pos
 fractionNonZero :: MonadGen m => m (NonZero (Fraction Integer))
 fractionNonZero = fmap MGroup.unsafeAMonoidNonZero $ (:%:) <$> integerNZ <*> integerNZ
 
-modPNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (ModP 17 Integer))
+modPNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (ModP 17 Natural))
 modPNonZero = MGroup.unsafeAMonoidNonZero . unsafeModP <$> pos
   where
     pos = HG.filter (\x -> x `mod` 17 /= 0) $ HG.integral $ HR.exponential 1 maxVal
@@ -264,80 +265,3 @@ posBounded gen = fmap MGroup.unsafeAMonoidNonZero <$> gen $ HR.exponential 1 max
 
 bounded :: (Integral a, TestBounds a) => (Range a -> m a) -> m a
 bounded gen = gen $ HR.exponentialFrom minVal 0 maxVal
-
--- | Common interface for defining what bounds we should use during testing.
---
--- @since 0.1.0.0
-class TestBounds a where
-  minVal :: a
-  maxVal :: a
-
--- | @since 0.1.0.0
-instance TestBounds Float where
-  minVal = -3.402823e+38
-  maxVal = 3.402823e+38
-
--- | @since 0.1.0.0
-instance TestBounds Double where
-  minVal = -1.8e308
-  maxVal = 1.8e308
-
--- | @since 0.1.0.0
-instance TestBounds Integer where
-  minVal = floor @Double -2e40
-  maxVal = floor @Double 2e40
-
--- | @since 0.1.0.0
-instance TestBounds Natural where
-  minVal = 0
-  maxVal = floor @Double 2e40
-
--- | @since 0.1.0.0
-instance TestBounds Int where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Int8 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Int16 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Int32 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Int64 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Word where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Word8 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Word16 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Word32 where
-  minVal = minBound
-  maxVal = maxBound
-
--- | @since 0.1.0.0
-instance TestBounds Word64 where
-  minVal = minBound
-  maxVal = maxBound

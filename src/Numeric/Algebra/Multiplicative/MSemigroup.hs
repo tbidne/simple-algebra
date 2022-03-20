@@ -18,7 +18,6 @@ import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
-import System.Random (UniformRange)
 
 -- | Defines a multiplicative semigroup.
 --
@@ -126,13 +125,23 @@ instance MSemigroup (Fraction Natural) where
   (.*.) = (*)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => MSemigroup (ModN n a) where
-  type MultConstraint (ModN n a) = ModN n a
+instance KnownNat n => MSemigroup (ModN n Integer) where
+  type MultConstraint (ModN n Integer) = ModN n Integer
   MkModN x .*. MkModN y = MkModN (x * y)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => MSemigroup (ModP p a) where
-  type MultConstraint (ModP p a) = ModP p a
+instance KnownNat n => MSemigroup (ModN n Natural) where
+  type MultConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .*. MkModN y = MkModN (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Integer) where
+  type MultConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Natural) where
+  type MultConstraint (ModP p Natural) = ModP p Natural
   MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
 
 -- | @since 0.1.0.0

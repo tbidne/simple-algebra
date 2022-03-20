@@ -20,16 +20,16 @@ module Numeric.Algebra.Multiplicative.MGroup
   )
 where
 
-#if MIN_VERSION_template_haskell(2, 17, 0)
-import Language.Haskell.TH (Code, Q)
-#else
-import Language.Haskell.TH (Q, TExp)
-#endif
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
 import GHC.TypeNats (KnownNat)
+#if MIN_VERSION_template_haskell(2, 17, 0)
+import Language.Haskell.TH (Code, Q)
+#else
+import Language.Haskell.TH (Q, TExp)
+#endif
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
@@ -41,7 +41,6 @@ import Numeric.Data.ModP qualified as ModP
 import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
-import System.Random (UniformRange)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -152,8 +151,13 @@ instance MGroup (Fraction Natural) where
   x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => MGroup (ModP p a) where
-  type DivConstraint (ModP p a) = NonZero (ModP p a)
+instance KnownNat p => MGroup (ModP p Integer) where
+  type DivConstraint (ModP p Integer) = NonZero (ModP p Integer)
+  x .%. d = x .*. ModP.invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Natural) where
+  type DivConstraint (ModP p Natural) = NonZero (ModP p Natural)
   x .%. d = x .*. ModP.invert d
 
 -- | @since 0.1.0.0

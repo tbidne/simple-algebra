@@ -23,12 +23,16 @@ module Numeric.Data.ModP.Internal
     factor2,
 
     -- * Multiplicative Inverses
+    Bezout (..),
+    R (..),
+    S (..),
+    T (..),
     findInverse,
+    findBezout,
   )
 where
 
 import Data.Word (Word16)
-import GHC.Stack (HasCallStack)
 import System.Random (UniformRange)
 import System.Random qualified as Rand
 import System.Random.Stateful qualified as RandState
@@ -64,7 +68,7 @@ instance Monoid MaybePrime where
 -- ProbablyPrime
 --
 -- @since 0.1.0.0
-isPrime :: (Integral a, UniformRange a) => a -> MaybePrime
+isPrime :: Integer -> MaybePrime
 isPrime = isPrimeTrials 100
 
 -- | 'isPrime' that takes in an additional 'Word16' parameter for the number
@@ -88,7 +92,7 @@ isPrime = isPrimeTrials 100
 -- @
 --
 -- @since 0.1.0.0
-isPrimeTrials :: (Integral a, UniformRange a) => Word16 -> a -> MaybePrime
+isPrimeTrials :: Word16 -> Integer -> MaybePrime
 isPrimeTrials _ 1 = Composite
 isPrimeTrials _ 2 = ProbablyPrime
 isPrimeTrials numTrials n
@@ -109,34 +113,34 @@ isPrimeTrials numTrials n
 -- \(n = 2^{r} d + 1\).
 --
 -- @since 0.1.0.0
-newtype Modulus a = MkModulus a
+newtype Modulus = MkModulus Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
 -- | The \(r\) in \(n = 2^{r} d + 1\).
 --
 -- @since 0.1.0.0
-newtype Pow a = MkPow a
+newtype Pow = MkPow Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
 -- | The \(d\) in \(n = 2^{r} d + 1\).
 --
 -- @since 0.1.0.0
-newtype Mult a = MkMult a
+newtype Mult = MkMult Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
 -- | Randomly generated \(m \in [2, n - 2] \) for testing \(n\)'s primality.
 --
 -- @since 0.1.0.0
-newtype Rand a = MkRand a
+newtype Rand = MkRand Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
-instance UniformRange a => UniformRange (Rand a) where
+instance UniformRange Rand where
   uniformRM (MkRand l, MkRand u) = fmap MkRand . RandState.uniformRM (l, u)
 
 -- | Miller-Rabin algorithm. Takes in the \(n\) to be tested and the number
 -- of trials to perform. The higher the trials, the higher our confidence
 -- in 'ProbablyPrime'.
-millerRabin :: (Integral a, UniformRange a) => Modulus a -> Word16 -> MaybePrime
+millerRabin :: Modulus -> Word16 -> MaybePrime
 millerRabin 2 = const ProbablyPrime
 millerRabin modulus@(MkModulus n) = go gen
   where
@@ -163,7 +167,7 @@ millerRabin modulus@(MkModulus n) = go gen
 -- ProbablyPrime
 --
 -- @since 0.1.0.0
-trial :: Integral a => Modulus a -> (Pow a, Mult a) -> Rand a -> MaybePrime
+trial :: Modulus -> (Pow, Mult) -> Rand -> MaybePrime
 trial modulus@(MkModulus n) (r, d) (MkRand a)
   -- x = 1 or n - 1 -> skip
   | x == 1 || x == n - 1 = ProbablyPrime
@@ -188,7 +192,7 @@ trial modulus@(MkModulus n) (r, d) (MkRand a)
 -- ProbablyPrime
 --
 -- @since 0.1.0.0
-isWitness :: forall a. Integral a => Modulus a -> Pow a -> Rand a -> MaybePrime
+isWitness :: Modulus -> Pow -> Rand -> MaybePrime
 isWitness modulus@(MkModulus n) r (MkRand x) = coprimeToResult coprime
   where
     squares = take (fromIntegral r) $ sqProgression modulus x
@@ -207,7 +211,7 @@ isWitness modulus@(MkModulus n) r (MkRand x) = coprimeToResult coprime
 -- [3,2,4,2,4]
 --
 -- @since 0.1.0.0
-sqProgression :: Integral a => Modulus a -> a -> [a]
+sqProgression :: Modulus -> Integer -> [Integer]
 sqProgression (MkModulus n) = go
   where
     go !y = y : go (y ^ (2 :: Int) `mod` n)
@@ -226,7 +230,7 @@ sqProgression (MkModulus n) = go
 -- (MkPow 2,MkMult 5)
 --
 -- @since 0.1.0.0
-factor2 :: Integral a => Modulus a -> (Pow a, Mult a)
+factor2 :: Modulus -> (Pow, Mult)
 factor2 (MkModulus n) = go (MkPow 0, MkMult n)
   where
     go (!r, !d)
@@ -245,41 +249,44 @@ factor2 (MkModulus n) = go (MkPow 0, MkMult n)
 -- coprime i.e. \((a,p) = 1\). Of course this is guaranteed when \(p\) is
 -- prime and \(0 < a < p \), but it otherwise not true in general.
 --
--- Also, this function requires division and subtraction, it is partial when
--- the modulus is 0 or if underflow is a possibility (e.g. 'Natural').
+-- Also, this function requires division, it is partial when
+-- the modulus is 0.
 --
 -- @since 0.1.0.0
-findInverse :: (HasCallStack, Integral a) => a -> Modulus a -> a
+findInverse :: Integer -> Modulus -> Integer
 findInverse a (MkModulus p) = aInv `mod` p
   where
     (MkBezout _ _ (T' aInv)) = eec p a
 
-data Bezout a = MkBezout
-  { bzGcd :: !(R a),
-    bzS :: !(S a),
-    bzT :: !(T a)
+findBezout :: Integer -> Modulus -> Bezout
+findBezout a (MkModulus p) = eec p a
+
+-- | Bezout
+data Bezout = MkBezout
+  { bzGcd :: !R,
+    bzS :: !S,
+    bzT :: !T
   }
   deriving (Eq, Show)
 
-newtype R a = R' a
+newtype R = R' Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
-newtype S a = S' a
+newtype S = S' Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
-newtype T a = T' a
+newtype T = T' Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
 -- Solves for Bezout's identity using the extended euclidean algorithm:
 -- https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
-eec :: (HasCallStack, Integral a) => a -> a -> Bezout a
+eec :: Integer -> Integer -> Bezout
 eec a b = go initOldR initR initOldS initS initOldT initT
   where
     (initOldR, initR) = (R' a, R' b)
     (initOldS, initS) = (S' 1, S' 0)
     (initOldT, initT) = (T' 0, T' 1)
 
-    go :: (HasCallStack, Integral a) => R a -> R a -> S a -> S a -> T a -> T a -> Bezout a
     go oldR 0 oldS _ oldT _ = MkBezout oldR oldS oldT
     go !oldR !r !oldS !s !oldT !t =
       let oldR' = r

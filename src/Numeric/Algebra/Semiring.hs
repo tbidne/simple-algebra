@@ -17,7 +17,6 @@ import Numeric.Data.ModN (ModN)
 import Numeric.Data.ModP (ModP)
 import Numeric.Data.NonNegative (NonNegative)
 import Numeric.Natural (Natural)
-import System.Random (UniformRange)
 
 -- | Defines a semiring.
 --
@@ -79,10 +78,16 @@ instance Semiring (Fraction Integer)
 instance Semiring (Fraction Natural)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat n) => Semiring (ModN n a)
+instance KnownNat n => Semiring (ModN n Integer)
 
 -- | @since 0.1.0.0
-instance (Integral a, KnownNat p, UniformRange a) => Semiring (ModP p a)
+instance KnownNat n => Semiring (ModN n Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Natural)
 
 -- | @since 0.1.0.0
 instance (Eq a, Num a) => Semiring (NonNegative a)
