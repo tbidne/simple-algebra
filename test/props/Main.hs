@@ -15,6 +15,7 @@ import Test.Algebra.Multiplicative.MGroup qualified
 import Test.Algebra.Multiplicative.MMonoid qualified
 import Test.Algebra.Multiplicative.MSemigroup qualified
 import Test.Data.Fraction qualified
+import Test.Data.Interval qualified
 import Test.Data.ModN qualified
 import Test.Data.ModP qualified
 import Test.Data.ModP.Internal qualified
@@ -47,6 +48,7 @@ main = do
                 Test.Algebra.Multiplicative.MMonoid.props,
                 Test.Algebra.Multiplicative.MGroup.props,
                 Test.Data.Fraction.props,
+                Test.Data.Interval.props,
                 Test.Data.ModN.props,
                 Test.Data.ModP.props,
                 Test.Data.ModP.Internal.props,
