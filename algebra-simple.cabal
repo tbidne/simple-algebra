@@ -15,7 +15,17 @@ synopsis:
 description:
   @algebra-simple@ intends to provide a simple, reasonably principled
   interface to typical mathematical operations (i.e. addition, subtraction,
-  multiplication, division). See "Numeric.Algebra" for the documentation.
+  multiplication, division). This package is organized into three sections:
+  .
+  1. "Numeric.Algebra": The typeclass replacements for 'Num'; this package's
+  raison d'être.
+  .
+  2. "Numeric.Data": Smart constructors for enforcing mathematical invariants.
+  .
+  3. @Numeric.Class@: Miscellaneous typeclasses. These are primarily
+  implementation details, but they could be useful to consumers (e.g.
+  'Numeric.Class.Literal.Literal' can be used for literal conversions in place
+  of 'Num').
 
 category:           Math, Algebra
 extra-source-files:

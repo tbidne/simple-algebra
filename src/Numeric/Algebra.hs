@@ -9,11 +9,7 @@ module Numeric.Algebra
     -- * Solution
     -- $solution
 
-    -- * Algebra-Simple
-    -- $algebra-simple
-
     -- ** Algebraic Typeclasses
-    -- $typeclasses
     module Numeric.Algebra.Additive,
     module Numeric.Algebra.Multiplicative,
     module Numeric.Algebra.Semiring,
@@ -21,12 +17,6 @@ module Numeric.Algebra
     module Numeric.Algebra.Module,
     module Numeric.Algebra.Field,
     module Numeric.Algebra.VectorSpace,
-
-    -- ** Smart Constructors
-    -- $smart-constructors
-
-    -- ** Miscellaneous
-    -- $misc
   )
 where
 
@@ -152,24 +142,3 @@ import Numeric.Algebra.VectorSpace
 --      We choose new operators that do not clash with prelude.
 --
 -- We provide instances for built-in numeric types where it makes sense.
-
--- $algebra-simple
--- This package is split into three sections.
-
--- $typeclasses
--- The algebraic type classes described above can be found in
--- "Numeric.Algebra" along with their instances.
-
--- $smart-constructors
--- Additionally, we provide smart constructors for enforcing mathematical
--- invariants. These can be found in "Numeric.Data", and include:
---
--- * 'Numeric.Data.Fraction.Fraction'
--- * 'Numeric.Data.ModN.ModN'
--- * 'Numeric.Data.ModP.ModP'
--- * 'Numeric.Data.NonNegative.NonNegative'
--- * 'Numeric.Data.NonZero.NonZero'
--- * 'Numeric.Data.Positive.Positive'
-
--- $misc
--- Finally, we have two more typeclasses under @Numeric.Class@.

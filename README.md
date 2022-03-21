@@ -18,18 +18,24 @@
 ---
 
 ### Table of Contents
-* [Motivation](#motivation)
-* [Solution](#solution)
-* [Algebra-Simple](#algebra-simple)
-  * [Algebraic Typeclasses](#typeclasses)
-  * [Smart Constructors](#smart-constructors)
-  * [Miscellaneous](#miscellaneous)
+* [Overview](#overview)
+* [Algebraic Typeclasses](#algebraic-typeclasses)
+  * [Motivation](#motivation)
+  * [Solution](#solution)
+* [Smart Constructors](#smart-constructors)
+* [Miscellaneous](#miscellaneous)
 
-# Motivation
+# Overview
+
+`Algebra-Simple` intends to provide a simple, reasonably principled interface to typical operations (i.e. addition, subtraction, multiplication, division). This package is organized into three sections: `Numeric.Algebra`, `Numeric.Data`, and `Numeric.Class`.
+
+# Algebraic Typeclasses
+
+## Motivation
 
 The primary interface to numerical operations in Haskell is `Num`. Unfortunately, `Num` has a key limitation: it is "too large". For example, if we want to opt-in to addition, we must also opt-in to subtraction, multiplication, and integer literal conversions. These may not make sense for the type at hand (e.g. naturals), so we are stuck either providing an invariant-breaking dangerous implementation (e.g. defining subtraction for arbitrary naturals) or throwing runtime errors.
 
-# Solution
+## Solution
 
 `algebra-simple`'s approach is to split this functionality into multiple typeclasses, so types can opt-in to exactly as much functionality as they want. The typeclasses are inspired by abstract algebra. The following table lists the classes along with the num functionality they are intended to replace:
 
@@ -148,25 +154,10 @@ We have the following guiding principles:
 
 We provide instances for built-in numeric types where it makes sense.
 
-# Algebra-Simple
+# Smart Constructors
 
-This package is split into three sections.
-
-## Algebraic Typeclasses
-
-The algebraic type classes described above can be found in `Numeric.Algebra` along with their instances.
-
-## Smart Constructors
-
-Additionally, we provide smart constructors for enforcing mathematical invariants. These can be found in `Numeric.Data`, and include:
-
-* `Fraction`
-* `ModN`
-* `ModP`
-* `NonNegative`
-* `NonZero`
-* `Positive`
+Additionally, we provide smart constructors for enforcing mathematical invariants. These exist under `Numeric.Data`.
 
 # Miscellaneous
 
-Finally, we have two more typeclasses under `Numeric.Class`.
+Finally, there are some miscellaneous typeclasses in `Numeric.Class`. These are primarily implementation details, but they could be useful to consumers (e.g. `Literal` can be used for literal conversions in place of `Num`).
