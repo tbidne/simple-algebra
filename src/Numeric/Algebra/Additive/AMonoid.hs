@@ -143,5 +143,5 @@ instance KnownNat p => AMonoid (ModP p Natural) where
   zero = MkModP 0
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => AMonoid (NonNegative a) where
+instance (Eq a, Num a, Ord a, Show a) => AMonoid (NonNegative a) where
   zero = reallyUnsafeNonNegative 0

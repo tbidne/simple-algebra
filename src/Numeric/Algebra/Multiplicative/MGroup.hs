@@ -161,7 +161,7 @@ instance KnownNat p => MGroup (ModP p Natural) where
   x .%. d = x .*. ModP.invert d
 
 -- | @since 0.1.0.0
-instance (Eq a, Division a, Num a) => MGroup (NonNegative a) where
+instance (Eq a, Division a, Num a, Ord a, Show a) => MGroup (NonNegative a) where
   type DivConstraint (NonNegative a) = NonZero (NonNegative a)
   MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `divide` d
 
@@ -171,7 +171,7 @@ instance (Eq a, Division a, Num a) => MGroup (NonZero a) where
   MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `divide` d
 
 -- | @since 0.1.0.0
-instance (Eq a, Division a, Num a) => MGroup (Positive a) where
+instance (Eq a, Division a, Num a, Ord a, Show a) => MGroup (Positive a) where
   type DivConstraint (Positive a) = Positive a
   MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `divide` d
 

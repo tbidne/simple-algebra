@@ -115,7 +115,7 @@ instance KnownNat p => MMonoid (ModP p Natural) where
   one = MkModP 1
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => MMonoid (NonNegative a) where
+instance (Eq a, Num a, Ord a, Show a) => MMonoid (NonNegative a) where
   one = reallyUnsafeNonNegative 1
 
 -- | @since 0.1.0.0
@@ -123,5 +123,5 @@ instance (Eq a, Num a) => MMonoid (NonZero a) where
   one = reallyUnsafeNonZero 1
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => MMonoid (Positive a) where
+instance (Eq a, Num a, Ord a, Show a) => MMonoid (Positive a) where
   one = reallyUnsafePositive 1

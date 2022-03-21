@@ -145,7 +145,7 @@ instance KnownNat p => MSemigroup (ModP p Natural) where
   MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => MSemigroup (NonNegative a) where
+instance (Eq a, Num a, Ord a, Show a) => MSemigroup (NonNegative a) where
   type MultConstraint (NonNegative a) = NonNegative a
   MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
 
@@ -155,6 +155,6 @@ instance (Eq a, Num a) => MSemigroup (NonZero a) where
   MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => MSemigroup (Positive a) where
+instance (Eq a, Num a, Ord a, Show a) => MSemigroup (Positive a) where
   type MultConstraint (Positive a) = Positive a
   MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y

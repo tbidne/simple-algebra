@@ -87,12 +87,24 @@ newtype LRInterval l r a = UnsafeLRInterval a
       NFData
     )
 
--- | Unidirectional pattern synonym for 'LRInterval'. This allows us to pattern
--- match on a LRInterval term without exposing the unsafe internal details.
+-- | Bidirectional pattern synonym for 'LRInterval'. Construction fails when
+-- the value is not within the range.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> MkLRInterval @10 @15 12
+-- UnsafeLRInterval 12
 --
 -- @since 0.1.0.0
-pattern MkLRInterval :: a -> LRInterval l r a
-pattern MkLRInterval x <- UnsafeLRInterval x
+pattern MkLRInterval ::
+  (KnownNat l, KnownNat r, Num a, Ord a, Show a) =>
+  a ->
+  LRInterval l r a
+pattern MkLRInterval x <-
+  UnsafeLRInterval x
+  where
+    MkLRInterval x = unsafeLRInterval x
 
 {-# COMPLETE MkLRInterval #-}
 
@@ -204,12 +216,24 @@ newtype LInterval l a = UnsafeLInterval a
       NFData
     )
 
--- | Unidirectional pattern synonym for 'LInterval'. This allows us to pattern
--- match on a LInterval term without exposing the unsafe internal details.
+-- | Unidirectional pattern synonym for 'LInterval'. Construction fails when
+-- the value is not within the range.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> MkLInterval @10 12
+-- UnsafeLInterval 12
 --
 -- @since 0.1.0.0
-pattern MkLInterval :: a -> LInterval l a
-pattern MkLInterval x <- UnsafeLInterval x
+pattern MkLInterval ::
+  (KnownNat l, Num a, Ord a, Show a) =>
+  a ->
+  LInterval l a
+pattern MkLInterval x <-
+  UnsafeLInterval x
+  where
+    MkLInterval x = unsafeLInterval x
 
 {-# COMPLETE MkLInterval #-}
 
@@ -316,12 +340,24 @@ newtype RInterval r a = UnsafeRInterval a
       NFData
     )
 
--- | Unidirectional pattern synonym for 'RInterval'. This allows us to pattern
--- match on an RInterval term without exposing the unsafe internal details.
+-- | Unidirectional pattern synonym for 'RInterval'.  Construction fails when
+-- the value is not within the range.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> MkRInterval @10 5
+-- UnsafeRInterval 5
 --
 -- @since 0.1.0.0
-pattern MkRInterval :: a -> RInterval r a
-pattern MkRInterval x <- UnsafeRInterval x
+pattern MkRInterval ::
+  (KnownNat r, Num a, Ord a, Show a) =>
+  a ->
+  RInterval r a
+pattern MkRInterval x <-
+  UnsafeRInterval x
+  where
+    MkRInterval x = unsafeRInterval x
 
 {-# COMPLETE MkRInterval #-}
 

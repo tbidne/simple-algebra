@@ -66,12 +66,21 @@ newtype Positive a = UnsafePositive a
       NFData
     )
 
--- | Unidirectional pattern synonym for 'Positive'. This allows us to pattern
--- match on a positive term without exposing the unsafe internal details.
+-- | Bidirectional pattern synonym for 'Positive'. Construction fails when
+-- the given value is non-positive.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> MkPositive 7
+-- UnsafePositive 7
 --
 -- @since 0.1.0.0
-pattern MkPositive :: a -> Positive a
-pattern MkPositive x <- UnsafePositive x
+pattern MkPositive :: (Num a, Ord a, Show a) => a -> Positive a
+pattern MkPositive x <-
+  UnsafePositive x
+  where
+    MkPositive x = unsafePositive x
 
 {-# COMPLETE MkPositive #-}
 
@@ -96,8 +105,7 @@ mkPositiveTH :: (Integral a, Lift a, Show a) => a -> Q (TExp (Positive a))
 mkPositiveTH x = maybe (error err) liftTyped $ mkPositive x
   where
     err =
-      "Numeric.Data.Positive.mkPositiveTH: Passed value <= 0: "
-        <> show x
+      "Numeric.Data.Positive.mkPositiveTH: Passed value <= 0: " <> show x
 
 -- | Smart constructor for 'Positive'. Returns 'Nothing' if the second
 -- parameter is @<= 0@.

@@ -285,11 +285,11 @@ instance KnownNat p => ASemigroup (ModP p Natural) where
   MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => ASemigroup (NonNegative a) where
+instance (Eq a, Num a, Ord a, Show a) => ASemigroup (NonNegative a) where
   type AddConstraint (NonNegative a) = NonNegative a
   MkNonNegative x .+. MkNonNegative y = reallyUnsafeNonNegative $ x + y
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => ASemigroup (Positive a) where
+instance (Eq a, Num a, Ord a, Show a) => ASemigroup (Positive a) where
   type AddConstraint (Positive a) = Positive a
   MkPositive x .+. MkPositive y = reallyUnsafePositive $ x + y

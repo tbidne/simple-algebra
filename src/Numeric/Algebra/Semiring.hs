@@ -90,4 +90,4 @@ instance KnownNat p => Semiring (ModP p Integer)
 instance KnownNat p => Semiring (ModP p Natural)
 
 -- | @since 0.1.0.0
-instance (Eq a, Num a) => Semiring (NonNegative a)
+instance (Eq a, Num a, Ord a, Show a) => Semiring (NonNegative a)

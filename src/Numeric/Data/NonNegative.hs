@@ -64,12 +64,21 @@ newtype NonNegative a = UnsafeNonNegative a
       NFData
     )
 
--- | Unidirectional pattern synonym for 'NonNegative'. This allows us to pattern
--- match on a nonnegative term without exposing the unsafe internal details.
+-- | Bidirectional pattern synonym for 'NonNegative'. Construction fails when
+-- the given value is positive.
+--
+-- __WARNING: Partial__
+--
+-- ==== __Examples__
+-- >>> MkNonNegative 0
+-- UnsafeNonNegative 0
 --
 -- @since 0.1.0.0
-pattern MkNonNegative :: a -> NonNegative a
-pattern MkNonNegative x <- UnsafeNonNegative x
+pattern MkNonNegative :: (Num a, Ord a, Show a) => a -> NonNegative a
+pattern MkNonNegative x <-
+  UnsafeNonNegative x
+  where
+    MkNonNegative x = unsafeNonNegative x
 
 {-# COMPLETE MkNonNegative #-}
 
@@ -94,8 +103,7 @@ mkNonNegativeTH :: (Integral a, Lift a, Show a) => a -> Q (TExp (NonNegative a))
 mkNonNegativeTH x = maybe (error err) liftTyped $ mkNonNegative x
   where
     err =
-      "Numeric.Data.NonNegative.mkNonNegativeTH: Passed value < 0: "
-        <> show x
+      "Numeric.Data.NonNegative.mkNonNegativeTH: Passed value < 0: " <> show x
 
 -- | Smart constructor for 'NonNegative'. Returns 'Nothing' if the second
 -- parameter is @< 0@.
