@@ -134,6 +134,7 @@ newtype Mult = MkMult Integer
 newtype Rand = MkRand Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
+-- | @since 0.1.0.0
 instance UniformRange Rand where
   uniformRM (MkRand l, MkRand u) = fmap MkRand . RandState.uniformRM (l, u)
 
@@ -258,10 +259,11 @@ findInverse a (MkModulus p) = aInv `mod` p
   where
     (MkBezout _ _ (T' aInv)) = eec p a
 
+-- | @since 0.1.0.0
 findBezout :: Integer -> Modulus -> Bezout
 findBezout a (MkModulus p) = eec p a
 
--- | Bezout
+-- | @since 0.1.0.0
 data Bezout = MkBezout
   { bzGcd :: !R,
     bzS :: !S,
@@ -269,12 +271,15 @@ data Bezout = MkBezout
   }
   deriving (Eq, Show)
 
+-- | @since 0.1.0.0
 newtype R = R' Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
+-- | @since 0.1.0.0
 newtype S = S' Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 
+-- | @since 0.1.0.0
 newtype T = T' Integer
   deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
 

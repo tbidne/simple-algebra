@@ -88,26 +88,6 @@ instance NumLiteral Word64 where
   fromLit = fromInteger
 
 -- | @since 0.1.0.0
-instance NumLiteral (Ratio Int) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance NumLiteral (Ratio Int8) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance NumLiteral (Ratio Int16) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance NumLiteral (Ratio Int32) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance NumLiteral (Ratio Int64) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
 instance NumLiteral (Ratio Integer) where
   fromLit = fromInteger
 

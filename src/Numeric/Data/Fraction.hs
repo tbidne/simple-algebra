@@ -26,8 +26,6 @@ where
 import Control.DeepSeq (NFData)
 import Data.Kind (Type)
 import Data.Maybe qualified as May
-import Foreign.Ptr qualified as FPtr
-import Foreign.Storable (Storable (..))
 import GHC.Generics (Generic)
 import GHC.Read (Read (..))
 import GHC.Read qualified as Read
@@ -40,6 +38,7 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Class.Boundless (UpperBoundless)
 import Text.ParserCombinators.ReadPrec qualified as ReadP
 import Text.Read.Lex qualified as L
 
@@ -118,7 +117,7 @@ data Fraction a = UnsafeFraction !a !a
 -- *** Exception: Ratio has zero denominator
 --
 -- @since 0.1.0.0
-pattern (:%:) :: (HasCallStack, Integral a) => a -> a -> Fraction a
+pattern (:%:) :: (HasCallStack, UpperBoundless a) => a -> a -> Fraction a
 pattern n :%: d <-
   UnsafeFraction n d
   where
@@ -136,21 +135,7 @@ instance (Integral a, Show a) => Show (Fraction a) where
       (showsPrec 11 n . showString " :%: " . showsPrec 11 d)
 
 -- | @since 0.1.0.0
-instance (Storable a, Integral a) => Storable (Fraction a) where
-  sizeOf _ = 2 * sizeOf (undefined :: a)
-  alignment _ = alignment (undefined :: a)
-  peek p = do
-    let q = FPtr.castPtr p
-    r <- peek q
-    i <- peekElemOff q 1
-    return (r :%: i)
-  poke p (r :%: i) = do
-    let q = FPtr.castPtr p
-    poke q r
-    pokeElemOff q 1 i
-
--- | @since 0.1.0.0
-instance (Eq a, Integral a) => Eq (Fraction a) where
+instance (Eq a, UpperBoundless a) => Eq (Fraction a) where
   0 :%: _ == 0 :%: _ = True
   x == y = n1 == n2 && d1 == d2
     where
@@ -158,7 +143,7 @@ instance (Eq a, Integral a) => Eq (Fraction a) where
       n2 :%: d2 = reduce y
 
 -- | @since 0.1.0.0
-instance Integral a => Ord (Fraction a) where
+instance UpperBoundless a => Ord (Fraction a) where
   x@(n1 :%: d1) <= y@(n2 :%: d2)
     | x == y = True
     | otherwise = n1 * d2 `comp` n2 * d1
@@ -170,19 +155,19 @@ instance Integral a => Ord (Fraction a) where
       infix 4 `comp`
 
 -- | @since 0.1.0.0
-instance Integral a => Enum (Fraction a) where
+instance UpperBoundless a => Enum (Fraction a) where
   toEnum n = UnsafeFraction (fromIntegral n) 1
   fromEnum = fromInteger . truncate
 
 -- | @since 0.1.0.0
-instance Integral a => Fractional (Fraction a) where
+instance UpperBoundless a => Fractional (Fraction a) where
   (n1 :%: d1) / (n2 :%: d2) = unsafeFraction (n1 * d2) (n2 * d1)
   recip (0 :%: _) = R.ratioZeroDenominatorError
   recip (n :%: d) = unsafeFraction d n
   fromRational (n :% d) = unsafeFraction (fromInteger n) (fromInteger d)
 
 -- | @since 0.1.0.0
-instance Integral a => Num (Fraction a) where
+instance UpperBoundless a => Num (Fraction a) where
   (n1 :%: d1) + (n2 :%: d2) = unsafeFraction (n1 * d2 + n2 * d1) (d1 * d2)
   (n1 :%: d1) - (n2 :%: d2) = unsafeFraction (n1 * d2 - n2 * d1) (d1 * d2)
   (n1 :%: d1) * (n2 :%: d2) = unsafeFraction (n1 * n2) (d1 * d2)
@@ -192,18 +177,18 @@ instance Integral a => Num (Fraction a) where
   fromInteger n1 = UnsafeFraction (fromInteger n1) 1
 
 -- | @since 0.1.0.0
-instance Integral a => Real (Fraction a) where
+instance UpperBoundless a => Real (Fraction a) where
   toRational (n :%: d) = R.reduce (fromIntegral n) (fromIntegral d)
 
 -- | @since 0.1.0.0
-instance Integral a => RealFrac (Fraction a) where
+instance UpperBoundless a => RealFrac (Fraction a) where
   properFraction (n :%: d) =
     (fromInteger (toInteger q), UnsafeFraction r d)
     where
       (q, r) = quotRem n d
 
 -- | @since 0.1.0.0
-instance (Integral a, Read a) => Read (Fraction a) where
+instance (Read a, UpperBoundless a) => Read (Fraction a) where
   readPrec =
     Read.parens
       ( ReadP.prec
@@ -227,7 +212,7 @@ instance (Integral a, Read a) => Read (Fraction a) where
 -- Nothing
 --
 -- @since 0.1.0.0
-mkFraction :: Integral a => a -> a -> Maybe (Fraction a)
+mkFraction :: UpperBoundless a => a -> a -> Maybe (Fraction a)
 mkFraction _ 0 = Nothing
 mkFraction n d = Just $ reduce (UnsafeFraction n d)
 
@@ -239,9 +224,9 @@ mkFraction n d = Just $ reduce (UnsafeFraction n d)
 --
 -- @since 0.1.0.0
 #if MIN_VERSION_template_haskell(2,17,0)
-mkFractionTH :: (Integral a, Lift a) => a -> a -> Code Q (Fraction a)
+mkFractionTH :: (Lift a, UpperBoundless a) => a -> a -> Code Q (Fraction a)
 #else
-mkFractionTH :: (Integral a, Lift a) => a -> a -> Q (TExp (Fraction a))
+mkFractionTH :: (Lift a, UpperBoundless a) => a -> a -> Q (TExp (Fraction a))
 #endif
 mkFractionTH n = maybe R.ratioZeroDenominatorError liftTyped . mkFraction n
 
@@ -258,7 +243,7 @@ mkFractionTH n = maybe R.ratioZeroDenominatorError liftTyped . mkFraction n
 -- *** Exception: Ratio has zero denominator
 --
 -- @since 0.1.0.0
-unsafeFraction :: (HasCallStack, Integral a) => a -> a -> Fraction a
+unsafeFraction :: (HasCallStack, UpperBoundless a) => a -> a -> Fraction a
 unsafeFraction n = May.fromMaybe R.ratioZeroDenominatorError . mkFraction n
 
 -- | Returns the numerator.
@@ -268,7 +253,7 @@ unsafeFraction n = May.fromMaybe R.ratioZeroDenominatorError . mkFraction n
 -- -123
 --
 -- @since 0.1.0.0
-numerator :: Integral a => Fraction a -> a
+numerator :: UpperBoundless a => Fraction a -> a
 numerator (n :%: _) = n
 
 -- | Returns the denominator.
@@ -278,7 +263,7 @@ numerator (n :%: _) = n
 -- 17
 --
 -- @since 0.1.0.0
-denominator :: Integral a => Fraction a -> a
+denominator :: UpperBoundless a => Fraction a -> a
 denominator (_ :%: d) = d
 
 -- | Reduces a fraction:
@@ -298,7 +283,7 @@ denominator (_ :%: d) = d
 -- 1 :%: 1
 --
 -- @since 0.1.0.0
-reduce :: Integral a => Fraction a -> Fraction a
+reduce :: UpperBoundless a => Fraction a -> Fraction a
 reduce (UnsafeFraction 0 _) = UnsafeFraction 0 1
 reduce (UnsafeFraction n d) = UnsafeFraction (n' * signum d) (abs d')
   where

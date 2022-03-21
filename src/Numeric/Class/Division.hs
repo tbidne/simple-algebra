@@ -75,9 +75,17 @@ instance Division Natural where
   divide = div
 
 -- | @since 0.1.0.0
-instance Integral a => Division (Ratio a) where
+instance Division (Ratio Integer) where
   divide = (/)
 
 -- | @since 0.1.0.0
-instance Integral a => Division (Fraction a) where
+instance Division (Ratio Natural) where
+  divide = (/)
+
+-- | @since 0.1.0.0
+instance Division (Fraction Integer) where
+  divide = (/)
+
+-- | @since 0.1.0.0
+instance Division (Fraction Natural) where
   divide = (/)
