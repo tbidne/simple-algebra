@@ -86,7 +86,9 @@ instance (KnownNat p, Show a, UpperBoundless a) => Show (ModP p a) where
       p' = natVal @p Proxy
 
 -- | Bidirectional pattern synonym for 'ModP'. Construction fails when @p@ is
--- not prime.
+-- not prime. Note that because this performs a primality check, construction
+-- is __not__ \(O(1)\). See 'mkModP' for details. For much faster construction,
+-- when you are /sure/ @p@ is prime, see 'reallyUnsafeModP'.
 --
 -- __WARNING: Partial__
 --
@@ -109,7 +111,11 @@ pattern MkModP x <-
 unModP :: ModP p a -> a
 unModP (UnsafeModP x) = x
 
--- | Constructor for 'ModP'. Fails if @p@ is not prime.
+-- | Constructor for 'ModP'. Fails if @p@ is not prime. This uses the
+-- Miller-Rabin primality test, which has complexity \(O(k \log^3 p)\), and we
+-- take \(k = 100\). See
+-- [wikipedia](https://en.wikipedia.org/wiki/Miller-Rabin_primality_test#Complexity)
+-- for more details.
 --
 -- ==== __Examples__
 -- >>> mkModP @5 7

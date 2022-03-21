@@ -1,5 +1,4 @@
--- | @algebra-simple@ endeavors to provide a simple, reasonably principled
--- interface to typical mathematical operations.
+-- | This module reexports algebraic typeclasses.
 --
 -- @since 0.1.0.0
 module Numeric.Algebra

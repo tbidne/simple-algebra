@@ -212,7 +212,7 @@ invert' ::
 invert' = H.property $ do
   nz@(MkNonZero n) <- H.forAll (genNZ @a)
   let nInv = ModP.invert nz
-  MkModP 1 === n .*. nInv
+  reallyUnsafeModP 1 === n .*. nInv
 
 genNZ :: forall a m. (AMonoid (ModP 65537 a), GenBase m ~ Identity, MonadGen m, TestBounds a, UpperBoundless a) => m (NonZero (ModP 65537 a))
 genNZ = do
