@@ -1,7 +1,6 @@
 module Test.Data.NonZero (props) where
 
-import Data.Functor.Identity (Identity)
-import Hedgehog (GenBase, MonadGen, (===))
+import Hedgehog (MonadGen, (===))
 import Hedgehog qualified as H
 import Hedgehog.Gen qualified as HG
 import Hedgehog.Range qualified as HR
@@ -61,11 +60,15 @@ divTotal = T.askOption $ \(MkMaxRuns limit) ->
         let MkNonZero pz = px .%. py
         x `div` y === pz
 
-nonzero :: (GenBase m ~ Identity, MonadGen m) => m Int
-nonzero = HG.filter (/= 0) $ HG.integral $ HR.exponentialFrom minVal 0 maxVal
+nonzero :: MonadGen m => m Int
+nonzero =
+  HG.choice
+    [ HG.integral $ HR.exponentialFrom minVal 1 1,
+      HG.integral $ HR.exponentialFrom 1 1 maxVal
+    ]
 
 zero :: MonadGen m => m Integer
 zero = pure 0
 
-nonzeroCons :: (GenBase m ~ Identity, MonadGen m) => m (NonZero Int)
+nonzeroCons :: MonadGen m => m (NonZero Int)
 nonzeroCons = NonZero.unsafeNonZero <$> nonzero
