@@ -1,3 +1,7 @@
+{-# OPTIONS_GHC -Wno-identities #-}
+
+-- See the note on Modulus for why this warning is disabled
+
 -- | Internal tools for modular arithmetic and primality testing. The main
 -- functions are 'isPrime' and 'findInverse', though others are exported for
 -- testing.
@@ -114,7 +118,14 @@ isPrimeTrials numTrials n
 --
 -- @since 0.1.0.0
 newtype Modulus = MkModulus Integer
-  deriving (Enum, Eq, Integral, Show, Ord, Num, Real)
+  deriving stock (Eq, Show)
+  deriving newtype (Enum, Integral, Ord, Num, Real)
+
+-- GHC 9+ is complaining that "Call of toInteger :: Integer -> Integer can
+-- probably be omitted" when deriving Integral for all these types in this
+-- module. My guess is the derived instance is generating toInteger for some
+-- reason. Until we investigate further, disabling the -Widentities warning
+-- is the easiest workaround.
 
 -- | The \(r\) in \(n = 2^{r} d + 1\).
 --
