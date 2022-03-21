@@ -76,7 +76,7 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid)
 import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
 import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.ModN (ModN (..), mkModN)
-import Numeric.Data.ModP (ModP (..), unsafeModP)
+import Numeric.Data.ModP (ModP (..), reallyUnsafeModP)
 import Numeric.Data.NonNegative (NonNegative (..), unsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), unsafeNonZero)
 import Numeric.Data.Positive (Positive (..), unsafePositive)
@@ -142,7 +142,7 @@ modN :: MonadGen m => m (ModN 10 Natural)
 modN = mkModN <$> natural
 
 modP :: MonadGen m => m (ModP 17 Natural)
-modP = unsafeModP <$> natural
+modP = reallyUnsafeModP <$> natural
 
 nonNegative :: MonadGen m => m (NonNegative Natural)
 nonNegative = unsafeNonNegative <$> natural
@@ -212,7 +212,7 @@ fractionNonZero :: MonadGen m => m (NonZero (Fraction Integer))
 fractionNonZero = fmap MGroup.unsafeAMonoidNonZero $ (:%:) <$> integerNZ <*> integerNZ
 
 modPNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (ModP 17 Natural))
-modPNonZero = MGroup.unsafeAMonoidNonZero . unsafeModP <$> pos
+modPNonZero = MGroup.unsafeAMonoidNonZero . reallyUnsafeModP <$> pos
   where
     pos = HG.filter (\x -> x `mod` 17 /= 0) $ HG.integral $ HR.exponential 1 maxVal
 

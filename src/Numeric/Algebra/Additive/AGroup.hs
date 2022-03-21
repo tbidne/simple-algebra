@@ -344,8 +344,8 @@ instance KnownNat p => AGroup (ModP p Integer) where
 instance KnownNat p => AGroup (ModP p Natural) where
   type SubtractConstraint (ModP p Natural) = ModP p Natural
   MkModP x .-. MkModP y
-    | x >= y = MkModP (x - y)
-    | otherwise = MkModP (p' - y + x)
+    | x >= y = ModP.reallyUnsafeModP (x - y)
+    | otherwise = ModP.reallyUnsafeModP (p' - y + x)
     where
       p' = natVal @p Proxy
 

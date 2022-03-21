@@ -221,4 +221,4 @@ genNZ = do
   pure y
 
 anyNat :: forall a m. (MonadGen m, TestBounds a, UpperBoundless a) => m (ModP 65537 a)
-anyNat = ModP.unsafeModP <$> HG.integral (HR.exponentialFrom 0 0 maxVal)
+anyNat = reallyUnsafeModP <$> HG.integral (HR.exponentialFrom 0 0 maxVal)
