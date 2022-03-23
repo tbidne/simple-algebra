@@ -9,7 +9,7 @@ import Numeric.Data.Fraction (Fraction (..))
 import Numeric.Data.Fraction qualified as Frac
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
-import Test.Tasty.Hedgehog qualified as TH
+import Utils qualified
 
 props :: TestTree
 props =
@@ -33,7 +33,7 @@ eqProps =
 
 eqMult :: TestTree
 eqMult = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "n :%: d === n * k :%: d * k" $
+  Utils.testPropertyCompat "n :%: d === n * k :%: d * k" "eqMult" $
     H.withTests limit $
       H.property $ do
         x@(n :%: d) <- H.forAll Gens.fraction
@@ -42,7 +42,7 @@ eqMult = T.askOption $ \(MkMaxRuns limit) ->
 
 eqZero :: TestTree
 eqZero = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "0 :%: d1 === 0 :%: d2 " $
+  Utils.testPropertyCompat "0 :%: d1 === 0 :%: d2" "eqZero" $
     H.withTests limit $
       H.property $ do
         d1 <- H.forAll Gens.integerNZ
@@ -60,7 +60,7 @@ reduceProps =
 
 reduceIdempotent :: TestTree
 reduceIdempotent = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "reduce x = reduce (reduce x)" $
+  Utils.testPropertyCompat "reduce x = reduce (reduce x)" "reduceIdempotent" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -68,7 +68,7 @@ reduceIdempotent = T.askOption $ \(MkMaxRuns limit) ->
 
 reducePosDenom :: TestTree
 reducePosDenom = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "denom (reduce x) > 0" $
+  Utils.testPropertyCompat "denom (reduce x) > 0" "reducePosDenom" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -76,7 +76,7 @@ reducePosDenom = T.askOption $ \(MkMaxRuns limit) ->
 
 reduceGCD1 :: TestTree
 reduceGCD1 = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "gcd n d <= 1" $
+  Utils.testPropertyCompat "gcd n d <= 1" "reduceGCD1" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -95,7 +95,7 @@ numProps =
 
 numAddReduces :: TestTree
 numAddReduces = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(+) is reduced" $
+  Utils.testPropertyCompat "(+) is reduced" "numAddReduces" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -106,7 +106,7 @@ numAddReduces = T.askOption $ \(MkMaxRuns limit) ->
 
 numSubReduces :: TestTree
 numSubReduces = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(-) is reduced" $
+  Utils.testPropertyCompat "(-) is reduced" "numSubReduces" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -117,7 +117,7 @@ numSubReduces = T.askOption $ \(MkMaxRuns limit) ->
 
 numMultReduces :: TestTree
 numMultReduces = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(*) is reduced" $
+  Utils.testPropertyCompat "(*) is reduced" "numMultReduces" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -128,7 +128,7 @@ numMultReduces = T.askOption $ \(MkMaxRuns limit) ->
 
 absGtZero :: TestTree
 absGtZero = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "negate . negate === id" $
+  Utils.testPropertyCompat "negate . negate === id" "absGtZero" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -145,7 +145,7 @@ absGtZero = T.askOption $ \(MkMaxRuns limit) ->
 
 signumProp :: TestTree
 signumProp = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "negate . negate === id" $
+  Utils.testPropertyCompat "negate . negate === id" "signumProp" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -156,7 +156,7 @@ signumProp = T.askOption $ \(MkMaxRuns limit) ->
 
 showRoundTrip :: TestTree
 showRoundTrip = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "read . show === id" $
+  Utils.testPropertyCompat "read . show === id" "showRoundTrip" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.fraction
@@ -164,7 +164,7 @@ showRoundTrip = T.askOption $ \(MkMaxRuns limit) ->
 
 numeratorProp :: TestTree
 numeratorProp = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "numerator x@(n :%: _) === n" $
+  Utils.testPropertyCompat "numerator x@(n :%: _) === n" "numeratorProp" $
     H.withTests limit $
       H.property $ do
         x@(n :%: _) <- H.forAll Gens.fraction
@@ -172,7 +172,7 @@ numeratorProp = T.askOption $ \(MkMaxRuns limit) ->
 
 denominatorProp :: TestTree
 denominatorProp = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "denominator x@(_ :%: d) === d" $
+  Utils.testPropertyCompat "denominator x@(_ :%: d) === d" "denominatorProp" $
     H.withTests limit $
       H.property $ do
         x@(_ :%: d) <- H.forAll Gens.fraction

@@ -2,14 +2,14 @@ module Test.Algebra.Multiplicative.MGroup (props) where
 
 import Equality (Equality (..))
 import Gens qualified
-import Hedgehog (Gen, (===))
+import Hedgehog (Gen, PropertyName, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
 import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), MGroupIntegral (..), NonZero (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
-import Test.Tasty.Hedgehog qualified as TH
+import Utils qualified
 
 props :: TestTree
 props =
@@ -32,63 +32,63 @@ divProps =
       int32Div,
       int64Div,
       integerDiv,
-      naturalDiv,
       wordDiv,
       word8Div,
       word16Div,
       word32Div,
       word64Div,
+      naturalDiv,
       rationalDiv,
       fractionDiv
     ]
 
 floatDiv :: TestTree
-floatDiv = mgroupDivEq (/) Gens.float Gens.floatNonZero (MkEqEpsilon 1.0) "Float"
+floatDiv = mgroupDivEq (/) Gens.float Gens.floatNonZero (MkEqEpsilon 1.0) "Float" "floatDiv"
 
 doubleDiv :: TestTree
-doubleDiv = mgroupDivEq (/) Gens.double Gens.doubleNonZero (MkEqEpsilon 1.0) "Double"
+doubleDiv = mgroupDivEq (/) Gens.double Gens.doubleNonZero (MkEqEpsilon 1.0) "Double" "doubleDiv"
 
 intDiv :: TestTree
-intDiv = mgroupDivEq div Gens.int Gens.intNonZero MkEqExact "Int"
+intDiv = mgroupDivEq div Gens.int Gens.intNonZero MkEqExact "Int" "intDiv"
 
 int8Div :: TestTree
-int8Div = mgroupDivEq div Gens.int8 Gens.int8NonZero MkEqExact "Int8"
+int8Div = mgroupDivEq div Gens.int8 Gens.int8NonZero MkEqExact "Int8" "int8Div"
 
 int16Div :: TestTree
-int16Div = mgroupDivEq div Gens.int16 Gens.int16NonZero MkEqExact "Int16"
+int16Div = mgroupDivEq div Gens.int16 Gens.int16NonZero MkEqExact "Int16" "int16Div"
 
 int32Div :: TestTree
-int32Div = mgroupDivEq div Gens.int32 Gens.int32NonZero MkEqExact "Int32"
+int32Div = mgroupDivEq div Gens.int32 Gens.int32NonZero MkEqExact "Int32" "int32Div"
 
 int64Div :: TestTree
-int64Div = mgroupDivEq div Gens.int64 Gens.int64NonZero MkEqExact "Int64"
+int64Div = mgroupDivEq div Gens.int64 Gens.int64NonZero MkEqExact "Int64" "int64Div"
 
 integerDiv :: TestTree
-integerDiv = mgroupDivEq div Gens.integer Gens.integerNonZero MkEqExact "Integer"
-
-naturalDiv :: TestTree
-naturalDiv = mgroupDivEq div Gens.natural Gens.naturalNonZero MkEqExact "Natural"
+integerDiv = mgroupDivEq div Gens.integer Gens.integerNonZero MkEqExact "Integer" "integerDiv"
 
 wordDiv :: TestTree
-wordDiv = mgroupDivEq div Gens.word Gens.wordNonZero MkEqExact "Word"
+wordDiv = mgroupDivEq div Gens.word Gens.wordNonZero MkEqExact "Word" "wordDiv"
 
 word8Div :: TestTree
-word8Div = mgroupDivEq div Gens.word8 Gens.word8NonZero MkEqExact "Word8"
+word8Div = mgroupDivEq div Gens.word8 Gens.word8NonZero MkEqExact "Word8" "word8Div"
 
 word16Div :: TestTree
-word16Div = mgroupDivEq div Gens.word16 Gens.word16NonZero MkEqExact "Word16"
+word16Div = mgroupDivEq div Gens.word16 Gens.word16NonZero MkEqExact "Word16" "word16Div"
 
 word32Div :: TestTree
-word32Div = mgroupDivEq div Gens.word32 Gens.word32NonZero MkEqExact "Word32"
+word32Div = mgroupDivEq div Gens.word32 Gens.word32NonZero MkEqExact "Word32" "word32Div"
 
 word64Div :: TestTree
-word64Div = mgroupDivEq div Gens.word64 Gens.word64NonZero MkEqExact "Word64"
+word64Div = mgroupDivEq div Gens.word64 Gens.word64NonZero MkEqExact "Word64" "word64Div"
+
+naturalDiv :: TestTree
+naturalDiv = mgroupDivEq div Gens.natural Gens.naturalNonZero MkEqExact "Natural" "naturalDiv"
 
 rationalDiv :: TestTree
-rationalDiv = mgroupDivEq (/) Gens.rational Gens.rationalNonZero MkEqRatio "Rational"
+rationalDiv = mgroupDivEq (/) Gens.rational Gens.rationalNonZero MkEqRatio "Rational" "rationalDiv"
 
 fractionDiv :: TestTree
-fractionDiv = mgroupDivEq (/) Gens.fraction Gens.fractionNonZero MkEqExact "Fraction"
+fractionDiv = mgroupDivEq (/) Gens.fraction Gens.fractionNonZero MkEqExact "Fraction" "fractionDiv"
 
 divIdentProps :: TestTree
 divIdentProps =
@@ -100,12 +100,12 @@ divIdentProps =
       int32DivIdent,
       int64DivIdent,
       integerDivIdent,
-      naturalDivIdent,
       wordDivIdent,
       word8DivIdent,
       word16DivIdent,
       word32DivIdent,
       word64DivIdent,
+      naturalDivIdent,
       rationalDivIdent,
       fractionDivIdent,
       modPDivIdent,
@@ -115,64 +115,64 @@ divIdentProps =
     ]
 
 intDivIdent :: TestTree
-intDivIdent = agroupDivIdent Gens.intNonZero MkEqExact "Int"
+intDivIdent = agroupDivIdent Gens.intNonZero MkEqExact "Int" "intDivIdent"
 
 int8DivIdent :: TestTree
-int8DivIdent = agroupDivIdent Gens.int8NonZero MkEqExact "Int8"
+int8DivIdent = agroupDivIdent Gens.int8NonZero MkEqExact "Int8" "int8DivIdent"
 
 int16DivIdent :: TestTree
-int16DivIdent = agroupDivIdent Gens.int16NonZero MkEqExact "Int16"
+int16DivIdent = agroupDivIdent Gens.int16NonZero MkEqExact "Int16" "int16DivIdent"
 
 int32DivIdent :: TestTree
-int32DivIdent = agroupDivIdent Gens.int32NonZero MkEqExact "Int32"
+int32DivIdent = agroupDivIdent Gens.int32NonZero MkEqExact "Int32" "int32DivIdent"
 
 int64DivIdent :: TestTree
-int64DivIdent = agroupDivIdent Gens.int64NonZero MkEqExact "Int64"
+int64DivIdent = agroupDivIdent Gens.int64NonZero MkEqExact "Int64" "int64DivIdent"
 
 integerDivIdent :: TestTree
-integerDivIdent = agroupDivIdent Gens.integerNonZero MkEqExact "Integer"
-
-naturalDivIdent :: TestTree
-naturalDivIdent = agroupDivIdent Gens.naturalNonZero MkEqExact "Natural"
+integerDivIdent = agroupDivIdent Gens.integerNonZero MkEqExact "Integer" "integerDivIdent"
 
 wordDivIdent :: TestTree
-wordDivIdent = agroupDivIdent Gens.wordNonZero MkEqExact "Word"
+wordDivIdent = agroupDivIdent Gens.wordNonZero MkEqExact "Word" "wordDivIdent"
 
 word8DivIdent :: TestTree
-word8DivIdent = agroupDivIdent Gens.word8NonZero MkEqExact "Word8"
+word8DivIdent = agroupDivIdent Gens.word8NonZero MkEqExact "Word8" "word8DivIdent"
 
 word16DivIdent :: TestTree
-word16DivIdent = agroupDivIdent Gens.word16NonZero MkEqExact "Word16"
+word16DivIdent = agroupDivIdent Gens.word16NonZero MkEqExact "Word16" "word16DivIdent"
 
 word32DivIdent :: TestTree
-word32DivIdent = agroupDivIdent Gens.word32NonZero MkEqExact "Word32"
+word32DivIdent = agroupDivIdent Gens.word32NonZero MkEqExact "Word32" "word32DivIdent"
 
 word64DivIdent :: TestTree
-word64DivIdent = agroupDivIdent Gens.word64NonZero MkEqExact "Word64"
+word64DivIdent = agroupDivIdent Gens.word64NonZero MkEqExact "Word64" "word64DivIdent"
+
+naturalDivIdent :: TestTree
+naturalDivIdent = agroupDivIdent Gens.naturalNonZero MkEqExact "Natural" "naturalDivIdent"
 
 rationalDivIdent :: TestTree
-rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational"
+rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational" "rationalDivIdent"
 
 fractionDivIdent :: TestTree
-fractionDivIdent = agroupDivIdent Gens.fractionNonZero MkEqExact "Fraction"
+fractionDivIdent = agroupDivIdent Gens.fractionNonZero MkEqExact "Fraction" "fractionDivIdent"
 
 modPDivIdent :: TestTree
 modPDivIdent = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "ModP" $
+  Utils.testPropertyCompat "ModP" "modPDivIdent" $
     H.withTests limit $
       H.property $ do
         nz@(MkNonZero x) <- H.forAll Gens.modPNonZero
         one === x .%. nz
 
 nonNegativeDivIdent :: TestTree
-nonNegativeDivIdent = agroupDivIdent Gens.nonNegativeNonZero MkEqExact "NonNegative"
+nonNegativeDivIdent = agroupDivIdent Gens.nonNegativeNonZero MkEqExact "NonNegative" "nonNegativeDivIdent"
 
 nonZeroDivIdent :: TestTree
-nonZeroDivIdent = agroupDivIdent Gens.nonZero MkEqExact "NonZero"
+nonZeroDivIdent = agroupDivIdent Gens.nonZero MkEqExact "NonZero" "nonZeroDivIdent"
 
 positiveDivIdent :: TestTree
 positiveDivIdent = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "Positive" $
+  Utils.testPropertyCompat "Positive" "positiveDivIdent" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.positive
@@ -185,9 +185,10 @@ mgroupDivEq ::
   Gen (NonZero a) ->
   (a -> Equality eq a) ->
   TestName ->
+  PropertyName ->
   TestTree
-mgroupDivEq expectedFn gen genNZ eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
+mgroupDivEq expectedFn gen genNZ eqCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
+  Utils.testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gen
@@ -201,9 +202,10 @@ agroupDivIdent ::
   Gen (NonZero a) ->
   (a -> Equality eq a) ->
   TestName ->
+  PropertyName ->
   TestTree
-agroupDivIdent gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
+agroupDivIdent gen eqCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
+  Utils.testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         nz@(MkNonZero x) <- H.forAll gen
@@ -219,49 +221,49 @@ divIntegralProps =
       int32DivIntegral,
       int64DivIntegral,
       integerDivIntegral,
-      naturalDivIntegral,
       wordDivIntegral,
       word8DivIntegral,
       word16DivIntegral,
       word32DivIntegral,
-      word64DivIntegral
+      word64DivIntegral,
+      naturalDivIntegral
     ]
 
 intDivIntegral :: TestTree
-intDivIntegral = mgroupDivIntegralEq Gens.int Gens.intNonZero "Int"
+intDivIntegral = mgroupDivIntegralEq Gens.int Gens.intNonZero "Int" "intDivIntegral"
 
 int8DivIntegral :: TestTree
-int8DivIntegral = mgroupDivIntegralEq Gens.int8 Gens.int8NonZero "Int8"
+int8DivIntegral = mgroupDivIntegralEq Gens.int8 Gens.int8NonZero "Int8" "int8DivIntegral"
 
 int16DivIntegral :: TestTree
-int16DivIntegral = mgroupDivIntegralEq Gens.int16 Gens.int16NonZero "Int16"
+int16DivIntegral = mgroupDivIntegralEq Gens.int16 Gens.int16NonZero "Int16" "int16DivIntegral"
 
 int32DivIntegral :: TestTree
-int32DivIntegral = mgroupDivIntegralEq Gens.int32 Gens.int32NonZero "Int32"
+int32DivIntegral = mgroupDivIntegralEq Gens.int32 Gens.int32NonZero "Int32" "int32DivIntegral"
 
 int64DivIntegral :: TestTree
-int64DivIntegral = mgroupDivIntegralEq Gens.int64 Gens.int64NonZero "Int64"
+int64DivIntegral = mgroupDivIntegralEq Gens.int64 Gens.int64NonZero "Int64" "int64DivIntegral"
 
 integerDivIntegral :: TestTree
-integerDivIntegral = mgroupDivIntegralEq Gens.integer Gens.integerNonZero "Integer"
-
-naturalDivIntegral :: TestTree
-naturalDivIntegral = mgroupDivIntegralEq Gens.natural Gens.naturalNonZero "Natural"
+integerDivIntegral = mgroupDivIntegralEq Gens.integer Gens.integerNonZero "Integer" "integerDivIntegral"
 
 wordDivIntegral :: TestTree
-wordDivIntegral = mgroupDivIntegralEq Gens.word Gens.wordNonZero "Word"
+wordDivIntegral = mgroupDivIntegralEq Gens.word Gens.wordNonZero "Word" "wordDivIntegral"
 
 word8DivIntegral :: TestTree
-word8DivIntegral = mgroupDivIntegralEq Gens.word8 Gens.word8NonZero "Word8"
+word8DivIntegral = mgroupDivIntegralEq Gens.word8 Gens.word8NonZero "Word8" "word8DivIntegral"
 
 word16DivIntegral :: TestTree
-word16DivIntegral = mgroupDivIntegralEq Gens.word16 Gens.word16NonZero "Word16"
+word16DivIntegral = mgroupDivIntegralEq Gens.word16 Gens.word16NonZero "Word16" "word15DivIntegral"
 
 word32DivIntegral :: TestTree
-word32DivIntegral = mgroupDivIntegralEq Gens.word32 Gens.word32NonZero "Word32"
+word32DivIntegral = mgroupDivIntegralEq Gens.word32 Gens.word32NonZero "Word32" "word32DivIntegral"
 
 word64DivIntegral :: TestTree
-word64DivIntegral = mgroupDivIntegralEq Gens.word64 Gens.word64NonZero "Word64"
+word64DivIntegral = mgroupDivIntegralEq Gens.word64 Gens.word64NonZero "Word64" "word64DivIntegral"
+
+naturalDivIntegral :: TestTree
+naturalDivIntegral = mgroupDivIntegralEq Gens.natural Gens.naturalNonZero "Natural" "naturalDivIntegral"
 
 mgroupDivIntegralEq ::
   ( Integral a,
@@ -273,9 +275,10 @@ mgroupDivIntegralEq ::
   Gen a ->
   Gen (NonZero a) ->
   TestName ->
+  PropertyName ->
   TestTree
-mgroupDivIntegralEq gen genNZ desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
+mgroupDivIntegralEq gen genNZ desc propName = T.askOption $ \(MkMaxRuns limit) ->
+  Utils.testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gen

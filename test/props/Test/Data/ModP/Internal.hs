@@ -17,8 +17,8 @@ import Numeric.Data.ModP.Internal
 import Numeric.Data.ModP.Internal qualified as ModPI
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
-import Test.Tasty.Hedgehog qualified as TH
 import Test.TestBounds (TestBounds (..))
+import Utils qualified
 
 props :: TestTree
 props =
@@ -32,7 +32,7 @@ props =
 
 isPrimeFalse :: TestTree
 isPrimeFalse = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "isPrime returns Composite" $
+  Utils.testPropertyCompat "isPrime returns Composite" "isPrimeFalse" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll composite
@@ -40,7 +40,7 @@ isPrimeFalse = T.askOption $ \(MkMaxRuns limit) ->
 
 isPrimeTrue :: TestTree
 isPrimeTrue = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "isPrime returns ProbablyPrime" $
+  Utils.testPropertyCompat "isPrime returns ProbablyPrime" "isPrimeTrue" $
     H.withTests limit $
       H.property $ do
         p <- H.forAll prime
@@ -48,7 +48,7 @@ isPrimeTrue = T.askOption $ \(MkMaxRuns limit) ->
 
 findInverse :: TestTree
 findInverse = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x * findInverse x m == 1 (mod m)" $
+  Utils.testPropertyCompat "x * findInverse x m == 1 (mod m)" "findInverse" $
     H.withTests limit $
       H.property $ do
         (x, m) <- H.forAll coprime
@@ -58,7 +58,7 @@ findInverse = T.askOption $ \(MkMaxRuns limit) ->
 
 findBezout :: TestTree
 findBezout = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "findBezout satisfies ax + by = (a, b)" $
+  Utils.testPropertyCompat "findBezout satisfies ax + by = (a, b)" "findBezout" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll Gens.integer

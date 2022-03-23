@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE UndecidableInstances #-}
 
 module Utils
@@ -11,11 +12,14 @@ module Utils
     -- * Logic
     (==>),
     (<=>),
+
+    -- * Misc
+    testPropertyCompat,
   )
 where
 
 import Equality (Equality)
-import Hedgehog (Gen, (===))
+import Hedgehog (Gen, Property, PropertyName, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
 import Test.Tasty (TestName, TestTree)
@@ -29,9 +33,10 @@ binaryEq ::
   Gen a ->
   (a -> Equality eq a) ->
   TestName ->
+  PropertyName ->
   TestTree
-binaryEq expectedFn actualFn gen equalityCons desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
+binaryEq expectedFn actualFn gen equalityCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
+  testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gen
@@ -40,9 +45,9 @@ binaryEq expectedFn actualFn gen equalityCons desc = T.askOption $ \(MkMaxRuns l
             expected = expectedFn x y
         equalityCons expected === equalityCons actual
 
-associativity :: (Eq a, Show a) => (a -> a -> a) -> Gen a -> TestName -> TestTree
-associativity f gen desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
+associativity :: (Eq a, Show a) => (a -> a -> a) -> Gen a -> TestName -> PropertyName -> TestTree
+associativity f gen desc propName = T.askOption $ \(MkMaxRuns limit) ->
+  testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gen
@@ -60,9 +65,9 @@ associativity f gen desc = T.askOption $ \(MkMaxRuns limit) ->
         -- but with more granular logging
         lhs === rhs
 
-identity :: Show a => (a -> a -> a) -> a -> Gen a -> (a -> Equality eq a) -> TestName -> TestTree
-identity f ident gen eqCons desc = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty desc $
+identity :: Show a => (a -> a -> a) -> a -> Gen a -> (a -> Equality eq a) -> TestName -> PropertyName -> TestTree
+identity f ident gen eqCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
+  testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gen
@@ -80,3 +85,10 @@ False <=> False = True
 _ <=> _ = False
 
 infixr 1 <=>
+
+testPropertyCompat :: TestName -> PropertyName -> Property -> TestTree
+#if MIN_VERSION_tasty_hedgehog(1, 2, 0)
+testPropertyCompat = TH.testPropertyNamed
+#else
+testPropertyCompat tn _ = TH.testProperty tn
+#endif

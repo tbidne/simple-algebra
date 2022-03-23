@@ -11,8 +11,8 @@ import Numeric.Data.NonZero (NonZero (..))
 import Numeric.Data.NonZero qualified as NonZero
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
-import Test.Tasty.Hedgehog qualified as TH
 import Test.TestBounds (TestBounds (..))
+import Utils qualified
 
 props :: TestTree
 props =
@@ -26,7 +26,7 @@ props =
 
 mkNonZeroSucceeds :: TestTree
 mkNonZeroSucceeds = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x /= 0 succeeds" $
+  Utils.testPropertyCompat "x /= 0 succeeds" "mkNonZeroSucceeds" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll nonzero
@@ -34,7 +34,7 @@ mkNonZeroSucceeds = T.askOption $ \(MkMaxRuns limit) ->
 
 mkNonZeroFails :: TestTree
 mkNonZeroFails = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x == 0 fails" $
+  Utils.testPropertyCompat "x == 0 fails" "mkNonZeroFails" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll zero
@@ -42,7 +42,7 @@ mkNonZeroFails = T.askOption $ \(MkMaxRuns limit) ->
 
 multTotal :: TestTree
 multTotal = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(.*.) is total" $
+  Utils.testPropertyCompat "(.*.) is total" "multTotal" $
     H.withTests limit $
       H.property $ do
         px@(MkNonZero x) <- H.forAll nonzeroCons
@@ -52,7 +52,7 @@ multTotal = T.askOption $ \(MkMaxRuns limit) ->
 
 divTotal :: TestTree
 divTotal = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(.%.) is total" $
+  Utils.testPropertyCompat "(.%.) is total" "divTotal" $
     H.withTests limit $
       H.property $ do
         px@(MkNonZero x) <- H.forAll nonzeroCons

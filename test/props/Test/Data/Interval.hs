@@ -8,7 +8,7 @@ import MaxRuns (MaxRuns (..))
 import Numeric.Data.Interval qualified as Interval
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
-import Test.Tasty.Hedgehog qualified as TH
+import Utils qualified
 
 props :: TestTree
 props =
@@ -25,7 +25,7 @@ props =
 
 mkLRIntervalSucceeds :: TestTree
 mkLRIntervalSucceeds = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x in [500, 10,000] succeeds LRInterval 500 10,000" $
+  Utils.testPropertyCompat "x in [500, 10,000] succeeds LRInterval 500 10,000" "mkLRIntervalSucceeds" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll inRange
@@ -33,7 +33,7 @@ mkLRIntervalSucceeds = T.askOption $ \(MkMaxRuns limit) ->
 
 mkLRIntervalFailsLeft :: TestTree
 mkLRIntervalFailsLeft = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x < 500 fails LRInterval 500 1,000" $
+  Utils.testPropertyCompat "x < 500 fails LRInterval 500 1,000" "mkLRIntervalFailsLeft" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll lt500
@@ -41,7 +41,7 @@ mkLRIntervalFailsLeft = T.askOption $ \(MkMaxRuns limit) ->
 
 mkLRIntervalFailsRight :: TestTree
 mkLRIntervalFailsRight = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x > 1,000 fails LRInterval 500 1,000" $
+  Utils.testPropertyCompat "x > 1,000 fails LRInterval 500 1,000" "mkLRIntervalFailsRight" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gt1000
@@ -49,7 +49,7 @@ mkLRIntervalFailsRight = T.askOption $ \(MkMaxRuns limit) ->
 
 mkLIntervalSucceeds :: TestTree
 mkLIntervalSucceeds = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x > 1,000 succeeds LInterval 1,000" $
+  Utils.testPropertyCompat "x > 1,000 succeeds LInterval 1,000" "mkLIntervalSucceeds" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gt1000
@@ -57,7 +57,7 @@ mkLIntervalSucceeds = T.askOption $ \(MkMaxRuns limit) ->
 
 mkLIntervalFails :: TestTree
 mkLIntervalFails = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x < 500 fails LInterval 500" $
+  Utils.testPropertyCompat "x < 500 fails LInterval 500" "mkLIntervalFails" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll lt500
@@ -65,7 +65,7 @@ mkLIntervalFails = T.askOption $ \(MkMaxRuns limit) ->
 
 mkRIntervalSucceeds :: TestTree
 mkRIntervalSucceeds = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x < 500 succeeds RInterval 500" $
+  Utils.testPropertyCompat "x < 500 succeeds RInterval 500" "mkRIntervalSucceeds" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll lt500
@@ -73,7 +73,7 @@ mkRIntervalSucceeds = T.askOption $ \(MkMaxRuns limit) ->
 
 mkRIntervalFails :: TestTree
 mkRIntervalFails = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x > 10,000 fails RInterval 1,000" $
+  Utils.testPropertyCompat "x > 10,000 fails RInterval 1,000" "mkRIntervalFails" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gt1000

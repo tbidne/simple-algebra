@@ -12,8 +12,8 @@ import Numeric.Data.Positive (Positive (..))
 import Numeric.Data.Positive qualified as Pos
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
-import Test.Tasty.Hedgehog qualified as TH
 import Test.TestBounds (TestBounds (..))
+import Utils qualified
 
 props :: TestTree
 props =
@@ -28,7 +28,7 @@ props =
 
 mkPositiveSucceeds :: TestTree
 mkPositiveSucceeds = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x > 0 succeeds" $
+  Utils.testPropertyCompat "x > 0 succeeds" "mkPositiveSucceeds" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll pos
@@ -36,7 +36,7 @@ mkPositiveSucceeds = T.askOption $ \(MkMaxRuns limit) ->
 
 mkPositiveFails :: TestTree
 mkPositiveFails = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "x < 1 fails" $
+  Utils.testPropertyCompat "x < 1 fails" "mkPositiveFails" $
     H.withTests limit $
       H.property $ do
         x <- H.forAll nonpos
@@ -44,7 +44,7 @@ mkPositiveFails = T.askOption $ \(MkMaxRuns limit) ->
 
 addTotal :: TestTree
 addTotal = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(.+.) is total" $
+  Utils.testPropertyCompat "(.+.) is total" "addTotal" $
     H.withTests limit $
       H.property $ do
         px@(MkPositive x) <- H.forAll positive
@@ -54,7 +54,7 @@ addTotal = T.askOption $ \(MkMaxRuns limit) ->
 
 multTotal :: TestTree
 multTotal = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(.*.) is total" $
+  Utils.testPropertyCompat "(.*.) is total" "multTotal" $
     H.withTests limit $
       H.property $ do
         px@(MkPositive x) <- H.forAll positive
@@ -64,7 +64,7 @@ multTotal = T.askOption $ \(MkMaxRuns limit) ->
 
 divTotal :: TestTree
 divTotal = T.askOption $ \(MkMaxRuns limit) ->
-  TH.testProperty "(.%.) is total" $
+  Utils.testPropertyCompat "(.%.) is total" "divTotal" $
     H.withTests limit $
       H.property $ do
         px@(MkPositive x) <- H.forAll positive
