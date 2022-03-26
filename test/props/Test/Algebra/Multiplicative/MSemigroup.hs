@@ -111,8 +111,7 @@ assocProps =
       word32Assoc,
       word64Assoc,
       naturalAssoc,
-      rationalAssoc,
-      nonZeroAssoc
+      rationalAssoc
     ]
 
 intAssoc :: TestTree
@@ -153,9 +152,6 @@ naturalAssoc = msemigroupAssoc Gens.natural "Natural" "naturalAssoc"
 
 rationalAssoc :: TestTree
 rationalAssoc = msemigroupAssoc Gens.rational "Rational" "rationalAssoc"
-
-nonZeroAssoc :: TestTree
-nonZeroAssoc = msemigroupAssoc Gens.nonZero "NonZero" "nonZeroAssoc"
 
 msemigroupAssoc ::
   ( MultConstraint a ~ a,

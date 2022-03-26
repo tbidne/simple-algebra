@@ -33,7 +33,6 @@ import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Numeric.Class.Division (Division (..))
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 
 -- $setup
@@ -133,11 +132,6 @@ instance MGroup (Ratio Integer) where
 instance MGroup (Ratio Natural) where
   type DivConstraint (Ratio Natural) = NonZero (Ratio Natural)
   x .%. d = x .*. flipNonZero d
-
--- | @since 0.1.0.0
-instance (Eq a, Division a, Num a) => MGroup (NonZero a) where
-  type DivConstraint (NonZero a) = NonZero a
-  MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `divide` d
 
 -- $nonzero
 -- These functions mirror those in "Numeric.Data.NonZero" except they are

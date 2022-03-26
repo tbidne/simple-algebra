@@ -11,7 +11,6 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 
 -- | Defines a monoid over a multiplicative semigroup.
 --
@@ -83,7 +82,3 @@ instance MMonoid (Ratio Integer) where
 -- | @since 0.1.0.0
 instance MMonoid (Ratio Natural) where
   one = 1
-
--- | @since 0.1.0.0
-instance (Eq a, Num a) => MMonoid (NonZero a) where
-  one = reallyUnsafeNonZero 1

@@ -5,9 +5,6 @@ import Hedgehog qualified as H
 import Hedgehog.Gen qualified as HG
 import Hedgehog.Range qualified as HR
 import MaxRuns (MaxRuns (..))
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
-import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
-import Numeric.Data.NonZero (NonZero (..))
 import Numeric.Data.NonZero qualified as NonZero
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
@@ -19,9 +16,7 @@ props =
   T.testGroup
     "Numeric.Data.NonZero"
     [ mkNonZeroSucceeds,
-      mkNonZeroFails,
-      multTotal,
-      divTotal
+      mkNonZeroFails
     ]
 
 mkNonZeroSucceeds :: TestTree
@@ -40,26 +35,6 @@ mkNonZeroFails = T.askOption $ \(MkMaxRuns limit) ->
         x <- H.forAll zero
         Nothing === NonZero.mkNonZero x
 
-multTotal :: TestTree
-multTotal = T.askOption $ \(MkMaxRuns limit) ->
-  Utils.testPropertyCompat "(.*.) is total" "multTotal" $
-    H.withTests limit $
-      H.property $ do
-        px@(MkNonZero x) <- H.forAll nonzeroCons
-        py@(MkNonZero y) <- H.forAll nonzeroCons
-        let MkNonZero pz = px .*. py
-        x * y === pz
-
-divTotal :: TestTree
-divTotal = T.askOption $ \(MkMaxRuns limit) ->
-  Utils.testPropertyCompat "(.%.) is total" "divTotal" $
-    H.withTests limit $
-      H.property $ do
-        px@(MkNonZero x) <- H.forAll nonzeroCons
-        py@(MkNonZero y) <- H.forAll nonzeroCons
-        let MkNonZero pz = px .%. py
-        x `div` y === pz
-
 nonzero :: MonadGen m => m Int
 nonzero =
   HG.choice
@@ -69,6 +44,3 @@ nonzero =
 
 zero :: MonadGen m => m Integer
 zero = pure 0
-
-nonzeroCons :: MonadGen m => m (NonZero Int)
-nonzeroCons = NonZero.unsafeNonZero <$> nonzero

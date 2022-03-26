@@ -32,8 +32,7 @@ identityProps =
       word32Id,
       word64Id,
       naturalId,
-      rationalId,
-      nonZeroId
+      rationalId
     ]
 
 intId :: TestTree
@@ -74,9 +73,6 @@ naturalId = mmonoidIdentity Gens.natural MkEqExact "Natural" "naturalId"
 
 rationalId :: TestTree
 rationalId = mmonoidIdentity Gens.rational MkEqRatio "Rational" "rationalId"
-
-nonZeroId :: TestTree
-nonZeroId = mmonoidIdentity Gens.nonZero MkEqExact "NonZero" "nonZeroId"
 
 mmonoidIdentity ::
   ( MultConstraint a ~ a,

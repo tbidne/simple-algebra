@@ -10,7 +10,6 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 
 -- | Defines a multiplicative semigroup.
 --
@@ -106,8 +105,3 @@ instance MSemigroup (Ratio Integer) where
 instance MSemigroup (Ratio Natural) where
   type MultConstraint (Ratio Natural) = Ratio Natural
   (.*.) = (*)
-
--- | @since 0.1.0.0
-instance (Eq a, Num a) => MSemigroup (NonZero a) where
-  type MultConstraint (NonZero a) = NonZero a
-  MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
