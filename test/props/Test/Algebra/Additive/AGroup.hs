@@ -39,8 +39,7 @@ subProps =
       word16Sub,
       word32Sub,
       word64Sub,
-      rationalSub,
-      fractionSub
+      rationalSub
     ]
 
 floatSub :: TestTree
@@ -85,9 +84,6 @@ word64Sub = agroupSubEq Gens.word64 MkEqExact "Word64" "word64Sub"
 rationalSub :: TestTree
 rationalSub = agroupSubEq Gens.rational MkEqExact "Rational" "rationalSub"
 
-fractionSub :: TestTree
-fractionSub = agroupSubEq Gens.fraction MkEqExact "Fraction" "fractionSub"
-
 subIdentProps :: TestTree
 subIdentProps =
   T.testGroup
@@ -103,10 +99,7 @@ subIdentProps =
       word16SubIdent,
       word32SubIdent,
       word64SubIdent,
-      rationalSubIdent,
-      fractionSubIdent,
-      modNSubIdent,
-      modPSubIdent
+      rationalSubIdent
     ]
 
 intSubIdent :: TestTree
@@ -145,25 +138,13 @@ word64SubIdent = agroupSubIdent Gens.word64 "Word64" "word64SubIdent"
 rationalSubIdent :: TestTree
 rationalSubIdent = agroupSubIdent Gens.rational "Rational" "rationalSubIdent"
 
-fractionSubIdent :: TestTree
-fractionSubIdent = agroupSubIdent Gens.fraction "Fraction" "fractionSubIdent"
-
-modNSubIdent :: TestTree
-modNSubIdent = agroupSubIdent Gens.modN "ModN" "modNSubIdent"
-
-modPSubIdent :: TestTree
-modPSubIdent = agroupSubIdent Gens.modP "ModP" "modPSubIdent"
-
 absProps :: TestTree
 absProps =
   T.testGroup
     "Absolute Value"
     [ intAbs,
       integerAbs,
-      rationalAbs,
-      fractionAbs,
-      modNAbs,
-      modPAbs
+      rationalAbs
     ]
 
 intAbs :: TestTree
@@ -174,15 +155,6 @@ integerAbs = agroupAbs Gens.integer MkEqExact "Integer" "integerAbs"
 
 rationalAbs :: TestTree
 rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational" "rationalAbs"
-
-fractionAbs :: TestTree
-fractionAbs = agroupAbs Gens.fraction MkEqExact "Fraction" "fractionAbs"
-
-modNAbs :: TestTree
-modNAbs = agroupAbs Gens.modN MkEqExact "ModN" "modNAbs"
-
-modPAbs :: TestTree
-modPAbs = agroupAbs Gens.modP MkEqExact "ModP" "modPAbs"
 
 agroupSubEq ::
   ( SubtractConstraint a ~ a,

@@ -34,8 +34,7 @@ addNumProps =
       word32AddNum,
       word64AddNum,
       naturalAddNum,
-      rationalAddNum,
-      fractionAddNum
+      rationalAddNum
     ]
 
 floatAddNum :: TestTree
@@ -83,9 +82,6 @@ naturalAddNum = asemigroupAddNum Gens.natural MkEqExact "Natural" "naturalAddNum
 rationalAddNum :: TestTree
 rationalAddNum = asemigroupAddNum Gens.rational MkEqExact "Rational" "rationalAddNum"
 
-fractionAddNum :: TestTree
-fractionAddNum = asemigroupAddNum Gens.fraction MkEqExact "Fraction" "fractionAddNum"
-
 asemigroupAddNum ::
   ( AddConstraint a ~ a,
     ASemigroup a,
@@ -115,12 +111,7 @@ assocProps =
       word32Assoc,
       word64Assoc,
       naturalAssoc,
-      rationalAssoc,
-      fractionAssoc,
-      modNAssoc,
-      modPAssoc,
-      nonNegativeAssoc,
-      positiveAssoc
+      rationalAssoc
     ]
 
 intAssoc :: TestTree
@@ -161,21 +152,6 @@ naturalAssoc = asemigroupAssoc Gens.natural "Natural" "naturalAssoc"
 
 rationalAssoc :: TestTree
 rationalAssoc = asemigroupAssoc Gens.rational "Rational" "rationalAssoc"
-
-fractionAssoc :: TestTree
-fractionAssoc = asemigroupAssoc Gens.fraction "Fraction" "fractionAssoc"
-
-modNAssoc :: TestTree
-modNAssoc = asemigroupAssoc Gens.modN "ModN" "modNAssoc"
-
-modPAssoc :: TestTree
-modPAssoc = asemigroupAssoc Gens.modP "ModP" "modPAssoc"
-
-nonNegativeAssoc :: TestTree
-nonNegativeAssoc = asemigroupAssoc Gens.nonNegative "NonNegative" "nonNegativeAssoc"
-
-positiveAssoc :: TestTree
-positiveAssoc = asemigroupAssoc Gens.positive "Positive" "positiveAssoc"
 
 asemigroupAssoc ::
   ( AddConstraint a ~ a,

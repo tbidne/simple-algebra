@@ -20,7 +20,7 @@ description:
   1. "Numeric.Algebra": The typeclass replacements for 'Num'; this package's
   raison d'être.
   .
-  2. "Numeric.Data": Smart constructors for enforcing mathematical invariants.
+  2. @Numeric.Data@: Smart constructor for a @NonZero@ type.
   .
   3. @Numeric.Class@: Miscellaneous typeclasses. These are primarily
   implementation details, but they could be useful to consumers (e.g.
@@ -88,20 +88,11 @@ library
     Numeric.Class.Boundless
     Numeric.Class.Division
     Numeric.Class.Literal
-    Numeric.Data
-    Numeric.Data.Fraction
-    Numeric.Data.Interval
-    Numeric.Data.ModN
-    Numeric.Data.ModP
-    Numeric.Data.ModP.Internal
-    Numeric.Data.NonNegative
     Numeric.Data.NonZero
-    Numeric.Data.Positive
 
   build-depends:
     , base              >=4.14.0.0 && <4.17
     , deepseq           ^>=1.4.4.0
-    , random            ^>=1.2.0
     , template-haskell  >=2.16.0.0 && <2.19.0.0
 
   hs-source-dirs:   src
@@ -132,14 +123,7 @@ test-suite props
     Test.Algebra.Multiplicative.MGroup
     Test.Algebra.Multiplicative.MMonoid
     Test.Algebra.Multiplicative.MSemigroup
-    Test.Data.Fraction
-    Test.Data.Interval
-    Test.Data.ModN
-    Test.Data.ModP
-    Test.Data.ModP.Internal
-    Test.Data.NonNegative
     Test.Data.NonZero
-    Test.Data.Positive
     Test.TestBounds
     Utils
 

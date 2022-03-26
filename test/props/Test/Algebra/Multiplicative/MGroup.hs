@@ -38,8 +38,7 @@ divProps =
       word32Div,
       word64Div,
       naturalDiv,
-      rationalDiv,
-      fractionDiv
+      rationalDiv
     ]
 
 floatDiv :: TestTree
@@ -87,9 +86,6 @@ naturalDiv = mgroupDivEq div Gens.natural Gens.naturalNonZero MkEqExact "Natural
 rationalDiv :: TestTree
 rationalDiv = mgroupDivEq (/) Gens.rational Gens.rationalNonZero MkEqRatio "Rational" "rationalDiv"
 
-fractionDiv :: TestTree
-fractionDiv = mgroupDivEq (/) Gens.fraction Gens.fractionNonZero MkEqExact "Fraction" "fractionDiv"
-
 divIdentProps :: TestTree
 divIdentProps =
   T.testGroup
@@ -107,11 +103,7 @@ divIdentProps =
       word64DivIdent,
       naturalDivIdent,
       rationalDivIdent,
-      fractionDivIdent,
-      modPDivIdent,
-      nonNegativeDivIdent,
-      nonZeroDivIdent,
-      positiveDivIdent
+      nonZeroDivIdent
     ]
 
 intDivIdent :: TestTree
@@ -153,30 +145,8 @@ naturalDivIdent = agroupDivIdent Gens.naturalNonZero MkEqExact "Natural" "natura
 rationalDivIdent :: TestTree
 rationalDivIdent = agroupDivIdent Gens.rationalNonZero MkEqRatio "Rational" "rationalDivIdent"
 
-fractionDivIdent :: TestTree
-fractionDivIdent = agroupDivIdent Gens.fractionNonZero MkEqExact "Fraction" "fractionDivIdent"
-
-modPDivIdent :: TestTree
-modPDivIdent = T.askOption $ \(MkMaxRuns limit) ->
-  Utils.testPropertyCompat "ModP" "modPDivIdent" $
-    H.withTests limit $
-      H.property $ do
-        nz@(MkNonZero x) <- H.forAll Gens.modPNonZero
-        one === x .%. nz
-
-nonNegativeDivIdent :: TestTree
-nonNegativeDivIdent = agroupDivIdent Gens.nonNegativeNonZero MkEqExact "NonNegative" "nonNegativeDivIdent"
-
 nonZeroDivIdent :: TestTree
 nonZeroDivIdent = agroupDivIdent Gens.nonZero MkEqExact "NonZero" "nonZeroDivIdent"
-
-positiveDivIdent :: TestTree
-positiveDivIdent = T.askOption $ \(MkMaxRuns limit) ->
-  Utils.testPropertyCompat "Positive" "positiveDivIdent" $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll Gens.positive
-        one === x .%. x
 
 mgroupDivEq ::
   (MGroup a, DivConstraint a ~ NonZero a, Show a) =>

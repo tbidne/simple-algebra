@@ -14,14 +14,7 @@ import Test.Algebra.Additive.ASemigroup qualified
 import Test.Algebra.Multiplicative.MGroup qualified
 import Test.Algebra.Multiplicative.MMonoid qualified
 import Test.Algebra.Multiplicative.MSemigroup qualified
-import Test.Data.Fraction qualified
-import Test.Data.Interval qualified
-import Test.Data.ModN qualified
-import Test.Data.ModP qualified
-import Test.Data.ModP.Internal qualified
-import Test.Data.NonNegative qualified
 import Test.Data.NonZero qualified
-import Test.Data.Positive qualified
 import Test.Tasty qualified as Tasty
 import Test.Tasty.Options (OptionDescription (..))
 import Text.Read qualified as TR
@@ -47,14 +40,7 @@ main = do
                 Test.Algebra.Multiplicative.MSemigroup.props,
                 Test.Algebra.Multiplicative.MMonoid.props,
                 Test.Algebra.Multiplicative.MGroup.props,
-                Test.Data.Fraction.props,
-                Test.Data.Interval.props,
-                Test.Data.ModN.props,
-                Test.Data.ModP.props,
-                Test.Data.ModP.Internal.props,
-                Test.Data.NonNegative.props,
-                Test.Data.NonZero.props,
-                Test.Data.Positive.props
+                Test.Data.NonZero.props
               ]
 
   Tasty.defaultMainWithIngredients ingredients $

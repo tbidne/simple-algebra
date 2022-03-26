@@ -34,11 +34,7 @@ identityProps =
       word32Id,
       word64Id,
       naturalId,
-      rationalId,
-      fractionId,
-      modNId,
-      modPId,
-      nonNegativeId
+      rationalId
     ]
 
 intId :: TestTree
@@ -79,18 +75,6 @@ naturalId = amonoidIdentity Gens.natural MkEqExact "Natural" "naturalId"
 
 rationalId :: TestTree
 rationalId = amonoidIdentity Gens.rational MkEqRatio "Rational" "rationalId"
-
-fractionId :: TestTree
-fractionId = amonoidIdentity Gens.fraction MkEqExact "Fraction" "fractionId"
-
-modNId :: TestTree
-modNId = amonoidIdentity Gens.modN MkEqExact "ModN" "modNId"
-
-modPId :: TestTree
-modPId = amonoidIdentity Gens.modN MkEqExact "ModP" "modPId"
-
-nonNegativeId :: TestTree
-nonNegativeId = amonoidIdentity Gens.nonNegative MkEqExact "NonNegative" "nonNegativeId"
 
 amonoidIdentity ::
   ( AddConstraint a ~ a,

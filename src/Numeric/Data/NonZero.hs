@@ -29,6 +29,7 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Class.Literal (NumLiteral (..))
 
 -- | Smart-constructor for creating a \"non-zero\" @a@.
 -- 'NonZero' is a:
@@ -57,6 +58,12 @@ newtype NonZero a = UnsafeNonZero a
     ( -- | @since 0.1.0.0
       NFData
     )
+
+-- | __WARNING: Partial__
+--
+-- @since 0.1.0.0
+instance (Num a, Ord a) => NumLiteral (NonZero a) where
+  fromLit = unsafeNonZero . fromInteger
 
 -- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
 -- match on a nonzero term without exposing the unsafe internal details.

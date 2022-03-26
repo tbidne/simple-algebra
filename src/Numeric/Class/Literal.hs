@@ -10,14 +10,6 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import GHC.TypeNats (KnownNat)
-import Numeric.Class.Boundless (UpperBoundless)
-import Numeric.Data.Fraction (Fraction)
-import Numeric.Data.ModN (ModN (..))
-import Numeric.Data.ModP (ModP (..))
-import Numeric.Data.NonNegative (NonNegative, unsafeNonNegative)
-import Numeric.Data.NonZero (NonZero, unsafeNonZero)
-import Numeric.Data.Positive (Positive, unsafePositive)
 
 -- | Replaces 'Num'\'s ' 'fromInteger' functionality for when we do not have
 -- a 'Num' instance. Instead of, e.g., @1_000 :: Num a => a@ we have
@@ -96,39 +88,3 @@ instance NumLiteral (Ratio Integer) where
 -- @since 0.1.0.0
 instance NumLiteral (Ratio Natural) where
   fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance NumLiteral (Fraction Integer) where
-  fromLit = fromInteger
-
--- | __WARNING: Partial__
---
--- @since 0.1.0.0
-instance NumLiteral (Fraction Natural) where
-  fromLit = fromInteger
-
--- | @since 0.1.0.0
-instance (KnownNat n, UpperBoundless a) => NumLiteral (ModN n a) where
-  fromLit = MkModN . fromInteger
-
--- | @since 0.1.0.0
-instance (KnownNat p, UpperBoundless a) => NumLiteral (ModP p a) where
-  fromLit = MkModP . fromInteger
-
--- | __WARNING: Partial__
---
--- @since 0.1.0.0
-instance (Num a, Ord a, Show a) => NumLiteral (NonNegative a) where
-  fromLit = unsafeNonNegative . fromInteger
-
--- | __WARNING: Partial__
---
--- @since 0.1.0.0
-instance (Num a, Ord a) => NumLiteral (NonZero a) where
-  fromLit = unsafeNonZero . fromInteger
-
--- | __WARNING: Partial__
---
--- @since 0.1.0.0
-instance (Num a, Ord a, Show a) => NumLiteral (Positive a) where
-  fromLit = unsafePositive . fromInteger

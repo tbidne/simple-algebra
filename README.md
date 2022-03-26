@@ -156,7 +156,7 @@ We provide instances for built-in numeric types where it makes sense.
 
 # Smart Constructors
 
-Additionally, we provide smart constructors for enforcing mathematical invariants. These exist under `Numeric.Data`.
+Additionally, there is a smart constructor for a simple `NonZero` type. This is likely to change in the future when we can pass in a direct proof.
 
 # Miscellaneous
 
