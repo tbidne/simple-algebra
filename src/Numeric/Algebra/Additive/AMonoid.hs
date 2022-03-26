@@ -10,12 +10,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import GHC.TypeLits (KnownNat)
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
-import Numeric.Data.Fraction (Fraction (..))
-import Numeric.Data.ModN (ModN (..))
-import Numeric.Data.ModP (ModP (..))
-import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 
 -- | Defines a monoid over an additive semigroup.
 --
@@ -117,31 +112,3 @@ instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a) where
 -- | @since 0.1.0.0
 instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
-
--- | @since 0.1.0.0
-instance AMonoid (Fraction Integer) where
-  zero = 0 :%: 1
-
--- | @since 0.1.0.0
-instance AMonoid (Fraction Natural) where
-  zero = 0 :%: 1
-
--- | @since 0.1.0.0
-instance KnownNat n => AMonoid (ModN n Integer) where
-  zero = MkModN 0
-
--- | @since 0.1.0.0
-instance KnownNat n => AMonoid (ModN n Natural) where
-  zero = MkModN 0
-
--- | @since 0.1.0.0
-instance KnownNat p => AMonoid (ModP p Integer) where
-  zero = MkModP 0
-
--- | @since 0.1.0.0
-instance KnownNat p => AMonoid (ModP p Natural) where
-  zero = MkModP 0
-
--- | @since 0.1.0.0
-instance (Eq a, Num a, Ord a, Show a) => AMonoid (NonNegative a) where
-  zero = reallyUnsafeNonNegative 0

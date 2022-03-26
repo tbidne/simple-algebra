@@ -10,14 +10,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import GHC.TypeNats (KnownNat)
-import Numeric.Data.Fraction (Fraction)
-import Numeric.Data.ModN (ModN (..))
-import Numeric.Data.ModP (ModP (..))
-import Numeric.Data.ModP qualified as ModP
-import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
-import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- | Defines a multiplicative semigroup.
 --
@@ -115,46 +108,6 @@ instance MSemigroup (Ratio Natural) where
   (.*.) = (*)
 
 -- | @since 0.1.0.0
-instance MSemigroup (Fraction Integer) where
-  type MultConstraint (Fraction Integer) = Fraction Integer
-  (.*.) = (*)
-
--- | @since 0.1.0.0
-instance MSemigroup (Fraction Natural) where
-  type MultConstraint (Fraction Natural) = Fraction Natural
-  (.*.) = (*)
-
--- | @since 0.1.0.0
-instance KnownNat n => MSemigroup (ModN n Integer) where
-  type MultConstraint (ModN n Integer) = ModN n Integer
-  MkModN x .*. MkModN y = MkModN (x * y)
-
--- | @since 0.1.0.0
-instance KnownNat n => MSemigroup (ModN n Natural) where
-  type MultConstraint (ModN n Natural) = ModN n Natural
-  MkModN x .*. MkModN y = MkModN (x * y)
-
--- | @since 0.1.0.0
-instance KnownNat p => MSemigroup (ModP p Integer) where
-  type MultConstraint (ModP p Integer) = ModP p Integer
-  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
-
--- | @since 0.1.0.0
-instance KnownNat p => MSemigroup (ModP p Natural) where
-  type MultConstraint (ModP p Natural) = ModP p Natural
-  MkModP x .*. MkModP y = ModP.reallyUnsafeModP (x * y)
-
--- | @since 0.1.0.0
-instance (Eq a, Num a, Ord a, Show a) => MSemigroup (NonNegative a) where
-  type MultConstraint (NonNegative a) = NonNegative a
-  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
-
--- | @since 0.1.0.0
 instance (Eq a, Num a) => MSemigroup (NonZero a) where
   type MultConstraint (NonZero a) = NonZero a
   MkNonZero x .*. MkNonZero y = reallyUnsafeNonZero $ x * y
-
--- | @since 0.1.0.0
-instance (Eq a, Num a, Ord a, Show a) => MSemigroup (Positive a) where
-  type MultConstraint (Positive a) = Positive a
-  MkPositive x .*. MkPositive y = reallyUnsafePositive $ x * y

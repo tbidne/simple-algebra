@@ -32,6 +32,11 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Class.Division (Division (..))
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero)
 
 -- $setup
@@ -83,6 +88,25 @@ pattern MkPositive x <-
     MkPositive x = unsafePositive x
 
 {-# COMPLETE MkPositive #-}
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => ASemigroup (Positive a) where
+  type AddConstraint (Positive a) = Positive a
+  MkPositive x .+. MkPositive y = UnsafePositive $ x + y
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => MSemigroup (Positive a) where
+  type MultConstraint (Positive a) = Positive a
+  MkPositive x .*. MkPositive y = UnsafePositive $ x * y
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => MMonoid (Positive a) where
+  one = UnsafePositive 1
+
+-- | @since 0.1.0.0
+instance (Eq a, Division a, Num a, Ord a, Show a) => MGroup (Positive a) where
+  type DivConstraint (Positive a) = Positive a
+  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `divide` d
 
 -- | Unwraps a 'Positive'.
 --

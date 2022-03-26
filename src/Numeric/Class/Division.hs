@@ -10,7 +10,6 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio)
-import Numeric.Data.Fraction (Fraction)
 
 -- | Abstracts over division operators.
 --
@@ -80,12 +79,4 @@ instance Division (Ratio Integer) where
 
 -- | @since 0.1.0.0
 instance Division (Ratio Natural) where
-  divide = (/)
-
--- | @since 0.1.0.0
-instance Division (Fraction Integer) where
-  divide = (/)
-
--- | @since 0.1.0.0
-instance Division (Fraction Natural) where
   divide = (/)

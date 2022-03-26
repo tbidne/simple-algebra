@@ -20,8 +20,16 @@ import Control.DeepSeq (NFData)
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
 import GHC.Generics (Generic)
+import GHC.Natural (Natural)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 import Language.Haskell.TH.Syntax (Lift)
+import Numeric.Algebra.Additive.AGroup (AGroup (..))
+import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Algebra.Ring (Ring)
+import Numeric.Algebra.Semiring (Semiring)
 import Numeric.Class.Boundless (UpperBoundless)
 
 -- $setup
@@ -78,6 +86,71 @@ pattern MkModN x <-
     MkModN x = mkModN x
 
 {-# COMPLETE MkModN #-}
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Integer) where
+  type AddConstraint (ModN n Integer) = ModN n Integer
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => ASemigroup (ModN n Natural) where
+  type AddConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .+. MkModN y = MkModN $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat n => AMonoid (ModN n Integer) where
+  zero = MkModN 0
+
+-- | @since 0.1.0.0
+instance KnownNat n => AMonoid (ModN n Natural) where
+  zero = MkModN 0
+
+-- | @since 0.1.0.0
+instance KnownNat n => AGroup (ModN n Integer) where
+  type SubtractConstraint (ModN n Integer) = ModN n Integer
+  MkModN x .-. MkModN y = MkModN (x - y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat n => AGroup (ModN n Natural) where
+  type SubtractConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .-. MkModN y
+    | x >= y = MkModN (x - y)
+    | otherwise = MkModN (n' - y + x)
+    where
+      n' = natVal @n Proxy
+
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat n => MSemigroup (ModN n Integer) where
+  type MultConstraint (ModN n Integer) = ModN n Integer
+  MkModN x .*. MkModN y = MkModN (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat n => MSemigroup (ModN n Natural) where
+  type MultConstraint (ModN n Natural) = ModN n Natural
+  MkModN x .*. MkModN y = MkModN (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Integer) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => MMonoid (ModN n Natural) where
+  one = MkModN 1
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Semiring (ModN n Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Ring (ModN n Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat n => Ring (ModN n Natural)
 
 -- | Unwraps a 'ModN'.
 --

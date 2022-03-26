@@ -9,13 +9,8 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
-import GHC.TypeNats (KnownNat)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
-import Numeric.Data.Fraction (Fraction)
-import Numeric.Data.ModN (ModN)
-import Numeric.Data.ModP (ModP)
-import Numeric.Data.NonNegative (NonNegative)
 import Numeric.Natural (Natural)
 
 -- | Defines a semiring.
@@ -70,24 +65,3 @@ instance Semiring (Ratio Integer)
 
 -- | @since 0.1.0.0
 instance Semiring (Ratio Natural)
-
--- | @since 0.1.0.0
-instance Semiring (Fraction Integer)
-
--- | @since 0.1.0.0
-instance Semiring (Fraction Natural)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Integer)
-
--- | @since 0.1.0.0
-instance KnownNat n => Semiring (ModN n Natural)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Integer)
-
--- | @since 0.1.0.0
-instance KnownNat p => Semiring (ModP p Natural)
-
--- | @since 0.1.0.0
-instance (Eq a, Num a, Ord a, Show a) => Semiring (NonNegative a)

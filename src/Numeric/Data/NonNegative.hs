@@ -20,6 +20,7 @@ module Numeric.Data.NonNegative
 where
 
 import Control.DeepSeq (NFData)
+import Data.Bifunctor (Bifunctor (..))
 import Data.Kind (Type)
 import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
@@ -29,6 +30,14 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), MGroupIntegral (..))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Algebra.Semiring (Semiring)
+import Numeric.Class.Division (Division (..))
+import Numeric.Data.NonZero (NonZero (..))
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -81,6 +90,38 @@ pattern MkNonNegative x <-
     MkNonNegative x = unsafeNonNegative x
 
 {-# COMPLETE MkNonNegative #-}
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => ASemigroup (NonNegative a) where
+  type AddConstraint (NonNegative a) = NonNegative a
+  MkNonNegative x .+. MkNonNegative y = reallyUnsafeNonNegative $ x + y
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => AMonoid (NonNegative a) where
+  zero = reallyUnsafeNonNegative 0
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => MSemigroup (NonNegative a) where
+  type MultConstraint (NonNegative a) = NonNegative a
+  MkNonNegative x .*. MkNonNegative y = reallyUnsafeNonNegative $ x * y
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => MMonoid (NonNegative a) where
+  one = reallyUnsafeNonNegative 1
+
+-- | @since 0.1.0.0
+instance (Eq a, Division a, Num a, Ord a, Show a) => MGroup (NonNegative a) where
+  type DivConstraint (NonNegative a) = NonZero (NonNegative a)
+  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `divide` d
+
+-- | @since 0.1.0.0
+instance (Division a, Integral a, Show a) => MGroupIntegral (NonNegative a) where
+  type ModResult (NonNegative a) = NonNegative a
+  MkNonNegative x `gdivMod` MkNonZero (MkNonNegative d) =
+    bimap UnsafeNonNegative UnsafeNonNegative $ x `divMod` d
+
+-- | @since 0.1.0.0
+instance (Eq a, Num a, Ord a, Show a) => Semiring (NonNegative a)
 
 -- | Unwraps a 'NonNegative'.
 --

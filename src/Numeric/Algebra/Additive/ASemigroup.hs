@@ -10,13 +10,6 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import GHC.TypeNats (KnownNat)
-import Numeric.Data.Fraction (Fraction)
-import Numeric.Data.ModN (ModN (..))
-import Numeric.Data.ModP (ModP (..))
-import Numeric.Data.ModP qualified as ModP
-import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
-import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- | Defines an additive semigroup.
 --
@@ -253,43 +246,3 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a, a, a) where
       x8 .+. y8,
       x9 .+. y9
     )
-
--- | @since 0.1.0.0
-instance ASemigroup (Fraction Integer) where
-  type AddConstraint (Fraction Integer) = Fraction Integer
-  (.+.) = (+)
-
--- | @since 0.1.0.0
-instance ASemigroup (Fraction Natural) where
-  type AddConstraint (Fraction Natural) = Fraction Natural
-  (.+.) = (+)
-
--- | @since 0.1.0.0
-instance KnownNat n => ASemigroup (ModN n Integer) where
-  type AddConstraint (ModN n Integer) = ModN n Integer
-  MkModN x .+. MkModN y = MkModN $ x + y
-
--- | @since 0.1.0.0
-instance KnownNat n => ASemigroup (ModN n Natural) where
-  type AddConstraint (ModN n Natural) = ModN n Natural
-  MkModN x .+. MkModN y = MkModN $ x + y
-
--- | @since 0.1.0.0
-instance KnownNat p => ASemigroup (ModP p Integer) where
-  type AddConstraint (ModP p Integer) = ModP p Integer
-  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
-
--- | @since 0.1.0.0
-instance KnownNat p => ASemigroup (ModP p Natural) where
-  type AddConstraint (ModP p Natural) = ModP p Natural
-  MkModP x .+. MkModP y = ModP.reallyUnsafeModP $ x + y
-
--- | @since 0.1.0.0
-instance (Eq a, Num a, Ord a, Show a) => ASemigroup (NonNegative a) where
-  type AddConstraint (NonNegative a) = NonNegative a
-  MkNonNegative x .+. MkNonNegative y = reallyUnsafeNonNegative $ x + y
-
--- | @since 0.1.0.0
-instance (Eq a, Num a, Ord a, Show a) => ASemigroup (Positive a) where
-  type AddConstraint (Positive a) = Positive a
-  MkPositive x .+. MkPositive y = reallyUnsafePositive $ x + y

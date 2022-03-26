@@ -24,7 +24,6 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
-import GHC.TypeNats (KnownNat)
 #if MIN_VERSION_template_haskell(2, 17, 0)
 import Language.Haskell.TH (Code, Q)
 #else
@@ -35,12 +34,7 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Class.Division (Division (..))
-import Numeric.Data.Fraction (Fraction (..))
-import Numeric.Data.ModP (ModP (..))
-import Numeric.Data.ModP qualified as ModP
-import Numeric.Data.NonNegative (NonNegative (..), reallyUnsafeNonNegative)
 import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
-import Numeric.Data.Positive (Positive (..), reallyUnsafePositive)
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -141,39 +135,9 @@ instance MGroup (Ratio Natural) where
   x .%. d = x .*. flipNonZero d
 
 -- | @since 0.1.0.0
-instance MGroup (Fraction Integer) where
-  type DivConstraint (Fraction Integer) = NonZero (Fraction Integer)
-  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
-
--- | @since 0.1.0.0
-instance MGroup (Fraction Natural) where
-  type DivConstraint (Fraction Natural) = NonZero (Fraction Natural)
-  x .%. MkNonZero (n :%: d) = x .*. (d :%: n)
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Integer) where
-  type DivConstraint (ModP p Integer) = NonZero (ModP p Integer)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance KnownNat p => MGroup (ModP p Natural) where
-  type DivConstraint (ModP p Natural) = NonZero (ModP p Natural)
-  x .%. d = x .*. ModP.invert d
-
--- | @since 0.1.0.0
-instance (Eq a, Division a, Num a, Ord a, Show a) => MGroup (NonNegative a) where
-  type DivConstraint (NonNegative a) = NonZero (NonNegative a)
-  MkNonNegative x .%. MkNonZero (MkNonNegative d) = reallyUnsafeNonNegative $ x `divide` d
-
--- | @since 0.1.0.0
 instance (Eq a, Division a, Num a) => MGroup (NonZero a) where
   type DivConstraint (NonZero a) = NonZero a
   MkNonZero x .%. MkNonZero d = reallyUnsafeNonZero $ x `divide` d
-
--- | @since 0.1.0.0
-instance (Eq a, Division a, Num a, Ord a, Show a) => MGroup (Positive a) where
-  type DivConstraint (Positive a) = Positive a
-  MkPositive x .%. MkPositive d = reallyUnsafePositive $ x `divide` d
 
 -- $nonzero
 -- These functions mirror those in "Numeric.Data.NonZero" except they are

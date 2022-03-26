@@ -26,6 +26,7 @@ import Control.DeepSeq (NFData)
 import Data.Kind (Type)
 import Data.Proxy (Proxy (..))
 import GHC.Generics (Generic)
+import GHC.Natural (Natural)
 import GHC.Stack (HasCallStack)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 #if MIN_VERSION_template_haskell(2, 17, 0)
@@ -34,6 +35,15 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
+import Numeric.Algebra.Additive.AGroup (AGroup (..))
+import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
+import Numeric.Algebra.Field (Field)
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Algebra.Ring (Ring)
+import Numeric.Algebra.Semiring (Semiring)
 import Numeric.Class.Boundless (UpperBoundless)
 import Numeric.Data.ModP.Internal (MaybePrime (..), Modulus (..))
 import Numeric.Data.ModP.Internal qualified as ModPI
@@ -104,6 +114,87 @@ pattern MkModP x <-
     MkModP x = unsafeModP x
 
 {-# COMPLETE MkModP #-}
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Integer) where
+  type AddConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .+. MkModP y = unsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => ASemigroup (ModP p Natural) where
+  type AddConstraint (ModP p Natural) = ModP p Natural
+  MkModP x .+. MkModP y = unsafeModP $ x + y
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Integer) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AMonoid (ModP p Natural) where
+  zero = MkModP 0
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Integer) where
+  type SubtractConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .-. MkModP y = unsafeModP (x - y)
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => AGroup (ModP p Natural) where
+  type SubtractConstraint (ModP p Natural) = ModP p Natural
+  MkModP x .-. MkModP y
+    | x >= y = unsafeModP (x - y)
+    | otherwise = unsafeModP (p' - y + x)
+    where
+      p' = natVal @p Proxy
+
+  aabs = id
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Integer) where
+  type MultConstraint (ModP p Integer) = ModP p Integer
+  MkModP x .*. MkModP y = unsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MSemigroup (ModP p Natural) where
+  type MultConstraint (ModP p Natural) = ModP p Natural
+  MkModP x .*. MkModP y = unsafeModP (x * y)
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Integer) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MMonoid (ModP p Natural) where
+  one = MkModP 1
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Integer) where
+  type DivConstraint (ModP p Integer) = NonZero (ModP p Integer)
+  x .%. d = x .*. invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => MGroup (ModP p Natural) where
+  type DivConstraint (ModP p Natural) = NonZero (ModP p Natural)
+  x .%. d = x .*. invert d
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Semiring (ModP p Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Ring (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Ring (ModP p Natural)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Integer)
+
+-- | @since 0.1.0.0
+instance KnownNat p => Field (ModP p Natural)
 
 -- | Unwraps a 'ModP'.
 --

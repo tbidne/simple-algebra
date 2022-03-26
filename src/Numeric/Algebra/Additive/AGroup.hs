@@ -7,16 +7,9 @@ module Numeric.Algebra.Additive.AGroup
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
-import Data.Proxy (Proxy (..))
 import Data.Word (Word16, Word32, Word64, Word8)
-import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
-import GHC.TypeNats (KnownNat, natVal)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
-import Numeric.Data.Fraction (Fraction (..))
-import Numeric.Data.ModN (ModN (..))
-import Numeric.Data.ModP (ModP (..))
-import Numeric.Data.ModP qualified as ModP
 
 -- | Defines an additive group.
 --
@@ -310,43 +303,3 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
       aabs x8,
       aabs x9
     )
-
--- | @since 0.1.0.0
-instance AGroup (Fraction Integer) where
-  type SubtractConstraint (Fraction Integer) = Fraction Integer
-  (.-.) = (-)
-  aabs = abs
-
--- | @since 0.1.0.0
-instance KnownNat n => AGroup (ModN n Integer) where
-  type SubtractConstraint (ModN n Integer) = ModN n Integer
-  MkModN x .-. MkModN y = MkModN (x - y)
-  aabs = id
-
--- | @since 0.1.0.0
-instance KnownNat n => AGroup (ModN n Natural) where
-  type SubtractConstraint (ModN n Natural) = ModN n Natural
-  MkModN x .-. MkModN y
-    | x >= y = MkModN (x - y)
-    | otherwise = MkModN (n' - y + x)
-    where
-      n' = natVal @n Proxy
-
-  aabs = id
-
--- | @since 0.1.0.0
-instance KnownNat p => AGroup (ModP p Integer) where
-  type SubtractConstraint (ModP p Integer) = ModP p Integer
-  MkModP x .-. MkModP y = ModP.reallyUnsafeModP (x - y)
-  aabs = id
-
--- | @since 0.1.0.0
-instance KnownNat p => AGroup (ModP p Natural) where
-  type SubtractConstraint (ModP p Natural) = ModP p Natural
-  MkModP x .-. MkModP y
-    | x >= y = ModP.reallyUnsafeModP (x - y)
-    | otherwise = ModP.reallyUnsafeModP (p' - y + x)
-    where
-      p' = natVal @p Proxy
-
-  aabs = id
