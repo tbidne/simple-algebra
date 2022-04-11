@@ -85,6 +85,8 @@ library
     Numeric.Algebra.Ring
     Numeric.Algebra.Semiring
     Numeric.Algebra.VectorSpace
+    Numeric.Class.Boundless
+    Numeric.Class.Division
     Numeric.Class.Literal
     Numeric.Data.NonZero
 
