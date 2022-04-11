@@ -1,6 +1,6 @@
 -- | Provides the 'ASemigroup' typeclass.
 --
--- @since 0.1.0.0
+-- @since 0.1
 module Numeric.Algebra.Additive.ASemigroup
   ( ASemigroup (..),
   )
@@ -13,105 +13,105 @@ import GHC.Natural (Natural)
 
 -- | Defines an additive semigroup.
 --
--- @since 0.1.0.0
+-- @since 0.1
 class Eq s => ASemigroup s where
   -- | Possible constraint on the second argument to '(.+.)' e.g. for
   -- preventing overflow.
   --
-  -- @since 0.1.0.0
+  -- @since 0.1
   type AddConstraint s
 
-  -- | @since 0.1.0.0
+  -- | @since 0.1
   (.+.) :: s -> AddConstraint s -> s
 
 infixl 6 .+.
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Double where
   type AddConstraint Double = Double
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Float where
   type AddConstraint Float = Float
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Int where
   type AddConstraint Int = Int
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Int8 where
   type AddConstraint Int8 = Int8
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Int16 where
   type AddConstraint Int16 = Int16
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Int32 where
   type AddConstraint Int32 = Int32
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Int64 where
   type AddConstraint Int64 = Int64
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Integer where
   type AddConstraint Integer = Integer
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Word where
   type AddConstraint Word = Word
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Word8 where
   type AddConstraint Word8 = Word8
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Word16 where
   type AddConstraint Word16 = Word16
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Word32 where
   type AddConstraint Word32 = Word32
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Word64 where
   type AddConstraint Word64 = Word64
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup Natural where
   type AddConstraint Natural = Natural
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup (Ratio Integer) where
   type AddConstraint (Ratio Integer) = Ratio Integer
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup (Ratio Natural) where
   type AddConstraint (Ratio Natural) = Ratio Natural
   (.+.) = (+)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a) where
   type AddConstraint (a, a) = (AddConstraint a, AddConstraint a)
   (x1, x2) .+. (y1, y2) = (x1 .+. y1, x2 .+. y2)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a) where
   type
     AddConstraint (a, a, a) =
@@ -121,7 +121,7 @@ instance ASemigroup a => ASemigroup (a, a, a) where
       )
   (x1, x2, x3) .+. (y1, y2, y3) = (x1 .+. y1, x2 .+. y2, x3 .+. y3)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a, a) where
   type
     AddConstraint (a, a, a, a) =
@@ -137,7 +137,7 @@ instance ASemigroup a => ASemigroup (a, a, a, a) where
       x4 .+. y4
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a, a, a) where
   type
     AddConstraint (a, a, a, a, a) =
@@ -155,7 +155,7 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a) where
       x5 .+. y5
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a, a, a, a) where
   type
     AddConstraint (a, a, a, a, a, a) =
@@ -175,7 +175,7 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a, a) where
       x6 .+. y6
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a) where
   type
     AddConstraint (a, a, a, a, a, a, a) =
@@ -197,7 +197,7 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a) where
       x7 .+. y7
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a, a) where
   type
     AddConstraint (a, a, a, a, a, a, a, a) =
@@ -221,7 +221,7 @@ instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a, a) where
       x8 .+. y8
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance ASemigroup a => ASemigroup (a, a, a, a, a, a, a, a, a) where
   type
     AddConstraint (a, a, a, a, a, a, a, a, a) =

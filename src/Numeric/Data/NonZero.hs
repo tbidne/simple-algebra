@@ -3,7 +3,7 @@
 
 -- | Provides the 'NonZero' type for enforcing a non-zero invariant.
 --
--- @since 0.1.0.0
+-- @since 0.1
 module Numeric.Data.NonZero
   ( -- * Type
     NonZero (MkNonZero),
@@ -39,36 +39,36 @@ import Numeric.Class.Literal (NumLiteral (..))
 -- * 'Numeric.Algebra.Multiplicative.MGroup.MGroup'
 -- * 'Numeric.Algebra.Multiplicative.MGroup.MGroupIntegral'
 --
--- @since 0.1.0.0
+-- @since 0.1
 type NonZero :: Type -> Type
 newtype NonZero a = UnsafeNonZero a
   deriving
-    ( -- | @since 0.1.0.0
+    ( -- | @since 0.1
       Eq,
-      -- | @since 0.1.0.0
+      -- | @since 0.1
       Generic,
-      -- | @since 0.1.0.0
+      -- | @since 0.1
       Lift,
-      -- | @since 0.1.0.0
+      -- | @since 0.1
       Ord,
-      -- | @since 0.1.0.0
+      -- | @since 0.1
       Show
     )
   deriving anyclass
-    ( -- | @since 0.1.0.0
+    ( -- | @since 0.1
       NFData
     )
 
 -- | __WARNING: Partial__
 --
--- @since 0.1.0.0
+-- @since 0.1
 instance (Num a, Ord a) => NumLiteral (NonZero a) where
   fromLit = unsafeNonZero . fromInteger
 
 -- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
 -- match on a nonzero term without exposing the unsafe internal details.
 --
--- @since 0.1.0.0
+-- @since 0.1
 pattern MkNonZero :: a -> NonZero a
 pattern MkNonZero x <- UnsafeNonZero x
 
@@ -76,7 +76,7 @@ pattern MkNonZero x <- UnsafeNonZero x
 
 -- | Unwraps a 'NonZero'.
 --
--- @since 0.1.0.0
+-- @since 0.1
 unNonZero :: NonZero a -> a
 unNonZero (UnsafeNonZero x) = x
 
@@ -89,7 +89,7 @@ unNonZero (UnsafeNonZero x) = x
 -- >>> mkNonZero 0
 -- Nothing
 --
--- @since 0.1.0.0
+-- @since 0.1
 mkNonZero :: (Eq a, Num a) => a -> Maybe (NonZero a)
 mkNonZero x
   | x == 0 = Nothing
@@ -102,7 +102,7 @@ mkNonZero x
 -- >>> $$(mkNonZeroTH 7)
 -- UnsafeNonZero 7
 --
--- @since 0.1.0.0
+-- @since 0.1
 #if MIN_VERSION_template_haskell(2,17,0)
 mkNonZeroTH :: (Eq a, Lift a, Num a) => a -> Code Q (NonZero a)
 #else
@@ -120,7 +120,7 @@ mkNonZeroTH x
 -- >>> unsafeNonZero 7
 -- UnsafeNonZero 7
 --
--- @since 0.1.0.0
+-- @since 0.1
 unsafeNonZero :: (Eq a, HasCallStack, Num a) => a -> NonZero a
 unsafeNonZero x
   | x == 0 = error "Numeric.Data.NonZero.unsafeNonZero: Passed 0"
@@ -132,6 +132,6 @@ unsafeNonZero x
 -- holds and a branch (i.e. 'unsafeNonZero') is undesirable for performance
 -- reasons. Exercise extreme caution.
 --
--- @since 0.1.0.0
+-- @since 0.1
 reallyUnsafeNonZero :: a -> NonZero a
 reallyUnsafeNonZero = UnsafeNonZero

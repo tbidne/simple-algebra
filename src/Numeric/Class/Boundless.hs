@@ -1,7 +1,7 @@
 -- | Provides typeclass for grouping types together based on their bounded
 -- behavior.
 --
--- @since 0.1.0.0
+-- @since 0.1
 module Numeric.Class.Boundless
   ( UpperBoundless,
   )

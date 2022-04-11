@@ -1,6 +1,6 @@
 -- | This module reexports algebraic typeclasses.
 --
--- @since 0.1.0.0
+-- @since 0.1
 module Numeric.Algebra
   ( -- * Motivation
     -- $motivation

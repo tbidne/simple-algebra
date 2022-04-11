@@ -1,6 +1,6 @@
 -- | Reexports additive modules.
 --
--- @since 0.1.0.0
+-- @since 0.1
 module Numeric.Algebra.Additive
   ( module Numeric.Algebra.Additive.ASemigroup,
     module Numeric.Algebra.Additive.AMonoid,

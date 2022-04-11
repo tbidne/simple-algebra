@@ -1,6 +1,6 @@
 -- | Provides the 'VectorSpace' typeclass.
 --
--- @since 0.1.0.0
+-- @since 0.1
 module Numeric.Algebra.VectorSpace
   ( VectorSpace (..),
   )
@@ -19,26 +19,26 @@ import Numeric.Algebra.Multiplicative.MGroup (DivConstraint, MGroup (..))
 -- division to be defined manually (presumably using a sensible instance for
 -- '(.%.)')
 --
--- @since 0.1.0.0
+-- @since 0.1
 class (Field k, Module v k) => VectorSpace v k | v -> k where
-  -- | @since 0.1.0.0
+  -- | @since 0.1
   (.%) :: v -> DivConstraint k -> v
 
 infixl 7 .%
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k) k where
   (x1, x2) .% k = (x1 .%. k, x2 .%. k)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k) k where
   (x1, x2, x3) .% k = (x1 .%. k, x2 .%. k, x3 .%. k)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k, k) k where
   (x1, x2, x3, x4) .% k = (x1 .%. k, x2 .%. k, x3 .%. k, x4 .%. k)
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k, k, k) k where
   (x1, x2, x3, x4, x5) .% k =
     ( x1 .%. k,
@@ -48,7 +48,7 @@ instance Field k => VectorSpace (k, k, k, k, k) k where
       x5 .%. k
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6) .% k =
     ( x1 .%. k,
@@ -59,7 +59,7 @@ instance Field k => VectorSpace (k, k, k, k, k, k) k where
       x6 .%. k
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6, x7) .% k =
     ( x1 .%. k,
@@ -71,7 +71,7 @@ instance Field k => VectorSpace (k, k, k, k, k, k, k) k where
       x7 .%. k
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6, x7, x8) .% k =
     ( x1 .%. k,
@@ -84,7 +84,7 @@ instance Field k => VectorSpace (k, k, k, k, k, k, k, k) k where
       x8 .%. k
     )
 
--- | @since 0.1.0.0
+-- | @since 0.1
 instance Field k => VectorSpace (k, k, k, k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6, x7, x8, x9) .% k =
     ( x1 .%. k,
