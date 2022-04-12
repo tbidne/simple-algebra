@@ -42,95 +42,73 @@ import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 --
 -- @since 0.1
 class MMonoid g => MGroup g where
-  -- | Possible constraint on the second argument to '(.%.)' e.g. for
-  -- preventing division by zero.
-  --
-  -- @since 0.1
-  type DivConstraint g
-
   -- | @since 0.1
-  (.%.) :: g -> DivConstraint g -> g
+  (.%.) :: g -> NonZero g -> g
 
 infixl 7 .%.
 
 -- | @since 0.1
 instance MGroup Double where
-  type DivConstraint Double = NonZero Double
   x .%. MkNonZero d = x / d
 
 -- | @since 0.1
 instance MGroup Float where
-  type DivConstraint Float = NonZero Float
   x .%. MkNonZero d = x / d
 
 -- | @since 0.1
 instance MGroup Int where
-  type DivConstraint Int = NonZero Int
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Int8 where
-  type DivConstraint Int8 = NonZero Int8
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Int16 where
-  type DivConstraint Int16 = NonZero Int16
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Int32 where
-  type DivConstraint Int32 = NonZero Int32
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Int64 where
-  type DivConstraint Int64 = NonZero Int64
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Integer where
-  type DivConstraint Integer = NonZero Integer
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Word where
-  type DivConstraint Word = NonZero Word
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Word8 where
-  type DivConstraint Word8 = NonZero Word8
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Word16 where
-  type DivConstraint Word16 = NonZero Word16
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Word32 where
-  type DivConstraint Word32 = NonZero Word32
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Word64 where
-  type DivConstraint Word64 = NonZero Word64
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup Natural where
-  type DivConstraint Natural = NonZero Natural
   x .%. MkNonZero d = x `div` d
 
 -- | @since 0.1
 instance MGroup (Ratio Integer) where
-  type DivConstraint (Ratio Integer) = NonZero (Ratio Integer)
   x .%. d = x .*. flipNonZero d
 
 -- | @since 0.1
 instance MGroup (Ratio Natural) where
-  type DivConstraint (Ratio Natural) = NonZero (Ratio Natural)
   x .%. d = x .*. flipNonZero d
 
 -- $nonzero
@@ -196,11 +174,11 @@ class MGroup g => MGroupIntegral g where
   type ModResult g
 
   -- | @since 0.1
-  gmod :: g -> DivConstraint g -> ModResult g
+  gmod :: g -> NonZero g -> ModResult g
   gmod x d = snd $ gdivMod x d
 
   -- | @since 0.1
-  gdivMod :: g -> DivConstraint g -> (g, ModResult g)
+  gdivMod :: g -> NonZero g -> (g, ModResult g)
   gdivMod x d = (x .%. d, x `gmod` d)
 
   {-# MINIMAL (gdivMod | gmod) #-}

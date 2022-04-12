@@ -83,8 +83,7 @@ rationalMultNum :: TestTree
 rationalMultNum = msemigroupMultNum Gens.rational MkEqExact "Rational" "rationalMultNum"
 
 msemigroupMultNum ::
-  ( MultConstraint a ~ a,
-    MSemigroup a,
+  ( MSemigroup a,
     Num a,
     Show a
   ) =>
@@ -154,8 +153,7 @@ rationalAssoc :: TestTree
 rationalAssoc = msemigroupAssoc Gens.rational "Rational" "rationalAssoc"
 
 msemigroupAssoc ::
-  ( MultConstraint a ~ a,
-    MSemigroup a,
+  ( MSemigroup a,
     Show a
   ) =>
   Gen a ->

@@ -149,7 +149,7 @@ nonZeroDivIdent :: TestTree
 nonZeroDivIdent = agroupDivIdent Gens.nonZero MkEqExact "NonZero" "nonZeroDivIdent"
 
 mgroupDivEq ::
-  (MGroup a, DivConstraint a ~ NonZero a, Show a) =>
+  (MGroup a, Show a) =>
   (a -> a -> a) ->
   Gen a ->
   Gen (NonZero a) ->
@@ -168,7 +168,7 @@ mgroupDivEq expectedFn gen genNZ eqCons desc propName = T.askOption $ \(MkMaxRun
         eqCons expected === eqCons actual
 
 agroupDivIdent ::
-  (MGroup a, DivConstraint a ~ NonZero a, Show a) =>
+  (MGroup a, Show a) =>
   Gen (NonZero a) ->
   (a -> Equality eq a) ->
   TestName ->
@@ -238,7 +238,6 @@ naturalDivIntegral = mgroupDivIntegralEq Gens.natural Gens.naturalNonZero "Natur
 mgroupDivIntegralEq ::
   ( Integral a,
     MGroupIntegral a,
-    DivConstraint a ~ NonZero a,
     ModResult a ~ a,
     Show a
   ) =>

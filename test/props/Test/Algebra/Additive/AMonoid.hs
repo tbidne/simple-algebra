@@ -77,8 +77,7 @@ rationalId :: TestTree
 rationalId = amonoidIdentity Gens.rational MkEqRatio "Rational" "rationalId"
 
 amonoidIdentity ::
-  ( AddConstraint a ~ a,
-    AMonoid a,
+  ( AMonoid a,
     Show a
   ) =>
   Gen a ->

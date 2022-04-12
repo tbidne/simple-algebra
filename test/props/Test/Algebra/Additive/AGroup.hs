@@ -157,8 +157,7 @@ rationalAbs :: TestTree
 rationalAbs = agroupAbs Gens.rational MkEqRatio "Rational" "rationalAbs"
 
 agroupSubEq ::
-  ( SubtractConstraint a ~ a,
-    AGroup a,
+  ( AGroup a,
     Num a,
     Show a
   ) =>
@@ -170,8 +169,7 @@ agroupSubEq ::
 agroupSubEq = Utils.binaryEq (-) (.-.)
 
 agroupAbs ::
-  ( AddConstraint a ~ a,
-    AGroup a,
+  ( AGroup a,
     Ord a,
     Show a
   ) =>
@@ -205,8 +203,7 @@ agroupAbs gen eqCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
         H.diff absSum (<=) sumAbs
 
 agroupSubIdent ::
-  ( SubtractConstraint a ~ a,
-    AGroup a,
+  ( AGroup a,
     Show a
   ) =>
   Gen a ->

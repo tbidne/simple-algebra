@@ -83,8 +83,7 @@ rationalAddNum :: TestTree
 rationalAddNum = asemigroupAddNum Gens.rational MkEqExact "Rational" "rationalAddNum"
 
 asemigroupAddNum ::
-  ( AddConstraint a ~ a,
-    ASemigroup a,
+  ( ASemigroup a,
     Num a,
     Show a
   ) =>
@@ -154,8 +153,7 @@ rationalAssoc :: TestTree
 rationalAssoc = asemigroupAssoc Gens.rational "Rational" "rationalAssoc"
 
 asemigroupAssoc ::
-  ( AddConstraint a ~ a,
-    ASemigroup a,
+  ( ASemigroup a,
     Show a
   ) =>
   Gen a ->
