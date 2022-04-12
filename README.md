@@ -72,7 +72,7 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
   </tr>
   <tr>
     <td><code>MMonoid</code></td>
-    <td><code>Multiplicative</code>s that have an identity.</td>
+    <td><code>MSemigroup</code>s that have an identity.</td>
     <td><code>one</code></td>
     <td></td>
   </tr>
@@ -102,7 +102,7 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
   </tr>
   <tr>
     <td><code>Field</code></td>
-    <td><code>Ring</code> and <code>MGroup</group>.</td>
+    <td><code>Ring</code> and <code>MGroup</code>.</td>
     <td></td>
     <td></td>
   </tr>

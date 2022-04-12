@@ -9,9 +9,7 @@ author:             Thomas Bidne
 maintainer:         tbidne@prontonmail.com
 homepage:           https://github.com/tbidne/algebra-simple/
 bug-reports:        https://github.com/tbidne/algebra-simple/issues
-synopsis:
-  A library that provides an alternative mathematical interface to Num.
-
+synopsis:           An alternative mathematical interface to Num.
 description:
   @algebra-simple@ intends to provide a simple, reasonably principled
   interface to typical mathematical operations (i.e. addition, subtraction,
