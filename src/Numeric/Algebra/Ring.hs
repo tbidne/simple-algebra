@@ -11,11 +11,12 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Algebra.Additive.AGroup (AGroup)
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid)
+import Numeric.Algebra.Semiring (Semiring)
 
 -- | Defines a ring.
 --
 -- @since 0.1
-class (AGroup r, MMonoid r) => Ring r
+class (AGroup r, MMonoid r, Semiring r) => Ring r
 
 -- | @since 0.1
 instance Ring Double

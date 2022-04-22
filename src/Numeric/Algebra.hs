@@ -14,6 +14,7 @@ module Numeric.Algebra
     module Numeric.Algebra.Semiring,
     module Numeric.Algebra.Ring,
     module Numeric.Algebra.Module,
+    module Numeric.Algebra.Semimodule,
     module Numeric.Algebra.Field,
     module Numeric.Algebra.VectorSpace,
   )
@@ -24,6 +25,7 @@ import Numeric.Algebra.Field
 import Numeric.Algebra.Module
 import Numeric.Algebra.Multiplicative
 import Numeric.Algebra.Ring
+import Numeric.Algebra.Semimodule
 import Numeric.Algebra.Semiring
 import Numeric.Algebra.VectorSpace
 
@@ -77,9 +79,13 @@ import Numeric.Algebra.VectorSpace
 -- | 'Field'                | 'Ring' and              |          |        |
 -- |                        | 'MGroup'.               |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'Module'               | 'AGroup's that          | '(.*)',  |        |
+-- | 'Semimodule'           | 'AMonoid's that         | '(.*)',  |        |
 -- |                        | supports "scalar        | '(*.)'   |        |
 -- |                        | multiplication".        |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Module'               | 'Semimodule's that      |       ,  |        |
+-- |                        | are 'AGroup's.          |          |        |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'VectorSpace'          | 'Module's that support  | '(.%)',  |        |
 -- |                        | "scalar division".      |          |        |

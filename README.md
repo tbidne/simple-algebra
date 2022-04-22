@@ -107,9 +107,15 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
     <td></td>
   </tr>
   <tr>
-    <td><code>Module</code></td>
-    <td><code>AGroup</code>s that support "scalar multiplication".</td>
+    <td><code>Semimodule</code></td>
+    <td><code>AMonoid</code>s that support "scalar multiplication".</td>
     <td><code>(.*)</code>, <code>(*.)</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>Module</code></td>
+    <td><code>Semimodule</code>s that are <code>AGroup</code>s.</td>
+    <td></td>
     <td></td>
   </tr>
   <tr>

@@ -81,6 +81,7 @@ library
     Numeric.Algebra.Multiplicative.MMonoid
     Numeric.Algebra.Multiplicative.MSemigroup
     Numeric.Algebra.Ring
+    Numeric.Algebra.Semimodule
     Numeric.Algebra.Semiring
     Numeric.Algebra.VectorSpace
     Numeric.Class.Boundless
