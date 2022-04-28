@@ -13,9 +13,11 @@ module Numeric.Algebra
     module Numeric.Algebra.Multiplicative,
     module Numeric.Algebra.Semiring,
     module Numeric.Algebra.Ring,
-    module Numeric.Algebra.Module,
-    module Numeric.Algebra.Semimodule,
+    module Numeric.Algebra.Semifield,
     module Numeric.Algebra.Field,
+    module Numeric.Algebra.Semimodule,
+    module Numeric.Algebra.Module,
+    module Numeric.Algebra.SemivectorSpace,
     module Numeric.Algebra.VectorSpace,
   )
 where
@@ -25,8 +27,10 @@ import Numeric.Algebra.Field
 import Numeric.Algebra.Module
 import Numeric.Algebra.Multiplicative
 import Numeric.Algebra.Ring
+import Numeric.Algebra.Semifield
 import Numeric.Algebra.Semimodule
 import Numeric.Algebra.Semiring
+import Numeric.Algebra.SemivectorSpace
 import Numeric.Algebra.VectorSpace
 
 -- $motivation
@@ -64,7 +68,7 @@ import Numeric.Algebra.VectorSpace
 -- | 'MMonoid'              | 'MSemigroup's that      | 'one'    |        |
 -- |                        | have an identity.       |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MGroup'               | 'MMonoid's that         | '(.%.)', | 'div', |
+-- | 'MGroup'               | 'MMonoid's that         | '(.%.)'  | 'div', |
 -- |                        | support "division"      |          | '(/)'  |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'MGroupIntegral'       | 'MGroup's that support  | 'gmod'   | 'mod'  |
@@ -76,19 +80,26 @@ import Numeric.Algebra.VectorSpace
 -- | 'Ring'                 | 'AGroup' and            |          |        |
 -- |                        | 'MMonoid'.              |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'Field'                | 'Ring' and              |          |        |
+-- | 'Semifield'            | 'AMonoid' and           |          |        |
 -- |                        | 'MGroup'.               |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Field'                | 'Ring' and              |          |        |
+-- |                        | 'Semifield'.            |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Semimodule'           | 'AMonoid's that         | '(.*)',  |        |
 -- |                        | supports "scalar        | '(*.)'   |        |
 -- |                        | multiplication".        |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'Module'               | 'Semimodule's that      |       ,  |        |
+-- | 'Module'               | 'Semimodule's that      |          |        |
 -- |                        | are 'AGroup's.          |          |        |
 -- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'VectorSpace'          | 'Module's that support  | '(.%)',  |        |
--- |                        | "scalar division".      |          |        |
+-- | 'SemivectorSpace'      | 'Semimodule's that      | '(.%)'   |        |
+-- |                        | support "scalar         |          |        |
+-- |                        | division".              |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'VectorSpace'          | 'Module' and            |          |        |
+-- |                        | 'SemivectorSpace'.      |          |        |
 -- +------------------------+-------------------------+----------+--------+
 --
 -- We have the following guiding principles:

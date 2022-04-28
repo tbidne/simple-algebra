@@ -101,8 +101,14 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
     <td></td>
   </tr>
   <tr>
+    <td><code>Semifield</code></td>
+    <td><code>AMonoid</code> and <code>MGroup</code>.</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
     <td><code>Field</code></td>
-    <td><code>Ring</code> and <code>MGroup</code>.</td>
+    <td><code>Ring</code> and <code>Semifield</code>.</td>
     <td></td>
     <td></td>
   </tr>
@@ -119,9 +125,15 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
     <td></td>
   </tr>
   <tr>
-    <td><code>VectorSpace</code></td>
-    <td><code>Module</code>s that support "scalar division".</td>
+    <td><code>SemivectorSpace</code></td>
+    <td><code>Semimodule</code>s that are "scalar division"</td>
     <td><code>(.%)</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>VectorSpace</code></td>
+    <td><code>Module</code> and <code>SemivectorSpace</code></td>
+    <td></td>
     <td></td>
   </tr>
 </table>

@@ -9,13 +9,13 @@ where
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
 import Numeric.Algebra.Ring (Ring)
+import Numeric.Algebra.Semifield (Semifield)
 
 -- | Defines a field.
 --
 -- @since 0.1
-class (Ring f, MGroup f) => Field f
+class (Ring f, Semifield f) => Field f
 
 -- | @since 0.1
 instance Field Float

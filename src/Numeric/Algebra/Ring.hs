@@ -13,7 +13,7 @@ import Numeric.Algebra.Additive.AGroup (AGroup)
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid)
 import Numeric.Algebra.Semiring (Semiring)
 
--- | Defines a ring.
+-- | Defines a ring i.e. a structure that is an 'AGroup' and 'MMonoid'.
 --
 -- @since 0.1
 class (AGroup r, MMonoid r, Semiring r) => Ring r

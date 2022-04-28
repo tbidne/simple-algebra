@@ -13,7 +13,8 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Numeric.Natural (Natural)
 
--- | Defines a semiring.
+-- | Defines a semiring i.e. a structure that is both an 'AMonoid' and
+-- 'MMonoid'.
 --
 -- @since 0.1
 class (AMonoid r, MMonoid r) => Semiring r

@@ -10,7 +10,12 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Algebra.Semiring (Semiring)
 
--- | Defines a semimodule over a semiring.
+-- | Defines a semimodule over a semiring. This generalizes the notion of
+-- a 'Numeric.Algebra.Module.Module' \(M\) over a 'Numeric.Algebra.Ring.Ring'
+-- \(R\) such that:
+--
+-- * \(M\) is an 'AMonoid', not an 'Numeric.Algebra.Additive.AGroup.AGroup'.
+-- * \(R\) is a 'Semiring', not a 'Numeric.Algebra.Ring.Ring'.
 --
 -- @since 0.1
 class (AMonoid m, Semiring r) => Semimodule m r | m -> r where
