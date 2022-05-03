@@ -1,7 +1,7 @@
 -- | Provides the 'Semimodule' typeclass.
 --
 -- @since 0.1
-module Numeric.Algebra.Semimodule
+module Numeric.Algebra.Space.Semimodule
   ( Semimodule (..),
   )
 where

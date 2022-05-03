@@ -1,14 +1,14 @@
 -- | Provides the 'SemivectorSpace' typeclass.
 --
 -- @since 0.1
-module Numeric.Algebra.SemivectorSpace
+module Numeric.Algebra.Space.SemivectorSpace
   ( SemivectorSpace (..),
   )
 where
 
 import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero)
 import Numeric.Algebra.Semifield (Semifield)
-import Numeric.Algebra.Semimodule (Semimodule)
+import Numeric.Algebra.Space.Semimodule (Semimodule)
 
 -- | Defines a semivector space over a semifield. This generalizes the notion
 -- of a 'Numeric.Algebra.VectorSpace.VectorSpace' \(V\) over a

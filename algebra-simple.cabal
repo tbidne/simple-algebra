@@ -75,7 +75,6 @@ library
     Numeric.Algebra.Additive.AMonoid
     Numeric.Algebra.Additive.ASemigroup
     Numeric.Algebra.Field
-    Numeric.Algebra.Module
     Numeric.Algebra.Multiplicative
     Numeric.Algebra.Multiplicative.MGroup
     Numeric.Algebra.Multiplicative.MMonoid
@@ -83,10 +82,12 @@ library
     Numeric.Algebra.Normed
     Numeric.Algebra.Ring
     Numeric.Algebra.Semifield
-    Numeric.Algebra.Semimodule
     Numeric.Algebra.Semiring
-    Numeric.Algebra.SemivectorSpace
-    Numeric.Algebra.VectorSpace
+    Numeric.Algebra.Space
+    Numeric.Algebra.Space.Module
+    Numeric.Algebra.Space.Semimodule
+    Numeric.Algebra.Space.SemivectorSpace
+    Numeric.Algebra.Space.VectorSpace
     Numeric.Class.Boundless
     Numeric.Class.Division
     Numeric.Class.Literal

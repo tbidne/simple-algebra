@@ -1,14 +1,14 @@
 -- | Provides the 'VectorSpace' typeclass.
 --
 -- @since 0.1
-module Numeric.Algebra.VectorSpace
+module Numeric.Algebra.Space.VectorSpace
   ( VectorSpace,
   )
 where
 
 import Numeric.Algebra.Field (Field)
-import Numeric.Algebra.Module (Module)
-import Numeric.Algebra.SemivectorSpace (SemivectorSpace)
+import Numeric.Algebra.Space.Module (Module)
+import Numeric.Algebra.Space.SemivectorSpace (SemivectorSpace)
 
 -- | Defines a vector space over a field.
 --

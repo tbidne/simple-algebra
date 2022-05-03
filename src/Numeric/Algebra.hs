@@ -16,24 +16,18 @@ module Numeric.Algebra
     module Numeric.Algebra.Ring,
     module Numeric.Algebra.Semifield,
     module Numeric.Algebra.Field,
-    module Numeric.Algebra.Semimodule,
-    module Numeric.Algebra.Module,
-    module Numeric.Algebra.SemivectorSpace,
-    module Numeric.Algebra.VectorSpace,
+    module Numeric.Algebra.Space,
   )
 where
 
 import Numeric.Algebra.Additive
 import Numeric.Algebra.Field
-import Numeric.Algebra.Module
 import Numeric.Algebra.Multiplicative
 import Numeric.Algebra.Normed
 import Numeric.Algebra.Ring
 import Numeric.Algebra.Semifield
-import Numeric.Algebra.Semimodule
 import Numeric.Algebra.Semiring
-import Numeric.Algebra.SemivectorSpace
-import Numeric.Algebra.VectorSpace
+import Numeric.Algebra.Space
 
 -- $motivation
 -- The primary interface to numerical operations in Haskell is 'Num'.

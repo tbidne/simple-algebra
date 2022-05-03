@@ -1,14 +1,14 @@
 -- | Provides the 'Module' typeclass.
 --
 -- @since 0.1
-module Numeric.Algebra.Module
+module Numeric.Algebra.Space.Module
   ( Module,
   )
 where
 
 import Numeric.Algebra.Additive.AGroup (AGroup)
 import Numeric.Algebra.Ring (Ring)
-import Numeric.Algebra.Semimodule (Semimodule (..))
+import Numeric.Algebra.Space.Semimodule (Semimodule (..))
 
 -- | Defines a module over a ring. This generalizes the notion of
 -- a 'Numeric.Algebra.VectorSpace.VectorSpace' \(M\) over a
