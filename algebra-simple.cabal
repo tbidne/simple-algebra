@@ -85,6 +85,8 @@ library
     Numeric.Algebra.Semiring
     Numeric.Algebra.Space
     Numeric.Algebra.Space.Module
+    Numeric.Algebra.Space.MSemiSpace
+    Numeric.Algebra.Space.MSpace
     Numeric.Algebra.Space.Semimodule
     Numeric.Algebra.Space.SemivectorSpace
     Numeric.Algebra.Space.VectorSpace

@@ -85,17 +85,22 @@ import Numeric.Algebra.Space
 -- | 'Field'                | 'Ring' and              |          |        |
 -- |                        | 'Semifield'.            |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'Semimodule'           | 'AMonoid's that         | '(.*)',  |        |
--- |                        | supports "scalar        | '(*.)'   |        |
+-- | 'MSemiSpace'           | Types that              | '(.*)',  |        |
+-- |                        | support  "scalar        | '(*.)'   |        |
 -- |                        | multiplication".        |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'MSpace'               | 'MSemiSpace's that      | '(.%)'   |        |
+-- |                        | support "scalar         |          |        |
+-- |                        | division".              |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Semimodule'           | 'AMonoid'  and          |          |        |
+-- |                        | 'MSemiSpace'.           |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Module'               | 'Semimodule's that      |          |        |
 -- |                        | are 'AGroup's.          |          |        |
--- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'SemivectorSpace'      | 'Semimodule's that      | '(.%)'   |        |
--- |                        | support "scalar         |          |        |
--- |                        | division".              |          |        |
+-- | 'SemivectorSpace'      | 'Semimodule and         |          |        |
+-- |                        | 'MSpace'.               |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'VectorSpace'          | 'Module' and            |          |        |
 -- |                        | 'SemivectorSpace'.      |          |        |

@@ -119,9 +119,21 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
     <td></td>
   </tr>
   <tr>
-    <td><code>Semimodule</code></td>
-    <td><code>AMonoid</code>s that support "scalar multiplication".</td>
+    <td><code>MSemiSpace</code></td>
+    <td>Types that support "scalar multiplication".</td>
     <td><code>(.*)</code>, <code>(*.)</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>MSpace</code></td>
+    <td><code>MSemiSpace</code>s that support "scalar division".</td>
+    <td><code>(.%)</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><code>Semimodule</code></td>
+    <td><code>AMonoid</code> and <code>MSemiSpace</code>.</td>
+    <td></td>
     <td></td>
   </tr>
   <tr>

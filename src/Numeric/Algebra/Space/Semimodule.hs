@@ -2,13 +2,13 @@
 --
 -- @since 0.1
 module Numeric.Algebra.Space.Semimodule
-  ( Semimodule (..),
+  ( Semimodule,
   )
 where
 
 import Numeric.Algebra.Additive.AMonoid (AMonoid)
-import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 import Numeric.Algebra.Semiring (Semiring)
+import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 
 -- | Defines a semimodule over a semiring. This generalizes the notion of
 -- a 'Numeric.Algebra.Module.Module' \(M\) over a 'Numeric.Algebra.Ring.Ring'
@@ -18,89 +18,28 @@ import Numeric.Algebra.Semiring (Semiring)
 -- * \(R\) is a 'Semiring', not a 'Numeric.Algebra.Ring.Ring'.
 --
 -- @since 0.1
-class (AMonoid m, Semiring r) => Semimodule m r | m -> r where
-  -- | @since 0.1
-  (.*) :: m -> r -> m
-  (.*) = flip (*.)
-
-  -- | @since 0.1
-  (*.) :: r -> m -> m
-  (*.) = flip (.*)
-
-  {-# MINIMAL ((.*) | (*.)) #-}
-
-infixl 7 .*
-
-infixl 7 *.
+class (AMonoid m, MSemiSpace m r, Semiring r) => Semimodule m r | m -> r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r) r where
-  (n1, n2) .* m = (n1 .*. m, n2 .*. m)
+instance Semiring r => Semimodule (r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r) r where
-  (n1, n2, n3) .* m = (n1 .*. m, n2 .*. m, n3 .*. m)
+instance Semiring r => Semimodule (r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r) r where
-  (n1, n2, n3, n4) .* m = (n1 .*. m, n2 .*. m, n3 .*. m, n4 .*. m)
+instance Semiring r => Semimodule (r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r) r where
-  (n1, n2, n3, n4, n5) .* m =
-    ( n1 .*. m,
-      n2 .*. m,
-      n3 .*. m,
-      n4 .*. m,
-      n5 .*. m
-    )
+instance Semiring r => Semimodule (r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r) r where
-  (n1, n2, n3, n4, n5, n6) .* m =
-    ( n1 .*. m,
-      n2 .*. m,
-      n3 .*. m,
-      n4 .*. m,
-      n5 .*. m,
-      n6 .*. m
-    )
+instance Semiring r => Semimodule (r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r, r) r where
-  (n1, n2, n3, n4, n5, n6, n7) .* m =
-    ( n1 .*. m,
-      n2 .*. m,
-      n3 .*. m,
-      n4 .*. m,
-      n5 .*. m,
-      n6 .*. m,
-      n7 .*. m
-    )
+instance Semiring r => Semimodule (r, r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r, r, r) r where
-  (n1, n2, n3, n4, n5, n6, n7, n8) .* m =
-    ( n1 .*. m,
-      n2 .*. m,
-      n3 .*. m,
-      n4 .*. m,
-      n5 .*. m,
-      n6 .*. m,
-      n7 .*. m,
-      n8 .*. m
-    )
+instance Semiring r => Semimodule (r, r, r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r, r, r, r) r where
-  (n1, n2, n3, n4, n5, n6, n7, n8, n9) .* m =
-    ( n1 .*. m,
-      n2 .*. m,
-      n3 .*. m,
-      n4 .*. m,
-      n5 .*. m,
-      n6 .*. m,
-      n7 .*. m,
-      n8 .*. m,
-      n9 .*. m
-    )
+instance Semiring r => Semimodule (r, r, r, r, r, r, r, r, r) r
