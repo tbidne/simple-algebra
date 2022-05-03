@@ -80,6 +80,7 @@ library
     Numeric.Algebra.Multiplicative.MGroup
     Numeric.Algebra.Multiplicative.MMonoid
     Numeric.Algebra.Multiplicative.MSemigroup
+    Numeric.Algebra.Normed
     Numeric.Algebra.Ring
     Numeric.Algebra.Semifield
     Numeric.Algebra.Semimodule

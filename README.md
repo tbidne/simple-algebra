@@ -89,6 +89,12 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
     <td><code>mod</code></td>
   </tr>
   <tr>
+    <td><code>Normed</code></td>
+    <td>Types that support a "norm".</td>
+    <td><code></code</td>
+    <td><code></code</td>
+  </tr>
+  <tr>
     <td><code>Semiring</code></td>
     <td><code>AMonoid</code> and <code>MMonoid</code>.</td>
     <td></td>

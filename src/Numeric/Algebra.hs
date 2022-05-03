@@ -11,6 +11,7 @@ module Numeric.Algebra
     -- ** Algebraic Typeclasses
     module Numeric.Algebra.Additive,
     module Numeric.Algebra.Multiplicative,
+    module Numeric.Algebra.Normed,
     module Numeric.Algebra.Semiring,
     module Numeric.Algebra.Ring,
     module Numeric.Algebra.Semifield,
@@ -26,6 +27,7 @@ import Numeric.Algebra.Additive
 import Numeric.Algebra.Field
 import Numeric.Algebra.Module
 import Numeric.Algebra.Multiplicative
+import Numeric.Algebra.Normed
 import Numeric.Algebra.Ring
 import Numeric.Algebra.Semifield
 import Numeric.Algebra.Semimodule
@@ -73,6 +75,9 @@ import Numeric.Algebra.VectorSpace
 -- +------------------------+-------------------------+----------+--------+
 -- | 'MGroupIntegral'       | 'MGroup's that support  | 'gmod'   | 'mod'  |
 -- |                        | "remainder division".   |          |        |
+-- +------------------------+-------------------------+----------+--------+
+-- | 'Normed'               | Types that support a    | 'norm'   | 'abs'  |
+-- |                        | "norm".                 |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Semiring'             | 'AMonoid' and           |          |        |
 -- |                        | 'MMonoid'.              |          |        |

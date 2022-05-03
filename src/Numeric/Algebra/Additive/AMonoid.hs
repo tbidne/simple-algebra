@@ -21,13 +21,6 @@ class ASemigroup m => AMonoid m where
   -- @
   -- -- identity
   -- x .+. zero = x = zero .+. x
-  --
-  -- -- absolute value
-  -- Non-negative: aabs x >= zero
-  -- Positive-definite: aabs x = zero <=> x = zero
-  -- Triangle equality: aabs (x .+. y) <= aabs x .+. aabs y
-  -- @
-  --
   -- @since 0.1
   zero :: m
 
