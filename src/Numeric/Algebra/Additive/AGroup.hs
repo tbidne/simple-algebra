@@ -7,6 +7,7 @@ module Numeric.Algebra.Additive.AGroup
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Real (Ratio (..))
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
@@ -14,6 +15,7 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 -- | Defines an additive group.
 --
 -- @since 0.1
+type AGroup :: Type -> Constraint
 class AMonoid g => AGroup g where
   -- | @since 0.1
   (.-.) :: g -> g -> g

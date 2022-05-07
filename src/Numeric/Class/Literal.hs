@@ -7,6 +7,7 @@ module Numeric.Class.Literal
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
@@ -17,6 +18,7 @@ import GHC.Natural (Natural)
 -- 'Natural' and has overflow issues for finite types.
 --
 -- @since 0.1
+type NumLiteral :: Type -> Constraint
 class NumLiteral a where
   -- | @since 0.1
   fromLit :: Integer -> a

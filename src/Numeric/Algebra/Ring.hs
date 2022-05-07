@@ -7,6 +7,7 @@ module Numeric.Algebra.Ring
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Algebra.Additive.AGroup (AGroup)
@@ -16,6 +17,7 @@ import Numeric.Algebra.Semiring (Semiring)
 -- | Defines a ring i.e. a structure that is an 'AGroup' and 'MMonoid'.
 --
 -- @since 0.1
+type Ring :: Type -> Constraint
 class (AGroup r, MMonoid r, Semiring r) => Ring r
 
 -- | @since 0.1

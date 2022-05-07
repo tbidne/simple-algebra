@@ -7,6 +7,7 @@ module Numeric.Algebra.Additive.AMonoid
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
@@ -15,6 +16,7 @@ import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 -- | Defines a monoid over an additive semigroup.
 --
 -- @since 0.1
+type AMonoid :: Type -> Constraint
 class ASemigroup m => AMonoid m where
   -- | Should satisfy:
   --

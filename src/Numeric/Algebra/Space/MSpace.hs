@@ -6,6 +6,7 @@ module Numeric.Algebra.Space.MSpace
   )
 where
 
+import Data.Kind (Constraint, Type)
 import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero)
 import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 
@@ -15,6 +16,7 @@ import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 -- assume no additive structure on the space itself.
 --
 -- @since 0.1
+type MSpace :: Type -> Type -> Constraint
 class (MGroup k, MSemiSpace v k) => MSpace v k | v -> k where
   -- | @since 0.1
   (.%) :: v -> NonZero k -> v

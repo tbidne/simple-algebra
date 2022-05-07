@@ -6,6 +6,7 @@ module Numeric.Algebra.Space.MSemiSpace
   )
 where
 
+import Data.Kind (Constraint, Type)
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 
 -- | Defines a "multiplicative semi space" over an 'MSemigroup'. This
@@ -14,6 +15,7 @@ import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 -- additive structure on the space itself.
 --
 -- @since 0.1
+type MSemiSpace :: Type -> Type -> Constraint
 class MSemigroup r => MSemiSpace m r | m -> r where
   -- | @since 0.1
   (.*) :: m -> r -> m

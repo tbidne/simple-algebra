@@ -7,6 +7,7 @@ module Numeric.Class.Division
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio)
@@ -14,6 +15,7 @@ import GHC.Real (Ratio)
 -- | Abstracts over division operators.
 --
 -- @since 0.1
+type Division :: Type -> Constraint
 class Division a where
   divide :: a -> a -> a
 

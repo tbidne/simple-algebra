@@ -6,6 +6,7 @@ module Numeric.Algebra.Space.Module
   )
 where
 
+import Data.Kind (Constraint, Type)
 import Numeric.Algebra.Additive.AGroup (AGroup)
 import Numeric.Algebra.Ring (Ring)
 import Numeric.Algebra.Space.Semimodule (Semimodule)
@@ -17,6 +18,7 @@ import Numeric.Algebra.Space.Semimodule (Semimodule)
 -- * \(R\) is a 'Ring', not a 'Numeric.Algebra.Field.Field'.
 --
 -- @since 0.1
+type Module :: Type -> Type -> Constraint
 class (AGroup m, Semimodule m r, Ring r) => Module m r | m -> r
 
 -- | @since 0.1

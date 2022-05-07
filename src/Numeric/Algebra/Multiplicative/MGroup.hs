@@ -21,6 +21,7 @@ module Numeric.Algebra.Multiplicative.MGroup
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
@@ -41,6 +42,7 @@ import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 -- | Defines a multiplicative group.
 --
 -- @since 0.1
+type MGroup :: Type -> Constraint
 class MMonoid g => MGroup g where
   -- | @since 0.1
   (.%.) :: g -> NonZero g -> g
@@ -170,6 +172,7 @@ flipNonZero (MkNonZero x) = recip x
 -- | Additional functions for "integral" 'MGroup's.
 --
 -- @since 0.1
+type MGroupIntegral :: Type -> Constraint
 class MGroup g => MGroupIntegral g where
   type ModResult g
 

@@ -6,6 +6,7 @@ module Numeric.Algebra.Space.SemivectorSpace
   )
 where
 
+import Data.Kind (Constraint, Type)
 import Numeric.Algebra.Semifield (Semifield)
 import Numeric.Algebra.Space.MSpace (MSpace)
 import Numeric.Algebra.Space.Semimodule (Semimodule)
@@ -19,6 +20,7 @@ import Numeric.Algebra.Space.Semimodule (Semimodule)
 -- * \(K\) is a 'Semifield', not a 'Numeric.Algebra.Field.Field'.
 --
 -- @since 0.1
+type SemivectorSpace :: Type -> Type -> Constraint
 class (MSpace v k, Semifield k, Semimodule v k) => SemivectorSpace v k | v -> k
 
 -- | @since 0.1

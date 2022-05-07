@@ -7,6 +7,7 @@ module Numeric.Algebra.Semifield
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
@@ -18,6 +19,7 @@ import Numeric.Natural (Natural)
 -- 'MGroup'.
 --
 -- @since 0.1
+type Semifield :: Type -> Constraint
 class (AMonoid r, MGroup r, Semiring r) => Semifield r
 
 -- | @since 0.1

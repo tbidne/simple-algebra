@@ -6,6 +6,7 @@ module Numeric.Algebra.Space.Semimodule
   )
 where
 
+import Data.Kind (Constraint, Type)
 import Numeric.Algebra.Additive.AMonoid (AMonoid)
 import Numeric.Algebra.Semiring (Semiring)
 import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
@@ -18,6 +19,7 @@ import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 -- * \(R\) is a 'Semiring', not a 'Numeric.Algebra.Ring.Ring'.
 --
 -- @since 0.1
+type Semimodule :: Type -> Type -> Constraint
 class (AMonoid m, MSemiSpace m r, Semiring r) => Semimodule m r | m -> r
 
 -- | @since 0.1

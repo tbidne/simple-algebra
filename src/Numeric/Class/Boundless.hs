@@ -7,12 +7,14 @@ module Numeric.Class.Boundless
   )
 where
 
+import Data.Kind (Constraint, Type)
 import GHC.Natural (Natural)
 
 -- | Types that have no upper bound. Used for when a function's correctness
 -- depends on the type being unbounded.
 --
 -- @since 0.0.1.0
+type UpperBoundless :: Type -> Constraint
 class Integral a => UpperBoundless a
 
 -- | @since 0.0.1.0

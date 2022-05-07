@@ -7,6 +7,7 @@ module Numeric.Algebra.Normed
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
@@ -29,6 +30,7 @@ import GHC.Natural (Natural)
 -- groups).
 --
 -- @since 0.1
+type Normed :: Type -> Constraint
 class Normed s where
   -- | @since 0.1
   norm :: s -> s

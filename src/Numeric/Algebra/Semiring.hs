@@ -7,6 +7,7 @@ module Numeric.Algebra.Semiring
 where
 
 import Data.Int (Int16, Int32, Int64, Int8)
+import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
@@ -17,6 +18,7 @@ import Numeric.Natural (Natural)
 -- 'MMonoid'.
 --
 -- @since 0.1
+type Semiring :: Type -> Constraint
 class (AMonoid r, MMonoid r) => Semiring r
 
 -- | @since 0.1
