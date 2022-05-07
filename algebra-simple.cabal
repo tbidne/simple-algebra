@@ -39,6 +39,7 @@ common common-exts
     NoStarIsType
     BangPatterns
     DataKinds
+    DeriveDataTypeable
     DeriveFunctor
     DeriveGeneric
     DeriveLift
@@ -98,6 +99,7 @@ library
   build-depends:
     , base              >=4.14.0.0 && <4.17
     , deepseq           ^>=1.4.4.0
+    , optics-core       ^>=0.4
     , template-haskell  >=2.16.0.0 && <2.19.0.0
 
   hs-source-dirs:   src

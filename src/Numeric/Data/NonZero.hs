@@ -1,5 +1,6 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 -- | Provides the 'NonZero' type for enforcing a non-zero invariant.
 --
@@ -20,6 +21,7 @@ module Numeric.Data.NonZero
 where
 
 import Control.DeepSeq (NFData)
+import Data.Data (Data)
 import Data.Kind (Type)
 import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
@@ -30,6 +32,7 @@ import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Class.Literal (NumLiteral (..))
+import Optics.Core (A_Lens, LabelOptic (..), lens)
 
 -- | Smart-constructor for creating a \"non-zero\" @a@.
 -- 'NonZero' is a:
@@ -41,9 +44,14 @@ import Numeric.Class.Literal (NumLiteral (..))
 --
 -- @since 0.1
 type NonZero :: Type -> Type
-newtype NonZero a = UnsafeNonZero a
-  deriving
+newtype NonZero a = UnsafeNonZero
+  { -- | @since 0.1
+    unNonZero :: a
+  }
+  deriving stock
     ( -- | @since 0.1
+      Data,
+      -- | @since 0.1
       Eq,
       -- | @since 0.1
       Generic,
@@ -58,6 +66,10 @@ newtype NonZero a = UnsafeNonZero a
     ( -- | @since 0.1
       NFData
     )
+
+-- | @since 0.1
+instance (k ~ A_Lens, a ~ m, b ~ n) => LabelOptic "unNonZero" k (NonZero m) (NonZero n) a b where
+  labelOptic = lens unNonZero (\nz x -> nz {unNonZero = x})
 
 -- | __WARNING: Partial__
 --
@@ -74,17 +86,11 @@ pattern MkNonZero x <- UnsafeNonZero x
 
 {-# COMPLETE MkNonZero #-}
 
--- | Unwraps a 'NonZero'.
---
--- @since 0.1
-unNonZero :: NonZero a -> a
-unNonZero (UnsafeNonZero x) = x
-
 -- | Smart constructor for 'NonZero'.
 --
 -- ==== __Examples__
 -- >>> mkNonZero 7
--- Just (UnsafeNonZero 7)
+-- Just (UnsafeNonZero {unNonZero = 7})
 --
 -- >>> mkNonZero 0
 -- Nothing
@@ -100,7 +106,7 @@ mkNonZero x
 --
 -- ==== __Examples__
 -- >>> $$(mkNonZeroTH 7)
--- UnsafeNonZero 7
+-- UnsafeNonZero {unNonZero = 7}
 --
 -- @since 0.1
 #if MIN_VERSION_template_haskell(2,17,0)
@@ -117,8 +123,8 @@ mkNonZeroTH x
 -- __WARNING: Partial__
 --
 -- ==== __Examples__
--- >>> unsafeNonZero 7
--- UnsafeNonZero 7
+-- >>> UnsafeNonZero {unNonZero = 7}
+-- UnsafeNonZero {unNonZero = 7}
 --
 -- @since 0.1
 unsafeNonZero :: (Eq a, HasCallStack, Num a) => a -> NonZero a
