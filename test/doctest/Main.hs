@@ -24,6 +24,7 @@ exts =
   [ "-XNoStarIsType",
     "-XBangPatterns",
     "-XDataKinds",
+    "-XDeriveDataTypeable",
     "-XDeriveGeneric",
     "-XDeriveLift",
     "-XDerivingStrategies",
