@@ -7,16 +7,13 @@
 -- @since 0.1
 module Numeric.Data.NonZero
   ( -- * Type
-    NonZero (MkNonZero),
+    NonZero (MkNonZero, unNonZero),
 
     -- * Creation
     mkNonZero,
     mkNonZeroTH,
     unsafeNonZero,
     reallyUnsafeNonZero,
-
-    -- * Elimination
-    unNonZero,
   )
 where
 
