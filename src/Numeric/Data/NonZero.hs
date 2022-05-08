@@ -7,13 +7,16 @@
 -- @since 0.1
 module Numeric.Data.NonZero
   ( -- * Type
-    NonZero (MkNonZero, unNonZero),
+    NonZero (MkNonZero),
 
     -- * Creation
     mkNonZero,
     mkNonZeroTH,
     unsafeNonZero,
     reallyUnsafeNonZero,
+
+    -- * Elimination
+    unNonZero,
   )
 where
 
@@ -29,15 +32,9 @@ import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Class.Literal (NumLiteral (..))
-import Optics.Core (A_Lens, LabelOptic (..), lens)
+import Optics.Core (A_Getter, LabelOptic (..), to)
 
 -- | Smart-constructor for creating a \"non-zero\" @a@.
--- 'NonZero' is a:
---
--- * 'Numeric.Algebra.Multiplicative.MSemigroup.MSemigroup'
--- * 'Numeric.Algebra.Multiplicative.MMonoid.MMonoid'
--- * 'Numeric.Algebra.Multiplicative.MGroup.MGroup'
--- * 'Numeric.Algebra.Multiplicative.MGroup.MGroupIntegral'
 --
 -- @since 0.1
 type NonZero :: Type -> Type
@@ -65,8 +62,8 @@ newtype NonZero a = UnsafeNonZero
     )
 
 -- | @since 0.1
-instance (k ~ A_Lens, a ~ m, b ~ n) => LabelOptic "unNonZero" k (NonZero m) (NonZero n) a b where
-  labelOptic = lens unNonZero (\nz x -> nz {unNonZero = x})
+instance (k ~ A_Getter, a ~ n) => LabelOptic "unNonZero" k (NonZero n) (NonZero n) a a where
+  labelOptic = to unNonZero
 
 -- | __WARNING: Partial__
 --
