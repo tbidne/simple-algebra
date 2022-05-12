@@ -62,7 +62,7 @@ newtype NonZero a = UnsafeNonZero
     )
 
 -- | @since 0.1
-instance (k ~ A_Getter, a ~ n) => LabelOptic "unNonZero" k (NonZero n) (NonZero n) a a where
+instance (k ~ A_Getter, a ~ m, b ~ m) => LabelOptic "unNonZero" k (NonZero m) (NonZero m) a b where
   labelOptic = to unNonZero
 
 -- | __WARNING: Partial__

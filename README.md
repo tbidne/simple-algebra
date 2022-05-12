@@ -85,7 +85,7 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
   <tr>
     <td><code>MGroupIntegral</code></td>
     <td><code>MGroup</code>s that support "remainder division".</td>
-    <td><code>gmod</code></td>
+    <td><code>mmod</code></td>
     <td><code>mod</code></td>
   </tr>
   <tr>

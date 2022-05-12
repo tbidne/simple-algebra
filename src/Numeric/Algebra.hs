@@ -67,7 +67,7 @@ import Numeric.Algebra.Space
 -- | 'MGroup'               | 'MMonoid's that         | '(.%.)'  | 'div', |
 -- |                        | support "division"      |          | '(/)'  |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MGroupIntegral'       | 'MGroup's that support  | 'gmod'   | 'mod'  |
+-- | 'MGroupIntegral'       | 'MGroup's that support  | 'mmod'   | 'mod'  |
 -- |                        | "remainder division".   |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Normed'               | Types that support a    | 'norm'   | 'abs'  |
@@ -99,7 +99,7 @@ import Numeric.Algebra.Space
 -- | 'Module'               | 'Semimodule's that      |          |        |
 -- |                        | are 'AGroup's.          |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'SemivectorSpace'      | 'Semimodule and         |          |        |
+-- | 'SemivectorSpace'      | 'Semimodule' and        |          |        |
 -- |                        | 'MSpace'.               |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'VectorSpace'          | 'Module' and            |          |        |

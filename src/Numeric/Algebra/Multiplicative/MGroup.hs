@@ -177,71 +177,71 @@ class MGroup g => MGroupIntegral g where
   type ModResult g
 
   -- | @since 0.1
-  gmod :: g -> NonZero g -> ModResult g
-  gmod x d = snd $ gdivMod x d
+  mmod :: g -> NonZero g -> ModResult g
+  mmod x d = snd $ mdivMod x d
 
   -- | @since 0.1
-  gdivMod :: g -> NonZero g -> (g, ModResult g)
-  gdivMod x d = (x .%. d, x `gmod` d)
+  mdivMod :: g -> NonZero g -> (g, ModResult g)
+  mdivMod x d = (x .%. d, x `mmod` d)
 
-  {-# MINIMAL (gdivMod | gmod) #-}
+  {-# MINIMAL (mdivMod | mmod) #-}
 
 -- | @since 0.1
 instance MGroupIntegral Int where
   type ModResult Int = Int
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Int8 where
   type ModResult Int8 = Int8
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Int16 where
   type ModResult Int16 = Int16
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Int32 where
   type ModResult Int32 = Int32
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Int64 where
   type ModResult Int64 = Int64
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Integer where
   type ModResult Integer = Integer
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Word where
   type ModResult Word = Word
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Word8 where
   type ModResult Word8 = Word8
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Word16 where
   type ModResult Word16 = Word16
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Word32 where
   type ModResult Word32 = Word32
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Word64 where
   type ModResult Word64 = Word64
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
 
 -- | @since 0.1
 instance MGroupIntegral Natural where
   type ModResult Natural = Natural
-  x `gdivMod` MkNonZero d = x `divMod` d
+  x `mdivMod` MkNonZero d = x `divMod` d
