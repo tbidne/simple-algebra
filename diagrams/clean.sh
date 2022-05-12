@@ -1,0 +1,1 @@
+rm './hierarchy.aux' "./hierarchy.fdb_latexmk" "./hierarchy.fls" "./hierarchy.log" "./hierarchy.pdf" "./hierarchy.synctex.gz"

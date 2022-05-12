@@ -37,7 +37,11 @@ The primary interface to numerical operations in Haskell is `Num`. Unfortunately
 
 ## Solution
 
-`algebra-simple`'s approach is to split this functionality into multiple typeclasses, so types can opt-in to exactly as much functionality as they want. The typeclasses are inspired by abstract algebra. The following table lists the classes along with the num functionality they are intended to replace:
+`algebra-simple`'s approach is to split this functionality into multiple typeclasses, so types can opt-in to exactly as much functionality as they want. The typeclasses are inspired by abstract algebra. The algebraic hierarchy can be found in the following diagram. An arrow `A -> B` should be read as "`B` is an `A`". For example, a `Module` is both a `Semimodule` and an `AGroup`.
+
+![Algebraic hierarchy](diagrams/hierarchy.png)
+
+A longer description can be found in the table below, along with the `Num` functionality they are intended to replace:
 
 <table>
   <thead>
