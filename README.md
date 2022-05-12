@@ -95,8 +95,8 @@ A longer description can be found in the table below, along with the `Num` funct
   <tr>
     <td><code>Normed</code></td>
     <td>Types that support a "norm".</td>
-    <td><code></code</td>
-    <td><code></code</td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
     <td><code>Semiring</code></td>
