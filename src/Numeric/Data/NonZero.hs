@@ -70,6 +70,7 @@ instance (k ~ A_Getter, a ~ m, b ~ m) => LabelOptic "unNonZero" k (NonZero m) (N
 -- @since 0.1
 instance (Num a, Ord a) => NumLiteral (NonZero a) where
   fromLit = unsafeNonZero . fromInteger
+  {-# INLINEABLE fromLit #-}
 
 -- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
 -- match on a nonzero term without exposing the unsafe internal details.
@@ -94,6 +95,7 @@ mkNonZero :: (Eq a, Num a) => a -> Maybe (NonZero a)
 mkNonZero x
   | x == 0 = Nothing
   | otherwise = Just (UnsafeNonZero x)
+{-# INLINEABLE mkNonZero #-}
 
 -- | Template-haskell version of 'mkNonZero' for creating 'NonZero'
 -- at compile-time.
@@ -111,6 +113,7 @@ mkNonZeroTH :: (Eq a, Lift a, Num a) => a -> Q (TExp (NonZero a))
 mkNonZeroTH x
   | x == 0 = error "Numeric.Data.NonZero.mkNonZeroTH: Passed 0"
   | otherwise = liftTyped (UnsafeNonZero x)
+{-# INLINEABLE mkNonZeroTH #-}
 
 -- | Variant of 'mkNonZero' that throws an error when given 0.
 --
@@ -125,6 +128,7 @@ unsafeNonZero :: (Eq a, HasCallStack, Num a) => a -> NonZero a
 unsafeNonZero x
   | x == 0 = error "Numeric.Data.NonZero.unsafeNonZero: Passed 0"
   | otherwise = UnsafeNonZero x
+{-# INLINEABLE unsafeNonZero #-}
 
 -- | This function is an alias for the unchecked constructor @UnsafeNonZero@
 -- i.e. it allows us to construct a 'NonZero' __without__ checking the
@@ -135,3 +139,4 @@ unsafeNonZero x
 -- @since 0.1
 reallyUnsafeNonZero :: a -> NonZero a
 reallyUnsafeNonZero = UnsafeNonZero
+{-# INLINEABLE reallyUnsafeNonZero #-}

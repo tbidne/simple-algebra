@@ -26,14 +26,17 @@ infixl 7 .%
 -- | @since 0.1
 instance MGroup k => MSpace (k, k) k where
   (x1, x2) .% k = (x1 .%. k, x2 .%. k)
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k) k where
   (x1, x2, x3) .% k = (x1 .%. k, x2 .%. k, x3 .%. k)
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k, k) k where
   (x1, x2, x3, x4) .% k = (x1 .%. k, x2 .%. k, x3 .%. k, x4 .%. k)
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k, k, k) k where
@@ -44,6 +47,7 @@ instance MGroup k => MSpace (k, k, k, k, k) k where
       x4 .%. k,
       x5 .%. k
     )
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k, k, k, k) k where
@@ -55,6 +59,7 @@ instance MGroup k => MSpace (k, k, k, k, k, k) k where
       x5 .%. k,
       x6 .%. k
     )
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k, k, k, k, k) k where
@@ -67,6 +72,7 @@ instance MGroup k => MSpace (k, k, k, k, k, k, k) k where
       x6 .%. k,
       x7 .%. k
     )
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k, k, k, k, k, k) k where
@@ -80,6 +86,7 @@ instance MGroup k => MSpace (k, k, k, k, k, k, k, k) k where
       x7 .%. k,
       x8 .%. k
     )
+  {-# INLINEABLE (.%) #-}
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k, k, k, k, k, k, k, k) k where
@@ -94,3 +101,4 @@ instance MGroup k => MSpace (k, k, k, k, k, k, k, k, k) k where
       x8 .%. k,
       x9 .%. k
     )
+  {-# INLINEABLE (.%) #-}

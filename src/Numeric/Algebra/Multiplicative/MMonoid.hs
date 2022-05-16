@@ -24,63 +24,79 @@ class MSemigroup m => MMonoid m where
 -- | @since 0.1
 instance MMonoid Double where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Float where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Int where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Int8 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Int16 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Int32 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Int64 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Integer where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Word where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Word8 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Word16 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Word32 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Word64 where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid Natural where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid (Ratio Integer) where
   one = 1
+  {-# INLINEABLE one #-}
 
 -- | @since 0.1
 instance MMonoid (Ratio Natural) where
   one = 1
+  {-# INLINEABLE one #-}
