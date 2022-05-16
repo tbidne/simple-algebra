@@ -18,12 +18,9 @@ description:
   1. "Numeric.Algebra": The typeclass replacements for 'Num'; this package's
   raison d'être.
   .
-  2. @Numeric.Data@: Smart constructor for a @NonZero@ type.
+  2. "Numeric.Data.NonZero": Smart constructor for a @NonZero@ type.
   .
-  3. @Numeric.Class@: Miscellaneous typeclasses. These are primarily
-  implementation details, but they could be useful to consumers (e.g.
-  'Numeric.Class.Literal.Literal' can be used for literal conversions in place
-  of 'Num').
+  3. "Numeric.Class.Literal": Typeclass for literal conversions.
 
 category:           Math, Algebra
 extra-source-files:
@@ -93,8 +90,6 @@ library
     Numeric.Algebra.Space.Semimodule
     Numeric.Algebra.Space.SemivectorSpace
     Numeric.Algebra.Space.VectorSpace
-    Numeric.Class.Boundless
-    Numeric.Class.Division
     Numeric.Class.Literal
     Numeric.Data.NonZero
 
