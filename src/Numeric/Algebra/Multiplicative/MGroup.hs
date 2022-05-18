@@ -52,82 +52,82 @@ infixl 7 .%.
 -- | @since 0.1
 instance MGroup Double where
   x .%. MkNonZero d = x / d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Float where
   x .%. MkNonZero d = x / d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Int where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Int8 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Int16 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Int32 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Int64 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Integer where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Word where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Word8 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Word16 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Word32 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Word64 where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup Natural where
   x .%. MkNonZero d = x `div` d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup (Ratio Integer) where
   x .%. d = x .*. flipNonZero d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup (Ratio Natural) where
   x .%. d = x .*. flipNonZero d
-  {-# INLINEABLE (.%.) #-}
+  {-# INLINE (.%.) #-}
 
 -- $nonzero
 -- These functions mirror those in "Numeric.Data.NonZero" except they are
@@ -187,7 +187,7 @@ unsafeAMonoidNonZero x
 
 flipNonZero :: Fractional a => NonZero a -> a
 flipNonZero (MkNonZero x) = recip x
-{-# INLINEABLE flipNonZero #-}
+{-# INLINE flipNonZero #-}
 
 -- | Additional functions for "integral" 'MGroup's.
 --
@@ -199,12 +199,12 @@ class MGroup g => MGroupIntegral g where
   -- | @since 0.1
   mmod :: g -> NonZero g -> ModResult g
   mmod x d = snd $ mdivMod x d
-  {-# INLINEABLE mmod #-}
+  {-# INLINE mmod #-}
 
   -- | @since 0.1
   mdivMod :: g -> NonZero g -> (g, ModResult g)
   mdivMod x d = (x .%. d, x `mmod` d)
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
   {-# MINIMAL (mdivMod | mmod) #-}
 
@@ -212,70 +212,70 @@ class MGroup g => MGroupIntegral g where
 instance MGroupIntegral Int where
   type ModResult Int = Int
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Int8 where
   type ModResult Int8 = Int8
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Int16 where
   type ModResult Int16 = Int16
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Int32 where
   type ModResult Int32 = Int32
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Int64 where
   type ModResult Int64 = Int64
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Integer where
   type ModResult Integer = Integer
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Word where
   type ModResult Word = Word
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Word8 where
   type ModResult Word8 = Word8
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Word16 where
   type ModResult Word16 = Word16
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Word32 where
   type ModResult Word32 = Word32
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Word64 where
   type ModResult Word64 = Word64
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}
 
 -- | @since 0.1
 instance MGroupIntegral Natural where
   type ModResult Natural = Natural
   x `mdivMod` MkNonZero d = x `divMod` d
-  {-# INLINEABLE mdivMod #-}
+  {-# INLINE mdivMod #-}

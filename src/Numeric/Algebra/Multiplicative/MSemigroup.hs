@@ -25,79 +25,79 @@ infixl 7 .*.
 -- | @since 0.1
 instance MSemigroup Double where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Float where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Int where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Int8 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Int16 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Int32 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Int64 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Integer where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Word where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Word8 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Word16 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Word32 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Word64 where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup Natural where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup (Ratio Integer) where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}
 
 -- | @since 0.1
 instance MSemigroup (Ratio Natural) where
   (.*.) = (*)
-  {-# INLINEABLE (.*.) #-}
+  {-# INLINE (.*.) #-}

@@ -64,13 +64,14 @@ newtype NonZero a = UnsafeNonZero
 -- | @since 0.1
 instance (k ~ A_Getter, a ~ m, b ~ m) => LabelOptic "unNonZero" k (NonZero m) (NonZero m) a b where
   labelOptic = to unNonZero
+  {-# INLINEABLE labelOptic #-}
 
 -- | __WARNING: Partial__
 --
 -- @since 0.1
 instance (Num a, Ord a) => NumLiteral (NonZero a) where
   fromLit = unsafeNonZero . fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
 -- match on a nonzero term without exposing the unsafe internal details.
@@ -139,4 +140,4 @@ unsafeNonZero x
 -- @since 0.1
 reallyUnsafeNonZero :: a -> NonZero a
 reallyUnsafeNonZero = UnsafeNonZero
-{-# INLINEABLE reallyUnsafeNonZero #-}
+{-# INLINE reallyUnsafeNonZero #-}

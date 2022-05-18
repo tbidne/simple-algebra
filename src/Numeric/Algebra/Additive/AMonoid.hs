@@ -29,117 +29,117 @@ class ASemigroup m => AMonoid m where
 -- | @since 0.1
 instance AMonoid Double where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Float where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Int where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Int8 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Int16 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Int32 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Int64 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Integer where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Word where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Word8 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Word16 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Word32 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Word64 where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid Natural where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 instance AMonoid (Ratio Integer) where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 instance AMonoid (Ratio Natural) where
   zero = 0
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a) where
   zero = (zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a) where
   zero = (zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a, a) where
   zero = (zero, zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}
 
 -- | @since 0.1
 instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
-  {-# INLINEABLE zero #-}
+  {-# INLINE zero #-}

@@ -26,83 +26,83 @@ class NumLiteral a where
 -- | @since 0.1
 instance NumLiteral Double where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Float where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Int where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Int8 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Int16 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Int32 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Int64 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Integer where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | __WARNING: Partial__
 --
 -- @since 0.1
 instance NumLiteral Natural where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Word where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Word8 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Word16 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Word32 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral Word64 where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | @since 0.1
 instance NumLiteral (Ratio Integer) where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}
 
 -- | __WARNING: Partial__
 --
 -- @since 0.1
 instance NumLiteral (Ratio Natural) where
   fromLit = fromInteger
-  {-# INLINEABLE fromLit #-}
+  {-# INLINE fromLit #-}

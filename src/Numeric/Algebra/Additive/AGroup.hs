@@ -25,82 +25,82 @@ infixl 6 .-.
 -- | @since 0.1
 instance AGroup Double where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Float where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Int where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Int8 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Int16 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Int32 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Int64 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Integer where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Word where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Word8 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Word16 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Word32 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup Word64 where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup (Ratio Integer) where
   (.-.) = (-)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a) where
   (x1, x2) .-. (y1, y2) = (x1 .-. y1, x2 .-. y2)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a) where
   (x1, x2, x3) .-. (y1, y2, y3) = (x1 .-. y1, x2 .-. y2, x3 .-. y3)
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a, a) where
@@ -110,7 +110,7 @@ instance AGroup a => AGroup (a, a, a, a) where
       x3 .-. y3,
       x4 .-. y4
     )
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a, a, a) where
@@ -121,7 +121,7 @@ instance AGroup a => AGroup (a, a, a, a, a) where
       x4 .-. y4,
       x5 .-. y5
     )
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a, a, a, a) where
@@ -133,7 +133,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a) where
       x5 .-. y5,
       x6 .-. y6
     )
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a, a, a, a, a) where
@@ -146,7 +146,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a) where
       x6 .-. y6,
       x7 .-. y7
     )
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a, a, a, a, a, a) where
@@ -160,7 +160,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a) where
       x7 .-. y7,
       x8 .-. y8
     )
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}
 
 -- | @since 0.1
 instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
@@ -175,4 +175,4 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
       x8 .-. y8,
       x9 .-. y9
     )
-  {-# INLINEABLE (.-.) #-}
+  {-# INLINE (.-.) #-}

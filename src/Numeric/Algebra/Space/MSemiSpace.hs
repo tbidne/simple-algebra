@@ -34,17 +34,17 @@ infixl 7 *.
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r) r where
   (n1, n2) .* m = (n1 .*. m, n2 .*. m)
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r) r where
   (n1, n2, n3) .* m = (n1 .*. m, n2 .*. m, n3 .*. m)
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r, r) r where
   (n1, n2, n3, n4) .* m = (n1 .*. m, n2 .*. m, n3 .*. m, n4 .*. m)
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r, r, r) r where
@@ -55,7 +55,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r) r where
       n4 .*. m,
       n5 .*. m
     )
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r, r, r, r) r where
@@ -67,7 +67,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r) r where
       n5 .*. m,
       n6 .*. m
     )
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r) r where
@@ -80,7 +80,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r) r where
       n6 .*. m,
       n7 .*. m
     )
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r) r where
@@ -94,7 +94,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r) r where
       n7 .*. m,
       n8 .*. m
     )
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
 
 -- | @since 0.1
 instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r, r) r where
@@ -109,4 +109,4 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r, r) r where
       n8 .*. m,
       n9 .*. m
     )
-  {-# INLINEABLE (.*) #-}
+  {-# INLINE (.*) #-}
