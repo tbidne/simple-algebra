@@ -17,6 +17,10 @@ module Numeric.Data.NonZero
 
     -- * Elimination
     unNonZero,
+
+    -- * Optics
+    nonZeroRPrism,
+    rmatching,
   )
 where
 
@@ -31,7 +35,16 @@ import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
 import Numeric.Class.Literal (NumLiteral (..))
-import Optics.Core (A_Getter, LabelOptic (..), to)
+import Optics.Core
+  ( An_AffineTraversal,
+    Is,
+    NoIx,
+    Optic,
+    ReversedPrism',
+    ReversibleOptic (..),
+    matching,
+    prism,
+  )
 
 -- | Smart-constructor for creating a \"non-zero\" @a@.
 --
@@ -57,11 +70,6 @@ newtype NonZero a = UnsafeNonZero
     ( -- | @since 0.1
       NFData
     )
-
--- | @since 0.1
-instance (k ~ A_Getter, a ~ m, b ~ m) => LabelOptic "unNonZero" k (NonZero m) (NonZero m) a b where
-  labelOptic = to unNonZero
-  {-# INLINEABLE labelOptic #-}
 
 -- | __WARNING: Partial__
 --
@@ -138,3 +146,37 @@ unsafeNonZero x
 reallyUnsafeNonZero :: a -> NonZero a
 reallyUnsafeNonZero = UnsafeNonZero
 {-# INLINE reallyUnsafeNonZero #-}
+
+-- | 'ReversedPrism'' that enables total elimination and partial construction.
+--
+-- ==== __Examples__
+--
+-- >>> import Optics.Core ((^.), matching, re)
+-- >>> nz = $$(mkNonZeroTH 7)
+-- >>> nz ^. nonZeroRPrism
+-- 7
+--
+-- >>> rmatching nonZeroRPrism 3
+-- Right (UnsafeNonZero {unNonZero = 3})
+--
+-- >>> rmatching nonZeroRPrism 0
+-- Left 0
+--
+-- @since 0.1
+nonZeroRPrism :: (Eq a, Num a) => ReversedPrism' (NonZero a) a
+nonZeroRPrism = re (prism f g)
+  where
+    f = unNonZero
+    g x = case mkNonZero x of
+      Nothing -> Left x
+      Just x' -> Right x'
+
+-- | Reversed 'matching'.
+--
+-- @since 0.1
+rmatching ::
+  (Is (ReversedOptic k) An_AffineTraversal, ReversibleOptic k) =>
+  Optic k NoIx b a t s ->
+  s ->
+  Either t a
+rmatching = matching . re
