@@ -21,7 +21,6 @@ module Numeric.Data.NonZero
 where
 
 import Control.DeepSeq (NFData)
-import Data.Data (Data)
 import Data.Kind (Type)
 import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
@@ -44,8 +43,6 @@ newtype NonZero a = UnsafeNonZero
   }
   deriving stock
     ( -- | @since 0.1
-      Data,
-      -- | @since 0.1
       Eq,
       -- | @since 0.1
       Generic,
