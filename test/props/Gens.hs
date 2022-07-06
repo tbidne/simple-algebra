@@ -218,7 +218,10 @@ nonzeroFloatingBounds gen lower =
   fmap MGroup.unsafeAMonoidNonZero
     . nzFloatingBounds gen lower
 
-posBounded :: (AMonoid g, Integral a, MonadGen m, TestBounds a) => (Range a -> m g) -> m (NonZero g)
+posBounded ::
+  (AMonoid g, Eq g, Integral a, MonadGen m, TestBounds a) =>
+  (Range a -> m g) ->
+  m (NonZero g)
 posBounded gen = fmap MGroup.unsafeAMonoidNonZero <$> gen $ HR.exponential 1 maxVal
 
 bounded :: (Integral a, TestBounds a) => (Range a -> m a) -> m a

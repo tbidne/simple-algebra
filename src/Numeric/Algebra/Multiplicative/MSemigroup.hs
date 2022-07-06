@@ -16,7 +16,7 @@ import GHC.Natural (Natural)
 --
 -- @since 0.1
 type MSemigroup :: Type -> Constraint
-class Eq s => MSemigroup s where
+class MSemigroup s where
   -- | @since 0.1
   (.*.) :: s -> s -> s
 

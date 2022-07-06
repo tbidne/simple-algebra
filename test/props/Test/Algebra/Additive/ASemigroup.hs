@@ -154,6 +154,7 @@ rationalAssoc = asemigroupAssoc Gens.rational "Rational" "rationalAssoc"
 
 asemigroupAssoc ::
   ( ASemigroup a,
+    Eq a,
     Show a
   ) =>
   Gen a ->

@@ -143,7 +143,7 @@ instance MGroup (Ratio Natural) where
 -- Nothing
 --
 -- @since 0.1
-mkAMonoidNonZero :: AMonoid g => g -> Maybe (NonZero g)
+mkAMonoidNonZero :: (AMonoid g, Eq g) => g -> Maybe (NonZero g)
 mkAMonoidNonZero x
   | x == zero = Nothing
   | otherwise = Just (reallyUnsafeNonZero x)
@@ -158,9 +158,9 @@ mkAMonoidNonZero x
 --
 -- @since 0.1
 #if MIN_VERSION_template_haskell(2,17,0)
-mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Code Q (NonZero g)
+mkAMonoidNonZeroTH :: (AMonoid g, Eq g, Lift g) => g -> Code Q (NonZero g)
 #else
-mkAMonoidNonZeroTH :: (AMonoid g, Lift g) => g -> Q (TExp (NonZero g))
+mkAMonoidNonZeroTH :: (AMonoid g, Eq g, Lift g) => g -> Q (TExp (NonZero g))
 #endif
 mkAMonoidNonZeroTH x
   | x == zero =
@@ -177,7 +177,7 @@ mkAMonoidNonZeroTH x
 -- UnsafeNonZero {unNonZero = 7}
 --
 -- @since 0.1
-unsafeAMonoidNonZero :: AMonoid g => g -> NonZero g
+unsafeAMonoidNonZero :: (AMonoid g, Eq g) => g -> NonZero g
 unsafeAMonoidNonZero x
   | x == zero =
       error

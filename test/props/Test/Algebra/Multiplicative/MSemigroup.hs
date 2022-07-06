@@ -153,7 +153,8 @@ rationalAssoc :: TestTree
 rationalAssoc = msemigroupAssoc Gens.rational "Rational" "rationalAssoc"
 
 msemigroupAssoc ::
-  ( MSemigroup a,
+  ( Eq a,
+    MSemigroup a,
     Show a
   ) =>
   Gen a ->
