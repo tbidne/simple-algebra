@@ -1,6 +1,6 @@
 {
   description = "algebra-simple flake";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   outputs =
     { flake-utils
