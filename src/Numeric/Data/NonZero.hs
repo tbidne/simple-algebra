@@ -19,7 +19,7 @@ module Numeric.Data.NonZero
     unNonZero,
 
     -- * Optics
-    nonZeroRPrism,
+    _MkNonZero,
     rmatching,
   )
 where
@@ -45,6 +45,9 @@ import Optics.Core
     matching,
     prism,
   )
+
+-- $setup
+-- >>> :set -XTemplateHaskell
 
 -- | Smart-constructor for creating a \"non-zero\" @a@.
 --
@@ -151,27 +154,36 @@ reallyUnsafeNonZero = UnsafeNonZero
 --
 -- ==== __Examples__
 --
--- >>> import Optics.Core ((^.), matching, re)
+-- >>> import Optics.Core ((^.))
 -- >>> nz = $$(mkNonZeroTH 7)
--- >>> nz ^. nonZeroRPrism
+-- >>> nz ^. _MkNonZero
 -- 7
 --
--- >>> rmatching nonZeroRPrism 3
+-- >>> rmatching _MkNonZero 3
 -- Right (UnsafeNonZero {unNonZero = 3})
 --
--- >>> rmatching nonZeroRPrism 0
+-- >>> rmatching _MkNonZero 0
 -- Left 0
 --
 -- @since 0.1
-nonZeroRPrism :: (Eq a, Num a) => ReversedPrism' (NonZero a) a
-nonZeroRPrism = re (prism f g)
+_MkNonZero :: (Eq a, Num a) => ReversedPrism' (NonZero a) a
+_MkNonZero = re (prism f g)
   where
     f = unNonZero
     g x = case mkNonZero x of
       Nothing -> Left x
       Just x' -> Right x'
+{-# INLINEABLE _MkNonZero #-}
 
--- | Reversed 'matching'.
+-- | Reversed 'matching'. Useful with smart-constructor optics.
+--
+-- ==== __Examples__
+--
+-- >>> rmatching _MkNonZero 3
+-- Right (UnsafeNonZero {unNonZero = 3})
+--
+-- >>> rmatching _MkNonZero 0
+-- Left 0
 --
 -- @since 0.1
 rmatching ::
@@ -180,3 +192,4 @@ rmatching ::
   s ->
   Either t a
 rmatching = matching . re
+{-# INLINEABLE rmatching #-}
