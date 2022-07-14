@@ -97,7 +97,7 @@ haddock:
 	cabal haddock --haddock-hyperlink-source --haddock-quickjump ;\
 	mkdir -p docs/ ;\
 	find docs/ -type f | xargs -I % sh -c "rm -r %" ;\
-	cp -r dist-newstyle/build/x86_64-linux/ghc-9.2.2/algebra-simple-0.1/doc/html/algebra-simple/* docs/
+	cp -r dist-newstyle/build/x86_64-linux/ghc-9.2.3/algebra-simple-0.1/doc/html/algebra-simple/* docs/
 
 .PHONY: haddockc
 haddockc:
