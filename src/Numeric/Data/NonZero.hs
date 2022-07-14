@@ -26,6 +26,9 @@ where
 
 import Control.DeepSeq (NFData)
 import Data.Kind (Type)
+#if !MIN_VERSION_prettyprinter(1, 7, 1)
+import Data.Text.Prettyprint.Doc (Pretty (..))
+#endif
 import GHC.Generics (Generic)
 import GHC.Stack (HasCallStack)
 #if MIN_VERSION_template_haskell(2, 17, 0)
@@ -45,6 +48,9 @@ import Optics.Core
     matching,
     prism,
   )
+#if MIN_VERSION_prettyprinter(1, 7, 1)
+import Prettyprinter (Pretty (..))
+#endif
 
 -- $setup
 -- >>> :set -XTemplateHaskell
@@ -80,6 +86,11 @@ newtype NonZero a = UnsafeNonZero
 instance (Num a, Ord a) => NumLiteral (NonZero a) where
   fromLit = unsafeNonZero . fromInteger
   {-# INLINE fromLit #-}
+
+-- | @since 0.1
+instance Pretty a => Pretty (NonZero a) where
+  pretty = pretty . unNonZero
+  {-# INLINEABLE pretty #-}
 
 -- | Unidirectional pattern synonym for 'NonZero'. This allows us to pattern
 -- match on a nonzero term without exposing the unsafe internal details.
