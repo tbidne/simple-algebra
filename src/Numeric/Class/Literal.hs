@@ -6,6 +6,7 @@ module Numeric.Class.Literal
   )
 where
 
+import Data.Complex (Complex)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -104,5 +105,10 @@ instance NumLiteral (Ratio Integer) where
 --
 -- @since 0.1
 instance NumLiteral (Ratio Natural) where
+  fromLit = fromInteger
+  {-# INLINE fromLit #-}
+
+-- | @since 0.1
+instance RealFloat a => NumLiteral (Complex a) where
   fromLit = fromInteger
   {-# INLINE fromLit #-}

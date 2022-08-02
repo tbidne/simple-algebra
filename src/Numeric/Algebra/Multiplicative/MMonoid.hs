@@ -6,6 +6,7 @@ module Numeric.Algebra.Multiplicative.MMonoid
   )
 where
 
+import Data.Complex (Complex)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -98,5 +99,10 @@ instance MMonoid (Ratio Integer) where
 
 -- | @since 0.1
 instance MMonoid (Ratio Natural) where
+  one = 1
+  {-# INLINE one #-}
+
+-- | @since 0.1
+instance RealFloat a => MMonoid (Complex a) where
   one = 1
   {-# INLINE one #-}

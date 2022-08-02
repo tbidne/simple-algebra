@@ -6,6 +6,7 @@ module Numeric.Algebra.Ring
   )
 where
 
+import Data.Complex (Complex)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -61,3 +62,6 @@ instance Ring Word64
 
 -- | @since 0.1
 instance Ring (Ratio Integer)
+
+-- | @since 0.1
+instance RealFloat a => Ring (Complex a)
