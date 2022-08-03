@@ -143,7 +143,7 @@ instance RealFloat a => MGroup (Complex a) where
 --
 -- ==== __Examples__
 -- >>> mkAMonoidNonZero 7
--- Just (UnsafeNonZero {unNonZero = 7})
+-- Just (UnsafeNonZero 7)
 --
 -- >>> mkAMonoidNonZero 0
 -- Nothing
@@ -160,7 +160,7 @@ mkAMonoidNonZero x
 --
 -- ==== __Examples__
 -- >>> $$(mkAMonoidNonZeroTH 7)
--- UnsafeNonZero {unNonZero = 7}
+-- UnsafeNonZero 7
 --
 -- @since 0.1
 #if MIN_VERSION_template_haskell(2,17,0)
@@ -180,7 +180,7 @@ mkAMonoidNonZeroTH x
 --
 -- ==== __Examples__
 -- >>> unsafeAMonoidNonZero 7
--- UnsafeNonZero {unNonZero = 7}
+-- UnsafeNonZero 7
 --
 -- @since 0.1
 unsafeAMonoidNonZero :: (AMonoid g, Eq g) => g -> NonZero g

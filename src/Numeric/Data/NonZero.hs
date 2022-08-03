@@ -59,10 +59,7 @@ import Prettyprinter (Pretty (..))
 --
 -- @since 0.1
 type NonZero :: Type -> Type
-newtype NonZero a = UnsafeNonZero
-  { -- | @since 0.1
-    unNonZero :: a
-  }
+newtype NonZero a = UnsafeNonZero a
   deriving stock
     ( -- | @since 0.1
       Eq,
@@ -102,11 +99,15 @@ pattern MkNonZero x <- UnsafeNonZero x
 
 {-# COMPLETE MkNonZero #-}
 
+-- | @since 0.1
+unNonZero :: NonZero a -> a
+unNonZero (UnsafeNonZero x) = x
+
 -- | Smart constructor for 'NonZero'.
 --
 -- ==== __Examples__
 -- >>> mkNonZero 7
--- Just (UnsafeNonZero {unNonZero = 7})
+-- Just (UnsafeNonZero 7)
 --
 -- >>> mkNonZero 0
 -- Nothing
@@ -123,7 +124,7 @@ mkNonZero x
 --
 -- ==== __Examples__
 -- >>> $$(mkNonZeroTH 7)
--- UnsafeNonZero {unNonZero = 7}
+-- UnsafeNonZero 7
 --
 -- @since 0.1
 #if MIN_VERSION_template_haskell(2,17,0)
@@ -141,8 +142,8 @@ mkNonZeroTH x
 -- __WARNING: Partial__
 --
 -- ==== __Examples__
--- >>> UnsafeNonZero {unNonZero = 7}
--- UnsafeNonZero {unNonZero = 7}
+-- >>> unsafeNonZero 7
+-- UnsafeNonZero 7
 --
 -- @since 0.1
 unsafeNonZero :: (Eq a, HasCallStack, Num a) => a -> NonZero a
@@ -172,7 +173,7 @@ reallyUnsafeNonZero = UnsafeNonZero
 -- 7
 --
 -- >>> rmatching _MkNonZero 3
--- Right (UnsafeNonZero {unNonZero = 3})
+-- Right (UnsafeNonZero 3)
 --
 -- >>> rmatching _MkNonZero 0
 -- Left 0
@@ -192,7 +193,7 @@ _MkNonZero = re (prism f g)
 -- ==== __Examples__
 --
 -- >>> rmatching _MkNonZero 3
--- Right (UnsafeNonZero {unNonZero = 3})
+-- Right (UnsafeNonZero 3)
 --
 -- >>> rmatching _MkNonZero 0
 -- Left 0
