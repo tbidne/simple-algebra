@@ -83,8 +83,9 @@ newtype NonZero a = UnsafeNonZero
 -- | __WARNING: Partial__
 --
 -- @since 0.1
-instance (Num a, Ord a) => NumLiteral (NonZero a) where
-  fromLit = unsafeNonZero . fromInteger
+instance (Num a, NumLiteral a, Ord a) => NumLiteral (NonZero a) where
+  type Literal (NonZero a) = Literal a
+  fromLit = unsafeNonZero . fromLit
   {-# INLINE fromLit #-}
 
 -- | @since 0.1
