@@ -1,36 +1,46 @@
 {
   description = "algebra-simple flake";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.flake-compat = {
+    url = "github:edolstra/flake-compat";
+    flake = false;
+  };
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   outputs =
-    { flake-utils
+    { flake-compat
+    , flake-utils
     , nixpkgs
     , self
     }:
     flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
-      compilerVersion = "ghc923";
-      compiler = pkgs.haskell.packages."${compilerVersion}";
-      mkPkg = returnShellEnv:
+      buildTools = c: with c; [
+        cabal-install
+        pkgs.gnumake
+        pkgs.zlib
+      ];
+      devTools = c: with c; [
+        ghcid
+        haskell-language-server
+      ];
+      ghc-version = "ghc923";
+      compiler = pkgs.haskell.packages."${ghc-version}";
+      mkPkg = returnShellEnv: withDevTools:
         compiler.developPackage {
           inherit returnShellEnv;
           name = "algebra-simple";
           root = ./.;
           modifier = drv:
-            pkgs.haskell.lib.addBuildTools drv (with compiler; [
-              cabal-install
-              haskell-language-server
-              ghcid
-              ormolu
-              pkgs.nixpkgs-fmt
-              pkgs.zlib
-            ]);
+            pkgs.haskell.lib.addBuildTools drv
+              (buildTools compiler ++
+                (if withDevTools then devTools compiler else [ ]));
         };
     in
     {
-      defaultPackage = mkPkg false;
+      packages.default = mkPkg false false;
 
-      devShell = mkPkg true;
+      devShells.default = mkPkg true true;
+      devShells.ci = mkPkg true false;
     });
 }
