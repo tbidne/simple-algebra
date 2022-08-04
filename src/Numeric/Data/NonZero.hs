@@ -37,7 +37,8 @@ import Language.Haskell.TH (Code, Q)
 import Language.Haskell.TH (Q, TExp)
 #endif
 import Language.Haskell.TH.Syntax (Lift (..))
-import Numeric.Class.Literal (NumLiteral (..))
+import Numeric.Literal.Integer (FromInteger (..))
+import Numeric.Literal.Rational (FromRational (..))
 import Optics.Core
   ( An_AffineTraversal,
     Is,
@@ -80,10 +81,16 @@ newtype NonZero a = UnsafeNonZero a
 -- | __WARNING: Partial__
 --
 -- @since 0.1
-instance (Num a, NumLiteral a, Ord a) => NumLiteral (NonZero a) where
-  type Literal (NonZero a) = Literal a
-  fromLit = unsafeNonZero . fromLit
-  {-# INLINE fromLit #-}
+instance (FromInteger a, Num a, Ord a) => FromInteger (NonZero a) where
+  afromInteger = unsafeNonZero . afromInteger
+  {-# INLINE afromInteger #-}
+
+-- | __WARNING: Partial__
+--
+-- @since 0.1
+instance (FromRational a, Num a, Ord a) => FromRational (NonZero a) where
+  afromRational = unsafeNonZero . afromRational
+  {-# INLINE afromRational #-}
 
 -- | @since 0.1
 instance Pretty a => Pretty (NonZero a) where

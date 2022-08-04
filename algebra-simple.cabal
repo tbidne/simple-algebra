@@ -20,7 +20,7 @@ description:
   .
   2. "Numeric.Data.NonZero": Smart constructor for a @NonZero@ type.
   .
-  3. "Numeric.Class.Literal": Typeclass for literal conversions.
+  3. "Numeric.Literal": Typeclasses for literal conversions.
 
 category:           Math, Algebra
 extra-source-files:
@@ -89,8 +89,9 @@ library
     Numeric.Algebra.Space.Semimodule
     Numeric.Algebra.Space.SemivectorSpace
     Numeric.Algebra.Space.VectorSpace
-    Numeric.Class.Literal
     Numeric.Data.NonZero
+    Numeric.Literal.Integer
+    Numeric.Literal.Rational
 
   build-depends:
     , base              >=4.14.0.0 && <4.17
