@@ -11,7 +11,7 @@ import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import GHC.Natural (Natural)
 
--- | Replaces base's 'fromRational' functionality for when we do not have a
+-- | Replaces base's @fromRational@ functionality for when we do not have a
 -- 'Fractional' instance.
 --
 -- @
@@ -22,7 +22,7 @@ import GHC.Natural (Natural)
 -- afromRational 5.5 :: Fractional a => a
 -- @
 --
--- Note that 'fromRatoinal''s deficiencies are inherited e.g. 'Natural' is
+-- Note that @fromRational@'s deficiencies are inherited e.g. 'Natural' is
 -- partial, bounded types have over/underflow issues.
 --
 -- @since 0.1

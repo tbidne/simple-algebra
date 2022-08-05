@@ -13,7 +13,7 @@ import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 
--- | Replaces base's 'fromInteger' functionality for when we do not have a
+-- | Replaces base's @fromInteger@ functionality for when we do not have a
 -- 'Num' instance.
 --
 -- @
@@ -24,7 +24,7 @@ import GHC.Natural (Natural)
 -- afromInteger 1_000 :: FromInteger a => a
 -- @
 --
--- Note that 'fromInteger''s deficiencies are inherited e.g. 'Natural' is
+-- Note that @fromInteger@'s deficiencies are inherited e.g. 'Natural' is
 -- partial, bounded types have over/underflow issues.
 --
 -- @since 0.1
