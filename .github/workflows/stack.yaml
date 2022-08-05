@@ -35,4 +35,5 @@ jobs:
       - name: Test
         env:
           STACK_YAML: ${{ matrix.stack_yaml }}
-        run: MAX_RUNS=100000 stack test --ghc-options -Werror
+          MAX_RUNS: 100000
+        run: stack test --ghc-options -Werror
