@@ -28,4 +28,6 @@ jobs:
         run: cabal build
 
       - name: Property Tests
-        run: MAX_RUNS=100000 cabal test props
+        env:
+          MAX_RUNS: 100000
+        run: cabal test props
