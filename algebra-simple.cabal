@@ -38,6 +38,7 @@ common common-exts
     NoStarIsType
     BangPatterns
     DataKinds
+    DeriveAnyClass
     DeriveFunctor
     DeriveGeneric
     DeriveLift
