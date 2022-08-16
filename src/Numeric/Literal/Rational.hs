@@ -10,6 +10,7 @@ import Data.Complex (Complex)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import GHC.Natural (Natural)
+import GHC.Stack.Types (HasCallStack)
 
 -- | Replaces base's @fromRational@ functionality for when we do not have a
 -- 'Fractional' instance.
@@ -29,7 +30,7 @@ import GHC.Natural (Natural)
 type FromRational :: Type -> Constraint
 class FromRational a where
   -- | @since 0.1
-  afromRational :: Rational -> a
+  afromRational :: HasCallStack => Rational -> a
 
 -- | @since 0.1
 instance FromRational Double where

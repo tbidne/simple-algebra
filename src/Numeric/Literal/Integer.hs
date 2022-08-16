@@ -12,6 +12,7 @@ import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
+import GHC.Stack.Types (HasCallStack)
 
 -- | Replaces base's @fromInteger@ functionality for when we do not have a
 -- 'Num' instance.
@@ -31,7 +32,7 @@ import GHC.Natural (Natural)
 type FromInteger :: Type -> Constraint
 class FromInteger a where
   -- | @since 0.1
-  afromInteger :: Integer -> a
+  afromInteger :: HasCallStack => Integer -> a
 
 -- | @since 0.1
 instance FromInteger Double where
