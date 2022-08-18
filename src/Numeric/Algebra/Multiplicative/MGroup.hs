@@ -26,6 +26,7 @@ import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio (..))
+import GHC.Stack (HasCallStack)
 #if MIN_VERSION_template_haskell(2, 17, 0)
 import Language.Haskell.TH (Code, Q)
 #else
@@ -122,12 +123,12 @@ instance MGroup Natural where
 
 -- | @since 0.1
 instance MGroup (Ratio Integer) where
-  x .%. d = x .*. flipNonZero d
+  x .%. MkNonZero d = x .*. recip d
   {-# INLINE (.%.) #-}
 
 -- | @since 0.1
 instance MGroup (Ratio Natural) where
-  x .%. d = x .*. flipNonZero d
+  x .%. MkNonZero d = x .*. recip d
   {-# INLINE (.%.) #-}
 
 -- | @since 0.1
@@ -183,17 +184,13 @@ mkAMonoidNonZeroTH x
 -- UnsafeNonZero 7
 --
 -- @since 0.1
-unsafeAMonoidNonZero :: (AMonoid g, Eq g) => g -> NonZero g
+unsafeAMonoidNonZero :: (AMonoid g, Eq g, HasCallStack) => g -> NonZero g
 unsafeAMonoidNonZero x
   | x == zero =
       error
         "Numeric.Algebra.Multiplicative.MGroup.unsafeAMonoidNonZero: Passed identity"
   | otherwise = reallyUnsafeNonZero x
 {-# INLINEABLE unsafeAMonoidNonZero #-}
-
-flipNonZero :: Fractional a => NonZero a -> a
-flipNonZero (MkNonZero x) = recip x
-{-# INLINE flipNonZero #-}
 
 -- | Additional functions for "integral" 'MGroup's.
 --
