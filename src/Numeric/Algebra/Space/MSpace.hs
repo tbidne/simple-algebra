@@ -20,8 +20,16 @@ type MSpace :: Type -> Type -> Constraint
 class (MGroup k, MSemiSpace v k) => MSpace v k | v -> k where
   -- | @since 0.1
   (.%) :: v -> NonZero k -> v
+  (.%) = flip (%.)
+
+  -- | @since 0.1
+  (%.) :: NonZero k -> v -> v
+  (%.) = flip (.%)
+
+  {-# MINIMAL ((.%) | (%.)) #-}
 
 infixl 7 .%
+infixl 7 %.
 
 -- | @since 0.1
 instance MGroup k => MSpace (k, k) k where
