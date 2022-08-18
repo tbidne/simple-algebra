@@ -26,13 +26,20 @@ import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
 
+-- | Tests that two binary functions are pointwise equal.
 binaryEq ::
   Show a =>
+  -- | The baseline function.
   (a -> a -> a) ->
+  -- | The function we compare against the baseline.
   (a -> a -> a) ->
+  -- | Generator the domain.
   Gen a ->
+  -- | Injects the result into an 'Equality' for the comparison.
   (a -> Equality eq a) ->
+  -- | Test description.
   TestName ->
+  -- | Property description.
   PropertyName ->
   TestTree
 binaryEq expectedFn actualFn gen equalityCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
@@ -45,7 +52,18 @@ binaryEq expectedFn actualFn gen equalityCons desc propName = T.askOption $ \(Mk
             expected = expectedFn x y
         equalityCons expected === equalityCons actual
 
-associativity :: (Eq a, Show a) => (a -> a -> a) -> Gen a -> TestName -> PropertyName -> TestTree
+-- | Tests that a function is associative.
+associativity ::
+  (Eq a, Show a) =>
+  -- | Function to test.
+  (a -> a -> a) ->
+  -- | Generates the domain.
+  Gen a ->
+  -- | Test description.
+  TestName ->
+  -- | Property description.
+  PropertyName ->
+  TestTree
 associativity f gen desc propName = T.askOption $ \(MkMaxRuns limit) ->
   testPropertyCompat desc propName $
     H.withTests limit $
@@ -65,13 +83,33 @@ associativity f gen desc propName = T.askOption $ \(MkMaxRuns limit) ->
         -- but with more granular logging
         lhs === rhs
 
-identity :: Show a => (a -> a -> a) -> a -> Gen a -> (a -> Equality eq a) -> TestName -> PropertyName -> TestTree
+-- | Tests the identity law.
+--
+-- @
+-- f x e === x === f e x
+-- @
+identity ::
+  Show a =>
+  -- | Function to test.
+  (a -> a -> a) ->
+  -- | Identity term.
+  a ->
+  -- | Generates the domain.
+  Gen a ->
+  -- | Injects the result into an 'Equality' for the comparison.
+  (a -> Equality eq a) ->
+  -- | Test description.
+  TestName ->
+  -- | Property description.
+  PropertyName ->
+  TestTree
 identity f ident gen eqCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
   testPropertyCompat desc propName $
     H.withTests limit $
       H.property $ do
         x <- H.forAll gen
-        eqCons (f x ident) === eqCons (f ident x)
+        eqCons (f x ident) === eqCons x
+        eqCons (f ident x) === eqCons x
 
 (==>) :: Bool -> Bool -> Bool
 True ==> False = False
