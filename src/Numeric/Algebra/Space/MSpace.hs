@@ -29,6 +29,7 @@ class (MGroup k, MSemiSpace v k) => MSpace v k | v -> k where
   {-# MINIMAL ((.%) | (%.)) #-}
 
 infixl 7 .%
+
 infixl 7 %.
 
 -- | @since 0.1
