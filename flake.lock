@@ -31,19 +31,114 @@
         "type": "github"
       }
     },
+    "flake-utils_2": {
+      "locked": {
+        "lastModified": 1652776076,
+        "narHash": "sha256-gzTw/v1vj4dOVbpBSJX4J0DwUR6LIyXo7/SuuTJp1kM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "04c1b180862888302ddfb2e3ad9eaa63afc60cf8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "liquid-fixpoint": {
+      "inputs": {
+        "flake-utils": [
+          "liquidhaskell-src",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "liquidhaskell-src",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1653693908,
+        "narHash": "sha256-IYrQB9M/XdDaDzQ1576iUNvbehJ4fUlKvPtg5l/Z5xU=",
+        "owner": "plredmond",
+        "repo": "liquid-fixpoint",
+        "rev": "8ce7686045c49b25b46ea3024e9c0dd2979d8488",
+        "type": "github"
+      },
+      "original": {
+        "owner": "plredmond",
+        "ref": "nix-flake",
+        "repo": "liquid-fixpoint",
+        "type": "github"
+      }
+    },
+    "liquid-fixpoint-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1656896731,
+        "narHash": "sha256-D1LwUhUEk+4ITXh5IL6wAN4XdnWIu7FwLM9s1+p8rBQ=",
+        "owner": "ucsd-progsys",
+        "repo": "liquid-fixpoint",
+        "rev": "f6af0464c0b2ccd908075d5254864dbcf73f8e7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ucsd-progsys",
+        "repo": "liquid-fixpoint",
+        "rev": "f6af0464c0b2ccd908075d5254864dbcf73f8e7a",
+        "type": "github"
+      }
+    },
+    "liquidhaskell-src": {
+      "inputs": {
+        "flake-utils": "flake-utils_2",
+        "liquid-fixpoint": "liquid-fixpoint",
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1659611004,
+        "narHash": "sha256-HwaZH5QH1S5/vzcrSljdXmV1wO8ypoUqs4I1cfl6nK4=",
+        "owner": "ucsd-progsys",
+        "repo": "liquidhaskell",
+        "rev": "82c3c60e3a57791b8b2e77f39f86d93900a44085",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ucsd-progsys",
+        "ref": "develop",
+        "repo": "liquidhaskell",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1657265485,
-        "narHash": "sha256-PUQ9C7mfi0/BnaAUX2R/PIkoNCb/Jtx9EpnhMBNrO/o=",
+        "lastModified": 1653504306,
+        "narHash": "sha256-bqjEskV+/tqOQqSEaCu4e6uWZ0F7ekBiMR16xpn4V0k=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6efc186e6079ff3f328a2497ff3d36741ac60f6e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1640386159,
+        "narHash": "sha256-11I/EfRTcQqgzX660ewofZuZuKioExkmMmIOfr0vkyE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "b39924fc7764c08ae3b51beef9a3518c414cdb7d",
+        "rev": "44a97867600d7148298e363f34cfcaee9ba486c4",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "rev": "44a97867600d7148298e363f34cfcaee9ba486c4",
         "type": "github"
       }
     },
@@ -51,7 +146,9 @@
       "inputs": {
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "liquid-fixpoint-src": "liquid-fixpoint-src",
+        "liquidhaskell-src": "liquidhaskell-src",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },

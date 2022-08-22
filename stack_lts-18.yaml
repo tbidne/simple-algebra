@@ -3,10 +3,15 @@ packages:
 - .
 ghc-options:
   "$locals":
-    -Wall -Wcompat -Werror -Widentities
+    -Wall -Werror -Wcompat -Widentities
     -Wincomplete-record-updates -Wincomplete-uni-patterns
     -Wmissing-home-modules -Wmissing-export-lists -Wpartial-fields
     -Wredundant-constraints -Wunused-packages -Wmissing-deriving-strategies
 extra-deps:
 - env-guard-0.2@sha256:59410eed9b9ddbd115760a59c7170927320d8612e414701d323a0c8985c97523,1251
-- optics-core-0.4.1@sha256:b163d1a8f392536c645cbd728c3e29d9f35864b25b1e3cef3a29806ee8a21c6b,5545
+- optics-core-0.3.0.1@sha256:50845a47810eb5a5f03dfa9bb1edd8a577fc7ca1702ba4bde68b235f7cb44528,4536
+- rest-rewrite-0.4.0@sha256:be93d899f7dece33f2a7613eb3dabd24d139f9cb2fc09f9efedfdce4ba6eb276,3923
+- git: https://github.com/ucsd-progsys/liquid-fixpoint.git
+  commit: f6af0464c0b2ccd908075d5254864dbcf73f8e7a
+- git: https://github.com/ucsd-progsys/liquidhaskell.git
+  commit: 82c3c60e3a57791b8b2e77f39f86d93900a44085

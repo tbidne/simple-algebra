@@ -3,11 +3,18 @@ packages:
 - .
 ghc-options:
   "$locals":
-    -Wall -Wcompat -Werror -Widentities
+    -Wall -Werror -Wcompat -Widentities
     -Wincomplete-record-updates -Wincomplete-uni-patterns
     -Wmissing-home-modules -Wmissing-export-lists -Wpartial-fields
     -Wredundant-constraints -Wunused-packages -Wmissing-deriving-strategies
 extra-deps:
 - env-guard-0.2@sha256:59410eed9b9ddbd115760a59c7170927320d8612e414701d323a0c8985c97523,1251
+- rest-rewrite-0.4.0@sha256:be93d899f7dece33f2a7613eb3dabd24d139f9cb2fc09f9efedfdce4ba6eb276,3923
+- git: https://github.com/ucsd-progsys/liquid-fixpoint.git
+  commit: f6af0464c0b2ccd908075d5254864dbcf73f8e7a
+- git: https://github.com/ucsd-progsys/liquidhaskell.git
+  commit: 82c3c60e3a57791b8b2e77f39f86d93900a44085
+  subdirs:
+  - liquid-base
 nix:
   shell-file: nix/stack.nix

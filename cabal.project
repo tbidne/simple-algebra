@@ -8,3 +8,14 @@ package algebra-simple
     -Wredundant-constraints -Wunused-packages -Wmissing-deriving-strategies
 
 test-show-details: direct
+
+source-repository-package
+    type: git
+    location: https://github.com/ucsd-progsys/liquid-fixpoint.git
+    tag: f6af0464c0b2ccd908075d5254864dbcf73f8e7a
+
+source-repository-package
+    type: git
+    location: https://github.com/ucsd-progsys/liquidhaskell.git
+    tag: 82c3c60e3a57791b8b2e77f39f86d93900a44085
+    subdir: liquid-base

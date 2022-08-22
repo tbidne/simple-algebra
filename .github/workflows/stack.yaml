@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - liquid
 
   pull_request:
     branches:
@@ -15,11 +16,11 @@ jobs:
   stack:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         stack_yaml:
           - stack_lts-18.yaml
           - stack.yaml
-          - stack_nightly.yaml
     steps:
       - uses: actions/checkout@v3.0.2
 
