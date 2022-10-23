@@ -32,10 +32,10 @@ line/.style={-latex}
   \node[plain] (msemigroup)      at (16,0) {\bftt{MSemigroup} \\ Multiplication: \texttt{(.*.)}};
   \node[plain] (mmonoid)         at (16,2) {\bftt{MMonoid} \\ Identity: \texttt{one}};
   \node[plain] (mgroup)          at (16,4) {\bftt{MGroup} \\ Division: \texttt{(.\%.)}};
-  \node[plain] (mgroupintegral)  at (18,6) {\bftt{MGroupIntegral} \\ Integral division: \texttt{mmod}};
+  \node[plain] (meuclidean)  at (18,6) {\bftt{MEuclidean} \\ Integral division: \texttt{mmod}};
   \draw[thick, ->] (msemigroup) -- (mmonoid);
   \draw[thick, ->] (mmonoid)    -- (mgroup);
-  \draw[thick, ->] (mgroup)    -- (mgroupintegral);
+  \draw[thick, ->] (mgroup)    -- (meuclidean);
 
   % semiring
   \node[plain] (semiring) at (12,4) {\bftt{Semiring}};
