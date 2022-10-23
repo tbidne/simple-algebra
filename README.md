@@ -25,7 +25,7 @@
 
 # Overview
 
-`Algebra-Simple` intends to provide a simple, reasonably principled interface to typical operations (i.e. addition, subtraction, multiplication, division). This package is organized into three sections: `Numeric.Algebra`, `Numeric.Data`, and `Numeric.Class`.
+`Algebra-Simple` intends to provide a simple, reasonably principled interface to typical operations (i.e. addition, subtraction, multiplication, division). This package is organized into three sections: `Numeric.Algebra`, `Numeric.Data`, and `Numeric.Literal`.
 
 # Algebraic Typeclasses
 
@@ -85,7 +85,7 @@ A longer description can be found in the table below, along with the `Num` funct
     <td><code>div</code>, <code>(/)</code></td>
   </tr>
   <tr>
-    <td><code>MGroupIntegral</code></td>
+    <td><code>MEuclidean</code></td>
     <td><code>MGroup</code>s that support "remainder division".</td>
     <td><code>mmod</code></td>
     <td><code>mod</code></td>
@@ -198,4 +198,4 @@ Additionally, there is a smart constructor for a simple `NonZero` type. This is 
 
 # Miscellaneous
 
-Finally, there are some miscellaneous typeclasses in `Numeric.Class`. These are primarily implementation details, but they could be useful to consumers (e.g. `Literal` can be used for literal conversions in place of `Num`).
+Finally, there are typeclasses in `Numeric.Literal` for literal conversions.
