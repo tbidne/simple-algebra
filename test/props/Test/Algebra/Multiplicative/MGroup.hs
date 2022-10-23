@@ -5,7 +5,8 @@ import Gens qualified
 import Hedgehog (Gen, PropertyName, (===))
 import Hedgehog qualified as H
 import MaxRuns (MaxRuns (..))
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), MGroupIntegral (..), NonZero (..))
+import Numeric.Algebra.Multiplicative.MEuclidean (MEuclidean (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
@@ -237,7 +238,7 @@ naturalDivIntegral = mgroupDivIntegralEq Gens.natural Gens.naturalNonZero "Natur
 
 mgroupDivIntegralEq ::
   ( Integral a,
-    MGroupIntegral a,
+    MEuclidean a,
     ModResult a ~ a,
     Show a
   ) =>

@@ -73,8 +73,8 @@ import Numeric.Algebra.Space
 -- | 'MGroup'               | 'MMonoid's that         | '(.%.)'  | 'div', |
 -- |                        | support "division"      |          | '(/)'  |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MGroupIntegral'       | 'MGroup's that support  | 'mmod'   | 'mod'  |
--- |                        | "remainder division".   |          |        |
+-- | 'MEuclidean'           | 'MGroup's that support  | 'mmod'   | 'mod'  |
+-- |                        | "euclidean division".   |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Normed'               | Types that support a    | 'norm'   | 'abs'  |
 -- |                        | "norm".                 |          |        |
@@ -92,14 +92,14 @@ import Numeric.Algebra.Space
 -- |                        | 'Semifield'.            |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'MSemiSpace'           | Types that              | '(.*)',  |        |
--- |                        | support  "scalar        | '(*.)'   |        |
+-- |                        | support "scalar         | '(*.)'   |        |
 -- |                        | multiplication".        |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'MSpace'               | 'MSemiSpace's that      | '(.%)'   |        |
 -- |                        | support "scalar         |          |        |
 -- |                        | division".              |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'Semimodule'           | 'AMonoid'  and          |          |        |
+-- | 'Semimodule'           | 'AMonoid' and           |          |        |
 -- |                        | 'MSemiSpace'.           |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Module'               | 'Semimodule's that      |          |        |

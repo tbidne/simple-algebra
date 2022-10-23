@@ -76,6 +76,7 @@ library
     Numeric.Algebra.Additive.ASemigroup
     Numeric.Algebra.Field
     Numeric.Algebra.Multiplicative
+    Numeric.Algebra.Multiplicative.MEuclidean
     Numeric.Algebra.Multiplicative.MGroup
     Numeric.Algebra.Multiplicative.MMonoid
     Numeric.Algebra.Multiplicative.MSemigroup

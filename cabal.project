@@ -8,5 +8,3 @@ package algebra-simple
     -Wredundant-constraints -Wunused-packages -Wmissing-deriving-strategies
 
 test-show-details: direct
-tests: true
-minimize-conflict-set: true
