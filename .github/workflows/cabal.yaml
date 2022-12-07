@@ -38,6 +38,4 @@ jobs:
           RUN_DOCTEST=1 cabal test doctest
 
       - name: Property Tests
-        env:
-          MAX_RUNS: 100000
-        run: cabal test props
+        run: cabal test props --test-options '--hedgehog-tests 10000'

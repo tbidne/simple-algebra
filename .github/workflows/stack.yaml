@@ -37,5 +37,4 @@ jobs:
       - name: Test
         env:
           STACK_YAML: ${{ matrix.stack_yaml }}
-          MAX_RUNS: 100000
-        run: stack test --ghc-options -Werror
+        run: stack test --ghc-options -Werror --test-arguments "--hedgehog-tests 100000"

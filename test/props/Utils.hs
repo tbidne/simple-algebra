@@ -21,9 +21,7 @@ where
 import Equality (Equality)
 import Hedgehog (Gen, Property, PropertyName, (===))
 import Hedgehog qualified as H
-import MaxRuns (MaxRuns (..))
 import Test.Tasty (TestName, TestTree)
-import Test.Tasty qualified as T
 import Test.Tasty.Hedgehog qualified as TH
 
 -- | Tests that two binary functions are pointwise equal.
@@ -42,15 +40,14 @@ binaryEq ::
   -- | Property description.
   PropertyName ->
   TestTree
-binaryEq expectedFn actualFn gen equalityCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
+binaryEq expectedFn actualFn gen equalityCons desc propName =
   testPropertyCompat desc propName $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll gen
-        y <- H.forAll gen
-        let actual = actualFn x y
-            expected = expectedFn x y
-        equalityCons expected === equalityCons actual
+    H.property $ do
+      x <- H.forAll gen
+      y <- H.forAll gen
+      let actual = actualFn x y
+          expected = expectedFn x y
+      equalityCons expected === equalityCons actual
 
 -- | Tests that a function is associative.
 associativity ::
@@ -64,24 +61,23 @@ associativity ::
   -- | Property description.
   PropertyName ->
   TestTree
-associativity f gen desc propName = T.askOption $ \(MkMaxRuns limit) ->
+associativity f gen desc propName =
   testPropertyCompat desc propName $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll gen
-        y <- H.forAll gen
-        z <- H.forAll gen
-        let lhsPreSum = y `f` z
-            lhs = x `f` lhsPreSum
-            rhsPreSum = x `f` y
-            rhs = rhsPreSum `f` z
-        H.annotateShow lhsPreSum
-        H.annotateShow lhs
-        H.annotateShow rhsPreSum
-        H.annotateShow rhs
-        -- x `f` (y `f` z) === (x `f` y) `f` z,
-        -- but with more granular logging
-        lhs === rhs
+    H.property $ do
+      x <- H.forAll gen
+      y <- H.forAll gen
+      z <- H.forAll gen
+      let lhsPreSum = y `f` z
+          lhs = x `f` lhsPreSum
+          rhsPreSum = x `f` y
+          rhs = rhsPreSum `f` z
+      H.annotateShow lhsPreSum
+      H.annotateShow lhs
+      H.annotateShow rhsPreSum
+      H.annotateShow rhs
+      -- x `f` (y `f` z) === (x `f` y) `f` z,
+      -- but with more granular logging
+      lhs === rhs
 
 -- | Tests the identity law.
 --
@@ -103,13 +99,12 @@ identity ::
   -- | Property description.
   PropertyName ->
   TestTree
-identity f ident gen eqCons desc propName = T.askOption $ \(MkMaxRuns limit) ->
+identity f ident gen eqCons desc propName =
   testPropertyCompat desc propName $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll gen
-        eqCons (f x ident) === eqCons x
-        eqCons (f ident x) === eqCons x
+    H.property $ do
+      x <- H.forAll gen
+      eqCons (f x ident) === eqCons x
+      eqCons (f ident x) === eqCons x
 
 (==>) :: Bool -> Bool -> Bool
 True ==> False = False

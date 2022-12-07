@@ -4,7 +4,6 @@ import Hedgehog (MonadGen, (===))
 import Hedgehog qualified as H
 import Hedgehog.Gen qualified as HG
 import Hedgehog.Range qualified as HR
-import MaxRuns (MaxRuns (..))
 import Numeric.Data.NonZero qualified as NonZero
 import Test.Tasty (TestTree)
 import Test.Tasty qualified as T
@@ -20,20 +19,18 @@ props =
     ]
 
 mkNonZeroSucceeds :: TestTree
-mkNonZeroSucceeds = T.askOption $ \(MkMaxRuns limit) ->
+mkNonZeroSucceeds =
   Utils.testPropertyCompat "x /= 0 succeeds" "mkNonZeroSucceeds" $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll nonzero
-        Just (NonZero.reallyUnsafeNonZero x) === NonZero.mkNonZero x
+    H.property $ do
+      x <- H.forAll nonzero
+      Just (NonZero.reallyUnsafeNonZero x) === NonZero.mkNonZero x
 
 mkNonZeroFails :: TestTree
-mkNonZeroFails = T.askOption $ \(MkMaxRuns limit) ->
+mkNonZeroFails =
   Utils.testPropertyCompat "x == 0 fails" "mkNonZeroFails" $
-    H.withTests limit $
-      H.property $ do
-        x <- H.forAll zero
-        Nothing === NonZero.mkNonZero x
+    H.property $ do
+      x <- H.forAll zero
+      Nothing === NonZero.mkNonZero x
 
 nonzero :: MonadGen m => m Int
 nonzero =
