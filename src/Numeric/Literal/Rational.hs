@@ -12,6 +12,8 @@ import Data.Ratio (Ratio)
 import GHC.Natural (Natural)
 import GHC.Stack.Types (HasCallStack)
 
+{- HLINT ignore FromRational "Redundant bracket" -}
+
 -- | Replaces base's @fromRational@ functionality for when we do not have a
 -- 'Fractional' instance.
 --

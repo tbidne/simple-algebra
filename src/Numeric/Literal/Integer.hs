@@ -14,6 +14,8 @@ import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Stack.Types (HasCallStack)
 
+{- HLINT ignore FromInteger "Redundant bracket" -}
+
 -- | Replaces base's @fromInteger@ functionality for when we do not have a
 -- 'Num' instance.
 --
