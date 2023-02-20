@@ -70,7 +70,7 @@ haddock:
 	cabal haddock --haddock-hyperlink-source --haddock-quickjump ;\
 	mkdir -p docs/ ;\
 	find docs/ -type f | xargs -I % sh -c "rm -r %" ;\
-	cp -r dist-newstyle/build/x86_64-linux/ghc-9.2.4/algebra-simple-0.1/doc/html/algebra-simple/* docs/
+	cp -r dist-newstyle/build/x86_64-linux/ghc-9.4.4/algebra-simple-0.1/doc/html/algebra-simple/* docs/
 
 haddockc:
 	nix run github:tbidne/nix-hs-tools/0.8#haddock-cov
