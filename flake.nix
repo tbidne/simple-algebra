@@ -32,15 +32,14 @@
             };
           };
           hlib = pkgs.haskell.lib;
-          mkPkg = returnShellEnv: withDevTools:
+          mkPkg = returnShellEnv:
             compiler.developPackage {
               inherit returnShellEnv;
               name = "algebra-simple";
               root = ./.;
               modifier = drv:
                 pkgs.haskell.lib.addBuildTools drv
-                  (buildTools compiler ++
-                    (if withDevTools then devTools compiler else [ ]));
+                  (buildTools compiler ++ devTools compiler);
               overrides = final: prev: with compiler; {
                 hedgehog = prev.hedgehog_1_2;
                 tasty-hedgehog = prev.tasty-hedgehog_1_4_0_0;
@@ -48,9 +47,8 @@
             };
         in
         {
-          packages.default = mkPkg false false;
-          devShells.default = mkPkg true true;
-          devShells.ci = mkPkg true false;
+          packages.default = mkPkg false;
+          devShells.default = mkPkg true;
         };
       systems = [
         "x86_64-linux"

@@ -1,7 +1,7 @@
 .PHONY: build clean repl watch ;\
 	test unit integration functional ;\
 	cic ci formatc format lint lintc ;\
-	haddock haddockc hackage
+	haddock hackage
 
 # core
 
@@ -42,9 +42,9 @@ watch:
 
 # ci
 
-cic: formatc lintc haddockc
+cic: formatc lintc
 
-ci: lint format haddockc
+ci: lint format
 
 # formatting
 
@@ -71,6 +71,3 @@ haddock:
 	mkdir -p docs/ ;\
 	find docs/ -type f | xargs -I % sh -c "rm -r %" ;\
 	cp -r dist-newstyle/build/x86_64-linux/ghc-9.4.4/algebra-simple-0.1/doc/html/algebra-simple/* docs/
-
-haddockc:
-	nix run github:tbidne/nix-hs-tools/0.8#haddock-cov
