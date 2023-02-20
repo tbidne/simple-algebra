@@ -7,12 +7,12 @@
   inputs.flake-parts.url = "github:hercules-ci/flake-parts";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   outputs =
-    { flake-compat
+    inputs@{ flake-compat
     , flake-parts
     , nixpkgs
     , self
     }:
-    flake-parts.lib.mkFlake { inherit self; } {
+    flake-parts.lib.mkFlake { inherit inputs; } {
       perSystem = { pkgs, ... }:
         let
           buildTools = c: with c; [
@@ -21,10 +21,10 @@
             pkgs.zlib
           ];
           devTools = c: with c; [
-            ghcid
+            (pkgs.haskell.lib.dontCheck ghcid)
             haskell-language-server
           ];
-          ghc-version = "ghc925";
+          ghc-version = "ghc944";
           compiler = pkgs.haskell.packages."${ghc-version}".override {
             overrides = final: prev: {
               # https://github.com/ddssff/listlike/issues/23
