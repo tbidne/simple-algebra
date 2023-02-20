@@ -44,7 +44,7 @@ import Numeric.Data.NonZero (NonZero (..), reallyUnsafeNonZero, unNonZero)
 --
 -- @since 0.1
 type MGroup :: Type -> Constraint
-class MMonoid g => MGroup g where
+class (MMonoid g) => MGroup g where
   -- | @since 0.1
   (.%.) :: g -> NonZero g -> g
 
@@ -131,7 +131,7 @@ instance MGroup (Ratio Natural) where
   {-# INLINE (.%.) #-}
 
 -- | @since 0.1
-instance RealFloat a => MGroup (Complex a) where
+instance (RealFloat a) => MGroup (Complex a) where
   x .%. MkNonZero d = x / d
   {-# INLINE (.%.) #-}
 

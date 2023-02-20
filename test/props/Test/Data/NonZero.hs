@@ -32,12 +32,12 @@ mkNonZeroFails =
       x <- H.forAll zero
       Nothing === NonZero.mkNonZero x
 
-nonzero :: MonadGen m => m Int
+nonzero :: (MonadGen m) => m Int
 nonzero =
   HG.choice
     [ HG.integral $ HR.exponentialFrom minVal 1 1,
       HG.integral $ HR.exponentialFrom 1 1 maxVal
     ]
 
-zero :: MonadGen m => m Integer
+zero :: (MonadGen m) => m Integer
 zero = pure 0

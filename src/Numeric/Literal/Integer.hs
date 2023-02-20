@@ -32,7 +32,7 @@ import GHC.Stack.Types (HasCallStack)
 type FromInteger :: Type -> Constraint
 class FromInteger a where
   -- | @since 0.1
-  afromInteger :: HasCallStack => Integer -> a
+  afromInteger :: (HasCallStack) => Integer -> a
 
 -- | @since 0.1
 instance FromInteger Double where
@@ -119,6 +119,6 @@ instance FromInteger (Ratio Natural) where
   {-# INLINE afromInteger #-}
 
 -- | @since 0.1
-instance RealFloat a => FromInteger (Complex a) where
+instance (RealFloat a) => FromInteger (Complex a) where
   afromInteger = fromInteger
   {-# INLINE afromInteger #-}

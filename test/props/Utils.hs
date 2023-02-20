@@ -26,7 +26,7 @@ import Test.Tasty.Hedgehog qualified as TH
 
 -- | Tests that two binary functions are pointwise equal.
 binaryEq ::
-  Show a =>
+  (Show a) =>
   -- | The baseline function.
   (a -> a -> a) ->
   -- | The function we compare against the baseline.
@@ -85,7 +85,7 @@ associativity f gen desc propName =
 -- f x e === x === f e x
 -- @
 identity ::
-  Show a =>
+  (Show a) =>
   -- | Function to test.
   (a -> a -> a) ->
   -- | Identity term.

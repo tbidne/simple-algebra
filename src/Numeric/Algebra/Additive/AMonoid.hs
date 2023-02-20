@@ -18,7 +18,7 @@ import Numeric.Algebra.Additive.ASemigroup (ASemigroup (..))
 --
 -- @since 0.1
 type AMonoid :: Type -> Constraint
-class ASemigroup m => AMonoid m where
+class (ASemigroup m) => AMonoid m where
   -- | Should satisfy:
   --
   -- @
@@ -108,46 +108,46 @@ instance AMonoid (Ratio Natural) where
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance RealFloat a => AMonoid (Complex a) where
+instance (RealFloat a) => AMonoid (Complex a) where
   zero = 0
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a) where
+instance (AMonoid a) => AMonoid (a, a) where
   zero = (zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a) where
   zero = (zero, zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a, a) where
   zero = (zero, zero, zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a, a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a, a, a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero)
   {-# INLINE zero #-}
 
 -- | @since 0.1
-instance AMonoid a => AMonoid (a, a, a, a, a, a, a, a, a) where
+instance (AMonoid a) => AMonoid (a, a, a, a, a, a, a, a, a) where
   zero = (zero, zero, zero, zero, zero, zero, zero, zero, zero)
   {-# INLINE zero #-}

@@ -16,7 +16,7 @@ import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 --
 -- @since 0.1
 type MSemiSpace :: Type -> Type -> Constraint
-class MSemigroup r => MSemiSpace m r | m -> r where
+class (MSemigroup r) => MSemiSpace m r | m -> r where
   -- | @since 0.1
   (.*) :: m -> r -> m
   (.*) = flip (*.)
@@ -32,22 +32,22 @@ infixl 7 .*
 infixl 7 *.
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r) r where
   (n1, n2) .* m = (n1 .*. m, n2 .*. m)
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r) r where
   (n1, n2, n3) .* m = (n1 .*. m, n2 .*. m, n3 .*. m)
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r, r) r where
   (n1, n2, n3, n4) .* m = (n1 .*. m, n2 .*. m, n3 .*. m, n4 .*. m)
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r, r, r) r where
   (n1, n2, n3, n4, n5) .* m =
     ( n1 .*. m,
       n2 .*. m,
@@ -58,7 +58,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r) r where
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r, r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r, r, r, r) r where
   (n1, n2, n3, n4, n5, n6) .* m =
     ( n1 .*. m,
       n2 .*. m,
@@ -70,7 +70,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r) r where
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r, r, r, r, r) r where
   (n1, n2, n3, n4, n5, n6, n7) .* m =
     ( n1 .*. m,
       n2 .*. m,
@@ -83,7 +83,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r) r where
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r, r, r, r, r, r) r where
   (n1, n2, n3, n4, n5, n6, n7, n8) .* m =
     ( n1 .*. m,
       n2 .*. m,
@@ -97,7 +97,7 @@ instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r) r where
   {-# INLINE (.*) #-}
 
 -- | @since 0.1
-instance MSemigroup r => MSemiSpace (r, r, r, r, r, r, r, r, r) r where
+instance (MSemigroup r) => MSemiSpace (r, r, r, r, r, r, r, r, r) r where
   (n1, n2, n3, n4, n5, n6, n7, n8, n9) .* m =
     ( n1 .*. m,
       n2 .*. m,

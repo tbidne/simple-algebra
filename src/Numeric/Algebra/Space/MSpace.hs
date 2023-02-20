@@ -33,22 +33,22 @@ infixl 7 .%
 infixl 7 %.
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k) k where
+instance (MGroup k) => MSpace (k, k) k where
   (x1, x2) .% k = (x1 .%. k, x2 .%. k)
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k) k where
   (x1, x2, x3) .% k = (x1 .%. k, x2 .%. k, x3 .%. k)
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k, k) k where
   (x1, x2, x3, x4) .% k = (x1 .%. k, x2 .%. k, x3 .%. k, x4 .%. k)
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k, k, k) k where
   (x1, x2, x3, x4, x5) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -59,7 +59,7 @@ instance MGroup k => MSpace (k, k, k, k, k) k where
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k, k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -71,7 +71,7 @@ instance MGroup k => MSpace (k, k, k, k, k, k) k where
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k, k, k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6, x7) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -84,7 +84,7 @@ instance MGroup k => MSpace (k, k, k, k, k, k, k) k where
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k, k, k, k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6, x7, x8) .% k =
     ( x1 .%. k,
       x2 .%. k,
@@ -98,7 +98,7 @@ instance MGroup k => MSpace (k, k, k, k, k, k, k, k) k where
   {-# INLINE (.%) #-}
 
 -- | @since 0.1
-instance MGroup k => MSpace (k, k, k, k, k, k, k, k, k) k where
+instance (MGroup k) => MSpace (k, k, k, k, k, k, k, k, k) k where
   (x1, x2, x3, x4, x5, x6, x7, x8, x9) .% k =
     ( x1 .%. k,
       x2 .%. k,

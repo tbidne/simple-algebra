@@ -18,7 +18,7 @@ import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
 --
 -- @since 0.1
 type MMonoid :: Type -> Constraint
-class MSemigroup m => MMonoid m where
+class (MSemigroup m) => MMonoid m where
   -- | @since 0.1
   one :: m
 
@@ -103,6 +103,6 @@ instance MMonoid (Ratio Natural) where
   {-# INLINE one #-}
 
 -- | @since 0.1
-instance RealFloat a => MMonoid (Complex a) where
+instance (RealFloat a) => MMonoid (Complex a) where
   one = 1
   {-# INLINE one #-}

@@ -64,4 +64,4 @@ instance Ring Word64
 instance Ring (Ratio Integer)
 
 -- | @since 0.1
-instance RealFloat a => Ring (Complex a)
+instance (RealFloat a) => Ring (Complex a)

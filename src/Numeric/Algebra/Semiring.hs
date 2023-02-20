@@ -71,4 +71,4 @@ instance Semiring (Ratio Integer)
 instance Semiring (Ratio Natural)
 
 -- | @since 0.1
-instance RealFloat a => Semiring (Complex a)
+instance (RealFloat a) => Semiring (Complex a)

@@ -104,6 +104,6 @@ instance MSemigroup (Ratio Natural) where
   {-# INLINE (.*.) #-}
 
 -- | @since 0.1
-instance RealFloat a => MSemigroup (Complex a) where
+instance (RealFloat a) => MSemigroup (Complex a) where
   (.*.) = (*)
   {-# INLINE (.*.) #-}

@@ -23,25 +23,25 @@ type Semimodule :: Type -> Type -> Constraint
 class (AMonoid m, MSemiSpace m r, Semiring r) => Semimodule m r | m -> r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r) r
+instance (Semiring r) => Semimodule (r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Semiring r => Semimodule (r, r, r, r, r, r, r, r, r) r
+instance (Semiring r) => Semimodule (r, r, r, r, r, r, r, r, r) r

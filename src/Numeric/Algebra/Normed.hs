@@ -117,32 +117,32 @@ instance Normed (Ratio Natural) where
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance RealFloat a => Normed (Complex a) where
+instance (RealFloat a) => Normed (Complex a) where
   norm = abs
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a) where
+instance (Normed a) => Normed (a, a) where
   norm (x1, x2) = (norm x1, norm x2)
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a) where
+instance (Normed a) => Normed (a, a, a) where
   norm (x1, x2, x3) = (norm x1, norm x2, norm x3)
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a, a) where
+instance (Normed a) => Normed (a, a, a, a) where
   norm (x1, x2, x3, x4) = (norm x1, norm x2, norm x3, norm x4)
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a, a, a) where
+instance (Normed a) => Normed (a, a, a, a, a) where
   norm (x1, x2, x3, x4, x5) = (norm x1, norm x2, norm x3, norm x4, norm x5)
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a, a, a, a) where
+instance (Normed a) => Normed (a, a, a, a, a, a) where
   norm (x1, x2, x3, x4, x5, x6) =
     ( norm x1,
       norm x2,
@@ -154,7 +154,7 @@ instance Normed a => Normed (a, a, a, a, a, a) where
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a, a, a, a, a) where
+instance (Normed a) => Normed (a, a, a, a, a, a, a) where
   norm (x1, x2, x3, x4, x5, x6, x7) =
     ( norm x1,
       norm x2,
@@ -167,7 +167,7 @@ instance Normed a => Normed (a, a, a, a, a, a, a) where
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a, a, a, a, a, a) where
+instance (Normed a) => Normed (a, a, a, a, a, a, a, a) where
   norm (x1, x2, x3, x4, x5, x6, x7, x8) =
     ( norm x1,
       norm x2,
@@ -181,7 +181,7 @@ instance Normed a => Normed (a, a, a, a, a, a, a, a) where
   {-# INLINE norm #-}
 
 -- | @since 0.1
-instance Normed a => Normed (a, a, a, a, a, a, a, a, a) where
+instance (Normed a) => Normed (a, a, a, a, a, a, a, a, a) where
   norm (x1, x2, x3, x4, x5, x6, x7, x8, x9) =
     ( norm x1,
       norm x2,

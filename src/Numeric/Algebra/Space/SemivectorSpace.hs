@@ -24,25 +24,25 @@ type SemivectorSpace :: Type -> Type -> Constraint
 class (MSpace v k, Semifield k, Semimodule v k) => SemivectorSpace v k | v -> k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k) k
+instance (Semifield k) => SemivectorSpace (k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k, k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k, k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k, k, k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k, k, k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k, k, k, k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k, k, k, k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k, k, k, k, k, k) k
 
 -- | @since 0.1
-instance Semifield k => SemivectorSpace (k, k, k, k, k, k, k, k, k) k
+instance (Semifield k) => SemivectorSpace (k, k, k, k, k, k, k, k, k) k

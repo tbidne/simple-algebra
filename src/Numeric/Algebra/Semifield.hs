@@ -72,4 +72,4 @@ instance Semifield (Ratio Integer)
 instance Semifield (Ratio Natural)
 
 -- | @since 0.1
-instance RealFloat a => Semifield (Complex a)
+instance (RealFloat a) => Semifield (Complex a)

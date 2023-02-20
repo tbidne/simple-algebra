@@ -18,25 +18,25 @@ type VectorSpace :: Type -> Type -> Constraint
 class (Field k, Module v k, SemivectorSpace v k) => VectorSpace v k | v -> k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k) k
+instance (Field k) => VectorSpace (k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k) k
+instance (Field k) => VectorSpace (k, k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k, k) k
+instance (Field k) => VectorSpace (k, k, k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k, k, k) k
+instance (Field k) => VectorSpace (k, k, k, k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k, k, k, k) k
+instance (Field k) => VectorSpace (k, k, k, k, k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k, k, k, k, k) k
+instance (Field k) => VectorSpace (k, k, k, k, k, k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k, k, k, k, k, k) k
+instance (Field k) => VectorSpace (k, k, k, k, k, k, k, k) k
 
 -- | @since 0.1
-instance Field k => VectorSpace (k, k, k, k, k, k, k, k, k) k
+instance (Field k) => VectorSpace (k, k, k, k, k, k, k, k, k) k

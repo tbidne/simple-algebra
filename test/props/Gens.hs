@@ -68,46 +68,46 @@ import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
 import Numeric.Data.NonZero (NonZero (..), unsafeNonZero)
 import Test.TestBounds (TestBounds (..))
 
-float :: MonadGen m => m Float
+float :: (MonadGen m) => m Float
 float = HG.float $ HR.exponentialFloatFrom minVal 0 maxVal
 
-double :: MonadGen m => m Double
+double :: (MonadGen m) => m Double
 double = HG.double $ HR.exponentialFloatFrom minVal 0 maxVal
 
-integer :: MonadGen m => m Integer
+integer :: (MonadGen m) => m Integer
 integer = HG.integral $ HR.exponentialFrom minVal 0 maxVal
 
-natural :: MonadGen m => m Natural
+natural :: (MonadGen m) => m Natural
 natural = HG.integral $ HR.exponential minVal maxVal
 
-int :: MonadGen m => m Int
+int :: (MonadGen m) => m Int
 int = bounded HG.int
 
-int8 :: MonadGen m => m Int8
+int8 :: (MonadGen m) => m Int8
 int8 = bounded HG.int8
 
-int16 :: MonadGen m => m Int16
+int16 :: (MonadGen m) => m Int16
 int16 = bounded HG.int16
 
-int32 :: MonadGen m => m Int32
+int32 :: (MonadGen m) => m Int32
 int32 = bounded HG.int32
 
-int64 :: MonadGen m => m Int64
+int64 :: (MonadGen m) => m Int64
 int64 = bounded HG.int64
 
-word :: MonadGen m => m Word
+word :: (MonadGen m) => m Word
 word = bounded HG.word
 
-word8 :: MonadGen m => m Word8
+word8 :: (MonadGen m) => m Word8
 word8 = bounded HG.word8
 
-word16 :: MonadGen m => m Word16
+word16 :: (MonadGen m) => m Word16
 word16 = bounded HG.word16
 
-word32 :: MonadGen m => m Word32
+word32 :: (MonadGen m) => m Word32
 word32 = bounded HG.word32
 
-word64 :: MonadGen m => m Word64
+word64 :: (MonadGen m) => m Word64
 word64 = bounded HG.word64
 
 rational :: (GenBase m ~ Identity, MonadGen m) => m (Ratio Integer)
@@ -115,7 +115,7 @@ rational = ratioNumDenom integer pos
   where
     pos = HG.integral $ HR.exponential 1 maxVal
 
-nonZero :: MonadGen m => m (NonZero Integer)
+nonZero :: (MonadGen m) => m (NonZero Integer)
 nonZero = unsafeNonZero <$> integerNZ
 
 ratioNumDenom :: (Eq a, GenBase m ~ Identity, MonadGen m, Num a) => m a -> m a -> m (Ratio a)
@@ -124,52 +124,52 @@ ratioNumDenom genNum genDenom = do
   d <- HG.filter (/= 0) genDenom
   pure (n :% d)
 
-floatNonZero :: MonadGen m => m (NonZero Float)
+floatNonZero :: (MonadGen m) => m (NonZero Float)
 floatNonZero = nonzeroFloatingBounds HG.float minVal maxVal
 
-doubleNonZero :: MonadGen m => m (NonZero Double)
+doubleNonZero :: (MonadGen m) => m (NonZero Double)
 doubleNonZero = nonzeroFloatingBounds HG.double minVal maxVal
 
-intNonZero :: MonadGen m => m (NonZero Int)
+intNonZero :: (MonadGen m) => m (NonZero Int)
 intNonZero = nonzeroBounded HG.int
 
-int8NonZero :: MonadGen m => m (NonZero Int8)
+int8NonZero :: (MonadGen m) => m (NonZero Int8)
 int8NonZero = nonzeroBounded HG.int8
 
-int16NonZero :: MonadGen m => m (NonZero Int16)
+int16NonZero :: (MonadGen m) => m (NonZero Int16)
 int16NonZero = nonzeroBounded HG.int16
 
-int32NonZero :: MonadGen m => m (NonZero Int32)
+int32NonZero :: (MonadGen m) => m (NonZero Int32)
 int32NonZero = nonzeroBounded HG.int32
 
-int64NonZero :: MonadGen m => m (NonZero Int64)
+int64NonZero :: (MonadGen m) => m (NonZero Int64)
 int64NonZero = nonzeroBounded HG.int64
 
-integerNZ :: MonadGen m => m Integer
+integerNZ :: (MonadGen m) => m Integer
 integerNZ = nzBounds HG.integral minVal maxVal
 
-integerNonZero :: MonadGen m => m (NonZero Integer)
+integerNonZero :: (MonadGen m) => m (NonZero Integer)
 integerNonZero = nonzeroBounds HG.integral minVal maxVal
 
-naturalNZ :: MonadGen m => m Natural
+naturalNZ :: (MonadGen m) => m Natural
 naturalNZ = HG.integral $ HR.exponential 1 maxVal
 
-naturalNonZero :: MonadGen m => m (NonZero Natural)
+naturalNonZero :: (MonadGen m) => m (NonZero Natural)
 naturalNonZero = MGroup.unsafeAMonoidNonZero <$> naturalNZ
 
-wordNonZero :: MonadGen m => m (NonZero Word)
+wordNonZero :: (MonadGen m) => m (NonZero Word)
 wordNonZero = posBounded HG.word
 
-word8NonZero :: MonadGen m => m (NonZero Word8)
+word8NonZero :: (MonadGen m) => m (NonZero Word8)
 word8NonZero = posBounded HG.word8
 
-word16NonZero :: MonadGen m => m (NonZero Word16)
+word16NonZero :: (MonadGen m) => m (NonZero Word16)
 word16NonZero = posBounded HG.word16
 
-word32NonZero :: MonadGen m => m (NonZero Word32)
+word32NonZero :: (MonadGen m) => m (NonZero Word32)
 word32NonZero = posBounded HG.word32
 
-word64NonZero :: MonadGen m => m (NonZero Word64)
+word64NonZero :: (MonadGen m) => m (NonZero Word64)
 word64NonZero = posBounded HG.word64
 
 rationalNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (Ratio Integer))

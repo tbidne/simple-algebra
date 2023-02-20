@@ -63,4 +63,4 @@ instance Field Word64
 instance Field (Ratio Integer)
 
 -- | @since 0.1
-instance RealFloat a => Field (Complex a)
+instance (RealFloat a) => Field (Complex a)

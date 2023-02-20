@@ -17,7 +17,7 @@ import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
 --
 -- @since 0.1
 type AGroup :: Type -> Constraint
-class AMonoid g => AGroup g where
+class (AMonoid g) => AGroup g where
   -- | @since 0.1
   (.-.) :: g -> g -> g
 
@@ -94,22 +94,22 @@ instance AGroup (Ratio Integer) where
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance RealFloat a => AGroup (Complex a) where
+instance (RealFloat a) => AGroup (Complex a) where
   (.-.) = (-)
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a) where
+instance (AGroup a) => AGroup (a, a) where
   (x1, x2) .-. (y1, y2) = (x1 .-. y1, x2 .-. y2)
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a) where
+instance (AGroup a) => AGroup (a, a, a) where
   (x1, x2, x3) .-. (y1, y2, y3) = (x1 .-. y1, x2 .-. y2, x3 .-. y3)
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a, a) where
+instance (AGroup a) => AGroup (a, a, a, a) where
   (x1, x2, x3, x4) .-. (y1, y2, y3, y4) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -119,7 +119,7 @@ instance AGroup a => AGroup (a, a, a, a) where
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a, a, a) where
+instance (AGroup a) => AGroup (a, a, a, a, a) where
   (x1, x2, x3, x4, x5) .-. (y1, y2, y3, y4, y5) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -130,7 +130,7 @@ instance AGroup a => AGroup (a, a, a, a, a) where
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a, a, a, a) where
+instance (AGroup a) => AGroup (a, a, a, a, a, a) where
   (x1, x2, x3, x4, x5, x6) .-. (y1, y2, y3, y4, y5, y6) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -142,7 +142,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a) where
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a, a, a, a, a) where
+instance (AGroup a) => AGroup (a, a, a, a, a, a, a) where
   (x1, x2, x3, x4, x5, x6, x7) .-. (y1, y2, y3, y4, y5, y6, y7) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -155,7 +155,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a) where
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a, a, a, a, a, a) where
+instance (AGroup a) => AGroup (a, a, a, a, a, a, a, a) where
   (x1, x2, x3, x4, x5, x6, x7, x8) .-. (y1, y2, y3, y4, y5, y6, y7, y8) =
     ( x1 .-. y1,
       x2 .-. y2,
@@ -169,7 +169,7 @@ instance AGroup a => AGroup (a, a, a, a, a, a, a, a) where
   {-# INLINE (.-.) #-}
 
 -- | @since 0.1
-instance AGroup a => AGroup (a, a, a, a, a, a, a, a, a) where
+instance (AGroup a) => AGroup (a, a, a, a, a, a, a, a, a) where
   (x1, x2, x3, x4, x5, x6, x7, x8, x9) .-. (y1, y2, y3, y4, y5, y6, y7, y8, y9) =
     ( x1 .-. y1,
       x2 .-. y2,

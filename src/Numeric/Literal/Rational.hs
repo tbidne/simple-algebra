@@ -30,7 +30,7 @@ import GHC.Stack.Types (HasCallStack)
 type FromRational :: Type -> Constraint
 class FromRational a where
   -- | @since 0.1
-  afromRational :: HasCallStack => Rational -> a
+  afromRational :: (HasCallStack) => Rational -> a
 
 -- | @since 0.1
 instance FromRational Double where
@@ -55,6 +55,6 @@ instance FromRational (Ratio Natural) where
   {-# INLINE afromRational #-}
 
 -- | @since 0.1
-instance RealFloat a => FromRational (Complex a) where
+instance (RealFloat a) => FromRational (Complex a) where
   afromRational = fromRational
   {-# INLINE afromRational #-}

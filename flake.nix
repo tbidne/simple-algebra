@@ -24,7 +24,7 @@
             ghcid
             haskell-language-server
           ];
-          ghc-version = "ghc944";
+          ghc-version = "ghc925";
           compiler = pkgs.haskell.packages."${ghc-version}".override {
             overrides = final: prev: {
               # https://github.com/ddssff/listlike/issues/23

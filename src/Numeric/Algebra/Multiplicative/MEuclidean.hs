@@ -19,7 +19,7 @@ import Numeric.Algebra.Multiplicative.MGroup
 --
 --  @since 0.1
 type MEuclidean :: Type -> Constraint
-class MGroup g => MEuclidean g where
+class (MGroup g) => MEuclidean g where
   type ModResult g
 
   -- | @since 0.1

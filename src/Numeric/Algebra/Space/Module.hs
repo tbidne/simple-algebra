@@ -22,25 +22,25 @@ type Module :: Type -> Type -> Constraint
 class (AGroup m, Semimodule m r, Ring r) => Module m r | m -> r
 
 -- | @since 0.1
-instance Ring r => Module (r, r) r
+instance (Ring r) => Module (r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r) r
+instance (Ring r) => Module (r, r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r, r) r
+instance (Ring r) => Module (r, r, r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r, r, r) r
+instance (Ring r) => Module (r, r, r, r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r, r, r, r) r
+instance (Ring r) => Module (r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r, r, r, r, r) r
+instance (Ring r) => Module (r, r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r, r, r, r, r, r) r
+instance (Ring r) => Module (r, r, r, r, r, r, r, r) r
 
 -- | @since 0.1
-instance Ring r => Module (r, r, r, r, r, r, r, r, r) r
+instance (Ring r) => Module (r, r, r, r, r, r, r, r, r) r
