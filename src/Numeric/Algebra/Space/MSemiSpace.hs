@@ -3,6 +3,7 @@
 -- @since 0.1
 module Numeric.Algebra.Space.MSemiSpace
   ( MSemiSpace (..),
+    (*.),
   )
 where
 
@@ -19,15 +20,13 @@ type MSemiSpace :: Type -> Type -> Constraint
 class (MSemigroup r) => MSemiSpace m r | m -> r where
   -- | @since 0.1
   (.*) :: m -> r -> m
-  (.*) = flip (*.)
-
-  -- | @since 0.1
-  (*.) :: r -> m -> m
-  (*.) = flip (.*)
-
-  {-# MINIMAL ((.*) | (*.)) #-}
 
 infixl 7 .*
+
+-- | @since 0.1
+(*.) :: (MSemiSpace m r) => r -> m -> m
+(*.) = flip (.*)
+{-# INLINE (*.) #-}
 
 infixl 7 *.
 

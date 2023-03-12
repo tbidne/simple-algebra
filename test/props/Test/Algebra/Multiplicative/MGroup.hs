@@ -4,7 +4,7 @@ import Equality (Equality (..))
 import Gens qualified
 import Hedgehog (Gen, PropertyName, (===))
 import Hedgehog qualified as H
-import Numeric.Algebra.Multiplicative.MEuclidean (MEuclidean (..))
+import Numeric.Algebra.Multiplicative.MEuclidean (MEuclidean (..), mmod)
 import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero (..))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
 import Test.Tasty (TestName, TestTree)

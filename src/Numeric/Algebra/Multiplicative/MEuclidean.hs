@@ -3,6 +3,7 @@
 -- @since 0.1
 module Numeric.Algebra.Multiplicative.MEuclidean
   ( MEuclidean (..),
+    mmod,
   )
 where
 
@@ -23,16 +24,14 @@ class (MGroup g) => MEuclidean g where
   type ModResult g
 
   -- | @since 0.1
-  mmod :: g -> NonZero g -> ModResult g
-  mmod x d = snd $ mdivMod x d
-  {-# INLINE mmod #-}
-
-  -- | @since 0.1
   mdivMod :: g -> NonZero g -> (g, ModResult g)
   mdivMod x d = (x .%. d, x `mmod` d)
   {-# INLINE mdivMod #-}
 
-  {-# MINIMAL (mdivMod | mmod) #-}
+-- | @since 0.1
+mmod :: (MEuclidean g) => g -> NonZero g -> ModResult g
+mmod x d = snd $ mdivMod x d
+{-# INLINE mmod #-}
 
 -- | @since 0.1
 instance MEuclidean Int where
