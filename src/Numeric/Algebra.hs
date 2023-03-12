@@ -54,27 +54,27 @@ import Numeric.Algebra.Space
 -- +------------------------+-------------------------+----------+--------+
 -- | Typeclass              | Description             | New      | 'Num'  |
 -- +========================+=========================+==========+========+
--- | 'ASemigroup'           | Types that              | '(.+.)'  | '(+)'  |
--- |                        | support "addition".     |          |        |
+-- | 'ASemigroup'           | Addition.               | '(.+.)'  | '(+)'  |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'AMonoid'              | 'ASemigroup's that      | 'zero'   |        |
--- |                        | have an identity.       |          |        |
+-- | 'AMonoid'              | 'ASemigroup' with       | 'zero'   |        |
+-- |                        | identity.               |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'AGroup'               | 'AMonoid's              | '(.-.)'  | '(-)'  |
--- |                        | that support            |          |        |
--- |                        | "subtraction".          |          |        |
+-- | 'AGroup'               | Subtraction .           | '(.-.)'  | '(-)'  |
+-- |                        |                         |          |        |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MSemigroup'           | Types that support      | '(.*.)'  | '(*)'  |
--- |                        | "multiplication".       |          |        |
+-- | 'MSemigroup'           | Multiplication.         | '(.*.)'  | '(*)'  |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MMonoid'              | 'MSemigroup's that      | 'one'    |        |
--- |                        | have an identity.       |          |        |
+-- | 'MMonoid'              | 'MSemigroup' with       | 'one'    |        |
+-- |                        | identity.               |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MGroup'               | 'MMonoid's that         | '(.%.)'  | 'div', |
--- |                        | support "division"      |          | '(/)'  |
+-- | 'MGroup'               | Division.               | '(.%.)'  | 'div', |
+-- |                        |                         |          | '(/)'  |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MEuclidean'           | 'MGroup's that support  | 'mmod'   | 'mod'  |
--- |                        | "euclidean division".   |          |        |
+-- | 'MEuclidean'           | Euclidean division.     | 'mmod'   | 'mod'  |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Normed'               | Types that support a    | 'norm'   | 'abs'  |
 -- |                        | "norm".                 |          |        |
@@ -91,19 +91,19 @@ import Numeric.Algebra.Space
 -- | 'Field'                | 'Ring' and              |          |        |
 -- |                        | 'Semifield'.            |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MSemiSpace'           | Types that              | '(.*)',  |        |
--- |                        | support "scalar         | '(*.)'   |        |
--- |                        | multiplication".        |          |        |
+-- | 'MSemiSpace'           | Scalar multiplication.  | '(.*)',  |        |
+-- |                        |                         | '(*.)'   |        |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'MSpace'               | 'MSemiSpace's that      | '(.%)'   |        |
--- |                        | support "scalar         |          |        |
--- |                        | division".              |          |        |
+-- | 'MSpace'               | Scalar division.        | '(.%)'   |        |
+-- |                        |                         | '(%.)'   |        |
+-- |                        |                         |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'Semimodule'           | 'AMonoid' and           |          |        |
 -- |                        | 'MSemiSpace'.           |          |        |
 -- +------------------------+-------------------------+----------+--------+
--- | 'Module'               | 'Semimodule's that      |          |        |
--- |                        | are 'AGroup's.          |          |        |
+-- | 'Module'               | 'Semimodule's and       |          |        |
+-- |                        | 'AGroup' .              |          |        |
 -- +------------------------+-------------------------+----------+--------+
 -- | 'SemivectorSpace'      | 'Semimodule' and        |          |        |
 -- |                        | 'MSpace'.               |          |        |

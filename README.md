@@ -49,43 +49,43 @@ A longer description can be found in the table below, along with the `Num` funct
   </thead>
   <tr>
     <td><code>ASemigroup</code></td>
-    <td>Types that support "addition".</td>
+    <td>Addition.</td>
     <td><code>(.+.)</code></td>
     <td><code>(+)</code></td>
   </tr>
   <tr>
     <td><code>AMonoid</code></td>
-    <td><code>ASemigroup</code>s that have an identity.</td>
+    <td><code>ASemigroup</code> with identity.</td>
     <td><code>zero</code></td>
     <td></td>
   </tr>
   <tr>
     <td><code>AGroup</code></td>
-    <td><code>AMonoid</code>s that support "subtraction".</td>
+    <td>Subtraction.</td>
     <td><code>(.-.)</code></td>
     <td><code>(-)</code></td>
   </tr>
   <tr>
     <td><code>MSemigroup</code></td>
-    <td>Types that support "multiplication".</td>
+    <td>Multiplication.</td>
     <td><code>(.*.)</code></td>
     <td><code>(*)</code></td>
   </tr>
   <tr>
     <td><code>MMonoid</code></td>
-    <td><code>MSemigroup</code>s that have an identity.</td>
+    <td><code>MSemigroup</code> with identity.</td>
     <td><code>one</code></td>
     <td></td>
   </tr>
   <tr>
     <td><code>MGroup</code></td>
-    <td><code>MMonoid</code>s that support "division".</td>
+    <td>Division.</td>
     <td><code>(.%.)</code></td>
     <td><code>div</code>, <code>(/)</code></td>
   </tr>
   <tr>
     <td><code>MEuclidean</code></td>
-    <td><code>MGroup</code>s that support "remainder division".</td>
+    <td>Euclidean division.</td>
     <td><code>mmod</code></td>
     <td><code>mod</code></td>
   </tr>
@@ -121,14 +121,14 @@ A longer description can be found in the table below, along with the `Num` funct
   </tr>
   <tr>
     <td><code>MSemiSpace</code></td>
-    <td>Types that support "scalar multiplication".</td>
+    <td>Scalar multiplication.</td>
     <td><code>(.*)</code>, <code>(*.)</code></td>
     <td></td>
   </tr>
   <tr>
     <td><code>MSpace</code></td>
-    <td><code>MSemiSpace</code>s that support "scalar division".</td>
-    <td><code>(.%)</code></td>
+    <td>Scalar division.</td>
+    <td><code>(.%)</code>, <code>(%.)</code></td>
     <td></td>
   </tr>
   <tr>
@@ -139,7 +139,7 @@ A longer description can be found in the table below, along with the `Num` funct
   </tr>
   <tr>
     <td><code>Module</code></td>
-    <td><code>Semimodule</code>s that are <code>AGroup</code>s.</td>
+    <td><code>Semimodule</code> and <code>AGroup</code>.</td>
     <td></td>
     <td></td>
   </tr>

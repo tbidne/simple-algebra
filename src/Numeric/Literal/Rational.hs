@@ -22,7 +22,7 @@ import GHC.Stack.Types (HasCallStack)
 --
 -- -- becomes
 --
--- afromRational 5.5 :: Fractional a => a
+-- afromRational 5.5 :: FromRational a => a
 -- @
 --
 -- Note that @fromRational@'s deficiencies are inherited e.g. 'Natural' is
