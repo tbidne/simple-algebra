@@ -22,35 +22,30 @@ module Gens
     word32,
     word64,
     rational,
-    nonZero,
 
     -- * NonZero
 
     -- ** Specializations
-    floatNonZero,
-    doubleNonZero,
-    intNonZero,
-    int8NonZero,
-    int16NonZero,
-    int32NonZero,
-    int64NonZero,
+    floatNZ,
+    doubleNZ,
+    intNZ,
+    int8NZ,
+    int16NZ,
+    int32NZ,
+    int64NZ,
     integerNZ,
-    integerNonZero,
-    naturalNonZero,
-    wordNonZero,
-    word8NonZero,
-    word16NonZero,
-    word32NonZero,
-    word64NonZero,
-    rationalNonZero,
+    naturalNZ,
+    wordNZ,
+    word8NZ,
+    word16NZ,
+    word32NZ,
+    word64NZ,
+    rationalNZ,
 
     -- ** Combinators
     nzBounded,
     nzBounds,
     nzFloatingBounds,
-    nonzeroBounded,
-    nonzeroBounds,
-    nonzeroFloatingBounds,
   )
 where
 
@@ -63,9 +58,6 @@ import Hedgehog (MonadGen (GenBase))
 import Hedgehog.Gen qualified as HG
 import Hedgehog.Range (Range)
 import Hedgehog.Range qualified as HR
-import Numeric.Algebra.Additive.AMonoid (AMonoid)
-import Numeric.Algebra.Multiplicative.MGroup qualified as MGroup
-import Numeric.Data.NonZero (NonZero (..), unsafeNonZero)
 import Test.TestBounds (TestBounds (..))
 
 float :: (MonadGen m) => m Float
@@ -115,65 +107,56 @@ rational = ratioNumDenom integer pos
   where
     pos = HG.integral $ HR.exponential 1 maxVal
 
-nonZero :: (MonadGen m) => m (NonZero Integer)
-nonZero = unsafeNonZero <$> integerNZ
-
 ratioNumDenom :: (Eq a, GenBase m ~ Identity, MonadGen m, Num a) => m a -> m a -> m (Ratio a)
 ratioNumDenom genNum genDenom = do
   n <- genNum
   d <- HG.filter (/= 0) genDenom
   pure (n :% d)
 
-floatNonZero :: (MonadGen m) => m (NonZero Float)
-floatNonZero = nonzeroFloatingBounds HG.float minVal maxVal
+floatNZ :: (MonadGen m) => m Float
+floatNZ = nzFloatingBounds HG.float minVal maxVal
 
-doubleNonZero :: (MonadGen m) => m (NonZero Double)
-doubleNonZero = nonzeroFloatingBounds HG.double minVal maxVal
+doubleNZ :: (MonadGen m) => m Double
+doubleNZ = nzFloatingBounds HG.double minVal maxVal
 
-intNonZero :: (MonadGen m) => m (NonZero Int)
-intNonZero = nonzeroBounded HG.int
+intNZ :: (MonadGen m) => m Int
+intNZ = nzBounded HG.int
 
-int8NonZero :: (MonadGen m) => m (NonZero Int8)
-int8NonZero = nonzeroBounded HG.int8
+int8NZ :: (MonadGen m) => m Int8
+int8NZ = nzBounded HG.int8
 
-int16NonZero :: (MonadGen m) => m (NonZero Int16)
-int16NonZero = nonzeroBounded HG.int16
+int16NZ :: (MonadGen m) => m Int16
+int16NZ = nzBounded HG.int16
 
-int32NonZero :: (MonadGen m) => m (NonZero Int32)
-int32NonZero = nonzeroBounded HG.int32
+int32NZ :: (MonadGen m) => m Int32
+int32NZ = nzBounded HG.int32
 
-int64NonZero :: (MonadGen m) => m (NonZero Int64)
-int64NonZero = nonzeroBounded HG.int64
+int64NZ :: (MonadGen m) => m Int64
+int64NZ = nzBounded HG.int64
 
 integerNZ :: (MonadGen m) => m Integer
 integerNZ = nzBounds HG.integral minVal maxVal
 
-integerNonZero :: (MonadGen m) => m (NonZero Integer)
-integerNonZero = nonzeroBounds HG.integral minVal maxVal
-
 naturalNZ :: (MonadGen m) => m Natural
 naturalNZ = HG.integral $ HR.exponential 1 maxVal
 
-naturalNonZero :: (MonadGen m) => m (NonZero Natural)
-naturalNonZero = MGroup.unsafeAMonoidNonZero <$> naturalNZ
+wordNZ :: (MonadGen m) => m Word
+wordNZ = posBounded HG.word
 
-wordNonZero :: (MonadGen m) => m (NonZero Word)
-wordNonZero = posBounded HG.word
+word8NZ :: (MonadGen m) => m Word8
+word8NZ = posBounded HG.word8
 
-word8NonZero :: (MonadGen m) => m (NonZero Word8)
-word8NonZero = posBounded HG.word8
+word16NZ :: (MonadGen m) => m Word16
+word16NZ = posBounded HG.word16
 
-word16NonZero :: (MonadGen m) => m (NonZero Word16)
-word16NonZero = posBounded HG.word16
+word32NZ :: (MonadGen m) => m Word32
+word32NZ = posBounded HG.word32
 
-word32NonZero :: (MonadGen m) => m (NonZero Word32)
-word32NonZero = posBounded HG.word32
+word64NZ :: (MonadGen m) => m Word64
+word64NZ = posBounded HG.word64
 
-word64NonZero :: (MonadGen m) => m (NonZero Word64)
-word64NonZero = posBounded HG.word64
-
-rationalNonZero :: (GenBase m ~ Identity, MonadGen m) => m (NonZero (Ratio Integer))
-rationalNonZero = MGroup.unsafeAMonoidNonZero <$> ratioNumDenom integerNZ pos
+rationalNZ :: (GenBase m ~ Identity, MonadGen m) => m (Ratio Integer)
+rationalNZ = ratioNumDenom integerNZ pos
   where
     pos = HG.integral $ HR.exponential 1 maxVal
 
@@ -187,12 +170,6 @@ nzBounds gen lower upper =
       gen (HR.exponential 1 upper)
     ]
 
-nonzeroBounded ::
-  (AMonoid a, Integral a, MonadGen m, TestBounds a) =>
-  (Range a -> m a) ->
-  m (NonZero a)
-nonzeroBounded = fmap MGroup.unsafeAMonoidNonZero . nzBounded
-
 nzFloatingBounds :: (Floating a, MonadGen m, Ord a) => (Range a -> m a) -> a -> a -> m a
 nzFloatingBounds gen lower upper =
   HG.choice
@@ -200,29 +177,11 @@ nzFloatingBounds gen lower upper =
       gen (HR.exponentialFloat 1 upper)
     ]
 
-nonzeroBounds ::
-  (AMonoid a, Integral a, MonadGen m) =>
-  (Range a -> m a) ->
-  a ->
-  a ->
-  m (NonZero a)
-nonzeroBounds gen lower = fmap MGroup.unsafeAMonoidNonZero . nzBounds gen lower
-
-nonzeroFloatingBounds ::
-  (AMonoid a, Floating a, MonadGen m, Ord a) =>
-  (Range a -> m a) ->
-  a ->
-  a ->
-  m (NonZero a)
-nonzeroFloatingBounds gen lower =
-  fmap MGroup.unsafeAMonoidNonZero
-    . nzFloatingBounds gen lower
-
 posBounded ::
-  (AMonoid g, Eq g, Integral a, MonadGen m, TestBounds a) =>
+  (Integral a, TestBounds a) =>
   (Range a -> m g) ->
-  m (NonZero g)
-posBounded gen = fmap MGroup.unsafeAMonoidNonZero <$> gen $ HR.exponential 1 maxVal
+  m g
+posBounded gen = gen $ HR.exponential 1 maxVal
 
 bounded :: (Integral a, TestBounds a) => (Range a -> m a) -> m a
 bounded gen = gen $ HR.exponentialFrom minVal 0 maxVal

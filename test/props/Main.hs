@@ -9,7 +9,6 @@ import Test.Algebra.Additive.ASemigroup qualified
 import Test.Algebra.Multiplicative.MGroup qualified
 import Test.Algebra.Multiplicative.MMonoid qualified
 import Test.Algebra.Multiplicative.MSemigroup qualified
-import Test.Data.NonZero qualified
 import Test.Tasty qualified as Tasty
 
 -- | Runs property tests. The environment variable @MAX_RUNS@ controls
@@ -26,6 +25,5 @@ main =
         Test.Algebra.Additive.AGroup.props,
         Test.Algebra.Multiplicative.MSemigroup.props,
         Test.Algebra.Multiplicative.MMonoid.props,
-        Test.Algebra.Multiplicative.MGroup.props,
-        Test.Data.NonZero.props
+        Test.Algebra.Multiplicative.MGroup.props
       ]

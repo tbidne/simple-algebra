@@ -8,7 +8,7 @@ module Numeric.Algebra.Space.MSpace
 where
 
 import Data.Kind (Constraint, Type)
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..), NonZero)
+import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
 import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 
 -- | Defines a "multiplicative space" over an 'MGroup'. This generalizes
@@ -20,12 +20,12 @@ import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 type MSpace :: Type -> Type -> Constraint
 class (MGroup k, MSemiSpace v k) => MSpace v k | v -> k where
   -- | @since 0.1
-  (.%) :: v -> NonZero k -> v
+  (.%) :: v -> k -> v
 
 infixl 7 .%
 
 -- | @since 0.1
-(%.) :: (MSpace v k) => NonZero k -> v -> v
+(%.) :: (MSpace v k) => k -> v -> v
 (%.) = flip (.%)
 {-# INLINE (%.) #-}
 

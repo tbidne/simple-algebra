@@ -19,7 +19,6 @@
 * [Algebraic Typeclasses](#algebraic-typeclasses)
   * [Motivation](#motivation)
   * [Solution](#solution)
-* [Smart Constructors](#smart-constructors)
 * [Miscellaneous](#miscellaneous)
 
 # Overview
@@ -179,7 +178,7 @@ We have the following guiding principles:
 
         For instance, integers cannot satisfy the field laws, and floats do not satisfy anything, as their equality is nonsense. Nevertheless, we provide instances for them. Working with technically unlawful numerical instances is extremely common, so we take the stance that it is better to provide such instances (albeit with known limitations) than to forgo them completely (read: integer division is useful). The only instances we disallow are those likely to cause runtime errors (e.g. natural subtraction) or break expected invariants.
 
-    * Division classes (i.e. `MGroup`, `VectorSpace`) have their own division function that must be implemented. Theoretically this is unnecessary, as we need only a function `inv :: NonZero a -> NonZero a` and we can then define division as `x .%. d = x .*. inv d`. But this will not work for many types (e.g. integers), so we force users to define a (presumably sensible) `(.%.)`, so there is no chance of accidentally using a nonsensical `inv`.
+    * Division classes (i.e. `MGroup`, `VectorSpace`) have their own division function that must be implemented. Theoretically this is unnecessary, as we need only a function `inv :: a -> a` and we can then define division as `x .%. d = x .*. inv d`. But this will not work for many types (e.g. integers), so we force users to define a (presumably sensible) `(.%.)`, so there is no chance of accidentally using a nonsensical `inv`.
 
 3. Safety
 
@@ -190,10 +189,6 @@ We have the following guiding principles:
      We choose new operators that do not clash with prelude.
 
 We provide instances for built-in numeric types where it makes sense.
-
-# Smart Constructors
-
-Additionally, there is a smart constructor for a simple `NonZero` type. This is likely to change in the future when we can pass in a direct proof.
 
 # Miscellaneous
 

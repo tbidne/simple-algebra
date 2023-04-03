@@ -13,14 +13,12 @@ synopsis:           An alternative mathematical interface to Num.
 description:
   @algebra-simple@ intends to provide a simple, reasonably principled
   interface to typical mathematical operations (i.e. addition, subtraction,
-  multiplication, division). This package is organized into three sections:
+  multiplication, division). This package is organized into two sections:
   .
   1. "Numeric.Algebra": The typeclass replacements for 'Num'; this package's
   raison d'être.
   .
-  2. "Numeric.Data.NonZero": Smart constructor for a @NonZero@ type.
-  .
-  3. "Numeric.Literal": Typeclasses for literal conversions.
+  2. "Numeric.Literal": Typeclasses for literal conversions.
 
 category:           Math, Algebra
 extra-source-files:
@@ -91,29 +89,11 @@ library
     Numeric.Algebra.Space.Semimodule
     Numeric.Algebra.Space.SemivectorSpace
     Numeric.Algebra.Space.VectorSpace
-    Numeric.Data.NonZero
     Numeric.Literal.Integer
     Numeric.Literal.Rational
 
-  build-depends:
-    , base              >=4.14.0.0 && <4.18
-    , deepseq           ^>=1.4.4.0
-    , optics-core       ^>=0.4
-    , template-haskell  >=2.16.0.0 && <2.20
-
+  build-depends:    base >=4.14.0.0 && <4.18
   hs-source-dirs:   src
-  default-language: Haskell2010
-
-test-suite doctest
-  import:           common-exts
-  type:             exitcode-stdio-1.0
-  main-is:          Main.hs
-  build-depends:
-    , base
-    , doctest    >=0.16.3 && <0.22
-    , env-guard  ^>=0.2
-
-  hs-source-dirs:   test/doctest
   default-language: Haskell2010
 
 test-suite props
@@ -129,7 +109,6 @@ test-suite props
     Test.Algebra.Multiplicative.MGroup
     Test.Algebra.Multiplicative.MMonoid
     Test.Algebra.Multiplicative.MSemigroup
-    Test.Data.NonZero
     Test.TestBounds
     Utils
 

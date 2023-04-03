@@ -39,13 +39,5 @@ jobs:
       - name: Compile
         run: cabal build
 
-      - name: Doc Tests
-        run : |
-          cabal configure --enable-tests --write-ghc-environment-files always
-          cabal build
-
-          ${{ matrix.platform.set-env }} RUN_DOCTEST=1
-          cabal test doctest
-
       - name: Property Tests
         run: cabal test props --test-options '--hedgehog-tests 10000'

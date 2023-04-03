@@ -150,7 +150,7 @@ import Numeric.Algebra.Space
 --
 --     * Division classes (i.e. 'MGroup', 'VectorSpace') have their own division
 --       function that must be implemented. Theoretically this is unnecessary,
---       as we need only a function @inv :: NonZero a -> NonZero a@ and we
+--       as we need only a function @inv :: a -> a@ and we
 --       can then define division as @x .%. d = d .*. inv d@. But this will
 --       not work for many types (e.g. integers), so we force users to define a
 --       (presumably sensible) '(.%.)', so there is no chance of accidentally
