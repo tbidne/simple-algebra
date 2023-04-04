@@ -8,3 +8,5 @@ package algebra-simple
     -Wredundant-constraints -Wunused-packages -Wmissing-deriving-strategies
 
 test-show-details: direct
+
+allow-newer: hedgehog-1.2:template-haskell
