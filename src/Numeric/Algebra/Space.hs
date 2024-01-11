@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-missing-import-lists #-}
+
 -- | This module reexports "space-like" structures.
 --
 -- @since 0.1
