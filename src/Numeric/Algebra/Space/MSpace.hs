@@ -8,7 +8,7 @@ module Numeric.Algebra.Space.MSpace
 where
 
 import Data.Kind (Constraint, Type)
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
+import Numeric.Algebra.Multiplicative.MGroup (MGroup ((.%.)))
 import Numeric.Algebra.Space.MSemiSpace (MSemiSpace)
 
 -- | Defines a "multiplicative space" over an 'MGroup'. This generalizes

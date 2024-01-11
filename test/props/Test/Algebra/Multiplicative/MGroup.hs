@@ -1,12 +1,12 @@
 module Test.Algebra.Multiplicative.MGroup (props) where
 
-import Equality (Equality (..))
+import Equality (Equality (MkEqEpsilon, MkEqExact, MkEqRatio))
 import Gens qualified
 import Hedgehog (Gen, PropertyName, (===))
 import Hedgehog qualified as H
-import Numeric.Algebra.Multiplicative.MEuclidean (MEuclidean (..), mmod)
-import Numeric.Algebra.Multiplicative.MGroup (MGroup (..))
-import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
+import Numeric.Algebra.Multiplicative.MEuclidean (MEuclidean, mmod)
+import Numeric.Algebra.Multiplicative.MGroup (MGroup ((.%.)))
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (one))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
 import Utils qualified

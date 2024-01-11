@@ -58,7 +58,7 @@ import Hedgehog (MonadGen (GenBase))
 import Hedgehog.Gen qualified as HG
 import Hedgehog.Range (Range)
 import Hedgehog.Range qualified as HR
-import Test.TestBounds (TestBounds (..))
+import Test.TestBounds (TestBounds (maxVal, minVal))
 
 float :: (MonadGen m) => m Float
 float = HG.float $ HR.exponentialFloatFrom minVal 0 maxVal

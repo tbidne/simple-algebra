@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-missing-import-lists #-}
+
 -- | This module reexports algebraic typeclasses.
 --
 -- @since 0.1

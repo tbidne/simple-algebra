@@ -8,7 +8,7 @@ module Numeric.Algebra.Space.MSemiSpace
 where
 
 import Data.Kind (Constraint, Type)
-import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup ((.*.)))
 
 -- | Defines a "multiplicative semi space" over an 'MSemigroup'. This
 -- generalizes the notion of a 'Numeric.Algebra.Space.Semimodule.Semimodule'

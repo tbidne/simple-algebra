@@ -11,9 +11,9 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import GHC.Real (Ratio (..))
-import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (..))
-import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import GHC.Real (Ratio)
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid)
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup ((.*.)))
 
 -- | Defines a multiplicative group.
 --

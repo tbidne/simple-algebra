@@ -11,7 +11,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
-import Numeric.Algebra.Additive.AMonoid (AMonoid (..))
+import Numeric.Algebra.Additive.AMonoid (AMonoid)
 
 -- | Defines an additive group.
 --

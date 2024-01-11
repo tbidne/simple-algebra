@@ -35,7 +35,6 @@ source-repository head
 
 common common-exts
   default-extensions:
-    NoStarIsType
     BangPatterns
     DataKinds
     DeriveAnyClass
@@ -55,6 +54,7 @@ common common-exts
     MultiParamTypeClasses
     MultiWayIf
     NegativeLiterals
+    NoStarIsType
     NumericUnderscores
     OverloadedStrings
     PatternSynonyms

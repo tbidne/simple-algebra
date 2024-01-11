@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -Wno-missing-import-lists #-}
+
 -- | Reexports additive modules.
 --
 -- @since 0.1

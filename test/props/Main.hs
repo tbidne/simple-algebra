@@ -11,8 +11,7 @@ import Test.Algebra.Multiplicative.MMonoid qualified
 import Test.Algebra.Multiplicative.MSemigroup qualified
 import Test.Tasty qualified as Tasty
 
--- | Runs property tests. The environment variable @MAX_RUNS@ controls
--- how many test runs we do (default 100).
+-- | Runs property tests.
 --
 -- @since 0.1
 main :: IO ()

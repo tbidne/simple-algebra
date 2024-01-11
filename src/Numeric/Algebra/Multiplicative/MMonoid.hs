@@ -12,7 +12,7 @@ import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup (..))
+import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup)
 
 -- | Defines a monoid over a multiplicative semigroup.
 --
