@@ -20,3 +20,6 @@ package algebra-simple
     -Wno-unticked-promoted-constructors
 
 test-show-details: direct
+
+allow-newer: tasty-hedgehog:base
+allow-newer: hedgehog:template-haskell
