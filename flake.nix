@@ -4,24 +4,29 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.nix-hs-utils.url = "github:tbidne/nix-hs-utils";
   outputs =
-    inputs@{ flake-parts
-    , nix-hs-utils
-    , nixpkgs
-    , self
+    inputs@{
+      flake-parts,
+      nix-hs-utils,
+      nixpkgs,
+      self,
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      perSystem = { pkgs, ... }:
+      perSystem =
+        { pkgs, ... }:
         let
           ghc-version = "ghc982";
           compiler = pkgs.haskell.packages."${ghc-version}";
           hlib = pkgs.haskell.lib;
-          mkPkg = returnShellEnv:
+          mkPkg =
+            returnShellEnv:
             nix-hs-utils.mkHaskellPkg {
               inherit compiler pkgs returnShellEnv;
               name = "algebra-simple";
               root = ./.;
             };
-          compilerPkgs = { inherit compiler pkgs; };
+          compilerPkgs = {
+            inherit compiler pkgs;
+          };
         in
         {
           packages.default = mkPkg false;

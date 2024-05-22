@@ -72,8 +72,10 @@ common common-exts
     TypeFamilies
     TypeOperators
 
+  default-language:   Haskell2010
+
 library
-  import:           common-exts
+  import:          common-exts
   exposed-modules:
     Numeric.Algebra
     Numeric.Algebra.Additive
@@ -100,14 +102,13 @@ library
     Numeric.Literal.Integer
     Numeric.Literal.Rational
 
-  build-depends:    base >=4.14.0.0 && <4.21
-  hs-source-dirs:   src
-  default-language: Haskell2010
+  build-depends:   base >=4.14.0.0 && <4.21
+  hs-source-dirs:  src
 
 test-suite props
-  import:           common-exts
-  type:             exitcode-stdio-1.0
-  main-is:          Main.hs
+  import:         common-exts
+  type:           exitcode-stdio-1.0
+  main-is:        Main.hs
   other-modules:
     Equality
     Gens
@@ -127,6 +128,5 @@ test-suite props
     , tasty           >=1.1.0.3 && <1.6
     , tasty-hedgehog  >=1.0.0.2 && <1.5
 
-  hs-source-dirs:   test/props
-  ghc-options:      -threaded -with-rtsopts=-N
-  default-language: Haskell2010
+  hs-source-dirs: test/props
+  ghc-options:    -threaded -with-rtsopts=-N
