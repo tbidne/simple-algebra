@@ -83,6 +83,7 @@ library
     Numeric.Algebra.Additive.AMonoid
     Numeric.Algebra.Additive.ASemigroup
     Numeric.Algebra.Field
+    Numeric.Algebra.MetricSpace
     Numeric.Algebra.Multiplicative
     Numeric.Algebra.Multiplicative.MEuclidean
     Numeric.Algebra.Multiplicative.MGroup

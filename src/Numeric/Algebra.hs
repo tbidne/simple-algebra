@@ -13,6 +13,7 @@ module Numeric.Algebra
     -- ** Algebraic Typeclasses
     module Numeric.Algebra.Additive,
     module Numeric.Algebra.Multiplicative,
+    module Numeric.Algebra.MetricSpace,
     module Numeric.Algebra.Normed,
     module Numeric.Algebra.Semiring,
     module Numeric.Algebra.Ring,
@@ -24,6 +25,7 @@ where
 
 import Numeric.Algebra.Additive
 import Numeric.Algebra.Field
+import Numeric.Algebra.MetricSpace
 import Numeric.Algebra.Multiplicative
 import Numeric.Algebra.Normed
 import Numeric.Algebra.Ring
