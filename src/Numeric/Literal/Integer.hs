@@ -3,6 +3,7 @@
 -- @since 0.1
 module Numeric.Literal.Integer
   ( FromInteger (..),
+    ToInteger (..),
   )
 where
 
@@ -24,7 +25,7 @@ import GHC.Stack.Types (HasCallStack)
 --
 -- -- becomes
 --
--- afromInteger 1_000 :: FromInteger a => a
+-- fromZ 1_000 :: FromInteger a => a
 -- @
 --
 -- Note that @fromInteger@'s deficiencies are inherited e.g. 'Natural' is
@@ -34,93 +35,161 @@ import GHC.Stack.Types (HasCallStack)
 type FromInteger :: Type -> Constraint
 class FromInteger a where
   -- | @since 0.1
-  afromInteger :: (HasCallStack) => Integer -> a
+  fromZ :: (HasCallStack) => Integer -> a
 
 -- | @since 0.1
 instance FromInteger Double where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Float where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Int where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Int8 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Int16 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Int32 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Int64 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Integer where
-  afromInteger = id
-  {-# INLINE afromInteger #-}
+  fromZ = id
+  {-# INLINE fromZ #-}
 
 -- | __WARNING: Partial__
 --
 -- @since 0.1
 instance FromInteger Natural where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Word where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Word8 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Word16 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Word32 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger Word64 where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance FromInteger (Ratio Integer) where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | __WARNING: Partial__
 --
 -- @since 0.1
 instance FromInteger (Ratio Natural) where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
 
 -- | @since 0.1
 instance (RealFloat a) => FromInteger (Complex a) where
-  afromInteger = fromInteger
-  {-# INLINE afromInteger #-}
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
+
+-- | Integer embedding.
+--
+-- @since 0.1
+type ToInteger :: Type -> Constraint
+class ToInteger a where
+  -- | @since 0.1
+  toZ :: (HasCallStack) => a -> Integer
+
+-- | @since 0.1
+instance ToInteger Int where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Int8 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Int16 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Int32 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Int64 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Integer where
+  toZ = id
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Natural where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Word where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Word8 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Word16 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Word32 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
+
+-- | @since 0.1
+instance ToInteger Word64 where
+  toZ = toInteger
+  {-# INLINE toZ #-}
