@@ -102,6 +102,7 @@ library
     Numeric.Algebra.Space.VectorSpace
     Numeric.Literal.Integer
     Numeric.Literal.Rational
+    Numeric.Literal.Real
 
   build-depends:   base >=4.14.0.0 && <4.21
   hs-source-dirs:  src
