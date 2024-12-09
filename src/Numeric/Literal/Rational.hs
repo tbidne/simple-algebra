@@ -3,7 +3,9 @@
 -- @since 0.1
 module Numeric.Literal.Rational
   ( FromRational (..),
+    fromℚ,
     ToRational (..),
+    toℚ,
   )
 where
 
@@ -36,6 +38,12 @@ type FromRational :: Type -> Constraint
 class FromRational a where
   -- | @since 0.1
   fromQ :: (HasCallStack) => Rational -> a
+
+-- | Unicode alias for 'fromQ', with U+211A.
+--
+-- @since 0.1
+fromℚ :: (FromRational a) => Rational -> a
+fromℚ = fromQ
 
 -- | @since 0.1
 instance FromRational Double where
@@ -71,6 +79,12 @@ type ToRational :: Type -> Constraint
 class ToRational a where
   -- | @since 0.1
   toQ :: (HasCallStack) => a -> Rational
+
+-- | Unicode alias for 'toQ', with U+211A.
+--
+-- @since 0.1
+toℚ :: (ToRational a) => a -> Rational
+toℚ = toQ
 
 -- | @since 0.1
 instance ToRational Double where

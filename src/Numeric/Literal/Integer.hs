@@ -3,7 +3,9 @@
 -- @since 0.1
 module Numeric.Literal.Integer
   ( FromInteger (..),
+    fromℤ,
     ToInteger (..),
+    toℤ,
   )
 where
 
@@ -36,6 +38,12 @@ type FromInteger :: Type -> Constraint
 class FromInteger a where
   -- | @since 0.1
   fromZ :: (HasCallStack) => Integer -> a
+
+-- | Unicode alias for 'fromZ', with U+2114.
+--
+-- @since 0.1
+fromℤ :: (FromInteger a) => Integer -> a
+fromℤ = fromZ
 
 -- | @since 0.1
 instance FromInteger Double where
@@ -133,6 +141,12 @@ type ToInteger :: Type -> Constraint
 class ToInteger a where
   -- | @since 0.1
   toZ :: (HasCallStack) => a -> Integer
+
+-- | Unicode alias for 'toZ', with U+2114.
+--
+-- @since 0.1
+toℤ :: (ToInteger a) => a -> Integer
+toℤ = toZ
 
 -- | @since 0.1
 instance ToInteger Int where
