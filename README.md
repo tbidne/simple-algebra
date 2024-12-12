@@ -188,4 +188,4 @@ We provide instances for built-in numeric types where it makes sense.
 
 # Miscellaneous
 
-Finally, there are typeclasses in `Numeric.Literal` for literal conversions.
+Finally, there are typeclasses in `Numeric.Convert` for conversions.

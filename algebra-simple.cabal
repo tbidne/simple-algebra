@@ -26,7 +26,7 @@ description:
   1. "Numeric.Algebra": The typeclass replacements for 'Num'; this package's
   raison d'être.
   .
-  2. "Numeric.Literal": Typeclasses for literal conversions.
+  2. "Numeric.Convert": Typeclasses for conversions.
 
 category:           Math, Algebra
 extra-source-files:
@@ -100,9 +100,10 @@ library
     Numeric.Algebra.Space.Semimodule
     Numeric.Algebra.Space.SemivectorSpace
     Numeric.Algebra.Space.VectorSpace
-    Numeric.Literal.Integer
-    Numeric.Literal.Rational
-    Numeric.Literal.Real
+    Numeric.Convert.Integer
+    Numeric.Convert.Internal
+    Numeric.Convert.Rational
+    Numeric.Convert.Real
 
   build-depends:   base >=4.14.0.0 && <4.21
   hs-source-dirs:  src
