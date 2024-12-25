@@ -36,110 +36,155 @@ class Normed s where
   -- | @since 0.1
   norm :: s -> s
 
+  -- | @since 0.1
+  sgn :: s -> s
+
 -- | @since 0.1
 instance Normed Double where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Float where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Int where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Int8 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Int16 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Int32 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Int64 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Integer where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Word where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Word8 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Word16 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Word32 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Word64 where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed Natural where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed (Ratio Integer) where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance Normed (Ratio Natural) where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (RealFloat a) => Normed (Complex a) where
   norm = abs
   {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a) where
   norm (x1, x2) = (norm x1, norm x2)
   {-# INLINE norm #-}
+  sgn (x1, x2) = (sgn x1, sgn x2)
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a) where
   norm (x1, x2, x3) = (norm x1, norm x2, norm x3)
   {-# INLINE norm #-}
+  sgn (x1, x2, x3) = (sgn x1, sgn x2, sgn x3)
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a, a) where
   norm (x1, x2, x3, x4) = (norm x1, norm x2, norm x3, norm x4)
   {-# INLINE norm #-}
+  sgn (x1, x2, x3, x4) = (sgn x1, sgn x2, sgn x3, sgn x4)
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a, a, a) where
   norm (x1, x2, x3, x4, x5) = (norm x1, norm x2, norm x3, norm x4, norm x5)
   {-# INLINE norm #-}
+  sgn (x1, x2, x3, x4, x5) = (sgn x1, sgn x2, sgn x3, sgn x4, sgn x5)
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a, a, a, a) where
@@ -152,6 +197,15 @@ instance (Normed a) => Normed (a, a, a, a, a, a) where
       norm x6
     )
   {-# INLINE norm #-}
+  sgn (x1, x2, x3, x4, x5, x6) =
+    ( sgn x1,
+      sgn x2,
+      sgn x3,
+      sgn x4,
+      sgn x5,
+      sgn x6
+    )
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a, a, a, a, a) where
@@ -165,6 +219,16 @@ instance (Normed a) => Normed (a, a, a, a, a, a, a) where
       norm x7
     )
   {-# INLINE norm #-}
+  sgn (x1, x2, x3, x4, x5, x6, x7) =
+    ( sgn x1,
+      sgn x2,
+      sgn x3,
+      sgn x4,
+      sgn x5,
+      sgn x6,
+      sgn x7
+    )
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a, a, a, a, a, a) where
@@ -179,6 +243,17 @@ instance (Normed a) => Normed (a, a, a, a, a, a, a, a) where
       norm x8
     )
   {-# INLINE norm #-}
+  sgn (x1, x2, x3, x4, x5, x6, x7, x8) =
+    ( sgn x1,
+      sgn x2,
+      sgn x3,
+      sgn x4,
+      sgn x5,
+      sgn x6,
+      sgn x7,
+      sgn x8
+    )
+  {-# INLINE sgn #-}
 
 -- | @since 0.1
 instance (Normed a) => Normed (a, a, a, a, a, a, a, a, a) where
@@ -194,3 +269,15 @@ instance (Normed a) => Normed (a, a, a, a, a, a, a, a, a) where
       norm x9
     )
   {-# INLINE norm #-}
+  sgn (x1, x2, x3, x4, x5, x6, x7, x8, x9) =
+    ( sgn x1,
+      sgn x2,
+      sgn x3,
+      sgn x4,
+      sgn x5,
+      sgn x6,
+      sgn x7,
+      sgn x8,
+      sgn x9
+    )
+  {-# INLINE sgn #-}
