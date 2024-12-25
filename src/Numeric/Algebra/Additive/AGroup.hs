@@ -3,6 +3,7 @@
 -- @since 0.1
 module Numeric.Algebra.Additive.AGroup
   ( AGroup (..),
+    anegate,
   )
 where
 
@@ -11,7 +12,7 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
 import Data.Word (Word16, Word32, Word64, Word8)
-import Numeric.Algebra.Additive.AMonoid (AMonoid)
+import Numeric.Algebra.Additive.AMonoid (AMonoid (zero))
 
 -- | Defines an additive group.
 --
@@ -22,6 +23,11 @@ class (AMonoid g) => AGroup g where
   (.-.) :: g -> g -> g
 
 infixl 6 .-.
+
+-- | @since 0.1
+anegate :: (AGroup g) => g -> g
+anegate n = zero .-. n
+{-# INLINE anegate #-}
 
 -- | @since 0.1
 instance AGroup Double where
