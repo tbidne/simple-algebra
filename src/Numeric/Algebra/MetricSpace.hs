@@ -77,32 +77,32 @@ instance MetricSpace Integer where
 
 -- | @since 0.1
 instance MetricSpace Word where
-  diffR x y = fromIntegral $ abs (y - x)
+  diffR = diffNonNeg
   {-# INLINE diffR #-}
 
 -- | @since 0.1
 instance MetricSpace Word8 where
-  diffR x y = fromIntegral $ abs (y - x)
+  diffR = diffNonNeg
   {-# INLINE diffR #-}
 
 -- | @since 0.1
 instance MetricSpace Word16 where
-  diffR x y = fromIntegral $ abs (y - x)
+  diffR = diffNonNeg
   {-# INLINE diffR #-}
 
 -- | @since 0.1
 instance MetricSpace Word32 where
-  diffR x y = fromIntegral $ abs (y - x)
+  diffR = diffNonNeg
   {-# INLINE diffR #-}
 
 -- | @since 0.1
 instance MetricSpace Word64 where
-  diffR x y = fromIntegral $ abs (y - x)
+  diffR = diffNonNeg
   {-# INLINE diffR #-}
 
 -- | @since 0.1
 instance MetricSpace Natural where
-  diffR x y = fromIntegral $ abs (y - x)
+  diffR = diffNonNeg
   {-# INLINE diffR #-}
 
 -- | @since 0.1
@@ -124,3 +124,8 @@ instance (RealFloat a) => MetricSpace (Complex a) where
   -- metric in terms of its norm.
   diffR x y = realToFrac $ magnitude (y - x)
   {-# INLINE diffR #-}
+
+diffNonNeg :: (Integral a, Num b) => a -> a -> b
+diffNonNeg x y
+  | x <= y = fromIntegral (y - x)
+  | otherwise = fromIntegral $ x - y
