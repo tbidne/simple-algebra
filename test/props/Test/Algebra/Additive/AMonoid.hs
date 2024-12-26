@@ -4,14 +4,11 @@ module Test.Algebra.Additive.AMonoid (props) where
 
 import Equality (Equality (MkEqExact, MkEqRatio))
 import Gens qualified
-import Hedgehog (Gen, PropertyName, (===))
-import Hedgehog qualified as H
+import Hedgehog (Gen, PropertyName)
 import Numeric.Algebra.Additive.AMonoid (AMonoid (zero))
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup ((.+.)))
-import Numeric.Algebra.Normed (Normed (norm))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
-import Utils ((<=>))
 import Utils qualified
 
 props :: TestTree
