@@ -15,6 +15,7 @@ module Numeric.Convert.Internal
 where
 
 import Data.Complex (Complex)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -151,6 +152,11 @@ instance (RealFloat a) => FromInteger (Complex a) where
   fromZ = fromInteger
   {-# INLINE fromZ #-}
 
+-- | @since 0.1
+instance (HasResolution k) => FromInteger (Fixed k) where
+  fromZ = fromInteger
+  {-# INLINE fromZ #-}
+
 -- | Integer embedding.
 --
 -- @since 0.1
@@ -270,6 +276,11 @@ instance (RealFloat a) => FromRational (Complex a) where
   fromQ = fromRational
   {-# INLINE fromQ #-}
 
+-- | @since 0.1
+instance (HasResolution k) => FromRational (Fixed k) where
+  fromQ = fromRational
+  {-# INLINE fromQ #-}
+
 -- | Rational embedding.
 --
 -- @since 0.1
@@ -358,6 +369,11 @@ instance ToRational (Ratio Natural) where
   toQ = toRational
   {-# INLINE toQ #-}
 
+-- | @since 0.1
+instance (HasResolution k) => ToRational (Fixed k) where
+  toQ = toRational
+  {-# INLINE toQ #-}
+
 -------------------------------------------------------------------------------
 ------------------------------------- REALS -----------------------------------
 -------------------------------------------------------------------------------
@@ -394,6 +410,11 @@ instance FromReal (Ratio Natural) where
 
 -- | @since 0.1
 instance (RealFloat a) => FromReal (Complex a) where
+  fromR = realToFrac
+  {-# INLINE fromR #-}
+
+-- | @since 0.1
+instance (HasResolution k) => FromReal (Fixed k) where
   fromR = realToFrac
   {-# INLINE fromR #-}
 
@@ -482,5 +503,10 @@ instance ToReal (Ratio Integer) where
 
 -- | @since 0.1
 instance ToReal (Ratio Natural) where
+  toR = realToFrac
+  {-# INLINE toR #-}
+
+-- | @since 0.1
+instance (HasResolution k) => ToReal (Fixed k) where
   toR = realToFrac
   {-# INLINE toR #-}

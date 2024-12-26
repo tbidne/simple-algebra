@@ -7,6 +7,7 @@ module Numeric.Algebra.Additive.AMonoid
 where
 
 import Data.Complex (Complex)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -109,6 +110,11 @@ instance AMonoid (Ratio Natural) where
 
 -- | @since 0.1
 instance (RealFloat a) => AMonoid (Complex a) where
+  zero = 0
+  {-# INLINE zero #-}
+
+-- | @since 0.1
+instance (HasResolution k) => AMonoid (Fixed k) where
   zero = 0
   {-# INLINE zero #-}
 

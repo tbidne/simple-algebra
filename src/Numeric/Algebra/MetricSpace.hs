@@ -8,6 +8,7 @@ module Numeric.Algebra.MetricSpace
 where
 
 import Data.Complex (Complex, magnitude)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -123,6 +124,11 @@ instance (RealFloat a) => MetricSpace (Complex a) where
   -- to keep the type the same. Thus this agrees with the usual complex
   -- metric in terms of its norm.
   diffR x y = realToFrac $ magnitude (y - x)
+  {-# INLINE diffR #-}
+
+-- | @since 0.1
+instance (HasResolution k) => MetricSpace (Fixed k) where
+  diffR x y = realToFrac $ abs (y - x)
   {-# INLINE diffR #-}
 
 diffNonNeg :: (Integral a, Num b) => a -> a -> b

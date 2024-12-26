@@ -7,6 +7,7 @@ module Numeric.Algebra.Multiplicative.MSemigroup
 where
 
 import Data.Complex (Complex)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -105,5 +106,10 @@ instance MSemigroup (Ratio Natural) where
 
 -- | @since 0.1
 instance (RealFloat a) => MSemigroup (Complex a) where
+  (.*.) = (*)
+  {-# INLINE (.*.) #-}
+
+-- | @since 0.1
+instance (HasResolution k) => MSemigroup (Fixed k) where
   (.*.) = (*)
   {-# INLINE (.*.) #-}

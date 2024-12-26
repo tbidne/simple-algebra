@@ -7,6 +7,7 @@ module Numeric.Algebra.Normed
 where
 
 import Data.Complex (Complex)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -164,6 +165,13 @@ instance Normed (Ratio Natural) where
 
 -- | @since 0.1
 instance (RealFloat a) => Normed (Complex a) where
+  norm = abs
+  {-# INLINE norm #-}
+  sgn = signum
+  {-# INLINE sgn #-}
+
+-- | @since 0.1
+instance (HasResolution k) => Normed (Fixed k) where
   norm = abs
   {-# INLINE norm #-}
   sgn = signum

@@ -7,6 +7,7 @@ module Numeric.Algebra.Semiring
 where
 
 import Data.Complex (Complex)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Ratio (Ratio)
@@ -72,3 +73,6 @@ instance Semiring (Ratio Natural)
 
 -- | @since 0.1
 instance (RealFloat a) => Semiring (Complex a)
+
+-- | @since 0.1
+instance (HasResolution k) => Semiring (Fixed k)

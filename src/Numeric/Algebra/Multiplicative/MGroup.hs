@@ -7,6 +7,7 @@ module Numeric.Algebra.Multiplicative.MGroup
 where
 
 import Data.Complex (Complex)
+import Data.Fixed (Fixed, HasResolution)
 import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
@@ -107,5 +108,10 @@ instance MGroup (Ratio Natural) where
 
 -- | @since 0.1
 instance (RealFloat a) => MGroup (Complex a) where
+  (.%.) = (/)
+  {-# INLINE (.%.) #-}
+
+-- | @since 0.1
+instance (HasResolution k) => MGroup (Fixed k) where
   (.%.) = (/)
   {-# INLINE (.%.) #-}
