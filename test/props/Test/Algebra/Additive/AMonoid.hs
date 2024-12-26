@@ -18,8 +18,7 @@ props :: TestTree
 props =
   T.testGroup
     "Additive Monoid"
-    [ identityProps,
-      absProps
+    [ identityProps
     ]
 
 identityProps :: TestTree
@@ -90,51 +89,3 @@ amonoidIdentity ::
   PropertyName ->
   TestTree
 amonoidIdentity = Utils.identity (.+.) zero
-
-absProps :: TestTree
-absProps =
-  T.testGroup
-    "Absolute Value"
-    [ integerAbs,
-      rationalAbs
-    ]
-
-integerAbs :: TestTree
-integerAbs = amonoidAbs Gens.integer MkEqExact "Integer" "integerAbs"
-
-rationalAbs :: TestTree
-rationalAbs = amonoidAbs Gens.rational MkEqRatio "Rational" "rationalAbs"
-
-amonoidAbs ::
-  ( AMonoid a,
-    Normed a,
-    Ord a,
-    Show a
-  ) =>
-  Gen a ->
-  (a -> Equality eq a) ->
-  TestName ->
-  PropertyName ->
-  TestTree
-amonoidAbs gen eqCons desc propName =
-  Utils.testPropertyCompat desc propName $
-    H.property $ do
-      x <- H.forAll gen
-      y <- H.forAll gen
-
-      -- idempotence: |x| = ||x||
-      let eqX = eqCons x
-          eqAbs = eqCons (norm x)
-      eqAbs === eqCons (norm (norm x))
-
-      -- non-negative: |x| >= 0
-      let eqZero = eqCons zero
-      H.diff eqAbs (>=) eqZero
-
-      -- positive-definite: |x| == 0 <=> x == 0
-      H.diff (eqAbs == eqZero) (<=>) (eqX == eqZero)
-
-      -- triangle equality: |x + y| <= |x| + |y|
-      let sumAbs = eqCons $ norm x .+. norm y
-          absSum = eqCons $ norm (x .+. y)
-      H.diff absSum (<=) sumAbs

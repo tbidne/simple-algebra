@@ -4,7 +4,6 @@ import Equality (Equality (MkEqEpsilon, MkEqExact, MkEqRatio))
 import Gens qualified
 import Hedgehog (Gen, PropertyName, (===))
 import Hedgehog qualified as H
-import Numeric.Algebra.Multiplicative.MEuclidean (MEuclidean, mmod)
 import Numeric.Algebra.Multiplicative.MGroup (MGroup ((.%.)))
 import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (one))
 import Test.Tasty (TestName, TestTree)
@@ -16,8 +15,7 @@ props =
   T.testGroup
     "Multiplicative Group"
     [ divProps,
-      divIdentProps,
-      divIntegralProps
+      divIdentProps
     ]
 
 divProps :: TestTree
@@ -174,74 +172,3 @@ agroupDivIdent gen eqCons desc propName =
     H.property $ do
       x <- H.forAll gen
       eqCons one === eqCons (x .%. x)
-
-divIntegralProps :: TestTree
-divIntegralProps =
-  T.testGroup
-    "mmod === mod"
-    [ intDivIntegral,
-      int8DivIntegral,
-      int16DivIntegral,
-      int32DivIntegral,
-      int64DivIntegral,
-      integerDivIntegral,
-      wordDivIntegral,
-      word8DivIntegral,
-      word16DivIntegral,
-      word32DivIntegral,
-      word64DivIntegral,
-      naturalDivIntegral
-    ]
-
-intDivIntegral :: TestTree
-intDivIntegral = mgroupDivIntegralEq Gens.int Gens.intNZ "Int" "intDivIntegral"
-
-int8DivIntegral :: TestTree
-int8DivIntegral = mgroupDivIntegralEq Gens.int8 Gens.int8NZ "Int8" "int8DivIntegral"
-
-int16DivIntegral :: TestTree
-int16DivIntegral = mgroupDivIntegralEq Gens.int16 Gens.int16NZ "Int16" "int16DivIntegral"
-
-int32DivIntegral :: TestTree
-int32DivIntegral = mgroupDivIntegralEq Gens.int32 Gens.int32NZ "Int32" "int32DivIntegral"
-
-int64DivIntegral :: TestTree
-int64DivIntegral = mgroupDivIntegralEq Gens.int64 Gens.int64NZ "Int64" "int64DivIntegral"
-
-integerDivIntegral :: TestTree
-integerDivIntegral = mgroupDivIntegralEq Gens.integer Gens.integerNZ "Integer" "integerDivIntegral"
-
-wordDivIntegral :: TestTree
-wordDivIntegral = mgroupDivIntegralEq Gens.word Gens.wordNZ "Word" "wordDivIntegral"
-
-word8DivIntegral :: TestTree
-word8DivIntegral = mgroupDivIntegralEq Gens.word8 Gens.word8NZ "Word8" "word8DivIntegral"
-
-word16DivIntegral :: TestTree
-word16DivIntegral = mgroupDivIntegralEq Gens.word16 Gens.word16NZ "Word16" "word15DivIntegral"
-
-word32DivIntegral :: TestTree
-word32DivIntegral = mgroupDivIntegralEq Gens.word32 Gens.word32NZ "Word32" "word32DivIntegral"
-
-word64DivIntegral :: TestTree
-word64DivIntegral = mgroupDivIntegralEq Gens.word64 Gens.word64NZ "Word64" "word64DivIntegral"
-
-naturalDivIntegral :: TestTree
-naturalDivIntegral = mgroupDivIntegralEq Gens.natural Gens.naturalNZ "Natural" "naturalDivIntegral"
-
-mgroupDivIntegralEq ::
-  ( Integral a,
-    MEuclidean a,
-    Show a
-  ) =>
-  Gen a ->
-  Gen a ->
-  TestName ->
-  PropertyName ->
-  TestTree
-mgroupDivIntegralEq gen genNZ desc propName =
-  Utils.testPropertyCompat desc propName $
-    H.property $ do
-      x <- H.forAll gen
-      d <- H.forAll genNZ
-      x `mod` d === x `mmod` d

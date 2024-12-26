@@ -18,12 +18,11 @@ import GHC.Natural (Natural)
 -- * Positive definiteness: @norm x > 0 for x /= 0, norm 0 = 0@.
 -- * Subadditivity: @norm (x + y) <= norm x + norm y@.
 -- * Inversion : @norm x = norm (-x)@.
+-- * Sign : @sgn x = x / norm x@.
 --
 -- Notice these laws require various algebraic assumptions, from a semigroup
 -- up to a group structure. It is expected that types that implement
--- 'Numeric.Algebra.Additive.ASemigroup.ASemigroup',
--- 'Numeric.Algebra.Additive.ASemigroup.AMonoid', and
--- 'Numeric.Algebra.Additive.ASemigroup.AGroup' will follow the respective laws.
+-- the relevant typeclasses will follow the respective laws.
 --
 -- We do not /require/ any of these typeclasses as constraints as it is
 -- possible that we may want to abstract over "positive" types with a type
@@ -33,10 +32,22 @@ import GHC.Natural (Natural)
 -- @since 0.1
 type Normed :: Type -> Constraint
 class Normed s where
-  -- | @since 0.1
+  -- | Returns the norm.
+  --
+  -- @since 0.1
   norm :: s -> s
 
-  -- | @since 0.1
+  -- | Sign function. Notice that when 'norm' is 'abs', this is the familiar
+  -- 'signum' function i.e.
+  --
+  -- @
+  -- sgn x
+  --   | x < 0 = -1
+  --   | x == 0 = 0
+  --   | x > 0 = 1
+  -- @
+  --
+  -- @since 0.1
   sgn :: s -> s
 
 -- | @since 0.1
@@ -156,128 +167,4 @@ instance (RealFloat a) => Normed (Complex a) where
   norm = abs
   {-# INLINE norm #-}
   sgn = signum
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a) where
-  norm (x1, x2) = (norm x1, norm x2)
-  {-# INLINE norm #-}
-  sgn (x1, x2) = (sgn x1, sgn x2)
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a) where
-  norm (x1, x2, x3) = (norm x1, norm x2, norm x3)
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3) = (sgn x1, sgn x2, sgn x3)
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a, a) where
-  norm (x1, x2, x3, x4) = (norm x1, norm x2, norm x3, norm x4)
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3, x4) = (sgn x1, sgn x2, sgn x3, sgn x4)
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a, a, a) where
-  norm (x1, x2, x3, x4, x5) = (norm x1, norm x2, norm x3, norm x4, norm x5)
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3, x4, x5) = (sgn x1, sgn x2, sgn x3, sgn x4, sgn x5)
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a, a, a, a) where
-  norm (x1, x2, x3, x4, x5, x6) =
-    ( norm x1,
-      norm x2,
-      norm x3,
-      norm x4,
-      norm x5,
-      norm x6
-    )
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3, x4, x5, x6) =
-    ( sgn x1,
-      sgn x2,
-      sgn x3,
-      sgn x4,
-      sgn x5,
-      sgn x6
-    )
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a, a, a, a, a) where
-  norm (x1, x2, x3, x4, x5, x6, x7) =
-    ( norm x1,
-      norm x2,
-      norm x3,
-      norm x4,
-      norm x5,
-      norm x6,
-      norm x7
-    )
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3, x4, x5, x6, x7) =
-    ( sgn x1,
-      sgn x2,
-      sgn x3,
-      sgn x4,
-      sgn x5,
-      sgn x6,
-      sgn x7
-    )
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a, a, a, a, a, a) where
-  norm (x1, x2, x3, x4, x5, x6, x7, x8) =
-    ( norm x1,
-      norm x2,
-      norm x3,
-      norm x4,
-      norm x5,
-      norm x6,
-      norm x7,
-      norm x8
-    )
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3, x4, x5, x6, x7, x8) =
-    ( sgn x1,
-      sgn x2,
-      sgn x3,
-      sgn x4,
-      sgn x5,
-      sgn x6,
-      sgn x7,
-      sgn x8
-    )
-  {-# INLINE sgn #-}
-
--- | @since 0.1
-instance (Normed a) => Normed (a, a, a, a, a, a, a, a, a) where
-  norm (x1, x2, x3, x4, x5, x6, x7, x8, x9) =
-    ( norm x1,
-      norm x2,
-      norm x3,
-      norm x4,
-      norm x5,
-      norm x6,
-      norm x7,
-      norm x8,
-      norm x9
-    )
-  {-# INLINE norm #-}
-  sgn (x1, x2, x3, x4, x5, x6, x7, x8, x9) =
-    ( sgn x1,
-      sgn x2,
-      sgn x3,
-      sgn x4,
-      sgn x5,
-      sgn x6,
-      sgn x7,
-      sgn x8,
-      sgn x9
-    )
   {-# INLINE sgn #-}

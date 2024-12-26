@@ -22,6 +22,7 @@ module Gens
     word32,
     word64,
     rational,
+    rationalNat,
 
     -- * NonZero
 
@@ -104,6 +105,11 @@ word64 = bounded HG.word64
 
 rational :: (GenBase m ~ Identity, MonadGen m) => m (Ratio Integer)
 rational = ratioNumDenom integer pos
+  where
+    pos = HG.integral $ HR.exponential 1 maxVal
+
+rationalNat :: (GenBase m ~ Identity, MonadGen m) => m (Ratio Natural)
+rationalNat = ratioNumDenom natural pos
   where
     pos = HG.integral $ HR.exponential 1 maxVal
 
