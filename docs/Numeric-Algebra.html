@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Numeric.Algebra</title><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><span class="caption">algebra-simple-0.1: An alternative mathematical interface to Num.</span><ul class="links" id="page-menu"><li><a href="src/Numeric.Algebra.html">Source</a></li><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul></div><div id="content"><div id="module-header"><table class="info"><tr><th>Safe Haskell</th><td>None</td></tr><tr><th>Language</th><td>Haskell2010</td></tr></table><p class="caption">Numeric.Algebra</p></div><div id="table-of-contents"><div id="contents-list"><p class="caption" onclick="window.scrollTo(0,0)">Contents</p><ul><li><a href="#g:1">Motivation</a></li><li><a href="#g:2">Solution</a><ul><li><a href="#g:3">Algebraic Typeclasses</a></li></ul></li></ul></div></div><div id="description"><p class="caption">Description</p><div class="doc"><p>This module reexports algebraic typeclasses.</p><p><em>Since: 0.1</em></p></div></div><div id="synopsis"><details id="syn"><summary>Synopsis</summary><ul class="details-toggle" data-details-id="syn"><li class="src short">module <a href="Numeric-Algebra-Additive.html">Numeric.Algebra.Additive</a></li><li class="src short">module <a href="Numeric-Algebra-Multiplicative.html">Numeric.Algebra.Multiplicative</a></li><li class="src short">module <a href="Numeric-Algebra-MetricSpace.html">Numeric.Algebra.MetricSpace</a></li><li class="src short">module <a href="Numeric-Algebra-Normed.html">Numeric.Algebra.Normed</a></li><li class="src short">module <a href="Numeric-Algebra-Semiring.html">Numeric.Algebra.Semiring</a></li><li class="src short">module <a href="Numeric-Algebra-Ring.html">Numeric.Algebra.Ring</a></li><li class="src short">module <a href="Numeric-Algebra-Semifield.html">Numeric.Algebra.Semifield</a></li><li class="src short">module <a href="Numeric-Algebra-Field.html">Numeric.Algebra.Field</a></li><li class="src short">module <a href="Numeric-Algebra-Space.html">Numeric.Algebra.Space</a></li></ul></details></div><div id="interface"><a href="#g:1" id="g:1"><h1>Motivation</h1></a><div class="doc"><p>The primary interface to numerical operations in Haskell is <code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#t:Num" title="Prelude">Num</a></code>.
+ Unfortunately, <code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#t:Num" title="Prelude">Num</a></code> has a key limitation: it is &quot;too large&quot;. For example,
+ if we want to opt-in to addition, we must also opt-in to subtraction,
+ multiplication, and integer literal conversions. These may not make sense
+ for the type at hand (e.g. naturals), so we are stuck either providing an
+ invariant-breaking dangerous implementation (e.g. defining subtraction for
+ arbitrary naturals) or throwing runtime errors.</p></div><a href="#g:2" id="g:2"><h1>Solution</h1></a><div class="doc"><p><code>algebra-simple</code>'s approach is to split this functionality into multiple
+ typeclasses, so types can opt-in to exactly as much functionality as they
+ want. The typeclasses are inspired by abstract algebra. The algebraic
+ hierarchy can be found in the following diagram. An arrow <code>A -&gt; B</code> should
+ be read as &quot;<code>B</code> is an <code>A</code>&quot;. For example, a <code><a href="Numeric-Algebra-Space-Module.html#t:Module" title="Numeric.Algebra.Space.Module">Module</a></code> is both a <code><a href="Numeric-Algebra-Space-Semimodule.html#t:Semimodule" title="Numeric.Algebra.Space.Semimodule">Semimodule</a></code>
+ and an <code><a href="Numeric-Algebra-Additive-AGroup.html#t:AGroup" title="Numeric.Algebra.Additive.AGroup">AGroup</a></code>.</p><p><img src="./diagrams/hierarchy.png" title="Algebraic hierarchy" /></p><p>A longer description can be found in the table below, along with the <code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#t:Num" title="Prelude">Num</a></code>
+ functionality they are intended to replace:</p><table><thead><tr><th>Typeclass</th><th>Description</th><th>New</th><th><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#t:Num" title="Prelude">Num</a></code></th></tr></thead><tbody><tr><td><code><a href="Numeric-Algebra-Additive-ASemigroup.html#t:ASemigroup" title="Numeric.Algebra.Additive.ASemigroup">ASemigroup</a></code>
+</td><td>Addition.
+</td><td><code><a href="Numeric-Algebra-Additive-ASemigroup.html#v:.-43-." title="Numeric.Algebra.Additive.ASemigroup">(.+.)</a></code>
+</td><td><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:-43-" title="Prelude">(+)</a></code>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Additive-AMonoid.html#t:AMonoid" title="Numeric.Algebra.Additive.AMonoid">AMonoid</a></code>
+</td><td><code><a href="Numeric-Algebra-Additive-ASemigroup.html#t:ASemigroup" title="Numeric.Algebra.Additive.ASemigroup">ASemigroup</a></code> with
+identity.</td><td><code><a href="Numeric-Algebra-Additive-AMonoid.html#v:zero" title="Numeric.Algebra.Additive.AMonoid">zero</a></code>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Additive-AGroup.html#t:AGroup" title="Numeric.Algebra.Additive.AGroup">AGroup</a></code>
+
+</td><td>Subtraction .
+
+</td><td><code><a href="Numeric-Algebra-Additive-AGroup.html#v:.-45-." title="Numeric.Algebra.Additive.AGroup">(.-.)</a></code>
+
+</td><td><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:-45-" title="Prelude">(-)</a></code>
+
+</td></tr><tr><td><code><a href="Numeric-Algebra-Multiplicative-MSemigroup.html#t:MSemigroup" title="Numeric.Algebra.Multiplicative.MSemigroup">MSemigroup</a></code>
+</td><td>Multiplication.
+</td><td><code><a href="Numeric-Algebra-Multiplicative-MSemigroup.html#v:.-42-." title="Numeric.Algebra.Multiplicative.MSemigroup">(.*.)</a></code>
+</td><td><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:-42-" title="Prelude">(*)</a></code>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Multiplicative-MMonoid.html#t:MMonoid" title="Numeric.Algebra.Multiplicative.MMonoid">MMonoid</a></code>
+</td><td><code><a href="Numeric-Algebra-Multiplicative-MSemigroup.html#t:MSemigroup" title="Numeric.Algebra.Multiplicative.MSemigroup">MSemigroup</a></code> with
+identity.</td><td><code><a href="Numeric-Algebra-Multiplicative-MMonoid.html#v:one" title="Numeric.Algebra.Multiplicative.MMonoid">one</a></code>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Multiplicative-MGroup.html#t:MGroup" title="Numeric.Algebra.Multiplicative.MGroup">MGroup</a></code>
+</td><td>Division.
+</td><td><code><a href="Numeric-Algebra-Multiplicative-MGroup.html#v:.-37-." title="Numeric.Algebra.Multiplicative.MGroup">(.%.)</a></code>
+</td><td><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:div" title="Prelude">div</a></code>,
+<code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:-47-" title="Prelude">(/)</a></code></td></tr><tr><td><code><a href="Numeric-Algebra-Multiplicative-MEuclidean.html#t:MEuclidean" title="Numeric.Algebra.Multiplicative.MEuclidean">MEuclidean</a></code>
+</td><td>Euclidean division.
+</td><td><code><a href="Numeric-Algebra-Multiplicative-MEuclidean.html#v:mmod" title="Numeric.Algebra.Multiplicative.MEuclidean">mmod</a></code>
+</td><td><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:mod" title="Prelude">mod</a></code>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Normed.html#t:Normed" title="Numeric.Algebra.Normed">Normed</a></code>
+</td><td>Types that support a
+&quot;norm&quot;.</td><td><code><a href="Numeric-Algebra-Normed.html#v:norm" title="Numeric.Algebra.Normed">norm</a></code>
+</td><td><code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#v:abs" title="Prelude">abs</a></code>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Semiring.html#t:Semiring" title="Numeric.Algebra.Semiring">Semiring</a></code>
+</td><td><code><a href="Numeric-Algebra-Additive-AMonoid.html#t:AMonoid" title="Numeric.Algebra.Additive.AMonoid">AMonoid</a></code> and
+<code><a href="Numeric-Algebra-Multiplicative-MMonoid.html#t:MMonoid" title="Numeric.Algebra.Multiplicative.MMonoid">MMonoid</a></code>.</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Ring.html#t:Ring" title="Numeric.Algebra.Ring">Ring</a></code>
+</td><td><code><a href="Numeric-Algebra-Additive-AGroup.html#t:AGroup" title="Numeric.Algebra.Additive.AGroup">AGroup</a></code> and
+<code><a href="Numeric-Algebra-Multiplicative-MMonoid.html#t:MMonoid" title="Numeric.Algebra.Multiplicative.MMonoid">MMonoid</a></code>.</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Semifield.html#t:Semifield" title="Numeric.Algebra.Semifield">Semifield</a></code>
+</td><td><code><a href="Numeric-Algebra-Additive-AMonoid.html#t:AMonoid" title="Numeric.Algebra.Additive.AMonoid">AMonoid</a></code> and
+<code><a href="Numeric-Algebra-Multiplicative-MGroup.html#t:MGroup" title="Numeric.Algebra.Multiplicative.MGroup">MGroup</a></code>.</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Field.html#t:Field" title="Numeric.Algebra.Field">Field</a></code>
+</td><td><code><a href="Numeric-Algebra-Ring.html#t:Ring" title="Numeric.Algebra.Ring">Ring</a></code> and
+<code><a href="Numeric-Algebra-Semifield.html#t:Semifield" title="Numeric.Algebra.Semifield">Semifield</a></code>.</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Space-MSemiSpace.html#t:MSemiSpace" title="Numeric.Algebra.Space.MSemiSpace">MSemiSpace</a></code>
+
+</td><td>Scalar multiplication.
+
+</td><td><code><a href="Numeric-Algebra-Space-MSemiSpace.html#v:.-42-" title="Numeric.Algebra.Space.MSemiSpace">(.*)</a></code>,
+<code><a href="Numeric-Algebra-Space-MSemiSpace.html#v:-42-." title="Numeric.Algebra.Space.MSemiSpace">(*.)</a></code>
+</td><td>
+
+</td></tr><tr><td><code><a href="Numeric-Algebra-Space-MSpace.html#t:MSpace" title="Numeric.Algebra.Space.MSpace">MSpace</a></code>
+
+</td><td>Scalar division.
+
+</td><td><code><a href="Numeric-Algebra-Space-MSpace.html#v:.-37-" title="Numeric.Algebra.Space.MSpace">(.%)</a></code>
+<code><a href="Numeric-Algebra-Space-MSpace.html#v:-37-." title="Numeric.Algebra.Space.MSpace">(%.)</a></code>
+</td><td>
+
+</td></tr><tr><td><code><a href="Numeric-Algebra-Space-Semimodule.html#t:Semimodule" title="Numeric.Algebra.Space.Semimodule">Semimodule</a></code>
+</td><td><code><a href="Numeric-Algebra-Additive-AMonoid.html#t:AMonoid" title="Numeric.Algebra.Additive.AMonoid">AMonoid</a></code> and
+<code><a href="Numeric-Algebra-Space-MSemiSpace.html#t:MSemiSpace" title="Numeric.Algebra.Space.MSemiSpace">MSemiSpace</a></code>.</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Space-Module.html#t:Module" title="Numeric.Algebra.Space.Module">Module</a></code>
+</td><td><code><a href="Numeric-Algebra-Space-Semimodule.html#t:Semimodule" title="Numeric.Algebra.Space.Semimodule">Semimodule</a></code>s and
+<code><a href="Numeric-Algebra-Additive-AGroup.html#t:AGroup" title="Numeric.Algebra.Additive.AGroup">AGroup</a></code> .</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Space-SemivectorSpace.html#t:SemivectorSpace" title="Numeric.Algebra.Space.SemivectorSpace">SemivectorSpace</a></code>
+</td><td><code><a href="Numeric-Algebra-Space-Semimodule.html#t:Semimodule" title="Numeric.Algebra.Space.Semimodule">Semimodule</a></code> and
+<code><a href="Numeric-Algebra-Space-MSpace.html#t:MSpace" title="Numeric.Algebra.Space.MSpace">MSpace</a></code>.</td><td>
+</td><td>
+</td></tr><tr><td><code><a href="Numeric-Algebra-Space-VectorSpace.html#t:VectorSpace" title="Numeric.Algebra.Space.VectorSpace">VectorSpace</a></code>
+</td><td><code><a href="Numeric-Algebra-Space-Module.html#t:Module" title="Numeric.Algebra.Space.Module">Module</a></code> and
+<code><a href="Numeric-Algebra-Space-SemivectorSpace.html#t:SemivectorSpace" title="Numeric.Algebra.Space.SemivectorSpace">SemivectorSpace</a></code>.</td><td>
+</td><td>
+</td></tr></tbody></table><p>We have the following guiding principles:</p><ol><li value="1"><p>Simplicity</p><p>This is not a comprehensive implementation of abstract algebra, merely
+the classes needed to replace the usual <code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#t:Num" title="Prelude">Num</a></code>-like functionality. For
+the former, see <a href="https://hackage.haskell.org/package/algebra">algebra</a>.</p></li><li value="2"><p>Practicality</p><p>When there is tension between practicality and theoretical &quot;purity&quot;, we
+favor the former. To wit:</p><ul><li><p>We provide two semigroup/monoid/group hierarchies:
+   <code><a href="Numeric-Algebra-Additive-ASemigroup.html#t:ASemigroup" title="Numeric.Algebra.Additive.ASemigroup">ASemigroup</a></code>/<code><a href="Numeric-Algebra-Additive-AMonoid.html#t:AMonoid" title="Numeric.Algebra.Additive.AMonoid">AMonoid</a></code>/<code><a href="Numeric-Algebra-Additive-AGroup.html#t:AGroup" title="Numeric.Algebra.Additive.AGroup">AGroup</a></code> and
+   <code><a href="Numeric-Algebra-Multiplicative-MSemigroup.html#t:MSemigroup" title="Numeric.Algebra.Multiplicative.MSemigroup">MSemigroup</a></code>/<code><a href="Numeric-Algebra-Multiplicative-MMonoid.html#t:MMonoid" title="Numeric.Algebra.Multiplicative.MMonoid">MMonoid</a></code>/<code><a href="Numeric-Algebra-Multiplicative-MGroup.html#t:MGroup" title="Numeric.Algebra.Multiplicative.MGroup">MGroup</a></code>. Formally this is clunky,
+   but it allows us to:</p><ul><li>Reuse the same operator for ring multiplication and types that
+  have sensible multiplication but cannot be rings (e.g. naturals).</li><li>Provide both addition and multiplication without an explosion of
+  newtype wrappers.</li></ul></li><li><p>Leniency vis-&#224;-vis algebraic laws</p><p>For instance, integers cannot satisfy the field laws, and floats do
+not satisfy anything, as their equality is nonsense. Nevertheless,
+we provide instances for them. Working with technically unlawful
+numerical instances is extremely common, so we take the stance that
+it is better to provide such instances (albeit with known
+limitations) than to forgo them completely (read: integer division
+is useful). The only instances we disallow are those likely to
+cause runtime errors (e.g. natural subtraction) or break expected
+invariants.</p></li><li>Division classes (i.e. <code><a href="Numeric-Algebra-Multiplicative-MGroup.html#t:MGroup" title="Numeric.Algebra.Multiplicative.MGroup">MGroup</a></code>, <code><a href="Numeric-Algebra-Space-VectorSpace.html#t:VectorSpace" title="Numeric.Algebra.Space.VectorSpace">VectorSpace</a></code>) have their own division
+  function that must be implemented. Theoretically this is unnecessary,
+  as we need only a function <code>inv :: a -&gt; a</code> and we
+  can then define division as <code>x .%. d = d .*. inv d</code>. But this will
+  not work for many types (e.g. integers), so we force users to define a
+  (presumably sensible) <code><a href="Numeric-Algebra-Multiplicative-MGroup.html#v:.-37-." title="Numeric.Algebra.Multiplicative.MGroup">(.%.)</a></code>, so there is no chance of accidentally
+  using a nonsensical <code>inv</code>.</li></ul></li><li value="3"><p>Safety</p><p>Instances that break the type's invariants
+(<code>instance <code><a href="Numeric-Algebra-Ring.html#t:Ring" title="Numeric.Algebra.Ring">Ring</a></code> <code><a href="GHC.html#v:Natural" title="GHC">Natural</a></code></code>), are banned. Furthermore, instances
+that are <em>highly</em> likely to go wrong
+(e.g. <code><a href="${pkgroot}/../../../../azlskapl11cx2mjiil7jip91g010h2y8-ghc-9.8.2-doc/share/doc/ghc/html/libraries/base-4.19.1.0-inplace/Prelude.html#t:Rational" title="Prelude">Rational</a></code> with bounded integral types) are also forbidden.</p></li><li value="4"><p>Ergonomics</p><p>We choose new operators that do not clash with prelude.</p></li></ol><p>We provide instances for built-in numeric types where it makes sense.</p></div><a href="#g:3" id="g:3"><h2>Algebraic Typeclasses</h2></a><div class="top"><p class="src">module <a href="Numeric-Algebra-Additive.html">Numeric.Algebra.Additive</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Multiplicative.html">Numeric.Algebra.Multiplicative</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-MetricSpace.html">Numeric.Algebra.MetricSpace</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Normed.html">Numeric.Algebra.Normed</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Semiring.html">Numeric.Algebra.Semiring</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Ring.html">Numeric.Algebra.Ring</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Semifield.html">Numeric.Algebra.Semifield</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Field.html">Numeric.Algebra.Field</a></p></div><div class="top"><p class="src">module <a href="Numeric-Algebra-Space.html">Numeric.Algebra.Space</a></p></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.30.0</p></div></body></html>

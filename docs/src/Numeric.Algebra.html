@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# OPTIONS_GHC -Wno-missing-import-lists #-}</span><span>
+</span><span id="line-2"></span><span>
+</span><span id="line-3"></span><span class="hs-comment">-- | This module reexports algebraic typeclasses.</span><span>
+</span><span id="line-4"></span><span class="hs-comment">--</span><span>
+</span><span id="line-5"></span><span class="hs-comment">-- @since 0.1</span><span>
+</span><span id="line-6"></span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Numeric.Algebra</span><span>
+</span><span id="line-7"></span><span>  </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="hs-comment">-- * Motivation</span></span><span>
+</span><span id="line-8"></span><span>    </span><span class="annot"><span class="hs-comment">-- $motivation</span></span><span>
+</span><span id="line-9"></span><span>
+</span><span id="line-10"></span><span>    </span><span class="annot"><span class="hs-comment">-- * Solution</span></span><span>
+</span><span id="line-11"></span><span>    </span><span class="annot"><span class="hs-comment">-- $solution</span></span><span>
+</span><span id="line-12"></span><span>
+</span><span id="line-13"></span><span>    </span><span class="annot"><span class="hs-comment">-- ** Algebraic Typeclasses</span></span><span>
+</span><span id="line-14"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Additive.html"><span class="hs-identifier">Numeric.Algebra.Additive</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-15"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Multiplicative.html"><span class="hs-identifier">Numeric.Algebra.Multiplicative</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-16"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.MetricSpace.html"><span class="hs-identifier">Numeric.Algebra.MetricSpace</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-17"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Normed.html"><span class="hs-identifier">Numeric.Algebra.Normed</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-18"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Semiring.html"><span class="hs-identifier">Numeric.Algebra.Semiring</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-19"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Ring.html"><span class="hs-identifier">Numeric.Algebra.Ring</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-20"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Semifield.html"><span class="hs-identifier">Numeric.Algebra.Semifield</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-21"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Field.html"><span class="hs-identifier">Numeric.Algebra.Field</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-22"></span><span>    </span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Numeric.Algebra.Space.html"><span class="hs-identifier">Numeric.Algebra.Space</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-23"></span><span>  </span><span class="hs-special">)</span><span>
+</span><span id="line-24"></span><span class="hs-keyword">where</span><span>
+</span><span id="line-25"></span><span>
+</span><span id="line-26"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Additive.html"><span class="hs-identifier">Numeric.Algebra.Additive</span></a></span><span>
+</span><span id="line-27"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Field.html"><span class="hs-identifier">Numeric.Algebra.Field</span></a></span><span>
+</span><span id="line-28"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.MetricSpace.html"><span class="hs-identifier">Numeric.Algebra.MetricSpace</span></a></span><span>
+</span><span id="line-29"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Multiplicative.html"><span class="hs-identifier">Numeric.Algebra.Multiplicative</span></a></span><span>
+</span><span id="line-30"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Normed.html"><span class="hs-identifier">Numeric.Algebra.Normed</span></a></span><span>
+</span><span id="line-31"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Ring.html"><span class="hs-identifier">Numeric.Algebra.Ring</span></a></span><span>
+</span><span id="line-32"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Semifield.html"><span class="hs-identifier">Numeric.Algebra.Semifield</span></a></span><span>
+</span><span id="line-33"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Semiring.html"><span class="hs-identifier">Numeric.Algebra.Semiring</span></a></span><span>
+</span><span id="line-34"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Numeric.Algebra.Space.html"><span class="hs-identifier">Numeric.Algebra.Space</span></a></span><span>
+</span><span id="line-35"></span><span>
+</span><span id="line-36"></span><span class="hs-comment">-- $motivation</span><span>
+</span><span id="line-37"></span><span class="hs-comment">-- The primary interface to numerical operations in Haskell is 'Num'.</span><span>
+</span><span id="line-38"></span><span class="hs-comment">-- Unfortunately, 'Num' has a key limitation: it is &quot;too large&quot;. For example,</span><span>
+</span><span id="line-39"></span><span class="hs-comment">-- if we want to opt-in to addition, we must also opt-in to subtraction,</span><span>
+</span><span id="line-40"></span><span class="hs-comment">-- multiplication, and integer literal conversions. These may not make sense</span><span>
+</span><span id="line-41"></span><span class="hs-comment">-- for the type at hand (e.g. naturals), so we are stuck either providing an</span><span>
+</span><span id="line-42"></span><span class="hs-comment">-- invariant-breaking dangerous implementation (e.g. defining subtraction for</span><span>
+</span><span id="line-43"></span><span class="hs-comment">-- arbitrary naturals) or throwing runtime errors.</span><span>
+</span><span id="line-44"></span><span>
+</span><span id="line-45"></span><span class="hs-comment">-- $solution</span><span>
+</span><span id="line-46"></span><span class="hs-comment">-- @algebra-simple@'s approach is to split this functionality into multiple</span><span>
+</span><span id="line-47"></span><span class="hs-comment">-- typeclasses, so types can opt-in to exactly as much functionality as they</span><span>
+</span><span id="line-48"></span><span class="hs-comment">-- want. The typeclasses are inspired by abstract algebra. The algebraic</span><span>
+</span><span id="line-49"></span><span class="hs-comment">-- hierarchy can be found in the following diagram. An arrow @A -&gt; B@ should</span><span>
+</span><span id="line-50"></span><span class="hs-comment">-- be read as &quot;@B@ is an @A@&quot;. For example, a 'Module' is both a 'Semimodule'</span><span>
+</span><span id="line-51"></span><span class="hs-comment">-- and an 'AGroup'.</span><span>
+</span><span id="line-52"></span><span class="hs-comment">--</span><span>
+</span><span id="line-53"></span><span class="hs-comment">-- ![Algebraic hierarchy](./diagrams/hierarchy.png)</span><span>
+</span><span id="line-54"></span><span class="hs-comment">--</span><span>
+</span><span id="line-55"></span><span class="hs-comment">-- A longer description can be found in the table below, along with the 'Num'</span><span>
+</span><span id="line-56"></span><span class="hs-comment">-- functionality they are intended to replace:</span><span>
+</span><span id="line-57"></span><span class="hs-comment">--</span><span>
+</span><span id="line-58"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-59"></span><span class="hs-comment">-- | Typeclass              | Description             | New      | 'Num'  |</span><span>
+</span><span id="line-60"></span><span class="hs-comment">-- +========================+=========================+==========+========+</span><span>
+</span><span id="line-61"></span><span class="hs-comment">-- | 'ASemigroup'           | Addition.               | '(.+.)'  | '(+)'  |</span><span>
+</span><span id="line-62"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-63"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-64"></span><span class="hs-comment">-- | 'AMonoid'              | 'ASemigroup' with       | 'zero'   |        |</span><span>
+</span><span id="line-65"></span><span class="hs-comment">-- |                        | identity.               |          |        |</span><span>
+</span><span id="line-66"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-67"></span><span class="hs-comment">-- | 'AGroup'               | Subtraction .           | '(.-.)'  | '(-)'  |</span><span>
+</span><span id="line-68"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-69"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-70"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-71"></span><span class="hs-comment">-- | 'MSemigroup'           | Multiplication.         | '(.*.)'  | '(*)'  |</span><span>
+</span><span id="line-72"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-73"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-74"></span><span class="hs-comment">-- | 'MMonoid'              | 'MSemigroup' with       | 'one'    |        |</span><span>
+</span><span id="line-75"></span><span class="hs-comment">-- |                        | identity.               |          |        |</span><span>
+</span><span id="line-76"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-77"></span><span class="hs-comment">-- | 'MGroup'               | Division.               | '(.%.)'  | 'div', |</span><span>
+</span><span id="line-78"></span><span class="hs-comment">-- |                        |                         |          | '(/)'  |</span><span>
+</span><span id="line-79"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-80"></span><span class="hs-comment">-- | 'MEuclidean'           | Euclidean division.     | 'mmod'   | 'mod'  |</span><span>
+</span><span id="line-81"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-82"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-83"></span><span class="hs-comment">-- | 'Normed'               | Types that support a    | 'norm'   | 'abs'  |</span><span>
+</span><span id="line-84"></span><span class="hs-comment">-- |                        | &quot;norm&quot;.                 |          |        |</span><span>
+</span><span id="line-85"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-86"></span><span class="hs-comment">-- | 'Semiring'             | 'AMonoid' and           |          |        |</span><span>
+</span><span id="line-87"></span><span class="hs-comment">-- |                        | 'MMonoid'.              |          |        |</span><span>
+</span><span id="line-88"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-89"></span><span class="hs-comment">-- | 'Ring'                 | 'AGroup' and            |          |        |</span><span>
+</span><span id="line-90"></span><span class="hs-comment">-- |                        | 'MMonoid'.              |          |        |</span><span>
+</span><span id="line-91"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-92"></span><span class="hs-comment">-- | 'Semifield'            | 'AMonoid' and           |          |        |</span><span>
+</span><span id="line-93"></span><span class="hs-comment">-- |                        | 'MGroup'.               |          |        |</span><span>
+</span><span id="line-94"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-95"></span><span class="hs-comment">-- | 'Field'                | 'Ring' and              |          |        |</span><span>
+</span><span id="line-96"></span><span class="hs-comment">-- |                        | 'Semifield'.            |          |        |</span><span>
+</span><span id="line-97"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-98"></span><span class="hs-comment">-- | 'MSemiSpace'           | Scalar multiplication.  | '(.*)',  |        |</span><span>
+</span><span id="line-99"></span><span class="hs-comment">-- |                        |                         | '(*.)'   |        |</span><span>
+</span><span id="line-100"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-101"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-102"></span><span class="hs-comment">-- | 'MSpace'               | Scalar division.        | '(.%)'   |        |</span><span>
+</span><span id="line-103"></span><span class="hs-comment">-- |                        |                         | '(%.)'   |        |</span><span>
+</span><span id="line-104"></span><span class="hs-comment">-- |                        |                         |          |        |</span><span>
+</span><span id="line-105"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-106"></span><span class="hs-comment">-- | 'Semimodule'           | 'AMonoid' and           |          |        |</span><span>
+</span><span id="line-107"></span><span class="hs-comment">-- |                        | 'MSemiSpace'.           |          |        |</span><span>
+</span><span id="line-108"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-109"></span><span class="hs-comment">-- | 'Module'               | 'Semimodule's and       |          |        |</span><span>
+</span><span id="line-110"></span><span class="hs-comment">-- |                        | 'AGroup' .              |          |        |</span><span>
+</span><span id="line-111"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-112"></span><span class="hs-comment">-- | 'SemivectorSpace'      | 'Semimodule' and        |          |        |</span><span>
+</span><span id="line-113"></span><span class="hs-comment">-- |                        | 'MSpace'.               |          |        |</span><span>
+</span><span id="line-114"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-115"></span><span class="hs-comment">-- | 'VectorSpace'          | 'Module' and            |          |        |</span><span>
+</span><span id="line-116"></span><span class="hs-comment">-- |                        | 'SemivectorSpace'.      |          |        |</span><span>
+</span><span id="line-117"></span><span class="hs-comment">-- +------------------------+-------------------------+----------+--------+</span><span>
+</span><span id="line-118"></span><span class="hs-comment">--</span><span>
+</span><span id="line-119"></span><span class="hs-comment">-- We have the following guiding principles:</span><span>
+</span><span id="line-120"></span><span class="hs-comment">--</span><span>
+</span><span id="line-121"></span><span class="hs-comment">-- 1. Simplicity</span><span>
+</span><span id="line-122"></span><span class="hs-comment">--</span><span>
+</span><span id="line-123"></span><span class="hs-comment">--     This is not a comprehensive implementation of abstract algebra, merely</span><span>
+</span><span id="line-124"></span><span class="hs-comment">--     the classes needed to replace the usual 'Num'-like functionality. For</span><span>
+</span><span id="line-125"></span><span class="hs-comment">--     the former, see [algebra](https://hackage.haskell.org/package/algebra).</span><span>
+</span><span id="line-126"></span><span class="hs-comment">--</span><span>
+</span><span id="line-127"></span><span class="hs-comment">-- 2. Practicality</span><span>
+</span><span id="line-128"></span><span class="hs-comment">--</span><span>
+</span><span id="line-129"></span><span class="hs-comment">--     When there is tension between practicality and theoretical &quot;purity&quot;, we</span><span>
+</span><span id="line-130"></span><span class="hs-comment">--     favor the former. To wit:</span><span>
+</span><span id="line-131"></span><span class="hs-comment">--</span><span>
+</span><span id="line-132"></span><span class="hs-comment">--     * We provide two semigroup\/monoid\/group hierarchies:</span><span>
+</span><span id="line-133"></span><span class="hs-comment">--        'ASemigroup'\/'AMonoid'\/'AGroup' and</span><span>
+</span><span id="line-134"></span><span class="hs-comment">--        'MSemigroup'\/'MMonoid'\/'MGroup'. Formally this is clunky,</span><span>
+</span><span id="line-135"></span><span class="hs-comment">--        but it allows us to:</span><span>
+</span><span id="line-136"></span><span class="hs-comment">--</span><span>
+</span><span id="line-137"></span><span class="hs-comment">--         * Reuse the same operator for ring multiplication and types that</span><span>
+</span><span id="line-138"></span><span class="hs-comment">--           have sensible multiplication but cannot be rings (e.g. naturals).</span><span>
+</span><span id="line-139"></span><span class="hs-comment">--</span><span>
+</span><span id="line-140"></span><span class="hs-comment">--         * Provide both addition and multiplication without an explosion of</span><span>
+</span><span id="line-141"></span><span class="hs-comment">--           newtype wrappers.</span><span>
+</span><span id="line-142"></span><span class="hs-comment">--</span><span>
+</span><span id="line-143"></span><span class="hs-comment">--     * Leniency vis-&#224;-vis algebraic laws</span><span>
+</span><span id="line-144"></span><span class="hs-comment">--</span><span>
+</span><span id="line-145"></span><span class="hs-comment">--         For instance, integers cannot satisfy the field laws, and floats do</span><span>
+</span><span id="line-146"></span><span class="hs-comment">--         not satisfy anything, as their equality is nonsense. Nevertheless,</span><span>
+</span><span id="line-147"></span><span class="hs-comment">--         we provide instances for them. Working with technically unlawful</span><span>
+</span><span id="line-148"></span><span class="hs-comment">--         numerical instances is extremely common, so we take the stance that</span><span>
+</span><span id="line-149"></span><span class="hs-comment">--         it is better to provide such instances (albeit with known</span><span>
+</span><span id="line-150"></span><span class="hs-comment">--         limitations) than to forgo them completely (read: integer division</span><span>
+</span><span id="line-151"></span><span class="hs-comment">--         is useful). The only instances we disallow are those likely to</span><span>
+</span><span id="line-152"></span><span class="hs-comment">--         cause runtime errors (e.g. natural subtraction) or break expected</span><span>
+</span><span id="line-153"></span><span class="hs-comment">--         invariants.</span><span>
+</span><span id="line-154"></span><span class="hs-comment">--</span><span>
+</span><span id="line-155"></span><span class="hs-comment">--     * Division classes (i.e. 'MGroup', 'VectorSpace') have their own division</span><span>
+</span><span id="line-156"></span><span class="hs-comment">--       function that must be implemented. Theoretically this is unnecessary,</span><span>
+</span><span id="line-157"></span><span class="hs-comment">--       as we need only a function @inv :: a -&gt; a@ and we</span><span>
+</span><span id="line-158"></span><span class="hs-comment">--       can then define division as @x .%. d = d .*. inv d@. But this will</span><span>
+</span><span id="line-159"></span><span class="hs-comment">--       not work for many types (e.g. integers), so we force users to define a</span><span>
+</span><span id="line-160"></span><span class="hs-comment">--       (presumably sensible) '(.%.)', so there is no chance of accidentally</span><span>
+</span><span id="line-161"></span><span class="hs-comment">--       using a nonsensical @inv@.</span><span>
+</span><span id="line-162"></span><span class="hs-comment">--</span><span>
+</span><span id="line-163"></span><span class="hs-comment">-- 3. Safety</span><span>
+</span><span id="line-164"></span><span class="hs-comment">--</span><span>
+</span><span id="line-165"></span><span class="hs-comment">--     Instances that break the type's invariants</span><span>
+</span><span id="line-166"></span><span class="hs-comment">--     (@instance 'Ring' 'GHC.Natural'@), are banned. Furthermore, instances</span><span>
+</span><span id="line-167"></span><span class="hs-comment">--     that are /highly/ likely to go wrong</span><span>
+</span><span id="line-168"></span><span class="hs-comment">--     (e.g. 'Rational' with bounded integral types) are also forbidden.</span><span>
+</span><span id="line-169"></span><span class="hs-comment">--</span><span>
+</span><span id="line-170"></span><span class="hs-comment">-- 4. Ergonomics</span><span>
+</span><span id="line-171"></span><span class="hs-comment">--</span><span>
+</span><span id="line-172"></span><span class="hs-comment">--      We choose new operators that do not clash with prelude.</span><span>
+</span><span id="line-173"></span><span class="hs-comment">--</span><span>
+</span><span id="line-174"></span><span class="hs-comment">-- We provide instances for built-in numeric types where it makes sense.</span><span>
+</span><span id="line-175"></span></pre></body></html>
