@@ -1,11 +1,21 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE CPP #-}
+
+-- see NOTE: [Pattern Synonym COMPLETE]
+#if !MIN_VERSION_base(4, 16, 0)
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+#endif
 
 module Test.Algebra.Additive.AMonoid (props) where
 
 import Equality (Equality (MkEqExact, MkEqRatio))
 import Gens qualified
-import Hedgehog (Gen, PropertyName)
-import Numeric.Algebra.Additive.AMonoid (AMonoid (zero))
+import Hedgehog (Gen, PropertyName, (/==), (===))
+import Hedgehog qualified as H
+import Numeric.Algebra.Additive.AMonoid
+  ( AMonoid (zero),
+    pattern NonZero,
+    pattern Zero,
+  )
 import Numeric.Algebra.Additive.ASemigroup (ASemigroup ((.+.)))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
@@ -15,7 +25,8 @@ props :: TestTree
 props =
   T.testGroup
     "Additive Monoid"
-    [ identityProps
+    [ identityProps,
+      testAMonoidSynonym
     ]
 
 identityProps :: TestTree
@@ -86,3 +97,15 @@ amonoidIdentity ::
   PropertyName ->
   TestTree
 amonoidIdentity = Utils.identity (.+.) zero
+
+testAMonoidSynonym :: TestTree
+testAMonoidSynonym = Utils.testPropertyCompat desc "testAMonoidSynonym" $
+  H.property $ do
+    x <- H.forAll Gens.integer
+    case x of
+      Zero -> zero === x
+      NonZero y -> do
+        x === y
+        zero /== y
+  where
+    desc = "AMonoid pattern synonym"

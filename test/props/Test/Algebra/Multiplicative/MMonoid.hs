@@ -1,9 +1,21 @@
+{-# LANGUAGE CPP #-}
+
+-- see NOTE: [Pattern Synonym COMPLETE]
+#if !MIN_VERSION_base(4, 16, 0)
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+#endif
+
 module Test.Algebra.Multiplicative.MMonoid (props) where
 
 import Equality (Equality (MkEqExact, MkEqRatio))
 import Gens qualified
-import Hedgehog (Gen, PropertyName)
-import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (one))
+import Hedgehog (Gen, PropertyName, (/==), (===))
+import Hedgehog qualified as H
+import Numeric.Algebra.Multiplicative.MMonoid
+  ( MMonoid (one),
+    pattern NonOne,
+    pattern One,
+  )
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup ((.*.)))
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty qualified as T
@@ -13,7 +25,8 @@ props :: TestTree
 props =
   T.testGroup
     "Multiplicative Monoid"
-    [ identityProps
+    [ identityProps,
+      testMMonoidSynonym
     ]
 
 identityProps :: TestTree
@@ -84,3 +97,15 @@ mmonoidIdentity ::
   PropertyName ->
   TestTree
 mmonoidIdentity = Utils.identity (.*.) one
+
+testMMonoidSynonym :: TestTree
+testMMonoidSynonym = Utils.testPropertyCompat desc "testMMonoidSynonym" $
+  H.property $ do
+    x <- H.forAll Gens.integer
+    case x of
+      One -> one === x
+      NonOne y -> do
+        x === y
+        one /== y
+  where
+    desc = "MMonoid pattern synonym"
