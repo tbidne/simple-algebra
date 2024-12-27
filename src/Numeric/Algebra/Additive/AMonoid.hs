@@ -1,8 +1,13 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE ViewPatterns #-}
+
 -- | Provides the 'AMonoid' typeclass.
 --
 -- @since 0.1
 module Numeric.Algebra.Additive.AMonoid
   ( AMonoid (..),
+    pattern Zero,
+    pattern NonZero,
   )
 where
 
@@ -27,6 +32,29 @@ class (ASemigroup m) => AMonoid m where
   -- x .+. zero = x = zero .+. x
   -- @since 0.1
   zero :: m
+
+-- | Pattern synonym for 'zero'.
+--
+-- @since 0.1
+pattern Zero :: (AMonoid m, Eq m) => m
+pattern Zero <- ((== zero) -> True)
+
+-- | Pattern synonym for @x /= 'zero'@.
+--
+-- @since 0.1
+pattern NonZero :: (AMonoid m, Eq m) => m -> m
+pattern NonZero y <- (\x -> (x == zero, x) -> (False, y))
+
+-- NOTE: [Pattern Synonym COMPLETE]
+--
+-- Such COMPLETE pragmas not supported in GHC < 9.2:
+--
+-- - https://gitlab.haskell.org/ghc/ghc/-/issues/19160
+-- - https://gitlab.haskell.org/ghc/ghc/-/issues/14422
+
+#if MIN_VERSION_base(4, 16, 0)
+{-# COMPLETE Zero, NonZero #-}
+#endif
 
 -- | @since 0.1
 instance AMonoid Double where
