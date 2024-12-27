@@ -3,6 +3,7 @@
 -- @since 0.1
 module Numeric.Algebra.Multiplicative.MGroup
   ( MGroup (..),
+    mnegate,
   )
 where
 
@@ -13,7 +14,7 @@ import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
 import GHC.Real (Ratio)
-import Numeric.Algebra.Multiplicative.MMonoid (MMonoid)
+import Numeric.Algebra.Multiplicative.MMonoid (MMonoid (one))
 import Numeric.Algebra.Multiplicative.MSemigroup (MSemigroup ((.*.)))
 
 -- | Defines a multiplicative group.
@@ -25,6 +26,11 @@ class (MMonoid g) => MGroup g where
   (.%.) :: g -> g -> g
 
 infixl 7 .%.
+
+-- | @since 0.1
+mnegate :: (MGroup g) => g -> g
+mnegate n = one .%. n
+{-# INLINE mnegate #-}
 
 -- | @since 0.1
 instance MGroup Double where

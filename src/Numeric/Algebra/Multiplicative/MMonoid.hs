@@ -1,8 +1,13 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE ViewPatterns #-}
+
 -- | Provides the 'MMonoid' typeclass.
 --
 -- @since 0.1
 module Numeric.Algebra.Multiplicative.MMonoid
   ( MMonoid (..),
+    pattern One,
+    pattern NonOne,
   )
 where
 
@@ -22,6 +27,24 @@ type MMonoid :: Type -> Constraint
 class (MSemigroup m) => MMonoid m where
   -- | @since 0.1
   one :: m
+
+-- | Pattern synonym for 'one'.
+--
+-- @since 0.1
+pattern One :: (MMonoid m, Eq m) => m
+pattern One <- ((== one) -> True)
+
+-- | Pattern synonym for @x /= 'one'@.
+--
+-- @since 0.1
+pattern NonOne :: (MMonoid m, Eq m) => m -> m
+pattern NonOne y <- (\x -> (x == one, x) -> (False, y))
+
+-- see NOTE: [Pattern Synonym COMPLETE]
+
+#if MIN_VERSION_base(4, 16, 0)
+{-# COMPLETE One, NonOne #-}
+#endif
 
 -- | @since 0.1
 instance MMonoid Double where
