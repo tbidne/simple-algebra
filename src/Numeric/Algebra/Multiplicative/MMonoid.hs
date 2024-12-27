@@ -33,6 +33,8 @@ class (MSemigroup m) => MMonoid m where
 -- @since 0.1
 pattern One :: (MMonoid m, Eq m) => m
 pattern One <- ((== one) -> True)
+  where
+    One = one
 
 -- | Pattern synonym for @x /= 'one'@.
 --

@@ -38,6 +38,8 @@ class (ASemigroup m) => AMonoid m where
 -- @since 0.1
 pattern Zero :: (AMonoid m, Eq m) => m
 pattern Zero <- ((== zero) -> True)
+  where
+    Zero = zero
 
 -- | Pattern synonym for @x /= 'zero'@.
 --

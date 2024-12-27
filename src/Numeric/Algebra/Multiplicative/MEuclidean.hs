@@ -1,3 +1,10 @@
+{-# LANGUAGE CPP #-}
+
+-- see NOTE: [Pattern Synonym COMPLETE]
+#if !MIN_VERSION_base(4, 16, 0)
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+#endif
+
 -- | Provides typeclass for euclidean division.
 --
 -- @since 0.1
@@ -14,7 +21,11 @@ import Data.Int (Int16, Int32, Int64, Int8)
 import Data.Kind (Constraint, Type)
 import Data.Word (Word16, Word32, Word64, Word8)
 import GHC.Natural (Natural)
-import Numeric.Algebra.Additive.AMonoid (AMonoid (zero))
+import Numeric.Algebra.Additive.AMonoid
+  ( AMonoid,
+    pattern NonZero,
+    pattern Zero,
+  )
 import Numeric.Algebra.Multiplicative.MGroup (MGroup)
 import Numeric.Algebra.Multiplicative.MSemigroup ((.*.))
 import Numeric.Algebra.Normed (Normed (norm))
@@ -41,18 +52,15 @@ mmod x d = snd $ mdivMod x d
 mgcd :: (AMonoid g, Eq g, MEuclidean g, Normed g) => g -> g -> g
 mgcd x y = gcd' (norm x) (norm y)
   where
-    gcd' a b =
-      if b == zero
-        then a
-        else gcd' b (a `mmod` b)
+    gcd' a Zero = a
+    gcd' a (NonZero b) = gcd' b (a `mmod` b)
 {-# INLINE mgcd #-}
 
 -- | @since 0.1
 mlcm :: (AMonoid g, Eq g, MEuclidean g, Normed g) => g -> g -> g
-mlcm x y
-  | x == zero = zero
-  | y == zero = zero
-  | otherwise = norm (x `mdiv` mgcd x y .*. y)
+mlcm Zero _ = Zero
+mlcm _ Zero = Zero
+mlcm x y = norm (x `mdiv` mgcd x y .*. y)
 {-# INLINE mlcm #-}
 
 -- | @since 0.1
