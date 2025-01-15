@@ -11,6 +11,7 @@ tested-with:
    || ==9.6.3
    || ==9.8.1
    || ==9.10.1
+   || ==9.12.1
 
 copyright:          2021-2025 Thomas Bidne
 author:             Thomas Bidne
@@ -104,7 +105,7 @@ library
     Numeric.Convert.Rational
     Numeric.Convert.Real
 
-  build-depends:   base >=4.14.0.0 && <4.21
+  build-depends:   base >=4.14.0.0 && <4.22
   hs-source-dirs:  src
 
 test-suite props
@@ -129,7 +130,7 @@ test-suite props
   build-depends:
     , algebra-simple
     , base
-    , hedgehog        >=1.0.2   && <1.5
+    , hedgehog        >=1.0.2   && <1.6
     , tasty           >=1.1.0.3 && <1.6
     , tasty-hedgehog  >=1.0.0.2 && <1.5
 
