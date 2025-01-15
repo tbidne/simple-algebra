@@ -29,11 +29,10 @@ description:
   2. "Numeric.Convert": Typeclasses for conversions.
 
 category:           Math, Algebra
-extra-source-files:
+extra-source-files: README.md
+extra-doc-files:
   CHANGELOG.md
-  README.md
-
-extra-doc-files:    diagrams/hierarchy.png
+  diagrams/hierarchy.png
 
 source-repository head
   type:     git
